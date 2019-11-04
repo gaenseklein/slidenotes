@@ -735,6 +735,7 @@ keyboardshortcuts.reactOn = function(e, element){
     }
 
 }
+//automagic closure:
 keyboardshortcuts.closeAutomagic = function(event){
   if(!this.automaticClosure)return;
   var key = event.key+"";
@@ -742,6 +743,7 @@ keyboardshortcuts.closeAutomagic = function(event){
   if(key==="undefined")key=getKeyOfKeyCode(event.keyCode);
   //if(key==="Dead" && event.code==="Equal" && event.shiftKey)key="`"; //&& event.keyCode===187
   var actel = slidenote.parser.CarretOnElement();
+  if(actel && actel.label==="code")return;
   if(actel && actel.dataobject){
     for(var x=0;x<slidenote.datatypes.length;x++){
       if(slidenote.datatypes[x].type===actel.dataobject.type
