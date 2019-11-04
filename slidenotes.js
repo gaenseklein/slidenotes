@@ -2839,6 +2839,7 @@ pagegenerator.prototype.lastPage = function(){
 }
 //showPage(pagenummer): blättert zur seite pagenummer
 pagegenerator.prototype.showPage = function(page){
+	if(page*0!=0)return;
 	this.pagedivs[this.aktpage].classList.remove("active");
 	if(page>=this.pages.length)page= this.pages.length-1;
 	if(page<0)page=0;
