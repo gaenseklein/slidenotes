@@ -9,7 +9,8 @@ span code{
 	white-space:pre-line;
 }
 
-#texteditorerrorlayer .specialline{
+#texteditorerrorlayer .specialline,
+#texteditorerrorlayer .specialinline{
 	text-decoration:underline;
 	font-weight:bold;
 }

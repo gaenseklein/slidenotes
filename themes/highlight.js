@@ -361,8 +361,13 @@ newtheme.parseStyledBlockOptions = function(block){
 newtheme.highlightLinesInEditor = function(){
 	var codes = slidenote.texteditorerrorlayer.getElementsByClassName("code");
 	var standardlinemarker = "§§";
+	var startmarker = "§a";
+	var endmarker = "§e";
+	var highlightedlines;
 	var linemarker = standardlinemarker;
 	var map = slidenote.parser.map;
+	var metablockendline;
+	var firstCodelineInX = 0;
 	//var linestomark = this.options.linesToHighlight();
 	for(var x=0;x<codes.length;x++){
 		if(map.codeblocklines[x].line === map.codeblocklines[x].codeblock.line){
@@ -371,12 +376,14 @@ newtheme.highlightLinesInEditor = function(){
 			}
 			linemarker = standardlinemarker;
 			codes[x].classList.add("codehead");
-
+			firstCodelineInX = x;
 		}
 		if(map.codeblocklines[x].codeblock.hasmetablock){
-			if(codes[x].innerHTML === "---"){
+			if(map.codeblocklines[x].origtext === "---"){
 				map.codeblocklines[x].codeblock.metablockendline = x;
-				codes[x].innerHTML = '--- &nbsp;&nbsp;&nbsp;&nbsp;<span class="pagenr">&uarr;options&uarr; &darr;code&darr;</span>'
+				firstCodelineInX = x;
+				if(codes[x].innerHTML.indexOf("options")===-1)
+				codes[x].innerHTML += '&nbsp;&nbsp;&nbsp;&nbsp;<span class="pagenr">&uarr;options&uarr; &darr;code&darr;</span>'
 				codes[x].classList.add("metadataseparator");
 			}
 			if(map.codeblocklines[x].codeblock.metablockendline ===undefined){
@@ -392,6 +399,55 @@ newtheme.highlightLinesInEditor = function(){
 						map.codeblocklines[x].codeblock.linemarker = linemarker;
 					}
 			}
+			if(map.codeblocklines[x].codeblock.metablockendline === undefined &&
+				map.codeblocklines[x].origtext.indexOf("startmarker")>-1){
+					var eqpos = map.codeblocklines[x].origtext.indexOf("=");
+					var popos = map.codeblocklines[x].origtext.indexOf(":");
+					if(popos>0&&popos<eqpos)eqpos=popos;
+					if(eqpos>0){
+						startmarker = map.codeblocklines[x].origtext.substring(eqpos+1).replace(" ","");
+						map.codeblocklines[x].codeblock.startmarker = startmarker;
+					}
+			}
+			if(map.codeblocklines[x].codeblock.metablockendline === undefined &&
+				map.codeblocklines[x].origtext.indexOf("endmarker")>-1){
+					var eqpos = map.codeblocklines[x].origtext.indexOf("=");
+					var popos = map.codeblocklines[x].origtext.indexOf(":");
+					if(popos>0&&popos<eqpos)eqpos=popos;
+					if(eqpos>0){
+						endmarker = map.codeblocklines[x].origtext.substring(eqpos+1).replace(" ","");
+						map.codeblocklines[x].codeblock.endmarker = endmarker;
+					}
+			}
+			if(map.codeblocklines[x].codeblock.metablockendline === undefined &&
+				map.codeblocklines[x].origtext.indexOf("highlight")>-1){
+					var eqpos = map.codeblocklines[x].origtext.indexOf("=");
+					var popos = map.codeblocklines[x].origtext.indexOf(":");
+					if(popos>0&&popos<eqpos)eqpos=popos;
+					if(eqpos>0){
+						var rawhltext = map.codeblocklines[x].origtext.substring(eqpos+1).replace(" ","");
+						var rawarr = rawhltext.split(",");
+						highlightedlines = new Array();
+						for(var rhl=0;rhl<rawarr.length;rhl++){
+							if(rawarr[rhl]*0===0){
+								highlightedlines.push(rawarr[rhl]*1);
+							}else if(rawarr[rhl].indexOf("-")>-1){
+								var lstartstop = rawarr[rhl].split("-");
+								if(lstartstop.length===2 && lstartstop[0]*0===0 && lstartstop[1]*0===0){
+									for(var lss=lstartstop[0]*1;lss<=lstartstop[1]*1;lss++){
+										highlightedlines.push(lss);
+									}
+								}
+							}
+						}
+						map.codeblocklines[x].codeblock.endmarker = endmarker;
+					}
+			}
+			if(map.codeblocklines[x].codeblock.metablockendline!=undefined &&
+				highlightedlines && highlightedlines.length >0 &&
+				highlightedlines.indexOf(x-firstCodelineInX)>-1){
+					codes[x].innerHTML = '<span class="specialline">'+codes[x].innerHTML+"</span>";
+			}
 		}
 		console.log("highlight line: "+codes[x].innerHTML);
 		if(map.codeblocklines[x].origtext.substring(0,linemarker.length)===linemarker){
@@ -399,7 +455,29 @@ newtheme.highlightLinesInEditor = function(){
 			ct = '<span class="specialline">'+ct+"</span>";
 			codes[x].innerHTML = ct;
 			//console.log("highlightning line: yes"+ct);
-		}//else console.log("highlight line: not.")
+		}else if(map.codeblocklines[x].origtext.indexOf(startmarker)>-1 &&
+						map.codeblocklines[x].origtext.indexOf(endmarker)>-1 &&
+					(map.codeblocklines[x].codeblock.metablockendline===undefined||
+					map.codeblocklines[x].codeblock.metablockendline<x)){
+						var oldtxt = codes[x].innerHTML;
+						var stmpos = oldtxt.indexOf(startmarker);
+						var endmpos = oldtxt.indexOf(endmarker,stmpos+startmarker.length);
+						var stinput = '<span class="specialinline">';
+						var endinput = '</span>';
+						var diff = stinput.length + endinput.length;
+						while(stmpos<endmpos && stmpos>-1){
+							oldtxt = oldtxt.substring(0,stmpos)+
+											stinput+
+											oldtxt.substring(stmpos,endmpos+endmarker.length)+
+											endinput+
+											oldtxt.substring(endmpos+endmarker.length);
+							stmpos = oldtxt.indexOf(startmarker,endmpos+diff+endmarker.length);
+							endmpos = oldtxt.indexOf(stmpos+startmarker.length);
+						}
+						codes[x].innerHTML = oldtxt;
+					}//else console.log("highlight line: not.")
+		//look out for inline-marker:
+
 	}
 }
 
