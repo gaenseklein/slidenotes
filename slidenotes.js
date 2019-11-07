@@ -4115,8 +4115,10 @@ slidenotes.prototype.parseAfterPause = function(){
 	this.keypressstack--;
 	console.log("keypressstack:"+this.keypressstack);
 	if(this.keypressstack>0)return;
-	console.log("keypresstack = 0, check if you have to parse:"+document.getElementById("carret").innerHTML);
-	if(document.getElementById("carret").innerHTML.length>1)slidenote.parseneu();
+	console.log("keypresstack = 0, check if you have to parse:");
+	var carrettext = document.getElementById("carret").innerHTML;
+	//console.log("carret:"+carrettext+" charnumberat0:"+ carrettext.charCodeAt(0))
+	if(carrettext.length>1 || carrettext.charCodeAt(0)!=8205)slidenote.parseneu();
 }
 
 slidenotes.prototype.keypressdown = function(event, inputobject){
