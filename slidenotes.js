@@ -1173,6 +1173,8 @@ emdparser.prototype.generateSidebar = function(startend){
 }
 
 emdparser.prototype.setDropDownMenu = function (){
+	//var timecheckstart = new Date();
+	//var timecheckposition;
 	//carretsymbol.innerHTML='&nbsp;<img src="images/buttons/droptilde.png">&nbsp;<img src="images/buttons/cursorline.png">';
 	var nicesymbol = document.getElementById("nicesidebarsymbol");//document.createElement("div");
 	//nicesymbol.id="nicesidebarsymbol";
@@ -1224,7 +1226,7 @@ emdparser.prototype.setDropDownMenu = function (){
 		var sidebar = document.getElementById("sidebar");
 		nicesymbol.style.left = sidebar.offsetLeft + "px";
 	}
-
+	//timecheckposition = new Date();
 	nicesymbol.style.position="absolute";
 	var celement = slidenote.parser.CarretOnElement();
 	var nicelabel = document.getElementById("nicesidebarsymbollabel");
@@ -1241,6 +1243,9 @@ emdparser.prototype.setDropDownMenu = function (){
 
 	//console.log("nicesymbol:"+nicesymbol.style.top+"carretsymbol:"+carretsymbol.offsetTop);
 	//nicesymbol.innerHTML='&nbsp;<a href="javascript:slidenote.presentation.showInsertMenu();"<img src="images/buttons/droptilde.png"></a>&nbsp;<img src="images/buttons/cursorline.png">';
+	//var timecheckend = new Date();
+	//console.log("Timecheck: insertmenu internal: positioning: "+(timecheckposition-timecheckstart) + "Ms; labelsetting: "+(timecheckend-timecheckposition)+"Ms");
+
 }
 
 
@@ -4042,9 +4047,14 @@ slidenotes.prototype.parseneu = function(){
 	//MDCodeEditor:
 	if(this.texteditorerroractivated){
 		//this.texteditorerrorlayer.innerHTML = this.parser.parseerrorsourcebackground();
-		this.texteditorerrorlayer.innerHTML = this.parser.renderCodeeditorBackground();
-		//add sidebar here
+		//this.texteditorerrorlayer.innerHTML = this.parser.renderCodeeditorBackground();
+		var newerrorlayer = document.createElement("div");
+		var newerrortext = this.parser.renderCodeeditorBackground();
+		newerrorlayer.innerHTML = newerrortext;
 		nachrendernzeit = new Date();
+		renderMinimizedSwitchOfInnerHtml(this.texteditorerrorlayer,newerrorlayer);
+		
+		//add sidebar here
 		this.parser.setDropDownMenu();
 		//setTimeout("slidenote.parser.setDropDownMenu()",1);
 		dropdownmenuzeit = new Date();
@@ -4670,4 +4680,41 @@ function getKeyOfKeyCode(keycode){
 	//if(keycode>64 && keycode<90)return String.fromCharCode(keycode);
   if(keycodes[keycode]==null)return "webkitbug"+keycode;
   return keycodes[keycode];
+}
+
+//testfunctions:
+function renderMinimizedSwitchOfInnerHtml(oldnode, newnode){
+    var oldchilds = new Array();
+    var newchilds = new Array();
+
+    for(var x=0;x<oldnode.children.length;x++)oldchilds.push(oldnode.children[x]);
+    for(var x=0;x<newnode.children.length;x++)newchilds.push(newnode.children[x]);
+		var replacedchilds = 0;
+		var addedchilds = 0;
+		var whichwerereplaced = new Array();
+    for(var x=0;x<newchilds.length;x++){
+        if(x>=oldchilds.length){
+            oldnode.appendChild(newchilds[x]);
+						addedchilds++;
+        }else if(oldchilds[x].innerHTML != newchilds[x].innerHTML &&
+						oldchilds[x].innerHTML != '--- &nbsp;&nbsp;&nbsp;&nbsp;<span class="pagenr">↑options↑ ↓data↓</span>' &&
+					  oldchilds[x].innerHTML != '---&nbsp;&nbsp;&nbsp;&nbsp;<span class="pagenr">↑options↑ ↓code↓</span>'){
+            oldnode.replaceChild(newchilds[x],oldchilds[x]);
+						replacedchilds++;
+						whichwerereplaced.push(oldchilds[x].innerHTML +" -> "+newchilds[x].innerHTML);
+        }
+    }
+		var removedchilds = 0;
+		var whichwereremoved = new Array();
+		if(oldchilds.length>newchilds.length){
+			for(var x=newchilds.length;x<oldchilds.length;x++){
+				oldnode.removeChild(oldchilds[x]);
+				whichwereremoved.push(oldchilds[x]);
+				removedchilds++;
+			}
+		}
+		console.log("Timecheck: renderedMinimized: replacedchilds:"+replacedchilds+"addedchilds:"+addedchilds + "removedchilds:"+removedchilds);
+
+		console.log("which were replaced:");console.log(whichwerereplaced);
+		console.log("which were removed:");console.log(whichwereremoved);
 }
