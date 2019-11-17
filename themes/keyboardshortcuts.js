@@ -28,8 +28,8 @@ keyboardshortcuts.shortcut = function(name, element, key, shortcutfunc){
     this.metakey = true; //metakey is true as standard?
     this.keys = [];
     this.multipleChoiceKeys = [];
-    console.log("shortcut keyelement:"+typeof key);
-    console.log(key);
+    //console.log("shortcut keyelement:"+typeof key);
+    //console.log(key);
     if(typeof key === "string"){
         this.keys = [key]; //sole key-element
     }else if(key.constructor === Array){
@@ -120,7 +120,7 @@ keyboardshortcuts.shortcutByName = function(shortcutname){
    var shortcut = null;
    for(var x=0;x<this.allkeys.length;x++){
         if(this.allkeys[x].name===shortcutname){shortcut=this.allkeys[x];break;}
-        console.log(this.allkeys[x].name + "->\n"+shortcutname+"<-");
+        //console.log(this.allkeys[x].name + "->\n"+shortcutname+"<-");
     }
    return shortcut;
 }

@@ -470,7 +470,7 @@ newtheme.highlightLinesInEditor = function(changedlinesobjects){
 					codes[x].classList.add("specialline");
 			}
 		}
-		console.log("highlight line: "+codes[x].innerHTML);
+		//console.log("highlight line: "+codes[x].innerHTML);
 		if(map.codeblocklines[x].origtext.substring(0,linemarker.length)===linemarker){
 			//var ct = codes[x].innerHTML;
 			//ct = '<span class="specialline">'+ct+"</span>";

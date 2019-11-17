@@ -317,7 +317,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 	 //cursorposinall -=linediff; //\n counts in cursorpos
 	 var cursorline = this.lineAtPosition(cursorposinall);
 	 var cursorposinline = cursorposinall - this.map.linestart[cursorline];
-	 console.log("new cursor at line:"+cursorline+", posinall:"+cursorposinall+", pos:"+cursorposinline);
+	 //console.log("new cursor at line:"+cursorline+", posinall:"+cursorposinall+", pos:"+cursorposinline);
 	 //if(cursorposinline<0)cursorposinline=0;
 	 var cursorchange = {
 	 	line:cursorline,
@@ -360,15 +360,15 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 		 var element = this.map.insertedhtmlelements[x];
 		 //iterate through map and get changes we have to do to orig-text:
 		 if(element.mdcode.length>0 && mdsimples.indexOf(element.mdcode)>-1){
-			 	console.log("adding change "+element.mdcode);
+			 	//console.log("adding change "+element.mdcode);
 			 //a simple thing - just do the changes later on:
 			 //end should be changed after element
 			 if(element.typ==="start" || element.typ==="<") changes.push(element);
 			 if(element.typ==="start" &&
 								 element.brotherelement &&
 								 element.brotherelement.line!=element.line){
-				 console.log("element"+element.mdcode+element.typ+element.line+" brotherelement:"+element.brotherelement.mdcode+element.brotherelement.typ+element.brotherelement.line);
-				 console.log(element);
+				 //console.log("element"+element.mdcode+element.typ+element.line+" brotherelement:"+element.brotherelement.mdcode+element.brotherelement.typ+element.brotherelement.line);
+				 //console.log(element);
 				 changes.push({
 					 line:element.line,
 					 posinall:this.map.lineend[element.line],
@@ -431,7 +431,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 
 					 } else{
 						 var imgtocheck = new Image();
-						 console.log("image httpsrc: "+element.src);
+						 //console.log("image httpsrc: "+element.src);
 						 imgtocheck.onerror = function(){
 							 //alert("image not found")
 							 console.log("image not found:"+this.src);
@@ -440,7 +440,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 							 slidenote.HTTPImagesNotFound += this.src;
 							 var imgsrcs = document.getElementsByClassName("imagesrc");
 							 for(var i=0;i<imgsrcs.length;i++){
-								 console.log("imgsrcs innerhtml:"+imgsrcs[i].innerHTML);
+								// console.log("imgsrcs innerhtml:"+imgsrcs[i].innerHTML);
 								 if(imgsrcs[i].innerHTML === this.src || imgsrcs[i].innerHTML+"/"===this.src){
 									 imgsrcs[i].classList.add("imagenotfound");
 								 }
@@ -639,7 +639,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 		 		return a.posinall - b.posinall;
 	 	 }
 	 });
-	 console.log(changes);
+	 //console.log(changes);
 	 //do the changes from behind to beginning:
 	 for(var c=changes.length-1;c>=0;c--){
 		 actchange = changes[c];
@@ -697,7 +697,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 			tag:"pagebreak pagenr"
 		});
 	}
-	console.log(this.map.pagestart);
+	//console.log(this.map.pagestart);
 	//putting it inside line-spans and returning as whole text:
 	var temptext = "";
 	var returnlines = new Array();
@@ -723,7 +723,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 		returnlines.push(temptext);
 		temptext="";
 	}
-	console.log("changes:"); console.log(changes);
+	//console.log("changes:"); console.log(changes);
 	this.mdcodeeditorchanges = changes;
 	return returnlines; //temptext;
 };
@@ -2475,8 +2475,8 @@ emdparser.prototype.parseMap = function(){
 	this.parsedcursorpos = slidenote.textarea.selectionEnd;
 	this.map.insertedhtmlelements.sort(function(a,b){return a.posinall-b.posinall});
   console.log("finished parsing elements");
-  console.log(this.lineswithhtml);
-  console.log(this.map);
+  //console.log(this.lineswithhtml);
+  //console.log(this.map);
   var TimecheckEnd = new Date().getTime();
   var TimecheckUsed = TimecheckEnd - TimecheckStart;
   console.log("parsed in "+TimecheckUsed+" Ms");
