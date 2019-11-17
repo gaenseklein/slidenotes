@@ -700,6 +700,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 	console.log(this.map.pagestart);
 	//putting it inside line-spans and returning as whole text:
 	var temptext = "";
+	var returnlines = new Array();
 	for(x=0;x<lines.length;x++){
 		var lineclass="backgroundline";
 		var imgtemptext ="";
@@ -712,16 +713,19 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 			lineclass +=" "+this.map.lineswithmdcodeinsidedatablock[x];
 			//if(lines[x].length==0||lines[x]==='<span id="carret"></span>')emptyline="&nbsp;";
 		}
-		temptext += imgtemptext +'<span class="linenr">'+x+
-								'</span><span class="'+lineclass+'">'+lines[x]+
+		temptext += imgtemptext +
+								//'<span class="linenr">'+x+'</span>'+
+								'<span class="'+lineclass+'">'+lines[x]+
 								emptyline+
 								'</span>';
 
-		temptext+="<br>\n";
+		temptext+="<br>";
+		returnlines.push(temptext);
+		temptext="";
 	}
 	console.log("changes:"); console.log(changes);
 	this.mdcodeeditorchanges = changes;
-	return temptext;
+	return returnlines; //temptext;
 };
 
 emdparser.prototype.renderNewCursorInCodeeditor = function(){
@@ -1471,7 +1475,7 @@ emdparser.prototype.comparePages = function(){
 		}
 	}
 	console.log("startpage found:"+startpage);
-	console.log("oldpages0:'"+oldpages[0]+ "', newpages0:'"+newpages[0]+"'");
+	//console.log("oldpages0:'"+oldpages[0]+ "', newpages0:'"+newpages[0]+"'");
 
 	if(startpage===newpages.length-1){
 		console.log("startpage is last page - return"+startpage);
@@ -1482,6 +1486,7 @@ emdparser.prototype.comparePages = function(){
 		return{start:null, end:null};
 	}
 	var endpage;
+	var oldendpage;
 	for(var y=0;y<5;y++){
 		var searchpage = oldpages[startpage+y];
 		for(var x=1;x<6;x++){
@@ -1489,6 +1494,7 @@ emdparser.prototype.comparePages = function(){
 			var newpage = newpages[startpage+x];
 			if(newpage===searchpage){
 				endpage=startpage+x;
+				oldendpage = startpage+y;
 				break;
 			}
 		}
@@ -1510,12 +1516,17 @@ emdparser.prototype.comparePages = function(){
 	console.log("sonderfall: startpage:"+startpage+" end: null")
 	return{start:startpage, end:null};
 	}
-	console.log("startpage:"+startpage+" endpage:"+endpage);
+	console.log("startpage:"+startpage+" endpage:"+endpage+" oldendpage:"+oldendpage);
 //	var endtime = new Date();
 //	var usedtime = endtime - starttime;
 //	console.log("Timecheck: comparing Pages needed "+usedtime+"Ms");
-	return{start:startpage, end:endpage};
-
+	if(startpage>=0 && endpage >0 && oldendpage>0){
+		return{start:startpage, nextEqualPage:endpage, nextEqualPageInOld:oldendpage,
+				startline:newparser.map.pagestart[startpage].line,
+				endline:newparser.map.pageend[endpage-1].line,
+				oldendline:oldparser.map.pageend[oldendpage-1].line};
+	}
+  return {};
 }
 
 
@@ -4026,7 +4037,7 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	//frag mich nicht warum 4px abgezogen werden müssen, aber dann passts.
 	//vermutung ist der focus-rahmen vom texteditor...
 };
-
+var oldrendermode = false;
 slidenotes.prototype.parseneu = function(){
 	//error-handling: dont parse if editor is not ready/still loading themes:
 	if(!this.extensions.allThemesLoaded)return;
@@ -4042,26 +4053,38 @@ slidenotes.prototype.parseneu = function(){
 	var handlingproposedsymbolszeit;
 	var scrollzeit;
 	var rahmensetzenzeit;
-	var compareResult = this.parser.comparePages();
+	//var compareResult = this.parser.comparePages();
 
 	//MDCodeEditor:
 	if(this.texteditorerroractivated){
 		//this.texteditorerrorlayer.innerHTML = this.parser.parseerrorsourcebackground();
 		//this.texteditorerrorlayer.innerHTML = this.parser.renderCodeeditorBackground();
-		var newerrorlayer = document.createElement("div");
-		var newerrortext = this.parser.renderCodeeditorBackground();
-		newerrorlayer.innerHTML = newerrortext;
-		nachrendernzeit = new Date();
-		renderMinimizedSwitchOfInnerHtml(this.texteditorerrorlayer,newerrorlayer);
-		
+		var newerrorlines = this.parser.renderCodeeditorBackground();
+		var newerrortext;
+		var changedlines;
+		if(oldrendermode){
+			newerrortext = newerrorlines.join("\n");
+			var newerrorlayer = document.createElement("div");
+			newerrorlayer.innerHTML = newerrortext;
+			renderMinimizedSwitchOfInnerHtml(this.texteditorerrorlayer,newerrorlayer);
+		}else{
+			this.parser.renderedBackgroundLines = newerrorlines;
+			if(this.oldparser.renderedBackgroundLines){
+				changedlines = this.parser.insertChangedLines(this.texteditorerrorlayer,newerrorlines, this.oldparser.renderedBackgroundLines);
+			}else{
+				this.texteditorerrorlayer.innerHTML = newerrorlines.join("\n");
+			}
+		}
+
+	nachrendernzeit = new Date();
 		//add sidebar here
 		this.parser.setDropDownMenu();
 		//setTimeout("slidenote.parser.setDropDownMenu()",1);
 		dropdownmenuzeit = new Date();
 		if(this.editormodus!="focus" && document.getElementById("editorchoice").value!="focus"){
 			//this.parser.generateSidebar(compareResult);
-			if(compareResult)	setTimeout("slidenote.parser.generateSidebar({start:"+compareResult.start+",end:"+compareResult.end+"})",10);
-			  else this.parser.generateSidebar();
+			//if(compareResult)	setTimeout("slidenote.parser.generateSidebar({start:"+compareResult.start+",end:"+compareResult.end+"})",10);
+			  //else this.parser.generateSidebar();
 			 //this.parser.generateSidebar();
 				//this.parser.setDropDownMenu();
 		}
@@ -4082,9 +4105,13 @@ slidenotes.prototype.parseneu = function(){
 		//warum musste ich an dieser stelle den rahmen neu setzen???
 		//this.texteditorrahmensetzen();
 		rahmensetzenzeit = new Date();
-		if(this.texteditorerroractivated)for(var x=0;x<this.extensions.themes.length;x++){
-			if(this.extensions.themes[x].active)
-				this.extensions.themes[x].styleThemeMDCodeEditor(); //Hook-Funktion
+		for(var x=0;x<this.extensions.themes.length;x++){
+			if(this.extensions.themes[x].active){
+				var themezeit = new Date();
+				this.extensions.themes[x].styleThemeMDCodeEditor(changedlines); //Hook-Funktion
+				var usedzeit = new Date()-themezeit;
+				if(usedzeit>0)console.log("Timecheck: stylemdeditor:"+this.extensions.themes[x].classname + ":"+usedzeit+"Ms");
+			}
 		}
 	}else if(slidenote.editormodus==="raw-text"){
 		this.parser.setDropDownMenu();
@@ -4701,7 +4728,7 @@ function renderMinimizedSwitchOfInnerHtml(oldnode, newnode){
 					  oldchilds[x].innerHTML != '---&nbsp;&nbsp;&nbsp;&nbsp;<span class="pagenr">↑options↑ ↓code↓</span>'){
             oldnode.replaceChild(newchilds[x],oldchilds[x]);
 						replacedchilds++;
-						whichwerereplaced.push(oldchilds[x].innerHTML +" -> "+newchilds[x].innerHTML);
+						whichwerereplaced.push(oldchilds[x].innerHTML +" -> "+newchilds[x].innerHTML + " ||x: "+x);
         }
     }
 		var removedchilds = 0;
@@ -4717,4 +4744,107 @@ function renderMinimizedSwitchOfInnerHtml(oldnode, newnode){
 
 		console.log("which were replaced:");console.log(whichwerereplaced);
 		console.log("which were removed:");console.log(whichwereremoved);
+}
+
+emdparser.prototype.insertChangedLines = function(oldnode,newerrorlines,olderrorlines){
+
+    var oldlines = olderrorlines.slice(0,olderrorlines.length);
+		//for(var x=oldlines.length-1;x>=0;x--){
+		//	if(oldlines[x].length===0)oldlines.splice(x,1);
+
+		//}
+    var newlines = newerrorlines;
+
+		var compareResult = this.comparePages();
+		//compareResult has start, end, oldend,
+		var oldchildren = oldnode.getElementsByClassName("backgroundline");
+		var deletedlinecount = 0;
+		if(compareResult.endline){
+			var diff = compareResult.endline - compareResult.oldendline;
+			if(diff>0){
+				for(var x=0;x<diff;x++){
+					oldlines.splice(compareResult.oldendline,0,"some replacetext");
+					var filldiv = document.createElement("span");
+					filldiv.classList.add("backgroundline");
+					var fillbr = document.createElement("br");
+					var fillenter = document.createTextNode("\n");
+					var refnode = oldchildren[compareResult.oldendline].nextSibling;
+					refnode.parentElement.insertBefore(fillbr,refnode);
+					refnode.parentElement.insertBefore(fillenter, refnode);
+					refnode.parentElement.insertBefore(filldiv,refnode);
+				}
+			}else if(diff<0){
+				diff=diff*-1;
+				var removepoint = compareResult.oldendline-diff;
+				oldlines.splice(compareResult.oldendline-diff,diff)
+				while(diff>0){
+					var deletebgline = oldchildren[removepoint];
+					var deletebgbr = deletebgline.nextSibling;
+					if(deletebgbr.nextSibling.nodeName==="#text"){
+						deletebgbr.parentElement.removeChild(deletebgbr.nextSibling);
+					}
+					deletebgbr.parentElement.removeChild(deletebgbr);
+					deletebgline.parentElement.removeChild(deletebgline);
+					deletedlinecount++;
+					diff--;
+				}
+			}
+			if(diff>0 || deletedlinecount>0){
+				for(var x=compareResult.startline;x<=compareResult.endline;x++){
+					oldlines[x]="some replacetext";
+				}
+			}
+		}
+
+		//if(newlines[newlines.length-1].length===0)newlines.pop();
+    var changedlines = new Array();
+    var addedlines = new Array();
+    for(var x=0;x<newlines.length;x++){
+        if(x>=oldlines.length || oldlines[x]!=newlines[x]){
+						var hasgt = (oldlines.indexOf("&gt;")>-1);
+            changedlines.push({
+                line:x, hasgt:hasgt,
+								oldline:oldlines[x], newline:newlines[x],
+
+								//oldlinelength:oldlines[x].length,
+								//newlinelength:newlines[x].length
+            });
+        }
+    }
+    if(changedlines.length===0){
+			//no changes, dont need to rerender:
+			return;
+		}
+    var replacedchilds = 0; var addedchilds = 0; var whichwerereplaced = new Array();
+    for(var x=0;x<changedlines.length;x++){
+        var actline = changedlines[x].line;
+        var tmpdiv = document.createElement("div");
+        tmpdiv.innerHTML = newlines[actline];
+        if(actline<oldchildren.length){
+            whichwerereplaced.push("replace in line"+actline+":"+tmpdiv.children[1].innerHTML + "<--" + oldchildren[actline].innerHTML);
+            oldnode.replaceChild(tmpdiv.children[0],oldchildren[actline]);
+            replacedchilds++;
+        }else{
+            while(tmpdiv.children.length>0){
+                oldnode.appendChild(tmpdiv.children[0]);
+                addedchilds++;
+            }
+						oldnode.appendChild(document.createTextNode("\n"));
+        }
+    }
+    var removedchilds = 0; var whichwereremoved = new Array();
+    if(newlines.length<oldchildren.length){
+        //delete old outstanding lines:
+        var startchildren = newlines.length*2;
+        for(var x=oldnode.children.length-1;x>=startchildren;x--){
+            whichwereremoved.push("line"+x+":"+oldnode.children[x].innerHTML);
+            oldnode.removeChild(oldnode.children[x]);
+            removedchilds++;
+        }
+    }
+
+
+    console.log("Timecheck: insertChangedLines: \n replacedchilds:"+replacedchilds+" added:"+addedchilds + " removed:"+removedchilds + "deleted:"+deletedlinecount);
+		console.log(changedlines);console.log(whichwerereplaced); console.log(whichwereremoved);
+		return changedlines;
 }

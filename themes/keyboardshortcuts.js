@@ -797,7 +797,7 @@ keyboardshortcuts.closeAutomagic = function(event){
         slidenote.textarea.value=txt;
         slidenote.textarea.selectionEnd = selend+key.length;
         slidenote.textarea.selectionStart = selstart+key.length;
-        slidenote.parseneu();
+        //slidenote.parseneu();
   }
   if(key==="+"){
     if(selend-selstart!=0){
