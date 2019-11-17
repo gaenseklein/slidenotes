@@ -358,18 +358,38 @@ newtheme.parseStyledBlockOptions = function(block){
 	return options;
 }
 
-newtheme.highlightLinesInEditor = function(){
+newtheme.highlightLinesInEditor = function(changedlinesobjects){
+	var map = slidenote.parser.map;
 	var codes = slidenote.texteditorerrorlayer.getElementsByClassName("code");
+	var changedlines = new Array();
+	var lineswithcode = new Array();
+	for(var x=0;x<map.codeblocks.length;x++){
+		for(var y=map.codeblocks[x].line;y<=map.codeblocks[x].endline;y++){
+			lineswithcode[y] = map.codeblocks[x];
+		}
+	}
+	if(changedlinesobjects)for(var x=0;x<changedlinesobjects.length;x++){
+		if(lineswithcode[changedlinesobjects[x].line]){
+			var startcline = lineswithcode[changedlinesobjects[x].line].line;
+			var endcline = lineswithcode[changedlinesobjects[x].line].endline;
+			for(var y=startcline;y<endcline;y++){
+				changedlines.push(y);
+			}
+		}
+		changedlines.push(changedlinesobjects[x].line);
+
+	}
 	var standardlinemarker = "§§";
 	var startmarker = "§a";
 	var endmarker = "§e";
 	var highlightedlines;
 	var linemarker = standardlinemarker;
-	var map = slidenote.parser.map;
 	var metablockendline;
 	var firstCodelineInX = 0;
 	//var linestomark = this.options.linesToHighlight();
 	for(var x=0;x<codes.length;x++){
+		var actline = map.codeblocklines[x].line;
+		if(changedlines.indexOf(map.codeblocklines[x].line)===-1)continue;
 		if(map.codeblocklines[x].line === map.codeblocklines[x].codeblock.line){
 			if(map.codeblocklines[x].codeblock.head.indexOf(this.metablockSymbol)>-1){
 				map.codeblocklines[x].codeblock.hasmetablock = true;
@@ -446,14 +466,16 @@ newtheme.highlightLinesInEditor = function(){
 			if(map.codeblocklines[x].codeblock.metablockendline!=undefined &&
 				highlightedlines && highlightedlines.length >0 &&
 				highlightedlines.indexOf(x-firstCodelineInX)>-1){
-					codes[x].innerHTML = '<span class="specialline">'+codes[x].innerHTML+"</span>";
+					//codes[x].innerHTML = '<span class="specialline">'+codes[x].innerHTML+"</span>";
+					codes[x].classList.add("specialline");
 			}
 		}
 		console.log("highlight line: "+codes[x].innerHTML);
 		if(map.codeblocklines[x].origtext.substring(0,linemarker.length)===linemarker){
-			var ct = codes[x].innerHTML;
-			ct = '<span class="specialline">'+ct+"</span>";
-			codes[x].innerHTML = ct;
+			//var ct = codes[x].innerHTML;
+			//ct = '<span class="specialline">'+ct+"</span>";
+			//codes[x].innerHTML = ct;
+			codes[x].classList.add("specialline");
 			//console.log("highlightning line: yes"+ct);
 		}else if(map.codeblocklines[x].origtext.indexOf(startmarker)>-1 &&
 						map.codeblocklines[x].origtext.indexOf(endmarker)>-1 &&
@@ -481,8 +503,8 @@ newtheme.highlightLinesInEditor = function(){
 	}
 }
 
-newtheme.styleThemeMDCodeEditor = function(){
-	this.highlightLinesInEditor();
+newtheme.styleThemeMDCodeEditor = function(changes){
+	this.highlightLinesInEditor(changes);
 }
 
 newtheme.buildLines = function(block){
