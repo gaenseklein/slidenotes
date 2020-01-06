@@ -19,22 +19,27 @@ newtheme.insertMenuArea = function(dataobject){
   var result = document.createElement("div");
   var leftbutton = document.createElement("button");
   var rightbutton = document.createElement("button");
-  var topbutton = document.createElement("button");
+  var inlinebutton = document.createElement("button");
+//  var topbutton = document.createElement("button");
   leftbutton.innerText="<- Left";
   rightbutton.innerText="Right ->";
-  topbutton.innerText="Head";
+  inlinebutton.innerText="inline"
+//  topbutton.innerText="Head";
   leftbutton.name="left";
   rightbutton.name="right"
-  topbutton.name="head";
+  inlinebutton.name="inline";
+//  topbutton.name="head";
   var buttonfunc = function(){
     slidenote.extensions.getThemeByName("sections").changeSectionType(this.name);
   };
   leftbutton.addEventListener("click", buttonfunc);
   rightbutton.addEventListener("click",buttonfunc);
-  topbutton.addEventListener("click",buttonfunc);
+  inlinebutton.addEventListener("click",buttonfunc);
+  //topbutton.addEventListener("click",buttonfunc);
   result.appendChild(leftbutton);
   result.appendChild(rightbutton);
-  result.appendChild(topbutton);
+  result.appendChild(inlinebutton);
+  //result.appendChild(topbutton);
   return result;
   //old stuff??
   var insertlabel = document.createElement("label");
