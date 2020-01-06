@@ -42,7 +42,8 @@ Hilfestellungen wie Hilfetexte oder ähnliches sollten immer zweite Wahl sein.
 # Generelle Überlegungen
 ## Alles sollte per Tastatur steuerbar sein
 
-Nicht alle Nutzenden verfügen über eine Maus oder das Feingefühl, um damit einen von drei Buttons zu treffen. Alles sollte daher per Tastatur steuerbar sein. Während die Grundsteuerung "Auswahl per TAB" gewährleistet und unterstützt wird als Quasi-Standard, kann darüber hinaus eigene Steuerung eingeführt werden, die spezieller auf Slidenotes zugeschnitten ist und so den Nutzenden hilft. Da es auch hier ein zu diverses Feld gibt, sollten die Shortcuts persönlich konfigurierbar sein. 
+Nicht alle Nutzenden verfügen über eine Maus oder das Feingefühl, um damit einen von drei Buttons zu treffen. Alles sollte daher per Tastatur steuerbar sein. Während die Grundsteuerung "Auswahl per TAB" gewährleistet und unterstützt wird als Quasi-Standard, kann darüber hinaus eigene Steuerung eingeführt werden, die spezieller auf Slidenotes zugeschnitten ist und so den Nutzenden hilft. Da es aber ein zu diverses Feld an Tastaturen, Betriebssystemen und Vorlieben gibt, sollten die Shortcuts persönlich konfigurierbar/änderbar sein. 
+Darüber hinaus ist es für Menschen mit Speech-Input leichter, ihr jeweiliges Speech-Input-Programm so zu konfigurieren, dass Schlüsselwörter bestimmte Shortcuts ausführen und so ebenfalls die Slidenote-Editor-Möglichkeiten und -Hilfestellungen zu erreichen. Die Keyboard-Shortcuts können so als leicht konfigurierbare Schnittstelle für das Speech-Input-Programm dienen. 
 
 ---
 # Generelle Überlegungen
@@ -53,18 +54,20 @@ Durch Nutzung von semantischem HTML und einem stringenten Aufbau sollte die Grun
 # Editor
 ## Der Editor, das Herzstück von Slidenotes.io
 
-Der Editor hilft dabei, den Code der Slidenote zu schreiben. Prinzipiell kann auch ein eigener, lokaler Editor benutzt werden und der Code später in den Slidenote-Editor per Copy-Paste eingefügt werden. Aber der Editor selbst ermöglicht ein schnelleres Erstellen der Präsentation, da er auf den Code und die Bedürfnisse zugeschnitten ist. Er parsed den geschriebenen Slidenote-Code live und kann ihn in verschiedener, auf das jeweilige Bedürfnis zugeschnittener Weise, ausgegeben werden. 
-
+Der Editor hilft dabei, den Code der Slidenote zu schreiben. Prinzipiell kann auch ein eigener, lokaler Editor benutzt werden und der Code später in den Slidenote-Editor per Copy-Paste eingefügt werden. Aber der Editor selbst ermöglicht ein schnelleres Erstellen der Präsentation, da er auf den Code und die Bedürfnisse zugeschnitten ist. Er parsed den geschriebenen Slidenote-Code live und kann ihn in verschiedener Weise aufbereiten. Dadurch können unterschiedliche Anforderungen an das Interface erfüllt werden. 
+ 
+---
 # Editor
 ## Verschiedene Interface Designs sind auswählbar
 
 Es gibt nicht "das" beste Interface. Es gibt nur gute Interfaces für verschiedene Anforderungen. Vielfalt ist die Kraft. 
 Beispiele:
-1. context mode: zeigt seitlich des Editors eine MD-Elemente-Übersicht an (sidebar), zusätzlich zu im Editor visualisierten Informationen. Erzeugt das meiste Rauschen
-2. focus mode: verzichtet auf die dauerhafte kontextabhängige Hilfsstruktur seitlich des Editors und focusiert auf den Editor selbst.
-3. raw mode: verzichtet auf alle visuellen Hilfen, kann Kompatiblitätsproblemen mit bestimmten Screenreadern etc. entgegenkommen und ist die schnellste Eingabemethode. 
-4. big mode: alles wird größer dargestellt: Schriftgröße größer, dadurch weniger Text gleichzeitig sichtbar, große intuitive Buttons anstelle von Textbuttons. Visualisierung im Editor ja, sidebar nein. Erzeugt am wenigsten Rauschen
-5. audio mode: Keinerlei visuelle Hilfe, textarea wird seitlich scrollbar gemacht, so dass Zeilen übereinander dargestellt werden und nicht mehr umbrechen. 
+1. **context mode**: zeigt seitlich des Editors eine MD-Elemente-Übersicht an (sidebar), zusätzlich zu im Editor visualisierten Informationen. Erzeugt das meiste Rauschen
+2. **focus mode**: verzichtet auf die dauerhafte kontextabhängige Hilfsstruktur seitlich des Editors und focusiert dadurch auf den Editor selbst.
+3. **raw mode**: verzichtet auf alle visuellen Hilfen, kann Kompatiblitätsproblemen mit bestimmten Screenreadern etc. entgegenkommen und ist die schnellste Eingabemethode. Insertmenü wird fest positioniert.
+4. **big mode**: alles wird größer dargestellt: Schriftgröße größer, dadurch weniger Text gleichzeitig sichtbar, große intuitive Buttons anstelle von Textbuttons. Visualisierung im Editor ja, sidebar nein. Erzeugt wenig Rauschen
+5. **audio mode**: Keinerlei visuelle Hilfe, textarea wird seitlich scrollbar gemacht, so dass Zeilen übereinander dargestellt werden und nicht mehr umbrechen. 
+6. **basic mode**: Um das Rauschen noch weiter zu verringern, werden im "basic mode" alle komplexeren Elemente aus Toolbar etc. entfernt und nur die nötigsten Basis-Elemente (neue slide, titel, listen, dick, kursiv, bild, zitat) angeboten, mit denen es möglich ist, eine rudimentäre Präsentation zu erstellen. 
 
 ---
 # Editor
@@ -89,7 +92,7 @@ Alle Images im Editor sind mit ALT-Texten versehen, zusätzliche Hilfen können 
 
 Bestmögliches Ergebnis mit Screenreader ist eine freie Textarea, per Tab und logischem Aufbau (header-Tags) erreichbare Elemente (Toolbar, Options etc.) und per Shortcut erreichbare Eingabehilfen (Insertmenü). All diese Elemente sind per Screenreader erreichbar und interpretierbar. Durch die Focus-Steuerung per Javascript kann bei einigen Screenreadern eine bestmögliche Unterstützung gewährleistet werden. 
  
-Doch das wars. All die Zusatzinformationen, die sonst per visualisierten Hilfen dargestellt werden (der Cursor ist in einem Titelelement bspw) fehlen. In der Textarea stehen also nur die vom jeweiligen Screenreader bereitgestellten Hilfen zur Verfügung um sich Überblicke zu verschaffen. Der Versuch, dem Screenreader weitere Informationen beizubringen scheint relativ fruchtlos. 
+Doch das wars. All die Zusatzinformationen, die sonst per visualisierten Hilfen dargestellt werden (der Cursor ist in einem Titelelement bspw) fehlen. In der Textarea stehen also nur die vom jeweiligen Screenreader bereitgestellten Hilfen zur Verfügung um sich Überblicke zu verschaffen. Der Versuch, dem Screenreader weitere Informationen beizubringen scheint aussichtslos. 
 ---
 # Editor
 ## Going beyond Screenreadersupport
@@ -111,4 +114,26 @@ Kompatiblitätsprobleme sind vorprogrammiert. Was aber denke ich immer geht beim
 Es kann aber auch Sinn machen, beide gleichzeitig zu verwenden - aber bestimmte Funktionen auszustellen, die bereits vom Screenreader übernommen sind um Dopplungen zu vermeiden. (Bspw. Öffne Insertmenü-> focus auf Button -> Screenreader liest Button -> speechSynthesis sagt "Element List Insertmenu. Selected Button:...")
 Um das zu ermöglichen ist unser speechSynthesis-Speaker so konfigurierbar wie möglich.
 
+---
+# Präsentation
+## HTML-Aufbau
 
+- Der HTML-Aufbau ist so ausgerichtet, dass er auch Vertikal gelesen werden kann. Das erleichtert dem Screenreader das Lesen von oben nach unten
+- Das HTML ist semantisch, so dass es für den Screenreader zu verarbeiten ist
+- Grundsätzlich ist aber für den Inhalt der Präsentation die eingebende Person verantwortlich - unser Einfluss ist dort sehr begrenzt. 
+- Über visuell unsichtbare Elemente können dem Screenreader noch zusätzliche Informationen gegeben werden
+- Alle Elemente, welche eine visuelle Darstellung haben, sollten die Möglichkeit haben, auch nicht-visuell dargestellt zu werden und so für nicht-visuelle Darstellung greifbar gemacht werden können. (Beispiel: Chart wird als Datentabelle ausgegeben)
+
+---
+# Präsentationen
+##- Javascript enhancement
+
+- Screenreader mögen meist kein Javascript, daher ist es prinzipiell immer möglich, die Präsentation auch ohne Javascript anzuschauen
+- Javascript kommt oben drauf und ergänzt das Konzept um Hilfestellungen, die so garnicht oder nicht so komfortabel ohne Javascript umzusetzen sind
+- Mithilfe von Keyboardbefehlen kann eine komplette Steuerung der Präsentation ohne Mausklicks erfolgen
+
+---
+# Präsentationen
+##- Going beyond Screenreadersupport
+
+Während die visuelle Aufbereitung immer darauf angewiesen ist, dass der Screenreader sie richtig interpretiert ist es mit einem eigenen gebauten Screenreader möglich, auch hier die visuelle Aufbereitung außen vor zu lassen und sich auf eine audielle Aufbereitung des Inhalts zu konzentrieren. Die dazu notwendigen Informationen liegen vor. 
