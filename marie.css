@@ -20,12 +20,12 @@ a[href], input[type='submit'], input[type='image'], label[for], select, button, 
 /*implementing font rubikReg*/
 @font-face {
   font-family: "rubikReg";
-  src: url("Rubik-Regular.ttf");
+  src: url("fonts/Rubik-Regular.ttf");
 }
 
 @font-face {
     font-family: "robotoMono";
-    src: url("RobotoMono-Regular.ttf");
+    src: url("fonts/RobotoMono-Regular.ttf");
 }
 
 body{

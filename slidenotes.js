@@ -14,7 +14,8 @@ var mapobject = {	//link:
 };
 */
 
-/* mapper object to track mapping between md-code/source-code and rendered html code
+/* mapper object to track mapping between md-code/source-code
+and rendered html code in editor
 */
 
 function mapping (parser) {
@@ -48,7 +49,7 @@ function mapping (parser) {
 };
 
 mapping.prototype.init = function(){
-//standard-sachen die gemacht werden müssen:
+	//sort array by absolute pos of elements
 	if(this.insertedhtmelements!=null)this.insertedhtmlelements.sort(function(a,b){return a.posinall - b.posinall})
 
 }
@@ -236,13 +237,11 @@ function emdparser(text){
 		//this.parseelemente.push(new parseobjekt("`","`","<code>","</code>","code")); //darf auch nicht über eine zeile hinausgehen
 		//this.parseelemente.push(new parseobjekt("-----","\n","<hr>","","pagebreak")); //ist ein zeilending, kein einfaches element
 	}
-
-	//neuneuneu: ansatz über mapping-objekt:
+	//create new map:
 	this.map = new mapping(this);
-
-
 }
 
+/*not really necesary, could be done by split easily:*/
 emdparser.prototype.parselines= function(text){
 	var aktpos = 0;
 	this.lines = new Array();
@@ -252,6 +251,12 @@ emdparser.prototype.parselines= function(text){
 	}
 	this.lines.push(text.substring(aktpos));
 };
+
+/* returnparsedlines
+returns the sourcecode as an array of lines
+todo: change it to use split as it seems more efficient
+in modern browsers
+*/
 emdparser.prototype.returnparsedlines = function(text){
 	var aktpos = 0;
 	var lines = new Array();
@@ -263,7 +268,9 @@ emdparser.prototype.returnparsedlines = function(text){
 	//console.log("last line:"+lines[lines.length-1]+"eol");
 	return lines;
 };
-/*weitere hilfsfunktionen:
+
+/*lineAtPosition:
+returns the linenumber of position in sourcecode-text
 */
 emdparser.prototype.lineAtPosition = function(position){
 	var linepos = 0;
@@ -277,6 +284,11 @@ emdparser.prototype.lineAtPosition = function(position){
 	return line;
 };
 
+/* positionOfLine
+returns the absolute position in the sourcecode-text of the
+start of the line with number line
+@param line: number of line to check for
+*/
 emdparser.prototype.positionOfLine = function(line){
 	var linepos = 0;
 	var aktline=0;
@@ -288,8 +300,10 @@ emdparser.prototype.positionOfLine = function(line){
 };
 
 
-/* parseerrorsourcehtml erstellt html für die erweiterte fehlerdarstellung des sourcecodes
-*
+/* parseerrorsourcehtml
+* old style, not used anymore
+* delete in the future
+* erstellt html für die erweiterte fehlerdarstellung des sourcecodes
 */
 emdparser.prototype.parseerrorsourcehtml= function(){
 	var lines = this.returnparsedlines(this.sourcecode);
@@ -859,6 +873,9 @@ emdparser.prototype.renderNewCursorInCodeeditor = function(){
 	this.setDropDownMenu();
 };
 
+/*
+i think this is old and has to be deleted:
+*/
 emdparser.prototype.renderCodeeditorImagePreview = function(){
 	var images = new Array();
 	var lines = this.returnparsedlines(this.sourcecode); //raw sourcecode
@@ -903,6 +920,10 @@ emdparser.prototype.renderCodeeditorImagePreview = function(){
 	return imgtemptext;
 }
 
+/*
+old sidebar - not used anymore.
+generates a nice Sidebar left from the editor
+*/
 emdparser.prototype.generateSidebar = function(startend){
 	return;
 	var starttime = new Date();
@@ -1176,6 +1197,9 @@ emdparser.prototype.generateSidebar = function(startend){
 	return sidebarlines;
 }
 
+/*	sets the dropdown menu for the context-menu
+*
+*/
 emdparser.prototype.setDropDownMenu = function (){
 	//var timecheckstart = new Date();
 	//var timecheckposition;
@@ -1227,8 +1251,8 @@ emdparser.prototype.setDropDownMenu = function (){
 
 		nicesymbol.style.top = newtop +"px";
 		//hack für safari:
-		var sidebar = document.getElementById("sidebar");
-		nicesymbol.style.left = sidebar.offsetLeft + "px";
+		//var sidebar = document.getElementById("sidebar");
+		//nicesymbol.style.left = sidebar.offsetLeft + "px";
 	}
 	//timecheckposition = new Date();
 	nicesymbol.style.position="absolute";
@@ -1338,7 +1362,7 @@ emdparser.prototype.CarretOnElement = function(carrethardpos, secondcall){
 		}
 
 	}
-	console.log(element);
+	//console.log(element);
 	if(element && slidenote.textarea.selectionEnd-slidenote.textarea.selectionStart!=0 && !secondcall){
 		var secondelement = this.CarretOnElement(slidenote.textarea.selectionStart,true);
 		if(secondelement && secondelement.parentelement && element.parentelement &&
@@ -1347,9 +1371,11 @@ emdparser.prototype.CarretOnElement = function(carrethardpos, secondcall){
 	}
 	return element;
 }
-/*	* replace: hilfsmethode um nicht zu regexen(text,symbol,newsymbol)
-	* text: zu durchsuchender string, symbol: zu ersetzender string, newsymbol: ersetzungsmuster string
-	* gibt string zurück mit ersetztem text
+/*	* replace: method to avoid using regex
+@param text: string to search through,
+@param symbol: string to look out for in text
+@param newsymbol: replacement-string for symbol
+*	returns a string with replaced symbols
  */
 
 emdparser.prototype.replace = function(text,symbol,newsymbol){
@@ -1420,9 +1446,11 @@ emdparser.prototype.sanitizedcodepositions = function(text){
 	return codepos;
 };
 
-/*	pageAtPosition: sucht die page raus, die zur position gehört
- *	position: position im text, mode: pagenr, pagepos, null
- *	returns: nummer der page oder position des letzten pageanfangs oder array aus beidem
+/*	pageAtPosition: searchs for page at Position in sourcecode
+@param position:position in sourcecode
+@param mode: pagenr, pagepos or null
+ *	returns: number of page or position of last page-begin
+ or array with both - depending on mode
 */
 emdparser.prototype.pageAtPosition = function(position, mode){
 	//sucht die page raus vom selection-text
@@ -1458,6 +1486,13 @@ emdparser.prototype.positionAtPage = function(page){
 	return position;
 }
 
+
+/*comparePages:
+* compares slidenotes by pages. meant to cutting rendering to
+* only changed content. is it used right now?
+* was created for sideBar but could be used by other
+* means to fasten up rendering and such
+*/
 emdparser.prototype.comparePages = function(){
 	var oldparser = slidenote.oldparser;
 	var newparser = slidenote.parser;
@@ -2497,6 +2532,7 @@ emdparser.prototype.parseMap = function(){
 /*	*stylepager: objekt mit einem muster, nach welchem die page per zeile geparst wird und mit zusätzlichem html und/oder klassen versehen wird
 	* braucht beim erstellen muster nach dem gescannt werden kann -> array mit zeilenelement-code: text, table, ul, li, head usw.
 	* start: htmlcodestarttag, end: htmlcodeendtag
+	* nicht mehr wirklich genutzt zur zeit, aber hat potential
 */
 
 function stylepager(muster, start, end){
@@ -2557,12 +2593,12 @@ stylepager.prototype.find = function(pagetaglines, startline){
 	//besser objektorientiert:
 	if(found)return {start:foundstartpos, end:foundendpos}; else return {start:-1,end:-1};
 }
+
 /* stylepager.encapsuleHtml(pagelines, pagetaglines)
  * sucht in den pagelines mittels der find-methode (s.o.) nach dem muster des styles und ummantelt diese mit dem html-code des styles
  * erwartet: pagelines: array mit text-strings, pagetaglines: array mit parse-code-zeilen (ul,ol,text,table, usw. )
  * gibt array mit pagelines zurück
 */
-
 stylepager.prototype.encapsuleHtml = function(pagelines,pagetaglines){
 	//alert(pagetaglines.toString());
 	//console.log("encapsulehtml pagetaglines-length:"+pagetaglines.length);
@@ -2837,20 +2873,10 @@ pagegenerator.prototype.afterStyle = function(){
 
 //nextPage: "blättert um" zur nächsten Seite der Präsentation durch Anhängen der ".active" CSS-Klasse an das nächste Element
 pagegenerator.prototype.nextPage = function(){
-	//this.pagedivs[this.aktpage].classList.remove("active");
-	//this.aktpage ++;
-	//if(this.aktpage>=this.pages.length)this.aktpage --; //bei letzter angekommen mache nichts
-	//this.pagedivs[this.aktpage].classList.add("active");
-		//direkte ansteuerung:
-	//this.presentation.innerHTML = this.htmlstart+this.pages[this.aktpage]+this.htmlend;
 	this.showPage(this.aktpage+1);
 }
 //lastPage: "blättert zurück"
 pagegenerator.prototype.lastPage = function(){
-	//this.pagedivs[this.aktpage].classList.remove("active");
-	//this.aktpage--;
-	//if(this.aktpage<0)this.aktpage=0;
-	//this.pagedivs[this.aktpage].classList.add("active");
 	this.showPage(this.aktpage-1);
 }
 //showPage(pagenummer): blättert zur seite pagenummer
@@ -2867,6 +2893,9 @@ pagegenerator.prototype.showPage = function(page){
 	this.pagedivs[page].classList.add("active");
 }
 
+/*
+when the dropdown-menu is activated show the actual insertMenu:
+*/
 pagegenerator.prototype.showInsertMenu = function(){
 	//helperfunction:
 	function constructButton(innerhtml, insertfunction){
@@ -3379,7 +3408,8 @@ Theme.prototype.loadConfigString = function(data){
 
 
 /* new extension manager: to separate code better as own object
- * handles all extension-related stuff
+ * handles all extension-related stuff like
+ * loading the themes etc.
  */
 
 function ExtensionManager(slidenote, options){
@@ -3753,12 +3783,15 @@ ExtensionManager.prototype.showThemes = function(tabnr){
 
 }
 
-//optionsTab zeigt den jeweiligen Tab an:
+/*optionsTab zeigt den jeweiligen Tab an:
+* not used anymore, its from old optionsMenu
+*/
 ExtensionManager.prototype.optionsTab = function(tabnr){
 	this.showThemes(tabnr);
 }
 
 //hideThemes versteckt die Theme-auswahl bei klick auf close
+// not used anymore
 ExtensionManager.prototype.hideThemes = function(){
 	document.getElementById("options").classList.remove("visible");
 	slidenote.textarea.focus();
@@ -3821,7 +3854,7 @@ ExtensionManager.prototype.changeThemeStatus = function(themenr, status){
 						var li = document.createElement("li");
 						li.appendChild(newhtmlbutton);
 						toolboxlist.appendChild(li);
-				}else toolbox.appendChild(newhtmlbutton);
+				}else if(toolbox)toolbox.appendChild(newhtmlbutton);
 			}
 		}else{
 			var oldbuttons = document.getElementsByClassName(this.themes[themenr].classname+"button");
@@ -3890,7 +3923,13 @@ ExtensionManager.prototype.buildOptionsMenu = function(){
 
 }
 
-/*neuer aufbau für die steuerung und ablauf usw. des programms:
+/*
+* the actual slidenotes-object:
+@param texteditor: textarea where the sourcecode is inside
+@param texteditorerrorlayer: background of editor, where rendered sourcecode is put into
+@param htmlerrorpage: not used anymore
+@param presentationdiv: div where to place the created presentation into
+@param bpath: where this script is located
 */
 
 function slidenotes(texteditor, texteditorerrorlayer, htmlerrorpage, presentationdiv, bpath){
@@ -4010,6 +4049,10 @@ slidenotes.prototype.choseEditor = function(editor){
 	if(slidenoteguardian)slidenoteguardian.saveConfig("local");
 }
 
+/*	texteditorrahmensetzen
+* this function serves to get the textarea and the rendered sourcecode
+* to the same size, so that they overlap perfectly
+*/
 var hardcodedwith = 521;
 slidenotes.prototype.texteditorrahmensetzen = function(){
 	//setzt den rahmen vom errorlayer auf textarea-größe:
@@ -4038,6 +4081,12 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	//vermutung ist der focus-rahmen vom texteditor...
 };
 var oldrendermode = false;
+
+/* 	parseneu
+* whenever the editor needs to be re-rendered because the sourcecode
+* changed this function has to be called once.
+* it parses the sourcecode and calls the rendering-functions afterwards
+*/
 slidenotes.prototype.parseneu = function(){
 	//error-handling: dont parse if editor is not ready/still loading themes:
 	if(!this.extensions.allThemesLoaded)return;
@@ -4431,6 +4480,9 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 
 };
 
+/* insertbutton
+* 	inserts a md-symbol into textarea (from toolbar)
+*/
 slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode){
 	console.log("insert button:"+emdzeichen+"mdstart:"+mdstartcode);
 	var textarea = this.textarea;
@@ -4610,6 +4662,10 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 
 };
 
+/* scrollToPosition
+* scrolls to the position of text, so that the position of text is on top of the page
+@param position: null or int of position inside textarea.value
+*/
 slidenotes.prototype.scrollToPosition = function(position){
 	var pos = position;
 	if(!pos)pos=this.textarea.selectionStart;
@@ -4621,6 +4677,9 @@ slidenotes.prototype.scrollToPosition = function(position){
 	}
 }
 
+/* scroll
+* syncs the textarea with the rendered background
+*/
 slidenotes.prototype.scroll = function(editor){
 	this.texteditorrahmensetzen();
 	if(editor==this.textarea && this.texteditorerroractivated){

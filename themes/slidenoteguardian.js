@@ -14,6 +14,11 @@
 * Dependencies: FileSaver.js for saving exports
 */
 
+
+/*
+Slidenotecache: Object which interacts with localStorage
+necesary because user wants to open two slidenotes at the same time
+*/
 var SlidenoteCache = function(){
     this.localstorage = window.localStorage;
     //items in localstorage per slidenote - not sure if really needed inside object but for overview purposes stated here:
@@ -70,8 +75,9 @@ SlidenoteCache.prototype.init = function(){
         if(this.id){
             //we found a cache so load cache:
             //this.loadFromCacheToObject();
+            //not necesary anymore as we load it later on with the id
         }else{
-            //we did not find a cache for current note so open one:
+            //we did not find a cache for current note so open one, which can be loaded afterwards
             this.id = "sl"+(ids.length+1);
             this.allIds +=  ","+this.id;
             this.localstorage.setItem("allIds",this.allIds);
@@ -110,9 +116,9 @@ SlidenoteCache.prototype.fitsIntoSpace = function(key,value){
 }
 
 SlidenoteCache.prototype.setItem = function(key, value){
-    //test if freeSpace is ok:
     var rkey = this.id+key;
     if(key==="config")rkey="config"; //only one config for all notes
+    //test if freeSpace is ok:
     if(this.fitsIntoSpace(rkey,value)){
         this.localstorage.setItem(rkey,value);
         //should i here set the time or let it the program do by itself? if here it happens often but is it bad?
@@ -149,6 +155,10 @@ SlidenoteCache.prototype.cleanGarbage = function(){
 }
 
 
+/*
+the actual slidenoteguardian.
+expects a object of type slidenotes
+*/
 
 function slidenoteGuardian(slidenote){
   this.slidenote = slidenote;
@@ -161,12 +171,13 @@ function slidenoteGuardian(slidenote){
   this.cmsImagesSave;
   this.jsfilesForExport = [];
   //this.exportedPresentations = new Array();
-  this.restObject={};
+  this.restObject={}; //stores the state of the slidenote as it is stored in the cms
   this.hascmsconnection=false;
+  //check if initial_note is set. if so its setted by cms:
   if("initial_note" in window){
     this.hascmsconnection=true;
     this.restObject = initial_note;
-    this.restObject.drupal7 = {
+    this.restObject.drupal7 = { //maybe i should make it more cms-agnostic here?
       nid:initial_note.nid,
       author:initial_note.author
     }
@@ -258,11 +269,12 @@ function slidenoteGuardian(slidenote){
   this.initialised = false;
 }
 
+/*initLoad completes initial load from cms*/
 slidenoteGuardian.prototype.initLoad = async function(){
-  this.getRestToken();
+  this.getRestToken(); //always get a RestToken we can use later on
   var searchurl = location.search;
   var nid = searchurl.substring(searchurl.lastIndexOf("=")+1);
-  if(nid*1!=nid){ this.init();return;}
+  if(nid*1!=nid){ this.init();return;} //no valid node-id found
   this.loadFromRest("/node/"+nid+".json",
     //loadHandler:
     function(){
@@ -303,7 +315,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
         slidenoteguardian.notetitle = payload.title;
       }
     }
-    slidenote.texteditorrahmensetzen();
+    slidenote.texteditorrahmensetzen(); //clear editor borders after loading
     slidenoteguardian.init();
     //start midstate animation:
     document.getElementById("slidenoteloadingscreenwrapper").classList.add("midstate");
@@ -325,6 +337,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
 
 slidenoteGuardian.prototype.init = function(){
   //init will be called once the slidenote has been loaded from cms
+  //or if it is localy.
   //this.getCMSFields();
   this.localstorage.init();
   if(this.localstorage.getItem("config")!=null){
@@ -356,6 +369,7 @@ slidenoteGuardian.prototype.init = function(){
     "\n restobj.encnote-empty?"+(this.restObject.encnote==="")
   );
 
+  //lookout if we have to load it from localStorage or from cms:
   if((cachednote.saved === "true" || cachednote.notehash === null) &&
       this.hascmsconnection &&
     this.restObject.encnote && this.restObject.encnote.length>1){
@@ -570,7 +584,7 @@ slidenoteGuardian.prototype.init = function(){
   this.initialised = true;
 }
 
-var testresponse;
+var testresponse; //for testing-purpose
 slidenoteGuardian.prototype.loadFromRest = async function(filepath, responseHandler, loadingHandler){
   var oReq = new XMLHttpRequest();
   if(responseHandler!=null && responseHandler!=undefined)
@@ -591,7 +605,7 @@ slidenoteGuardian.prototype.loadFromRest = async function(filepath, responseHand
   oReq.setRequestHeader("CONTENT-TYPE","application/json");
   oReq.setRequestHeader('X-CSRF-TOKEN', this.restToken);
   oReq.send();
-  testresponse = oReq;
+  testresponse = oReq; //for checking in testing only, not in production
 }
 
 slidenoteGuardian.prototype.loadedFromRest = function(jsonstring){
@@ -624,6 +638,10 @@ slidenoteGuardian.prototype.deleteFromRest = async function(filepath, responseHa
 }
 
 
+/*
+importSlidenotesList: loads a list with all slidenotes from user to display for loading
+response is a xmlDoc
+*/
 slidenoteGuardian.prototype.importSlidenotesList = function(response){
   if(!response.status===200)return;
   var xmlDoc = response.responseXML;
@@ -638,6 +656,8 @@ slidenoteGuardian.prototype.importSlidenotesList = function(response){
   slidenoteguardian.loadedSlidenotes = loadedSlidenotes;
   if(menumanager)menumanager.buildSlidenoteList();
 }
+
+/*loads the xml-doc from the server to give it to importSlidenotesList*/
 slidenoteGuardian.prototype.loadSlidenotesList = function(){
   this.loadFromRest("/myslidenotes","importSlidenotesList");
   /*function(response){
@@ -645,7 +665,9 @@ slidenoteGuardian.prototype.loadSlidenotesList = function(){
     slidenoteguardian.importSlidenotesList(this);
   });*/
 }
-
+/*
+importPresentationList: imports links to all presentations from user
+*/
 slidenoteGuardian.prototype.importPresentationList = function(response){
     var xmlDoc=response.responseXML;
     slidenoteguardian.loadedXmlDocP = xmlDoc;
@@ -672,12 +694,19 @@ slidenoteGuardian.prototype.importPresentationList = function(response){
     console.log("presentations loaded");
     if(menumanager)menumanager.buildPublishedMenu();
 }
+/*
+loads the xml-doc from the server to give it to importPresentationList
+*/
 slidenoteGuardian.prototype.loadPresentationList = function(){
   this.loadFromRest("/mypresentations",function(){
     slidenoteguardian.importPresentationList(this);
   });
 }
 
+/*
+get all Plugins as text to write them later on to the downloadable html-file
+not used anymore - delete it in the future
+*/
 slidenoteGuardian.prototype.getAllPlugins = function(){
   var oReq = new XMLHttpRequest();
   oReq.addEventListener("load", function(){
@@ -722,6 +751,9 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
   }
 
 }
+/*
+get all js as static text to write it later into html-file on export
+*/
 slidenoteGuardian.prototype.getJSFromStaticWebserver = function(){
   this.jsfilesForExport = new Array();
 
@@ -738,6 +770,8 @@ slidenoteGuardian.prototype.getJSFromStaticWebserver = function(){
     req.send();
   }
 }
+
+/*old stuff - delete in the future:*/
 slidenoteGuardian.prototype.importPlugins = function(resolve){
   console.log(resolve);
   this.restObject.plugincollector = {};
@@ -752,6 +786,7 @@ slidenoteGuardian.prototype.importPlugins = function(resolve){
   console.log("imported plugins");
 }
 
+/*creates the <style>-block for the html to export*/
 slidenoteGuardian.prototype.createCssBlock = function(){
   var cssblock = "";
   //if(this.restObject.plugincollector == undefined && this.hascmsconnection){
@@ -781,6 +816,9 @@ slidenoteGuardian.prototype.createCssBlock = function(){
   return cssblock;
 }
 
+/*
+get a rest-token:
+*/
 slidenoteGuardian.prototype.getRestToken = async function(afterwards){
   var tokenquest = new XMLHttpRequest();
   console.log("asking for Token...");
@@ -794,7 +832,11 @@ slidenoteGuardian.prototype.getRestToken = async function(afterwards){
   tokenquest.send(null);
   //should return promise to let saveToRest await
 }
-//@param: payloadobject
+/*
+saveToRest: saves content to cms via Rest:
+@param payload: payload to save to the Rest
+@param path: path for the Rest-Action
+*/
 slidenoteGuardian.prototype.saveToRest = async function(path, payload){
   console.log("start saveToRest:"+path);
   if(this.restToken===undefined || this.restToken===null){
@@ -838,6 +880,9 @@ slidenoteGuardian.prototype.saveToRest = async function(path, payload){
   console.log(putReq);
 }
 
+/*
+after content is saved to rest this is called:
+*/
 slidenoteGuardian.prototype.savedToRest = function(resolve){
   console.log("saved to Rest:"+resolve.statusText);
   var statusimg = document.getElementById("savestatus");
@@ -934,6 +979,10 @@ slidenoteGuardian.prototype.exportedPresentationToRest = function(resolve){
   }
 }
 
+/* exportPresentation:
+prepares the presentation to be exported to destination
+@param destination: where to save (filesystem, cms)
+*/
 slidenoteGuardian.prototype.exportPresentation = async function(destination, presentationdiv){
   var password = await this.passwordPrompt("Choose a Password for the Presentation", "exportCMS", true);
   if(destination==="filesystem")this.preparePresentationForFilesystem(presentationdiv);
@@ -963,7 +1012,12 @@ slidenoteGuardian.prototype.exportPresentation = async function(destination, pre
     this.exportPresentationToFilesystem(encString, true);
   }
 }
-
+/*
+createNewSlidenote:
+prepares a new slidenote, saves it to the cms,
+then loads it to the browser by redirecting to the url of the
+new slidenote
+*/
 slidenoteGuardian.prototype.createNewSlidenote = async function(){
   document.getElementById("slidenotediv").style.display = "none";
   var payloadobj = this.prepareDrupal7Rest("new slidenote");
@@ -1003,6 +1057,9 @@ slidenoteGuardian.prototype.createNewSlidenote = async function(){
 
 }
 
+/* prepareDrupal7Rest:
+prepares the uploadobject to be uploaded via rest to drupal 7
+*/
 slidenoteGuardian.prototype.prepareDrupal7Rest = function(mode){
   var path = "/node/"+this.restObject.drupal7.nid;
   var payloadobj = {
@@ -1082,6 +1139,10 @@ slidenoteGuardian.prototype.prepareDrupal7Rest = function(mode){
   return{path:path,payload:payload};
 }
 
+/*
+to export presentations the presentation has to be fully created.
+after presentation is created this function is called:
+*/
 slidenoteGuardian.prototype.exportIsReady = function(presdiv){
   console.log("export is ready to:"+this.exportPresentationDestination);
   if(this.exportPresentationDestination==="unencrypted"){
@@ -1103,7 +1164,7 @@ slidenoteGuardian.prototype.exportPresentationLocal = function(encrypted){
   if(encrypted)this.exportPresentationDestination = "filesystem";
   if(!encrypted)this.exportPresentationDestination = "unencrypted";
   console.log("start exporting to filesystem");
-  slidenote.presentation.showpresentation(true);
+  slidenote.presentation.showpresentation(true); //create a new presentation
 }
 
 slidenoteGuardian.prototype.preparePresentationForFilesystem = function(presentationdiv){
@@ -1181,6 +1242,12 @@ slidenoteGuardian.prototype.loadCssFromRest = function(){
 
 }
 
+
+/* loadNote
+loads the slidenote from destination
+@param destination: from where to load (cms, local)
+@param dontinsert: if we load it just for preview dont insert it into textarea
+*/
 slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
     //loads Note from cmsArea or from local destination
     //destination is "cms" or "local"
@@ -1340,6 +1407,10 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
       },3100);
     }
 };
+
+/* startEditorAnimation
+shows the animation after loading is finished:
+*/
 slidenoteGuardian.prototype.startEditorAnimation = function(){
   var loadingscreen = document.getElementById("slidenoteloadingscreenwrapper");
   var slidenotediv = document.getElementById("slidenotediv");
@@ -1360,6 +1431,10 @@ slidenoteGuardian.prototype.startEditorAnimation = function(){
     },3000);
   }
 };
+
+/* saveNote
+saves the slidenote to destination (local, cms)
+*/
 slidenoteGuardian.prototype.saveNote = async function(destination){
   var restObject = this.restObject;
   if(!this.initialised)return;
