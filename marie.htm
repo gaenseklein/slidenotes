@@ -4,9 +4,12 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <title>Slidenote-Editor</title>
+<!--<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />-->
 <link rel="stylesheet" href="marie.css">
 <link rel="stylesheet" href="themes/slidenoteguardian.css">
 <link rel="stylesheet" href="themes/keyboardshortcuts.css">
+<link rel="stylesheet" href="slidenoteplayer.css">
 <script language="javascript" src="slidenotes.js"></script>
 <script language="javascript" src="themes/dialoger.js"></script>
 <script language="javascript" src="themes/slidenoteguardian.js"></script>
@@ -1158,10 +1161,34 @@ end test-data-->
 </div><!--end of slidenoteeditor-div-->
 	<div id="praesentationrahmen">
 		<div id="praesentation"></div>
-		<div class="praesentationsteuerung">
-				<input type="button" value="last page please" onclick="presentation.lastPage()">
-				<input type="button" value="next page please" onclick="presentation.nextPage()">
-				<input type="button" onclick="presentation.showpresentation()" value="hide presentation">
+		<div id="controlarea">
+        <button class="controllbutton controllbuttonleft" onclick="presentation.showpresentation()" title="hide presentation">
+          <span class="screenreader-only">hide presentation</span>
+          <img src="images/buttons/ctrlbuttonclose.png">
+      </button><button class="controllbutton controllbuttonleft" onclick="alert('not implemented yet')" title="enter preview mode">
+           <span class="screenreader-only">enter preview mode</span>
+          <img src="images/buttons/ctrlbuttonpreview.png">
+         </button>
+         <button  class="controllbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
+          <span class="screenreader-only">first page</span>
+          <img src="images/buttons/ctrlbuttonfirst.png">
+        </button><button class="controllbutton" onclick="presentation.lastPage()" title="page before">
+          <span class="screenreader-only">page before</span>
+          <img src="images/buttons/ctrlbuttonbefore.png">
+        </button><button class="controllbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
+          <span class="screenreader-only">next page</span>
+          <img src="images/buttons/ctrlbuttonnext.png">
+        </button><button class="controllbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
+          <span class="screenreader-only">last page</span>
+          <img src="images/buttons/ctrlbuttonlast.png">
+        </button><button class="controllbutton controllbuttonbottomhidearea" onclick="document.getElementById('controlarea').classList.add('hide')" title="hide controlarea">
+          <span class="screenreader-only">hide controlarea</span>
+          <img src="images/buttons/ctrlbuttonhidearea.png">
+        </button>
+        <button class="controllbutton controllbuttonbubble" onclick="document.getElementById('controlarea').classList.remove('hide')" title="show controlarea">
+          <span class="screenreader-only">show controlarea</span>
+          <img src="images/buttons/ctrlbuttonbubble.png">
+        </button>
 		</div>
 	</div>
 

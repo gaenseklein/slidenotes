@@ -2162,11 +2162,7 @@ button#importbutton .importpng {
 	overflow: auto;
 	left:0;
 }
-#praesentationrahmen.fullscreen .praesentationsteuerung{
-	position: fixed;
-	bottom:0;
-	z-index: 1001;
-}
+
 /*options-menü*/
 #options {
     position: absolute;
