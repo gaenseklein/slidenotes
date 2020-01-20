@@ -1,3 +1,12 @@
+/*screenreader-texts:*/
+.screenreader-only {
+    height: 0;
+    width:0;
+    overflow: hidden;
+    display:block;
+}
+
+
 .ppage{
   display:none;
 }
@@ -8,27 +17,72 @@
 #controlarea{
   position:fixed;
   left:0;
-  bottom:0;
+  bottom:-3px;
   z-index: 1001;
 }
 
-.controllbutton.controllbuttonleft {
+.controlbutton.controlbuttonleft {
     display: block;
     margin-bottom: 2vh;
 }
 
-.controllbutton {
+.controlbutton {
     margin: 0;
     padding: 0;
     border: none;
     background: none;
 }
-.hide .controllbutton{
+.controlbutton img{
+  height: auto;
+}
+.hide .controlbutton{
   display:none;
 }
-.controllbuttonbubble{
+.controlbuttonbubble{
   display:none;
 }
-.hide .controllbutton.controllbuttonbubble{
+.hide .controlbutton.controlbuttonbubble{
   display:block;
+}
+
+
+/*preview-selection:*/
+#previewselector {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1001;
+    color: #f0f0f0;
+    background: #323232;
+    width: 100%;
+    text-align: center;
+    padding-bottom:2em;
+    display:none;
+}
+
+.previewmode #previewselector{
+  display:block;
+}
+.previewmode {
+    background: #323232;
+    position: fixed;
+    /* z-index: 900; */
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+}
+
+.previewmode #praesentation {
+  margin: 10%;
+  width: 80%;
+  height: 80%;
+}
+
+.previewmode #praesentation.preview-ipad{
+  margin:0;
+  width:50vw;
+  height:80vh;
+  left:35vw;
+  top:15vh;
 }

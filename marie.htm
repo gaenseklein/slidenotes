@@ -19,6 +19,7 @@ var slidenote;
 
 //some test-things:
 function testinit(){
+  setTimeout('initeditor()',100);
   return;
     slidenoteguardian.loadedSlidenotes = [{title:"new note",url:"/home/mochilera/Dokumente/jkop/design/marie/editor/marie.htm"},
     {title:"test",url:"dev.slidenotes.io/slidenote/3"},
@@ -612,7 +613,13 @@ function initeditor(){
     			texted.oncut=function(){setTimeout('slidenote.parseneu()',150)};
     			//autofocus tonfocus="initeditor(this.value);
     			texted.onscroll=function(){slidenote.scroll(texted);};
-    			texted.onclick = function(){console.log("parseneu forced by click"+this.selectionEnd);slidenote.parseneu();};
+    			texted.onclick = function(){
+            setTimeout(''+
+            'console.log("parseneu forced by click"+ slidenote.textarea.selectionEnd);'+
+            'console.log("click on:"+slidenote.textarea.selectionStart + "/"+slidenote.textarea.selectionEnd);'+
+            'slidenote.parseneu();'
+           ,1);
+          };
     			texted.addEventListener("focus",function(){
     				var carret = document.getElementById("carret");
     				if(carret)carret.classList.remove("unfocused");
@@ -1160,32 +1167,44 @@ end test-data-->
     </div>
 </div><!--end of slidenoteeditor-div-->
 	<div id="praesentationrahmen">
+    <div id="previewselector">
+      <h1>how does my presentation look like on...</h1>
+      <span id="previewdimension">1920x1080px</span>
+      <select id="previewselection" onclick="presentation.setPreviewStyle(this.value)">
+        <option value="fullhd">wide screen monitors (fullHD)</option>
+        <option value="widescreen">wide screen monitors (HD)</option>
+        <option value="beamer">old beamer</option>
+        <option value="ipad">iPad</option>
+        <option value="iphone">iPhoneX</option>
+        <option value="galaxy">Galaxy S9</option>
+      </select>
+    </div>
 		<div id="praesentation"></div>
 		<div id="controlarea">
-        <button class="controllbutton controllbuttonleft" onclick="presentation.showpresentation()" title="hide presentation">
+        <button class="controlbutton controlbuttonleft" onclick="presentation.showpresentation()" title="hide presentation">
           <span class="screenreader-only">hide presentation</span>
           <img src="images/buttons/ctrlbuttonclose.png">
-      </button><button class="controllbutton controllbuttonleft" onclick="alert('not implemented yet')" title="enter preview mode">
+      </button><button class="controlbutton controlbuttonleft" onclick="presentation.enterPreviewMode();" title="enter preview mode">
            <span class="screenreader-only">enter preview mode</span>
           <img src="images/buttons/ctrlbuttonpreview.png">
          </button>
-         <button  class="controllbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
+         <button  class="controlbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
           <span class="screenreader-only">first page</span>
           <img src="images/buttons/ctrlbuttonfirst.png">
-        </button><button class="controllbutton" onclick="presentation.lastPage()" title="page before">
+        </button><button class="controlbutton" onclick="presentation.lastPage()" title="page before">
           <span class="screenreader-only">page before</span>
           <img src="images/buttons/ctrlbuttonbefore.png">
-        </button><button class="controllbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
+        </button><button class="controlbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
           <span class="screenreader-only">next page</span>
           <img src="images/buttons/ctrlbuttonnext.png">
-        </button><button class="controllbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
+        </button><button class="controlbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
           <span class="screenreader-only">last page</span>
           <img src="images/buttons/ctrlbuttonlast.png">
-        </button><button class="controllbutton controllbuttonbottomhidearea" onclick="document.getElementById('controlarea').classList.add('hide')" title="hide controlarea">
+        </button><button class="controlbutton controlbuttonbottomhidearea" onclick="document.getElementById('controlarea').classList.add('hide')" title="hide controlarea">
           <span class="screenreader-only">hide controlarea</span>
           <img src="images/buttons/ctrlbuttonhidearea.png">
         </button>
-        <button class="controllbutton controllbuttonbubble" onclick="document.getElementById('controlarea').classList.remove('hide')" title="show controlarea">
+        <button class="controlbutton controlbuttonbubble" onclick="document.getElementById('controlarea').classList.remove('hide')" title="show controlarea">
           <span class="screenreader-only">show controlarea</span>
           <img src="images/buttons/ctrlbuttonbubble.png">
         </button>

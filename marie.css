@@ -2122,10 +2122,11 @@ button#importbutton .importpng {
 	left:0;
 	width:100vw;
 	height:100vh;
-	background:blue;
+	background:#323232;
 	color:white;
 	visibility:hidden;
 	z-index: -1;
+  text-align: center;
 }
 #slidenoteLoadingScreen.active{
 	visibility:visible;

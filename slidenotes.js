@@ -3262,6 +3262,34 @@ pagegenerator.prototype.showpresentation = function(forExport){
 	}
 }
 
+//sets the presentation to selected previewmode
+pagegenerator.prototype.setPreviewStyle = function(mode){
+		var pres = document.getElementById("praesentation");
+		var dim = document.getElementById("previewdimension");
+		var previewmodes = [
+			{id:"fullhd",dimension:"1920x1080px"},
+			{id:"widescreen",dimension:"1440x720px"},
+			{id:"beamer",dimension:"1024x768px"},
+			{id:"ipad",dimension:"unknown"},
+			{id:"iphone",dimension:"unknown"},
+			{id:"galaxy",dimension:"unknown"},
+		];
+		for(var x=0;x<previewmodes.length;x++){
+			pres.classList.remove("preview-"+previewmodes[x].id);
+			if(previewmodes[x].id===mode){
+				pres.classList.add("preview-"+mode);
+				dim.innerText = previewmodes[x].dimension;
+			}
+		}
+}
+
+pagegenerator.prototype.enterPreviewMode = function(){
+	var presselect = document.getElementById("previewselection");
+	this.setPreviewStyle(presselect.value);
+	var preswrapper = document.getElementById("praesentationrahmen");
+	preswrapper.classList.toggle("previewmode");
+}
+
 /* Theme-Objekt
  * Das Theme-Objekt ist die Hauptschnittstelle um Themes einzuspielen. Durch ein Plug-In ähnliches System können so zusätzliche
  * HTML-Tags und CSS-Klassen an die Präsentation gebracht werden.
