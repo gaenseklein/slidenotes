@@ -14,14 +14,194 @@
   display:block;
 }
 
+/* presentation interface */
+/* ====================== */
+
+/* variables */
+/* --------- */
+
+:root {
+  --piw: 439.4;/*513;*/ /*438*/
+  --piw2: 464.4;
+}
+
+/* general */
+/* ------- */
+
 #controlarea{
-  position:fixed;
-  left:0;
-  bottom:-3px;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  bottom: -0.1vw/*-0.75%*/;
+  width: 33vw/*%*/;
+  height: 5.84vw/*auto*/; /* width/562*99.38 */
+  position: fixed;
   z-index: 1001;
 }
 
-.controlbutton.controlbuttonleft {
+/* interface interaction */
+/* --------------------- */
+
+/* buttons general */
+#controlarea button, #controlarea a{
+  position: absolute;
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin:0;
+  padding:0;
+  overflow: visible;
+
+  visibility: visible;
+  opacity: 1;
+  transition-duration: 0.3s;
+  transition-property: opacity, visibility;
+  transition-delay: 0.22s;
+  animation-name: appear;
+  animation-duration: 0.52s;  
+}
+#controlarea button img, #controlarea a img{
+  width: 100%;
+  /*position: absolute;*/
+}
+
+#controlarea.clicked button, #controlarea.clicked a{
+  visibility: hidden;
+  opacity: 0;
+  transition-delay: 0s;
+  transition-duration: 0.05s;
+}
+
+@keyframes appear{
+  0%  {opacity: 0}
+  44% {opacity: 0}
+  100%{opacity: 1}
+}
+
+/* open menu */
+#controlarea #controlarea_open-menu{
+  visibility: hidden;
+  left: 0;
+  bottom: 0;
+  width: 19%;
+  height: 100%;
+}
+#controlarea.clicked #controlarea_open-menu{
+  visibility: visible;
+}
+#controlarea_open-menu div{
+  left: 0;
+  position: absolute;
+}
+#controlarea_open-menu_rect1{
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+}
+#controlarea_open-menu_rect2{
+  bottom: 100%;
+  width: 40%;
+  height: 93%;
+}
+
+/* back in */
+#controlarea_back-in{
+  left: 81%;
+  bottom: 42%;
+  width: 8%;
+  height: calc(8/5.84*33%);   
+}
+
+/* first slide */
+#controlarea_first-slide{
+  left: calc(20.9/var(--piw2)*100%); /* 20.9/513*100 */
+  bottom: calc(0/var(--piw2)*100/5.84*33%); /* 0/513*100 */
+  width: calc(45.6/var(--piw2)*100%); /* 45.6/513*100 */
+  height: calc(45.6/var(--piw2)*100/5.84*33%); /* 45.6/513*100 */
+}
+/* previous slide */
+#controlarea_previous-slide{
+  left: calc(84.3/var(--piw2)*100%); 
+  bottom: calc(0/var(--piw2)*100/5.84*33%); 
+  width: calc(45.6/var(--piw2)*100%);
+  height: calc(45.6/var(--piw2)*100/5.84*33%);
+}
+/* next slide */
+#controlarea_next-slide{
+  left: calc(197.9/var(--piw2)*100%); 
+  bottom: calc(0/var(--piw2)*100/5.84*33%); 
+  width: calc(45.6/var(--piw2)*100%);
+  height: calc(45.6/var(--piw2)*100/5.84*33%);
+}
+/* last slide */
+#controlarea_last-slide{
+  left: calc(262.2/var(--piw2)*100%); 
+  bottom: calc(0/var(--piw2)*100/5.84*33%); 
+  width: calc(45.6/var(--piw2)*100%);
+  height: calc(45.6/var(--piw2)*100/5.84*33%);
+}
+
+/*preview-screen*/
+#controlarea #controlarea_preview-screen{
+  left: calc(6.2/var(--piw)*100%); 
+  bottom: calc(78.3/var(--piw)*100/5.84*33%); 
+  width: calc(55.7/var(--piw)*100%);
+  height: calc(55.7/var(--piw)*100/5.84*33%);
+  /*transition-delay: 1s;*/
+  
+}
+/*back-to-editor*/
+#controlarea #controlarea_back-to-editor{
+  left: calc(6.2/var(--piw)*100%); 
+  bottom: calc(153.6/var(--piw)*100/5.84*33%); 
+  width: calc(55.7/var(--piw)*100%);
+  height: calc(55.7/var(--piw)*100/5.84*33%);
+  /*transition-delay: 1s;*/
+  
+}
+
+/* animated backgrounds */
+/* -------------------- */
+
+#controlarea_open{
+  position: absolute;
+  visibility: visible;
+  /*pointer-events: none;*/
+}
+#controlarea_close{
+  position: absolute;
+  visibility: hidden;
+  pointer-events: none;
+}
+#controlarea-vertical_open{
+  position: absolute;
+  visibility: visible;
+  width: calc(61.9/var(--piw)*100%);
+  bottom: 0;
+}
+#controlarea-vertical_close{
+  position: absolute;
+  visibility: hidden;
+  width: calc(61.9/var(--piw)*100%);
+  bottom: 0;
+}
+
+#controlarea.clicked #controlarea_close{
+  visibility: visible;
+}
+#controlarea.clicked #controlarea_open{
+  visibility: hidden;
+}
+#controlarea.clicked #controlarea-vertical_close{
+  visibility: visible;
+}
+#controlarea.clicked #controlarea-vertical_open{
+  visibility: hidden;
+}
+
+/*===========================*/
+
+/*.controlbutton.controlbuttonleft {
     display: block;
     margin-bottom: 2vh;
 }
@@ -43,7 +223,7 @@
 }
 .hide .controlbutton.controlbuttonbubble{
   display:block;
-}
+}*/
 
 
 /*preview-selection:*/
