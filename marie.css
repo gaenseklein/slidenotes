@@ -24,12 +24,23 @@ a[href], input[type='submit'], input[type='image'], label[for], select, button, 
 }
 
 @font-face {
-    font-family: "robotoMono";
-    src: url("fonts/RobotoMono-Regular.ttf");
+    font-family: "ubuntuMonoReg";
+    src: url("fonts/UbuntuMono-Regular.ttf");
+}
+
+@font-face {
+    font-family: "ubuntuMonoBold";
+    src: url("fonts/UbuntuMono-Bold.ttf");
+}
+
+@font-face {
+    font-family: "ubuntuMonoItalic";
+    src: url("fonts/UbuntuMono-Italic.ttf");
 }
 
 body{
     font-family: "rubikReg", sans-serif;
+    font-weight: normal;
 }
 
 /*arrow-box-class:*/
@@ -1629,7 +1640,7 @@ div#nicesidebarsymbol.out #nicesidebarsymbolcontainer {
 }
 
 #texteditorerrorlayer, #quelltext {
-    font-family: "robotoMono", monospace;
+    font-family: "ubuntuMonoReg", monospace;
 	font-size: 1em;
 	position:absolute;
 	border: 1px solid transparent;
@@ -1701,7 +1712,7 @@ div#nicesidebarsymbol.out #nicesidebarsymbolcontainer {
 }
 .backgroundline.h1{
 	color:blue;
-	font-weight: bold;
+	font-family: 'ubuntuMonoBold';
 }
 .backgroundline.h2{
 	color:blue;
@@ -1756,7 +1767,7 @@ div#nicesidebarsymbol.out #nicesidebarsymbolcontainer {
 }
 .backgroundline .imagetag{
 	color:blue;
-	font-weight:bold;
+	font-family: 'ubuntuMonoBold';
 	background:lightblue;
 }
 .backgroundline .imagesrc, .backgroundline .imagealt{
