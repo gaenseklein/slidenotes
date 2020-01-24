@@ -37,10 +37,10 @@ slidenoteSpeaker.readLine = function(linenr){
 
 slidenoteSpeaker.readPage = function(pagenr){
   var nr = pagenr;
-  if(!nr>0)nr=slidenote.parser.map.pageAtPosition(slidenote.textarea.selectionEnd);
+  if(!nr+1>0)nr=slidenote.parser.map.pageAtPosition(slidenote.textarea.selectionEnd);
   console.log("speaker:read Page "+nr);
   if(nr<slidenote.parser.map.pagesCode.length)
-        var pageText = "Slide Number "+nr+":";
+        var pageText = "Slide Number "+(nr+1)+":";
         pageText+=slidenote.parser.map.pagesCode[nr];
         this.say(pageText);
 }
@@ -56,7 +56,10 @@ slidenoteSpeaker.readElement = function(mdelement){
   }
   if(elem.dataobject){
     textToSpeak = "Sectionblock Type "+elem.dataobject.type;
-    textToSpeak+= ". Head " + elem.dataobject.head.substring(4+elem.dataobject.type.length);
+    let headtext = elem.dataobject.head.substring(4+elem.dataobject.type.length);
+    if(headtext.length>0)textToSpeak+= " with head "+headtext;
+    //textToSpeak+= " line 1: " + elem.dataobject.raw.join(". line 2:");
+    for(let hx=0;hx<elem.dataobject.raw.length;hx++)textToSpeak+="line "+(hx+1)+". "+elem.dataobject.raw[hx];
   }else{
     //other objects like title
   }
