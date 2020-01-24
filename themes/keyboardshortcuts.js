@@ -607,6 +607,7 @@ keyboardshortcuts.init = function(){
             slidenote.textarea.click();
       }));
     }
+    //extra, because escape in menusearchbox has own function:
     this.shortcutByName("arrownavigate menusearchbox escape").activate = function(e){
       slidenote.textarea.focus();
       document.getElementById("menusearchbox").classList.remove("active");
@@ -656,9 +657,32 @@ keyboardshortcuts.init = function(){
           }
         }
       }
-
-
+    })); //end of letter-navigation in toolbar
+    //presentation-keyboard-navigation:
+    this.addShortcut(new this.shortcut("presentation keyboard navigation",
+      "global",
+      {multipleChoiceKeys:["ArrowLeft","ArrowRight","Escape","Enter","0","1","2","3","4","5","6","7","8","9"],
+      metakey:false},
+        function(e){
+      var key=e.key;
+      if(!fullscreen)return;
+      if(key==="Escape")slidenote.presentation.showpresentation();
+      if(key==="ArrowRight" || key===" ")presentation.nextPage();
+      if(key==="ArrowLeft")presentation.lastPage();
+      //preparing slide-by-number-jump:
+      if(key==="0" ||key==="1" ||key==="2" ||key==="3" ||key==="4" ||key==="5" ||key==="6" ||key==="7" ||key==="8" ||key==="9" ){
+        if(presentation.lastpressednrkey==undefined)presentation.lastpressednrkey="";
+        presentation.lastpressednrkey+=key;
+      }
+      //executing slide-by-number-jump:
+      if(key==="Enter"){
+        presentation.lastpressednrkey--;
+        console.log(presentation.lastpressednrkey);
+        presentation.showPage(presentation.lastpressednrkey);
+        presentation.lastpressednrkey="";
+      }
     }));
+
     //build options-Menu:
     this.buildOptionsMenu();
     //garbage-cleaning for pressedkeys:
@@ -821,8 +845,14 @@ keyboardshortcuts.closeAutomagic = function(event){
 
 keyboardshortcuts.attachShortcuts = function(){
     window.addEventListener("keydown",function(e){slidenote.keyboardshortcuts.pressKey(e);slidenote.keyboardshortcuts.reactOn(e,"globals");});
-    slidenote.textarea.addEventListener("keydown",function(e){slidenote.keyboardshortcuts.pressKey(e);slidenote.keyboardshortcuts.reactOn(e,"globals");slidenote.keyboardshortcuts.reactOn(e, "textarea");});
-    slidenote.textarea.addEventListener("keypress",function(e){slidenote.keyboardshortcuts.preventDefaultOnKeypress(e, "textarea");});
+    slidenote.textarea.addEventListener("keydown",function(e){
+      slidenote.keyboardshortcuts.pressKey(e);
+      slidenote.keyboardshortcuts.reactOn(e,"globals");
+      slidenote.keyboardshortcuts.reactOn(e, "textarea");
+    });
+    slidenote.textarea.addEventListener("keypress",function(e){
+      slidenote.keyboardshortcuts.preventDefaultOnKeypress(e, "textarea");
+    });
     //document.getElementById("slidenoteeditor").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"globals")});
     document.getElementById("insertarea").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e, "insertmenu");console.log("shortcut insmenu");console.log(e);});
     //document.getElementById("texteditorbuttons").addEventListener("keyup",function(e){slidenote.keyboardshortcuts.reactOn(e,"toolbar");console.log("shortcut toolbar");console.log(e);});
