@@ -728,7 +728,7 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
   basicl.addEventListener("load",function(){
     if(this.status===200)slidenoteguardian.cssBlocksPerPlugin.push({plugin:"basic", css:this.response});
   })
-  basicl.open("GET", slidenote.basepath+"layout.css");
+  basicl.open("GET", slidenote.basepath+"marie.css");
   basicl.send();
   var basepath = slidenote.basepath+"themes/"
   var themes = slidenote.extensions.themeCssString.split(";");//slidenote.extensions.themes;
