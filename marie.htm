@@ -1192,7 +1192,7 @@ end test-data-->
 
           <!-- blob in -->
           <path d="M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z" style="fill:url(#_Radial1);">
-            <animate id="animate-to-close_blob1" begin="indefinite" dur="0.2s" attributeName="d" 
+            <animate class="animateToClose" id="animate-to-close_blob1" begin="indefinite" dur="0.2s" attributeName="d"
               values="
               M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;
 
@@ -1208,7 +1208,7 @@ end test-data-->
 
           <!-- main -->
           <path d="M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z" fill-rule="nonzero" style="fill:#1E1E1E; cursor: pointer;" filter="url(#presentation-interface_glow)">
-            <animate id="animate-to-close" begin="indefinite" dur="0.4s" attributeName="d" 
+            <animate class="animateToClose" id="animate-to-close" begin="indefinite" dur="0.4s" attributeName="d"
               values="
               M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;
 
@@ -1220,13 +1220,13 @@ end test-data-->
               calcMode="spline"
               keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
             </animate>
-            <animate id="animate-to-close_color" begin="indefinite" dur="0.4s" fill="freeze" attributeName="fill" to="#BEBEBE">
+            <animate class="animateToClose" id="animate-to-close_color" begin="indefinite" dur="0.4s" fill="freeze" attributeName="fill" to="#BEBEBE">
             </animate>
           </path>
 
           <!-- shine -->
           <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16; pointer-events: none;">
-            <animate id="animate-to-close_shine1" begin="indefinite" dur="0.4s" attributeName="d" 
+            <animate class="animateToClose" id="animate-to-close_shine1" begin="indefinite" dur="0.4s" attributeName="d"
               values="
               M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;
 
@@ -1241,7 +1241,7 @@ end test-data-->
           </path>
 
           <path d="M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z" style="fill:#fff;fill-opacity:0.24; pointer-events: none;">
-            <animate id="animate-to-close_shine2" begin="indefinite" dur="0.4s" attributeName="d" 
+            <animate class="animateToClose" id="animate-to-close_shine2" begin="indefinite" dur="0.4s" attributeName="d"
               values="
               M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;
 
@@ -1261,7 +1261,7 @@ end test-data-->
 
           <!-- blob out -->
           <path d="M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z" style="fill:url(#_Radial1); cursor: pointer;" filter="url(#presentation-interface_glow)">
-            <animate id="animate-to-open_blob1" begin="0s" dur="0.42s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open_blob1" begin="0s" dur="0.42s" attributeName="d"
               values="
               M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z;
 
@@ -1276,7 +1276,7 @@ end test-data-->
           </path>
 
           <path d="M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z" style="fill:#fff;fill-opacity:0.08;pointer-events: none;">
-            <animate id="animate-to-open_blob1-shine" begin="0s" dur="0.42s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open_blob1-shine" begin="0s" dur="0.42s" attributeName="d"
               values="
               M12.049,58.232c2.583,0.948 9.326,5.269 8.138,8.335c-1.188,3.066 -7.423,-2.295 -10.107,-3.262c-4.964,-1.788 -11.622,-2.021 -10.994,-3.802c1.092,-3.101 9.75,-2.45 12.963,-1.271Z;
 
@@ -1288,12 +1288,12 @@ end test-data-->
               calcMode="spline"
               keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
             </animate>
-          </path> 
+          </path>
 
 
           <!-- main -->
           <path d="M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z" fill-rule="nonzero" style="fill:#BEBEBE;" filter="url(#presentation-interface_glow)">
-            <animate id="animate-to-open" begin="0s" dur="0.4s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open" begin="0s" dur="0.4s" attributeName="d"
               values="
               M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;
 
@@ -1305,13 +1305,13 @@ end test-data-->
               calcMode="spline"
               keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
             </animate>
-            <animate id="animate-to-open_color" begin="0s" dur="0.4s" fill="freeze" attributeName="fill" to="#1E1E1E">
+            <animate class="animateToOpen" id="animate-to-open_color" begin="0s" dur="0.4s" fill="freeze" attributeName="fill" to="#1E1E1E">
             </animate>
           </path>
 
           <!-- shine -->
           <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16;">
-            <animate id="animate-to-open_shine1" begin="0s" dur="0.4s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open_shine1" begin="0s" dur="0.4s" attributeName="d"
               values="
               M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;
 
@@ -1326,7 +1326,7 @@ end test-data-->
           </path>
 
           <path d="M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z" style="fill:#fff;fill-opacity:0.24;">
-            <animate id="animate-to-open_shine2" begin="0s" dur="0.4s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open_shine2" begin="0s" dur="0.4s" attributeName="d"
               values="
               M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;
 
@@ -1365,7 +1365,7 @@ end test-data-->
         <!-- vertical blobs close -->
         <svg id="controlarea-vertical_close" viewBox="0 0 47 158" style="background-color: none">
           <path d="M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob1);">
-            <animate id="animate-to-close_vertical-blob1" begin="0.5s" dur="0.2s" attributeName="d" 
+            <animate class="animateToClose" id="animate-to-close_vertical-blob1" begin="0.5s" dur="0.2s" attributeName="d"
               values="
               M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;
 
@@ -1387,7 +1387,7 @@ end test-data-->
           </defs>
 
           <path d="M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob2);">
-            <animate id="animate-to-close_vertical-blob2" begin="0.5s" dur="0.2s" attributeName="d" 
+            <animate class="animateToClose" id="animate-to-close_vertical-blob2" begin="0.5s" dur="0.2s" attributeName="d"
               values="
             M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;
 
@@ -1412,7 +1412,7 @@ end test-data-->
         <!-- vertical blobs open -->
         <svg id="controlarea-vertical_open" viewBox="0 0 47 158">
           <path d="M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z" style="fill:url(#_gradient-vertical-blob1);">
-            <animate id="animate-to-open_vertical-blob1" begin="0" dur="0.2s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open_vertical-blob1" begin="0" dur="0.2s" attributeName="d"
               values="
               M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;
 
@@ -1434,7 +1434,7 @@ end test-data-->
           </defs>
 
           <path d="M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z" style="fill:url(#_gradient-vertical-blob2);">
-            <animate id="animate-to-open_vertical-blob2" begin="0" dur="0.2s" attributeName="d" 
+            <animate class="animateToOpen" id="animate-to-open_vertical-blob2" begin="0" dur="0.2s" attributeName="d"
               values="
               M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;
 
@@ -1460,14 +1460,14 @@ end test-data-->
         <!-- --------------------- -->
 
         <!-- open-menu -->
-        <button id="controlarea_open-menu" class="controlbutton controlbuttonbubble" onclick="//document.getElementById('controlarea').classList.remove('hide')" title="show controlarea">
+        <button id="controlarea_open-menu" class="controlbutton controlbuttonbubble" onclick="slidenote.presentation.animatePresentationControl(true)" title="show controlarea">
           <span class="screenreader-only">show controlarea</span>
           <div id="controlarea_open-menu_rect1"></div>
           <div id="controlarea_open-menu_rect2"></div>
           <!-- <img src="images/buttons/ctrlbuttonbubble.png"> -->
         </button>
         <!-- back-in -->
-        <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="//document.getElementById('controlarea').classList.add('hide')" title="hide controlarea">
+        <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="slidenote.presentation.animatePresentationControl(false)" title="hide controlarea">
           <span class="screenreader-only">hide controlarea</span>
           <img src="images/buttons/ctrlbuttonhidearea.png">
         </button>
@@ -1504,126 +1504,8 @@ end test-data-->
         <button id="controlarea_back-to-editor" class="controlbutton controlbuttonleft" onclick="presentation.showpresentation()" title="hide presentation">
           <span class="screenreader-only">hide presentation</span>
           <img src="images/buttons/ctrlbuttonclose.png">
-        </button>        
+        </button>
 		</div>
-    <script>"use strict";
-      // presentation interface script
-      // =============================
-
-      //  The purpose of this script is to enable the toggling – show and hide
-      //  – of the control area by the buttons `controlarea_open-menu` and 
-      //  `controlarea_back-in`. To do so the SVG animate objects doing the 
-      //  toggling animation are made tangible by accessing them with 
-      //  `getElementById`. 
-
-      //  This script is currently (21.01.2020) placed in a script tag within 
-      //  the `praesentationrahmen` div. Maybe it should be placed in a .js 
-      //  file somewhere in the future.
-
-      var PI_id, PI_o;
-      window.onload = function (){
-
-        // variables
-        // ---------
-
-        //  variable and indices prefixes:
-        //
-        //  - for presentation interface: "PI_"
-        //  - for SMIL animations: "anim"
-        //  - for buttons: "B_"
-
-        //  HTML object ids to be set as variables. Every PI_id[i] for each i 
-        //  is an array with the HTML-id in first position (PI_id[i][0]) and 
-        //  the array property name in second position (PI_id[i][1]). Optional
-        //  third position is the function to be executed after a click event 
-        //  of the HTML object.
-
-        PI_id = [
-          ["controlarea", "interface"],
-          ["nichtExistierendeID", "lala"],
-          ["animate-to-open", "animToOpen"],
-          ["animate-to-open_color", "animToOpenColor"],
-          ["animate-to-open_shine1", "animToOpenShine1"],
-          ["animate-to-open_shine2", "animToOpenShine2"],
-          ["animate-to-open_blob1", "animToOpenBlob1"],
-          ["animate-to-open_blob1-shine", "animToOpenBlob1shine"],
-          ["animate-to-close", "animToClose"],
-          ["animate-to-close_color", "animToCloseColor"],
-          ["animate-to-close_shine1", "animToCloseShine1"],
-          ["animate-to-close_shine2", "animToCloseShine2"],
-          ["animate-to-close_blob1", "animToCloseBlob1"],
-          ["controlarea_open-menu", "B_forwardOut", function() {
-              if (PI_o.interface.classList.contains("clicked")) {
-                PI_o.interface.classList.remove("clicked");
-
-                PI_o.animToOpen.beginElement();
-                PI_o.animToOpenColor.beginElement();
-                PI_o.animToOpenShine1.beginElement();
-                PI_o.animToOpenShine2.beginElement();
-                PI_o.animToOpenBlob1.beginElement();
-                PI_o.animToOpenBlob1shine.beginElement();
-
-                PI_o.animToOpenVerticalBlob1.beginElement();
-                PI_o.animToOpenVerticalBlob2.beginElement();
-              }
-          }],
-          ["controlarea_back-in", "B_backIn", function (){
-            if (PI_o.interface.classList.contains("clicked") == false) {
-                PI_o.interface.classList.add("clicked");
-
-                PI_o.animToClose.beginElement();
-                PI_o.animToCloseColor.beginElement();
-                PI_o.animToCloseShine1.beginElement();
-                PI_o.animToCloseShine2.beginElement();
-                PI_o.animToCloseBlob1.beginElement();
-
-                PI_o.animToCloseVerticalBlob1.beginElement();
-                PI_o.animToCloseVerticalBlob2.beginElement();
-            }
-          }],
-          ["animate-to-close_vertical-blob1", "animToCloseVerticalBlob1"],
-          ["animate-to-close_vertical-blob2", "animToCloseVerticalBlob2"],
-          ["animate-to-open_vertical-blob1", "animToOpenVerticalBlob1"],
-          ["animate-to-open_vertical-blob2", "animToOpenVerticalBlob2"]
-        ]
-
-        // HTML object. Every Object has a name instead of an index:
-
-        //    PI_o["example"] = document.getElementById("presentation-
-        //    interface_example");
-
-        // Objects can be accessed with other notation aswell:
-
-        //    PI_o.example == PI_o["example"]; // true
-
-        PI_o = {};
-
-        // Variable setting loop
-        // ---------------------
-
-        // This loop sets the properties of object PI_o to the existing HTML
-        // objects of the IDs set in PI_id. Adds click event listener to them 
-        // if a function is added in PI_id. 
-
-        for (var i = 0; i < PI_id.length; i++) {
-          var testObject = document.getElementById(PI_id[i][0]);
-          // If an object of the ID PI_id[i][0] exists:
-          if(typeof testObject !== "undefined" && testObject !== null){
-            // set property of PI_o with name PI_id[i][1] to the existing 
-            // object:
-            PI_o[PI_id[i][1]] = testObject;
-            // If a click function exists:
-            if (typeof PI_id[i][2] !== "undefined"){
-              // Give the object an event listener with the click 
-              // function:
-              PI_o[PI_id[i][1]].addEventListener('click', PI_id[i][2])
-            }
-          }
-        }
-
-      }
-
-    </script>
 	</div>
 
 	<div id="options">

@@ -2863,9 +2863,11 @@ pagegenerator.prototype.afterStyle = function(){
 		setTimeout(function(){
 		var loadingscreen = document.getElementById("slidenoteLoadingScreen");
 			loadingscreen.classList.remove("active");
+			slidenote.presentation.animatePresentationControl(true);
 		},2000-calctime);
 	}else{
 		loadingscreen.classList.remove("active");
+		slidenote.presentation.animatePresentationControl(true);
 	}
 	if(this.forExport)slidenoteguardian.exportIsReady(this.presentation);
 
@@ -3224,7 +3226,7 @@ pagegenerator.prototype.showpresentation = function(forExport){
 		}
 		this.showPage(showpagenr);
 		praesesrahmen.classList.add("fullscreen");
-		praesesrahmen.tabIndex=1; //make it tabable to get keystrokes
+		praesesrahmen.tabIndex=-1; //make it tabable to get keystrokes
 		praesesrahmen.focus(); //focus it to get keystrokes
 		//document.getElementById("praesentation").focus();
 		//praesesrahmen.style.height = document.height;
@@ -3288,6 +3290,20 @@ pagegenerator.prototype.enterPreviewMode = function(){
 	this.setPreviewStyle(presselect.value);
 	var preswrapper = document.getElementById("praesentationrahmen");
 	preswrapper.classList.toggle("previewmode");
+}
+
+pagegenerator.prototype.animatePresentationControl = function(toOpen){
+	var animations;
+	if(toOpen){
+		document.getElementById("controlarea").classList.remove("closed");
+		animations = document.getElementsByClassName("animateToOpen");
+	}else{
+		document.getElementById("controlarea").classList.add("closed");
+		animations = document.getElementsByClassName("animateToClose");
+	}
+	for(var i=0;i<animations.length;i++){
+		animations[i].beginElement();
+	}
 }
 
 /* Theme-Objekt
