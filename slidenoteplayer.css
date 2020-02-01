@@ -142,7 +142,8 @@
 }
 
 /*preview-screen*/
-#controlarea #controlarea_preview-screen{
+#controlarea #controlarea_preview-screen,
+#controlarea #controlcomment{
   left: calc(6.2/var(--piw)*100%);
   bottom: calc(78.3/var(--piw)*100/5.84*33%);
   width: calc(55.7/var(--piw)*100%);

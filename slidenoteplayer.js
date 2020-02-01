@@ -55,18 +55,18 @@ slidenoteplayer.init = async function(){
 slidenoteplayer.initButtons = function(){
   this.controlbuttons.area = document.getElementById("controlarea");
   var cbs = this.controlbuttons.area.getElementsByClassName("controlbutton");
-  //lazy stile, maybe better to write it by hand with ids?
-  this.controlbuttons.backward = cbs[0];
-  this.controlbuttons.forward = cbs[1];
-  this.controlbuttons.firstpage = cbs[2];
-  this.controlbuttons.lastpage = cbs[3];
-  this.controlbuttons.gotopage = document.getElementById("controlgotobutton");
+  this.controlbuttons.backward = document.getElementById("controlarea_previous-slide");
+  this.controlbuttons.forward = document.getElementById("controlarea_next-slide")
+  this.controlbuttons.firstpage = document.getElementById("controlarea_first-slide")
+  this.controlbuttons.lastpage = document.getElementById("controlarea_last-slide")
   this.controlbuttons.pagenumber = document.getElementById("controlpagenumber");
   this.controlbuttons.pagenumbertotal = document.getElementById("controlpagenumbertotal");
   this.controlbuttons.commentbutton = document.getElementById("controlcomment");
   this.controlbuttons.commentcount = document.getElementById("controlcommentcount");
   this.controlbuttons.commenttotal = document.getElementById("controlcommenttotal");
 
+  /*
+  this.controlbuttons.gotopage = document.getElementById("controlgotobutton");
   //add values to gotopage:
   for(var x=1;x<=this.pages.length;x++){
     var opt = document.createElement("option");
@@ -74,16 +74,16 @@ slidenoteplayer.initButtons = function(){
     opt.innerHTML = "Go to Slide #"+x;
     this.controlbuttons.gotopage.appendChild(opt);
   }
-
+  */
   //add functioncalls to buttons:
   this.controlbuttons.backward.onclick = function(e){slidenoteplayer.lastPage()};
   this.controlbuttons.forward.onclick = function(e){slidenoteplayer.nextPage()};
   this.controlbuttons.firstpage.onclick = function(e){slidenoteplayer.gotoPage(0)};
   this.controlbuttons.lastpage.onclick=function(e){slidenoteplayer.gotoPage(slidenoteplayer.pages.length-1)};
-  this.controlbuttons.gotopage.onchange = function(e){slidenoteplayer.gotoPage(this.value)};
+  //this.controlbuttons.gotopage.onchange = function(e){slidenoteplayer.gotoPage(this.value)};
 
-  this.controlbuttons.pagenumber.innerHTML = "1";
-  this.controlbuttons.pagenumbertotal.innerHTML = this.pages.length;
+  //this.controlbuttons.pagenumber.innerHTML = "1";
+  //this.controlbuttons.pagenumbertotal.innerHTML = this.pages.length;
 
   this.controlbuttons.commentcount.innerHTML = this.commentCount();
   this.controlbuttons.commenttotal.innerHTML = document.getElementsByClassName("comment").length;
@@ -91,7 +91,7 @@ slidenoteplayer.initButtons = function(){
 
   this.formSaveButton = document.getElementById("edit-submit");
   this.commentSaveButton = document.createElement("button");
-  this.commentSaveButton.innerText = "Encrypt & Save";
+  this.commentSaveButton.innerText = "Encrypt & Send";
   this.commentSaveButton.onclick = function(){
 	var test = slidenoteguardian.encryptComment();
 	//if(test)this.formSaveButton.click();
@@ -112,12 +112,12 @@ slidenoteplayer.initButtons = function(){
   this.commentShowAllButton = document.createElement("button");
   this.commentShowAllButton.innerText = "show all";
   this.commentShowAllButton.onclick = function(){slidenoteplayer.showAllComments();};
-  commenttitle.appendChild(this.commentShowAllButton);  
+  commenttitle.appendChild(this.commentShowAllButton);
 }
 
 slidenoteplayer.initKeystrokes = function(){
   this.lastpressednrkey="";
-  this.controlbuttons.area.onkeyup = function(event){
+  window.onkeyup = function(event){
     var key=""+event.key;
     if(key==="ArrowRight" || key===" ")slidenoteplayer.nextPage();
     if(key==="ArrowLeft")slidenoteplayer.lastPage();
@@ -145,7 +145,7 @@ slidenoteplayer.gotoPage = function (pagenumber){
   this.actpage = pn;
   pn++;
   console.log(pn +" actpage:" +this.actpage);
-  this.controlbuttons.pagenumber.innerHTML = pn;
+  //this.controlbuttons.pagenumber.innerHTML = pn;
   this.controlbuttons.commentcount.innerHTML = this.commentCount(pn);
   if(this.commentblock === undefined)this.commentblock = document.getElementById("comments");
   if(this.commentblock.classList.contains("show"))this.showCommentsOfPage(pn);else this.hideAllComments();
@@ -181,7 +181,7 @@ slidenoteplayer.initComments = function(){
 		if(comments.perpage[cp]===undefined)comments.perpage[cp]=new Array();
 		comments.perpage[cp].push(actcom);
 	}
-	*/	
+	*/
   this.setCommentFormPagenr();
   this.decryptAllComments();
   this.gotoPage(this.actpage);
@@ -199,7 +199,7 @@ slidenoteplayer.decryptAllComments = async function(){
 	var remlist = document.getElementsByClassName("failedencryption");
 	for(var x=remlist.length-1;x>=0;x--)remlist[x].parentElement.removeChild(remlist[x]);
 	document.getElementById("controlcommenttotal").innerText=containerlist.length;
-	
+
 }
 
 slidenoteplayer.commentClick = function(e){
@@ -237,7 +237,7 @@ slidenoteplayer.showAllComments = function(){
 
 slidenoteplayer.hideAllComments = function(){
 	var clist = document.getElementsByClassName("comment");
-	for(var x=0;x<clist.length;x++)clist[x].classList.remove("show");	
+	for(var x=0;x<clist.length;x++)clist[x].classList.remove("show");
 }
 
 slidenoteplayer.commentCount = function(pagenr){
@@ -261,5 +261,3 @@ slidenoteplayer.showCommentForm = function(){
   commentformtitle.classList.add("show");
   this.commentSaveButton.classList.add("show");
 }
-
-
