@@ -665,7 +665,7 @@ keyboardshortcuts.init = function(){
       metakey:false},
         function(e){
       var key=e.key;
-      if(!fullscreen)return;
+      if(!fullscreen)return true;
       if(key==="Escape")slidenote.presentation.showpresentation();
       if(key==="ArrowRight" || key===" ")presentation.nextPage();
       if(key==="ArrowLeft")presentation.lastPage();
@@ -752,8 +752,8 @@ keyboardshortcuts.reactOn = function(e, element){
         var preventDefault=false;
         var list = this[element];
         for(var x=0;x<list.length;x++)if(list[x].active && this.shortcutFound(e,list[x])){
-            list[x].activate(e);
-            preventDefault=true;
+            var continuedefault = list[x].activate(e);
+            if(continuedefault != true)preventDefault=true;
         }
         if(preventDefault)e.preventDefault();
     }
@@ -844,7 +844,11 @@ keyboardshortcuts.closeAutomagic = function(event){
 }
 
 keyboardshortcuts.attachShortcuts = function(){
-    window.addEventListener("keydown",function(e){slidenote.keyboardshortcuts.pressKey(e);slidenote.keyboardshortcuts.reactOn(e,"globals");});
+    window.addEventListener("keydown",function(e){
+      slidenote.keyboardshortcuts.pressKey(e);
+      slidenote.keyboardshortcuts.reactOn(e,"globals");
+    });
+
     slidenote.textarea.addEventListener("keydown",function(e){
       slidenote.keyboardshortcuts.pressKey(e);
       slidenote.keyboardshortcuts.reactOn(e,"globals");
