@@ -3200,6 +3200,7 @@ pagegenerator.prototype.showpresentation = function(forExport){
 		document.location.hash = "editor";
 		//this.init();
 		loadingscreen.classList.add("active");
+		slidenote.presentation.animatePresentationControl(false);
 		fullscreen=true;
 		slidenote.parser.renderMapToPresentation();
 		//document.getElementById("praesentation").innerHMTL = "";
