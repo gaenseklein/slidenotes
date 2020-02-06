@@ -6,24 +6,62 @@
     display:block;
 }
 
+/* variables */
+/* --------- */
+
+:root {
+  /*for presentation interface*/
+  --piw: 439.4;/*513;*/ /*438*/
+  --piw2: 464.4;
+
+  /*for padding*/
+  --paddingPpage: 6.5vh 7.5vw 6vh 7.3vw;
+  --paddingPpageNeg: -6.5vh -7.5vw -6vh -7.3vw;
+}
+
+
+/* presentation main rules */
 
 .ppage{
   display:none;
+  box-sizing: border-box;
+  padding: var(--paddingPpage);
 }
 .ppage.active{
   display:block;
 }
 
+.ppage p{
+  max-width: 40em;
+}
+
+.ppage h1,
+.ppage h2,
+.ppage h3{
+  text-align: center;
+}
+
+.ppage section h1,
+.ppage section h2,
+.ppage section h3{
+  text-align: left;
+}
+
+.gridx1 div,
+.gridx1 p,
+.gridx2 div,
+.gridx2 p{
+  /*align-self:center;*/ 
+  justify-self:center;
+}
+
+
+
+
 /* presentation interface */
 /* ====================== */
 
-/* variables */
-/* --------- */
 
-:root {
-  --piw: 439.4;/*513;*/ /*438*/
-  --piw2: 464.4;
-}
 
 /* general */
 /* ------- */

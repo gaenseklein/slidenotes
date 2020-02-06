@@ -36,9 +36,13 @@
 
 /*background-images:*/
 img.bgimg {
-  object-fit: cover;
-  max-width:100vw;
-  max-height:100vh;
+  object-fit: cover; 
+}
+
+div > img.bgimg {
+  min-width:100vw;
+  min-height:100vh;
+  margin: var(--paddingPpageNeg);
 }
 
  .blocks section.left img.bgimg.griditem,
