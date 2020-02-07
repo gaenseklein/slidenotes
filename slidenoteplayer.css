@@ -6,6 +6,7 @@
     display:block;
 }
 
+
 /* variables */
 /* --------- */
 
@@ -62,7 +63,6 @@
 /* ====================== */
 
 
-
 /* general */
 /* ------- */
 
@@ -70,12 +70,29 @@
   margin: 0;
   padding: 0;
   left: 0;
-  bottom: -0.1vw/*-0.75%*/;
-  width: 33vw/*%*/;
-  height: 5.84vw/*auto*/; /* width/562*99.38 */
+  bottom: 0/*-0.75%*/;
+  width: 40vh/*%*/;
+  height: 7.07vh/*auto*/; /* width/562*99.38 */
   position: fixed;
   z-index: 1001;
 }
+
+/*breaking points controlarea*/
+/*tablet*/
+@media only screen and (max-width: 80vh){
+  #controlarea{
+    width: 40vw;
+    height: 7.07vw;
+  }
+}
+/*smartphone*/
+@media only screen and (max-width: 60vh){
+  #controlarea{
+    width: 95vw;
+    height: 16.8vw;
+  }
+}
+
 
 /* interface interaction */
 /* --------------------- */
