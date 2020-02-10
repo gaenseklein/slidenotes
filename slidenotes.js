@@ -605,6 +605,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 						this.perror[er].rowend>cursorposinline &&
 						(this.perror[er].errortext==="missing endsymbol **" ||
 					   this.perror[er].errortext==="missing endsymbol ***" ||
+						 this.perror[er].errortext==="missing endsymbol ]" ||
 						 this.perror[er].errortext==="missing endsymbol __")
 					)){
 				 changes.push({
@@ -2395,7 +2396,9 @@ emdparser.prototype.parseMap = function(){
     				}else{
     					error= "footnote-anchor not ready yet - missing symbol ]";
     					var nextspace = lines[x].indexOf(" ",actpos);
+							if(nextspace===-1)nextspace = lines[x].length;
     					this.perror.push(new parsererror(x,actpos,nextspace,"footnote-anchor","missing endsymbol ]"));
+							console.log(this.perror);
     				}
     				if(error!=null){
     					console.log("footnote error:"+error);
@@ -2411,6 +2414,7 @@ emdparser.prototype.parseMap = function(){
   			var endpos = lines[x].indexOf("]:");
   			if(endpos===-1){
   				var nextspace = lines[x].indexOf(" ");
+					if(nextspace===-1)nextspace = lines[x].length;
   				this.perror.push(new parsererror(x,0,nextspace,"footnote","missing endsymbol ]:"));
   			}else{
   				this.perror.push(new parsererror(x,0,endpos+2,"footnote","missing footanchor"));
