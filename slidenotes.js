@@ -3578,6 +3578,7 @@ ExtensionManager.prototype.afterLoadingThemes = function(){
 	//this.slidenote.parseneu();
 	for(var x=0;x<this.hooksAllThemesLoaded.length;x++)this.hooksAllThemesLoaded[x]();
 	//this.enableKeyboardShortcuts()
+	if(document.getElementById("slidenoteeditor"))
 	slidenote.appendFile("script","keyboardshortcuts.js");
 }
 /*
@@ -3872,10 +3873,10 @@ ExtensionManager.prototype.changeThemeStatus = function(themenr, status){
 	//this.themes[themenr].active = status;
 	this.themes[themenr].changeThemeStatus(status);
 	var toolbox = document.getElementById("texteditorbuttons");
-	var toolboxbuttons = toolbox.getElementsByTagName("button");
+	if(toolbox)var toolboxbuttons = toolbox.getElementsByTagName("button");
 	var toolboxlist = document.getElementById("toolbarbuttons");
 
-	if(this.themes[themenr].editorbuttons!=null){
+	if(this.themes[themenr].editorbuttons!=null && toolbox !=null){
 		if(status){
 			for(var x=0;x<this.themes[themenr].editorbuttons.length;x++){
 				var actbutton = this.themes[themenr].editorbuttons[x];
@@ -4957,3 +4958,4 @@ emdparser.prototype.insertChangedLines = function(oldnode,newerrorlines,olderror
 		console.log(changedlines);console.log(whichwerereplaced); console.log(whichwereremoved);
 		return changedlines;
 }
+//testinit();

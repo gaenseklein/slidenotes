@@ -590,7 +590,7 @@ keyboardshortcuts.init = function(){
           }
         }));
 
-
+    if(slidenote.menumanager === undefined)return;
     var standardmenus = slidenote.menumanager.standardmenus;
     if(standardmenus===undefined)return;
     for(var x=0;x<standardmenus.length;x++){
