@@ -65,13 +65,13 @@
 ?>
 <div data-pagenr="<?php print $content['field_pagenr']['#items'][0]['value'];?>" class="pagenr<?php if(isset($content['field_pagenr']))print $content['field_pagenr']['#items'][0]['value'];?> <?php print $classes; ?><?php if ($spam) print " comment-spam"; ?> clearfix"<?php print $attributes; ?>>
   
-  <?php print render($title_prefix); ?>
+<!--  <?php print render($title_prefix); ?>
   <h3<?php print $title_attributes; ?>><?php print $title ?></h3>
   <?php print render($title_suffix); ?>
-
+-->
   <div class="submitted">
     <?php
-      print t('Submitted by !username on !datetime.',
+      print t('!username on !datetime:',
         array('!username' => $author, '!datetime' => $created));
     ?>
   </div>
@@ -85,5 +85,5 @@
 		if(isset($content['comment_body']))print($content['comment_body']['#items'][0]['value']);
     ?></div>
 
-  <?php print render($content['links']) ?>
+
 </div>
