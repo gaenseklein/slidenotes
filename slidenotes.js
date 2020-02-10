@@ -4330,6 +4330,25 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 					console.log("parseneu forced because of dead-key");
 					setTimeout("slidenote.parseneu()",50);
 				}else{
+					//now we should insert the key - but if we have apples-behaviour we shouldnt:
+
+					if(!event.repeat)this.repeatStarted=false;
+					//emulate mac-behaviour:
+					//if(event.repeat)event.preventDefault();
+					if(event.repeat && !this.repeatStarted){
+						    this.repeatStarted=true;
+						    this.repeatStartedAt = slidenote.textarea.selectionEnd;
+					}else if(event.repeat && this.repeatStarted){
+						    var actcursorpos = slidenote.textarea.selectionEnd;
+								console.log("Cursor on Repeat:"+this.repeatStartedAt + " vs cursorOn: "+actcursorpos);
+						    if(actcursorpos>this.repeatStartedAt){
+						        //normal behaviour
+						    }else{
+						        //apple-behaviour: do nothing. i.e. return
+										console.log("hi macuser :) "+actcursorpos+"/"+this.repeatStartedAt);
+										return;
+						    }
+					}
 					var cursor = document.getElementById("carret");
 					cursor.innerHTML = cursor.innerHTML+""+key;
 					if(this.keypressstack===undefined)this.keypressstack=0;
