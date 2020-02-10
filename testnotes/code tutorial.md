@@ -1,5 +1,5 @@
 # Code Tutorial
-Welcome to the Image-Tutorial. This tutorial explains how to implement and use images in slidenotes.io. 
+Welcome to the Code-Tutorial. This tutorial explains how to implement and use images in slidenotes.io. 
 
 To begin the presentation press ctrl+Escape or the play button
 

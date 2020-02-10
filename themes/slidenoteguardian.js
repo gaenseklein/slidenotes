@@ -603,13 +603,14 @@ slidenoteGuardian.prototype.initDragNDrop = function(){
 slidenoteGuardian.prototype.initTutorial = function(){
   this.notetitle = this.restObject.title;
   document.getElementById("slidenotetitle").innerText=this.notetitle;
-  var tutorialnote = this.restObject.notehash;
+  var tutorialnote = this.restObject.encnote;
 
   //as tutorials are unencrypted we can use the values directly:
   this.slidenote.textarea.value = tutorialnote;
   if(initial_note.encimgmeta){
     this.slidenote.base64images.loadImageString(initial_note.encimgmeta);
   }
+  this.slidenote.textarea.selectionEnd = 0;
   this.slidenote.parseneu();
   this.slidenote.textarea.blur();
   this.slidenote.textarea.focus();
