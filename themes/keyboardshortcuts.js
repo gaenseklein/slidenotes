@@ -661,21 +661,22 @@ keyboardshortcuts.init = function(){
     //presentation-keyboard-navigation:
     this.addShortcut(new this.shortcut("presentation keyboard navigation",
       "global",
-      {multipleChoiceKeys:["ArrowLeft","ArrowRight","Escape","Enter","0","1","2","3","4","5","6","7","8","9"],
+      {multipleChoiceKeys:["ArrowLeft","ArrowRight", " ","Escape","Enter","0","1","2","3","4","5","6","7","8","9"],
       metakey:false},
         function(e){
       var key=e.key;
       if(!fullscreen)return true;
       if(key==="Escape")slidenote.presentation.showpresentation();
-      if(key==="ArrowRight" || key===" ")presentation.nextPage();
-      if(key==="ArrowLeft")presentation.lastPage();
+      if(key==="ArrowRight" || key===" ")slidenote.presentation.nextPage();
+      if(key==="ArrowLeft")slidenote.presentation.lastPage();
       //preparing slide-by-number-jump:
       if(key==="0" ||key==="1" ||key==="2" ||key==="3" ||key==="4" ||key==="5" ||key==="6" ||key==="7" ||key==="8" ||key==="9" ){
         if(presentation.lastpressednrkey==undefined)presentation.lastpressednrkey="";
         presentation.lastpressednrkey+=key;
       }
       //executing slide-by-number-jump:
-      if(key==="Enter"){
+      if(presentation.lastpressednrkey===undefined)presentation.lastpressednrkey="";
+      if(key==="Enter" && presentation.lastpressednrkey.length>0){
         presentation.lastpressednrkey--;
         console.log(presentation.lastpressednrkey);
         presentation.showPage(presentation.lastpressednrkey);

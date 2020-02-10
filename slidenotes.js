@@ -2887,7 +2887,7 @@ pagegenerator.prototype.lastPage = function(){
 }
 //showPage(pagenummer): blättert zur seite pagenummer
 pagegenerator.prototype.showPage = function(page){
-	if(page*0!=0)return;
+	if(page*0!=0 || page===-1)return;
 	this.pagedivs[this.aktpage].classList.remove("active");
 	if(page>=this.pages.length)page= this.pages.length-1;
 	if(page<0)page=0;
@@ -4055,6 +4055,7 @@ slidenotes.prototype.initHistoryHack = function(){
 		var hashnr = location.hash.split("#slide")[1];
 		//console.log("hash:"+location.hash+"nr:"+hashnr);
 		hashnr--;
+		if(hashnr===-1)return;
 		if(hashnr && (hashnr-slidenote.presentation.aktpage<0||hashnr-slidenote.presentation.aktpage>0)&&fullscreen){
 			slidenote.presentation.showPage(hashnr);
 	}};
