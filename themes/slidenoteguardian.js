@@ -306,6 +306,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
         slidenoteguardian.restObject.nid = payload.nid;
         slidenoteguardian.restObject.notehash = payload.field_notehash;
         slidenoteguardian.restObject.title = payload.title;
+        slidenoteguardian.restObject.type = payload.type;
         slidenoteguardian.restObject.drupal7 = {
           nid:payload.nid,
           author:payload.author
@@ -316,14 +317,18 @@ slidenoteGuardian.prototype.initLoad = async function(){
       }
     }
     slidenote.texteditorrahmensetzen(); //clear editor borders after loading
-    slidenoteguardian.init();
+    if(payload && payload.type==="tutorial"){
+      slidenoteguardian.initTutorial();
+    }else{
+      slidenoteguardian.init();
+    }
     //start midstate animation:
     document.getElementById("slidenoteloadingscreenwrapper").classList.add("midstate");
     document.getElementById("slidenotediv").classList.add("midstate");
   },
   //progressHandler:
   function(evt){
-        if(evt.timeStamp<25000)return; //miliseconds to wait before showing progress
+        if(evt.timeStamp<5000)return; //miliseconds to wait before showing progress
         console.log("Download in Progress:" + evt.loaded + "/" + evt.total);
           var cs = document.getElementById("initialLoadingProgress");
           var ul = Math.floor(evt.loaded / 1024);
@@ -499,6 +504,41 @@ slidenoteGuardian.prototype.init = function(){
     }
   })
   //Adding import-Function to fileinput:
+  this.initFileImport();
+  this.initDragNDrop();
+
+  window.onbeforeunload = function(){
+    var acthash = slidenoteguardian.localstorage.getItem("slidenotehash");
+    if(acthash!=slidenoteguardian.restObject.notehash){
+      //console.log(acthash+"\n localstoragehash vs cmshash\n"+slidenoteguardian.cmsSlidenoteHash.value);
+      return "do you really want to leave?";
+    }
+  }
+
+
+  //savebutton:
+  var savebutton = document.getElementById("savebutton");
+  if(savebutton)savebutton.addEventListener("click",function(e){
+    slidenoteguardian.saveNote("cms");
+  });
+  var cloudbutton = document.getElementById("cloud");
+  if(cloudbutton)cloudbutton.addEventListener("click",function(e){
+    slidenoteguardian.saveNote("cms");
+  });
+    this.savebutton = savebutton;
+    this.savebuttontitles = {default:"not in sync with cloud",
+                             error:"error while connecting to cloud",
+                             sync:" in sync with cloud :)"}
+
+  if(this.hascmsconnection){
+    this.loadSlidenotesList();
+    this.loadPresentationList();
+  }
+
+  this.initialised = true;
+}
+
+slidenoteGuardian.prototype.initFileImport = function(){
   var fileInput = document.getElementById("importfile");
   fileInput.addEventListener('change', function(e){
     let file = this.files[0];
@@ -525,14 +565,9 @@ slidenoteGuardian.prototype.init = function(){
     }
   }); //end of fileinput.addEventListener
 
-  window.onbeforeunload = function(){
-    var acthash = slidenoteguardian.localstorage.getItem("slidenotehash");
-    if(acthash!=slidenoteguardian.restObject.notehash){
-      //console.log(acthash+"\n localstoragehash vs cmshash\n"+slidenoteguardian.cmsSlidenoteHash.value);
-      return "do you really want to leave?";
-    }
-  }
+}
 
+slidenoteGuardian.prototype.initDragNDrop = function(){
   slidenote.textarea.addEventListener('drop', function(e){
       //prevent defaults:
       e.preventDefault();
@@ -562,26 +597,45 @@ slidenoteGuardian.prototype.init = function(){
       }
   }, false); //end of drop-event
 
-  //savebutton:
-  var savebutton = document.getElementById("savebutton");
-  if(savebutton)savebutton.addEventListener("click",function(e){
-    slidenoteguardian.saveNote("cms");
-  });
-  var cloudbutton = document.getElementById("cloud");
-  if(cloudbutton)cloudbutton.addEventListener("click",function(e){
-    slidenoteguardian.saveNote("cms");
-  });
-    this.savebutton = savebutton;
-    this.savebuttontitles = {default:"not in sync with cloud",
-                             error:"error while connecting to cloud",
-                             sync:" in sync with cloud :)"}
 
-  if(this.hascmsconnection){
-    this.loadSlidenotesList();
-    this.loadPresentationList();
+}
+
+slidenoteGuardian.prototype.initTutorial = function(){
+  this.notetitle = this.restObject.title;
+  document.getElementById("slidenotetitle").innerText=this.notetitle;
+  var tutorialnote = this.restObject.notehash;
+
+  //as tutorials are unencrypted we can use the values directly:
+  this.slidenote.textarea.value = tutorialnote;
+  if(initial_note.encimgmeta){
+    this.slidenote.base64images.loadImageString(initial_note.encimgmeta);
+  }
+  this.slidenote.parseneu();
+  this.slidenote.textarea.blur();
+  this.slidenote.textarea.focus();
+  this.startEditorAnimation();
+  slidenote.base64images.rebuildOldImages();
+
+  //load tutorial-list:
+  this.loadFromRest("/tutoriallist","importSlidenotesList");
+  //Adding import-Function to fileinput:
+  this.initFileImport();
+  this.initDragNDrop();
+
+  //overwriting savefunctions:
+  this.autoSaveToLocal = function(){};
+  this.autoSaveToCMS = async function(){};
+
+  //overwriting cloud-button:
+  var cloudbutton = document.getElementById("cloud");
+  cloudbutton.innerHTML = "Back to Editor";
+  cloudbutton.onclick = function(){
+    document.href="/editor";
   }
 
-  this.initialised = true;
+  //adding tutorial.css:
+  slidenote.appendFile("css","tutorial.css");
+
 }
 
 var testresponse; //for testing-purpose
@@ -2177,6 +2231,8 @@ slidenoteGuardian.prototype.sendToCMS = function(target){
 }
 
 slidenoteGuardian.prototype.autoSaveToLocal = function(time){
+  //tutorial: dont save:
+  if(this.isTutorial)return;
   //TODO: performance-check. if saving costs too much it should save less
   if(slidenote.extensions.allThemesLoaded){
     this.saveNote("local");

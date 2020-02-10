@@ -1,0 +1,7 @@
+/*tutorial css
+blends out several buttons and menus which are not needed in tutorial-mode
+*/
+
+#newnote, #deletebutton, #renamebutton, #changepasswordbutton {
+    display:none;
+}
