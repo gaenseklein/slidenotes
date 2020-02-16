@@ -83,7 +83,10 @@ newtheme.styleThemeSpecials = function(){
 		}else options = new slidenotecodeblockoptions();
 		console.log(options);
 		this.options = options;
-		this.findHighlightLines(block);
+		this.findHighlightLines(block); //remember lines to highlight before changing code
+		if(this.options.language && this.options.language.length>0){
+			block.classList.add(this.options.language);
+		}
 		hljs.highlightBlock(block);
 		this.highlightLines(block);
 		var buildlines = (this.options.linehighlight!=null) || (this.options.linenumbering==="on" || this.options.linenumbering==="true");
