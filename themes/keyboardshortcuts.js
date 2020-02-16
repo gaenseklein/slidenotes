@@ -262,7 +262,8 @@ keyboardshortcuts.buildOptionsMenu = function(){
     amcheck.name = "automagic closure";
     amcheck.checked = this.automaticClosure;
     amcheck.onchange = function(){
-        slidenote.keyboardshortcuts.automaticClosure = this.checked;
+        slidenote.keyboardshortcuts.automaticClosure = (this.checked);
+        slidenoteguardian.saveConfig("local");
     }
     amli.appendChild(amcheck);
     var amlabel = document.createElement("label");
