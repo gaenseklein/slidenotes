@@ -808,6 +808,12 @@ keyboardshortcuts.closeAutomagic = function(event){
     event.preventDefault();
     return "break";
   }
+  if(key==="~" && actel && actel.mdcode==="~~" && checknextletter==="~"){
+    slidenote.textarea.selectionStart=selstart+1;
+    slidenote.textarea.selctionEnd=selend+1;
+    event.preventDefault();
+    return "break";
+  }
   if(key==="*" || key==="_" ||
   (key==="~" && (key===checkletterbefore || selend-selstart>0)) ||
           key==="`"){
