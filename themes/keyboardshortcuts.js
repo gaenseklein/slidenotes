@@ -808,15 +808,21 @@ keyboardshortcuts.closeAutomagic = function(event){
     event.preventDefault();
     return "break";
   }
-  if(key==="*" || key==="_" || key==="~" || key==="`"){
+  if(key==="*" || key==="_" ||
+  (key==="~" && (key===checkletterbefore || selend-selstart>0)) ||
+          key==="`"){
       event.preventDefault();
-        if(key==="~")key+=key;
-        if(key==="`" && txt.substring(selstart-1,selstart)==="`" && txt.substring(selend,selend+1)==="`"){
+        if(key==="~" && checkletterbefore!=key)key+=key;
+        if(key==="~" && checkletterbefore === key){
+          //key+=key;
+          txt = txt.substring(0,selstart)+key+txt.substring(selstart,selend)+key+key+txt.substring(selend);
+        }else if(key==="`" && txt.substring(selstart-1,selstart)==="`" && txt.substring(selend,selend+1)==="`"){
           txt = txt.substring(0,selstart)+"``\n"+txt.substring(selstart,selend)+"\n```\n"+txt.substring(selend+1);
           key="``";
-        }else if(key==="*" && txt.substring(selstart-1,selstart)==="\n"){
-          key+=" ";
-          txt = txt.substring(0,selstart)+key+txt.substring(selstart);
+//        }else if(key==="*" &&
+//                (txt.substring(selstart-1,selstart)==="\n"||selstart===0)){
+//          key+=" ";
+//          txt = txt.substring(0,selstart)+key+txt.substring(selstart);
         }else{
           txt = txt.substring(0,selstart)+key+txt.substring(selstart,selend)+key+txt.substring(selend);
         }
@@ -834,7 +840,8 @@ keyboardshortcuts.closeAutomagic = function(event){
       slidenote.textarea.selectionStart = selstart+1; //put selectionstart right after new line
       slidenote.textarea.selectionEnd = selend+9; //put selectionend to end of inputted line
       slidenote.parseneu();
-    }else if(txt.substring(selstart-3,selstart)==="\n++"){
+    }else if(txt.substring(selstart-3,selstart)==="\n++" ||
+      (selstart===2 && txt.substring(0,selstart)==="++")){
       txt = txt.substring(0,selstart-1)+
             "+\n\n+++\n"+txt.substring(selstart);
       slidenote.textarea.value=txt;
