@@ -3,7 +3,7 @@ p code.hljs{
 }
 
 code {
-	white-space:pre;
+	/*white-space:pre;*/
 }
 span code{
 	white-space:pre-line;

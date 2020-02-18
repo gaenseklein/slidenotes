@@ -20,26 +20,87 @@
   --paddingPpageNeg: -6.5vh -7.5vw -6vh -7.3vw;
 }
 
-
 /* presentation main rules */
-
 .ppage{
+  visibility: hidden;
+  width:100%;
+  position:absolute;
+  top:0;
+  left:0;
+  height: unset;
+  overflow:auto;
+
   display:none;
   box-sizing: border-box;
   padding: var(--paddingPpage);
+
+  font-size: calc(1.5em + 1vh);
+  line-height: calc(1.1em + 1vh);
 }
 .ppage.active{
   display:block;
+  visibility: visible;
 }
+
+#praesentationrahmen{
+  display:none;
+}
+#praesentationrahmen.fullscreen {
+  display: block;
+}
+#praesentation {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  height:100%;
+  overflow: auto;
+  left:0;
+}
+
+
+/*.ppage p:last-child,
+.ppage div:last-child,
+.ppage section:last-child,
+.ppage img:last-child,
+.ppage h1:last-child,
+.ppage h2:last-child,
+.ppage h3:last-child{
+  padding-bottom: 3em;
+}*/
+
+/*.ppage section:last-child:after{
+  content: "\00a0";
+}*/
+ /*exceptions*/
+/*.ppage section.inline:last-child:after{
+  content: initial;
+}*/
 
 .ppage p{
   max-width: 40em;
+  margin-top: 0;
+}
+
+.ppage p + p{
+  margin-top:-0.5em;
 }
 
 .ppage h1,
 .ppage h2,
 .ppage h3{
   text-align: center;
+  line-height: 1.2em;
+}
+.ppage h2,
+.ppage h3{
+  margin-top: 0;
+}
+
+.ppage h1{
+  font-size: 3em;
+  margin-bottom: 0.1em;
+  line-height: 1em;
 }
 
 .ppage section h1,
@@ -56,7 +117,27 @@
   justify-self:center;
 }
 
+.ppage div h1+p, 
+.ppage div h2+p, 
+.ppage div h3+p {
+    text-align: center;
+}
 
+.ppage li+li{
+  margin-top: 0.5em;
+}
+
+.ppage ol{
+  margin-inline-start: 0.3em;
+}
+.ppage ul{
+  margin-inline-start: 0.3em;
+}
+
+.ppage h2 + code,
+.ppage h3 + code{
+  margin-top: -1em;
+}
 
 
 /* presentation interface */
@@ -70,7 +151,7 @@
   margin: 0;
   padding: 0;
   left: 0;
-  bottom: 0/*-0.75%*/;
+  bottom: -0.75%;
   width: 40vh/*%*/;
   height: 7.07vh/*auto*/; /* width/562*99.38 */
   position: fixed;
@@ -78,18 +159,28 @@
 }
 
 /*breaking points controlarea*/
-/*tablet*/
+/*tablet portrait*/
 @media only screen and (max-width: 80vh){
   #controlarea{
     width: 40vw;
     height: 7.07vw;
   }
+
+  .ppage {
+    font-size: calc(1.5em + 1vw);
+    line-height: calc(1.1em + 1vw);
+  }
 }
-/*smartphone*/
+/*smartphone portrait*/
 @media only screen and (max-width: 60vh){
   #controlarea{
     width: 95vw;
     height: 16.8vw;
+  }
+
+  .ppage {
+    font-size: calc(1em + 1vw);
+    line-height: calc(1.1em + 1vw);
   }
 }
 

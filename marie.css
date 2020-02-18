@@ -41,6 +41,7 @@ a[href], input[type='submit'], input[type='image'], label[for], select, button, 
 body{
     font-family: "rubikReg", sans-serif;
     font-weight: normal;
+    font-size: 100%;
 }
 
 /*arrow-box-class:*/
@@ -2143,37 +2144,7 @@ button#importbutton .importpng {
 	visibility:visible;
 	z-index: 9999;
 }
-/*presentation */
-.ppage{
-	/*display:none;*/
-	visibility: hidden;
-	width:100%;
-	position:absolute;
-	top:0;
-	left:0;
-	height:100vh;
-	overflow:auto;
-}
-.ppage.active{
-	display:block;
-	visibility: visible;
-}
 
-#praesentationrahmen{
-	display:none;
-}
-#praesentationrahmen.fullscreen {
-	display: block;
-}
-#praesentation {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-	height:100%;
-	overflow: auto;
-	left:0;
-}
 
 /*options-menü*/
 #options {

@@ -1,3 +1,9 @@
+/*other slides disappear*/
+.blocks div.ppage{
+  display:none;
+}
+
+
 /*vertical is float, horizontal is none */
 
 .imageblock {
@@ -72,4 +78,10 @@ div > img.bgimg {
 .blocks .gridx1 {
   display: grid;
   grid-template-columns: 1fr;
+}
+
+/*codeblock*/
+code.codeblock{
+  margin-bottom: 0.5em;
+  max-width: 85vw;
 }
