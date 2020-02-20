@@ -99,8 +99,11 @@
 
 .ppage h1{
   font-size: 3em;
-  margin-bottom: 0.1em;
+  margin-bottom: 1em;
   line-height: 1em;
+}
+.ppage h1+p{
+  margin-top: -2em;
 }
 
 .ppage section h1,
@@ -123,20 +126,61 @@
     text-align: center;
 }
 
+
 .ppage li+li{
   margin-top: 0.5em;
 }
 
 .ppage ol{
-  margin-inline-start: 0.3em;
+  margin-inline-start: 1em;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 .ppage ul{
   margin-inline-start: 0.3em;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
 
 .ppage h2 + code,
 .ppage h3 + code{
   margin-top: -1em;
+}
+
+/*code inline*/
+.ppage p code{
+  background-color: hotpink;
+  padding: 0 0.1em 0.05em 0.1em;
+}
+/*codeblock*/
+.ppage code.codeblock{
+  font-size: 0.75em;
+  padding: 0.5em 0 0.5em 0;
+  overflow-wrap: break-word;
+}
+.ppage code.codeblock li{
+  line-height: 1em;
+}
+
+/*chart*/
+.ppage section.chart{
+  font-size: 0.5em;
+  /*Portrait to 4:3*/
+  max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
+  justify-self: center;
+}
+/*4:3 to 2:1*/
+@media only screen and (max-height: 75vw){
+  .ppage section.chart{
+    max-height: calc(113.7vh/1.618); /*85.2*(4/3*vh) = 113.7vh; golden ratio = 1.618*/
+  }
+}
+
+/* 2:1*/
+@media only screen and (max-height:50vw){
+  .ppage section.chart{
+    max-width: calc(170.4vh); /*85.2vw; 1vw=2vh; 85.2vw = 42,6vh*/
+  }
 }
 
 
@@ -151,7 +195,7 @@
   margin: 0;
   padding: 0;
   left: 0;
-  bottom: -0.75%;
+  bottom: -0.25%;/*-0.75%*/
   width: 40vh/*%*/;
   height: 7.07vh/*auto*/; /* width/562*99.38 */
   position: fixed;
