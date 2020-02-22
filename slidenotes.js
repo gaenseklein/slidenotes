@@ -3503,6 +3503,7 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("speaker",true);
 	//this.loadTheme("sequencediagram", true);
 	this.loadTheme("footnote",true);
+	this.loadTheme("progressbar");
 	}else{
 		console.log("extraoptions found");
 		for(var x=0;x<themenamesToLoad.length;x++)this.loadTheme(themenamesToLoad[x].name, themenamesToLoad[x].css);
