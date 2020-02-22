@@ -6,25 +6,35 @@ ppage ist der jeweilige presentation-slide.
 generelle sachen, wie bspw. schriftfarben, schriften etc. in die hauptdeklaration, abweichungen dann in den weiteren. 
 ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt es einfach und semantisch, dann sollte nicht viel schief gehen.*/
 
+
+
+
+
 .luminoso, .luminoso .ppage {
 	background: #f4f4f4;
 	color: black;
+  
 }
 
-/*code affects both: inlinecode and codeblock*/
 
+/*code affects both: inlinecode and codeblock*/
+/*inline*/
 .luminoso code { 
-	background: lightblue;
+	/*background: lightblue;
 	color: black;
-	padding: 2px;
+	padding: 2px;*/
 }
 
 
 /*codeblock affects only codeblocks*/
 .luminoso code.codeblock{
     /*hier mal ein beispiel für positionierung mit hilfe von grid*/
-    align-self:center;
-    justify-self:center;
+    /*align-self:center;
+    justify-self:center;*/
+}
+
+.luminoso h1 img{
+  
 }
 
 .luminoso h1,.luminoso h2,.luminoso h3{
@@ -44,7 +54,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .luminoso p{
-
+  
 }
 
 .luminoso b{
