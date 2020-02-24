@@ -77,6 +77,13 @@
   content: initial;
 }*/
 
+.ppage b{
+  font-weight: normal;
+}
+.ppage i{
+  font-style: normal;
+}
+
 .ppage p{
   max-width: 40em;
   margin-top: 0;
@@ -120,9 +127,9 @@
   justify-self:center;
 }
 
-.ppage div h1+p, 
-.ppage div h2+p, 
-.ppage div h3+p {
+.luminoso .pblock h1+p, 
+.luminoso .pblock h2+p, 
+.luminoso .pblock h3+p {
     text-align: center;
 }
 
@@ -147,6 +154,12 @@
   margin-top: -1em;
 }
 
+.ppage quote{
+  background: lightcoral;
+  padding: 0.3em 0.3em 0.3em 0.5em;
+}
+
+
 /*code inline*/
 .ppage p code{
   background-color: hotpink;
@@ -155,11 +168,47 @@
 /*codeblock*/
 .ppage code.codeblock{
   font-size: 0.75em;
-  padding: 0.5em 0 0.5em 0;
+  padding: 0.5em 1em 0.5em 0;
   overflow-wrap: break-word;
+  max-width: 45em;
+  justify-self: center;
+
 }
 .ppage code.codeblock li{
   line-height: 1em;
+}
+
+.hljs-keyword,
+.hljs-attribute,
+.hljs-selector-tag,
+.hljs-meta-keyword,
+.hljs-doctag,
+.hljs-name {
+  font-weight: normal;
+}
+.hljs-title,
+.hljs-section {
+  font-weight: normal;
+}
+
+.hljs-name,
+.hljs-strong {
+  font-weight: normal;
+}
+.hljs-code,
+.hljs-emphasis {
+  font-style: normal;
+}
+
+
+/*table*/
+.ppage table{
+  position: relative;
+  margin:auto;
+  border-collapse: collapse;
+}
+.ppage table, th, td{
+  border: 0.1em solid #030303;
 }
 
 /*chart*/
