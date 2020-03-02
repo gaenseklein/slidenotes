@@ -1,134 +1,134 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-<title>Slidenote-Editor</title>
-<!--<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />-->
-<link rel="stylesheet" href="marie.css">
-<link rel="stylesheet" href="themes/slidenoteguardian.css">
-<link rel="stylesheet" href="themes/keyboardshortcuts.css">
-<link rel="stylesheet" href="slidenoteplayer.css">
-<script language="javascript" src="slidenotes.js"></script>
-<script language="javascript" src="themes/dialoger.js"></script>
-<script language="javascript" src="themes/slidenoteguardian.js"></script>
-<script>
-var slidenoteguardian;
-var slidenote;
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <title>Slidenote-Editor</title>
+  <!--<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />-->
+  <link rel="stylesheet" href="marie.css">
+  <link rel="stylesheet" href="themes/slidenoteguardian.css">
+  <link rel="stylesheet" href="themes/keyboardshortcuts.css">
+  <link rel="stylesheet" href="slidenoteplayer.css">
+  <script language="javascript" src="slidenotes.js"></script>
+  <script language="javascript" src="themes/dialoger.js"></script>
+  <script language="javascript" src="themes/slidenoteguardian.js"></script>
+  <script>
+    var slidenoteguardian;
+    var slidenote;
 
-//some test-things:
-function testinit(){
-  setTimeout('initeditor()',100);
-  return;
-    slidenoteguardian.loadedSlidenotes = [{title:"new note",url:"/home/mochilera/Dokumente/jkop/design/marie/editor/marie.htm"},
-    {title:"test",url:"dev.slidenotes.io/slidenote/3"},
-    {title:"dinosaurier heute",url:"dev.slidenotes.io/slidenotes/dinosaurier"}];
-    slidenoteguardian.loadedPresentations = [{title:"test", date:"testdate",id:"10",slidenote:"3",url:"testurl"}];
+    //some test-things:
+    function testinit(){
+      setTimeout('initeditor()',100);
+      return;
+        slidenoteguardian.loadedSlidenotes = [{title:"new note",url:"/home/mochilera/Dokumente/jkop/design/marie/editor/marie.htm"},
+        {title:"test",url:"dev.slidenotes.io/slidenote/3"},
+        {title:"dinosaurier heute",url:"dev.slidenotes.io/slidenotes/dinosaurier"}];
+        slidenoteguardian.loadedPresentations = [{title:"test", date:"testdate",id:"10",slidenote:"3",url:"testurl"}];
 
-    menumanager.init();
-}
+        menumanager.init();
+    }
 
-var menumanager = {};
-menumanager.menus = new Array();
-menumanager.menuByName = function(name){
-    for(var x=0;x<this.menus.length;x++)if(this.menus[x].name===name)return this.menus[x];
-}
-menumanager.buildSlidenoteList = function(){
-    if(!slidenoteguardian || !slidenoteguardian.hascmsconnection)return;
-    var menudiv = this.menuByName("menuload");
-    var menu = document.getElementById("notelist");
-    var menuparent = menu.parentElement;
-    menu.innerHTML= "";
-    var delbutton = document.getElementById("deletebutton");
-    var renbutton = document.getElementById("renamebutton");
-    var chpwbutton = document.getElementById("changepasswordbutton");
-    var actntitle = document.getElementById("actnotetitle");
-    actntitle.innerText = slidenoteguardian.notetitle;
-    //append functions to buttons:
-    delbutton.onclick = function(){
-      var dialogoptions = {
-        type:"confirm",
-        title:"delete slidenote",
-        content:"Do you wish to delete the slidenote?",
-        confirmbutton:"delete"
-      };
-      dialoger.buildDialog(dialogoptions,function(){
-        let nid = slidenoteguardian.restObject.nid;
-        if(!nid)return;
-        //window.location.href="/node/"+nid+"/delete";
-        slidenoteguardian.deleteFromRest("/node/"+nid, function(){
-          window.location.href="/editor";
+    var menumanager = {};
+    menumanager.menus = new Array();
+    menumanager.menuByName = function(name){
+        for(var x=0;x<this.menus.length;x++)if(this.menus[x].name===name)return this.menus[x];
+    }
+    menumanager.buildSlidenoteList = function(){
+      if(!slidenoteguardian || !slidenoteguardian.hascmsconnection)return;
+      var menudiv = this.menuByName("menuload");
+      var menu = document.getElementById("notelist");
+      var menuparent = menu.parentElement;
+      menu.innerHTML= "";
+      var delbutton = document.getElementById("deletebutton");
+      var renbutton = document.getElementById("renamebutton");
+      var chpwbutton = document.getElementById("changepasswordbutton");
+      var actntitle = document.getElementById("actnotetitle");
+      actntitle.innerText = slidenoteguardian.notetitle;
+      //append functions to buttons:
+      delbutton.onclick = function(){
+        var dialogoptions = {
+          type:"confirm",
+          title:"delete slidenote",
+          content:"Do you wish to delete the slidenote?",
+          confirmbutton:"delete"
+        };
+        dialoger.buildDialog(dialogoptions,function(){
+          let nid = slidenoteguardian.restObject.nid;
+          if(!nid)return;
+          //window.location.href="/node/"+nid+"/delete";
+          slidenoteguardian.deleteFromRest("/node/"+nid, function(){
+            window.location.href="/editor";
+          });
         });
-      });
-    };
-    renbutton.onclick = function(){
-      slidenoteguardian.passwordPrompt("Enter new Name","rename").then(function(value){
-        slidenoteguardian.saveNote("cms");
-      }, function(error){});
-    };
-    chpwbutton.onclick = function(){
-      slidenoteguardian.passwordPrompt("password","changepassword").then(function(value){
-        //change the slidenoteguardian-password:
-        slidenoteguardian.password = value;
-        //reset images enc-status so they encrypt with new password:
-        var b64imor = slidenote.base64images.base64images;
-        for(var bx=0;bx<b64imor.length;bx++){
-          b64imor[bx].encrypt = undefined;
-        }
-        //state restObject as to delete all images:
-        slidenoteguardian.restObject.reencrypt = true;
-        //re-encrypt all revisions:
-        //not implemented yet
-        //save directly:
-        slidenoteguardian.saveNote("cms");
-        //focus on textarea:
-        slidenote.textarea.focus();
-      }, function(value){});
-    };
-
-    /*
-    var del = document.createElement("button");
-    //del.classList.add("circle");
-    del.classList.add("sysbutton");
-    var delimg = new Image();
-    delimg.src = slidenote.imagespath + "/buttons/-.png";
-    delimg.alt = "delete slidenote >>>"+title+"";
-    del.appendChild(delimg);
-    del.targeturl = url+"/delete";
-    del.onclick = function(){
-      if(confirm("are you shure you want to delete selected slidenote?")){
-        location.href=this.targeturl;
       };
-    }
-    var renb = document.createElement("button");
-    renb.classList.add("sysbutton");
-    renb.innerText="rename";
-    renb.onclick = function(){
-      //slidenoteguardian.passwordPrompt()
-      //or dialog???
-    }
-    var chpasswb = document.createElement("button");
-    chpasswb.classList.add("sysbutton");
-    chpasswb.innerText="change password";
-    chpasswb.onclick = function(){
-      //slidenoteguardian.passwordPrompt("")
-      //or dialog???
-    }
-    var nodetitle = document.createElement("div");
-    nodetitle.classList.add("actualnote");
-    nodetitle.innerText=slidenoteguardian.notetitle;
-    var nodetitlearea = document.createElement("div");
-    nodetitlearea.classList.add("actualnotearea");
-    nodetitlearea.appendChild(nodetitle);
-    nodetitlearea.appendChild(del);
-    nodetitlearea.appendChild(renb);
-    nodetitlearea.appendChild(chpasswb);
-    */
+      renbutton.onclick = function(){
+        slidenoteguardian.passwordPrompt("Enter new Name","rename").then(function(value){
+          slidenoteguardian.saveNote("cms");
+        }, function(error){});
+      };
+      chpwbutton.onclick = function(){
+        slidenoteguardian.passwordPrompt("password","changepassword").then(function(value){
+          //change the slidenoteguardian-password:
+          slidenoteguardian.password = value;
+          //reset images enc-status so they encrypt with new password:
+          var b64imor = slidenote.base64images.base64images;
+          for(var bx=0;bx<b64imor.length;bx++){
+            b64imor[bx].encrypt = undefined;
+          }
+          //state restObject as to delete all images:
+          slidenoteguardian.restObject.reencrypt = true;
+          //re-encrypt all revisions:
+          //not implemented yet
+          //save directly:
+          slidenoteguardian.saveNote("cms");
+          //focus on textarea:
+          slidenote.textarea.focus();
+        }, function(value){});
+      };
 
-    var list = slidenoteguardian.loadedSlidenotes;
-    for(var x=0;x<list.length;x++){
-      //if(url.indexOf(location.pathname)>-1)continue;//lod.classList.add("actnotebutton");
+      /*
+      var del = document.createElement("button");
+      //del.classList.add("circle");
+      del.classList.add("sysbutton");
+      var delimg = new Image();
+      delimg.src = slidenote.imagespath + "/buttons/-.png";
+      delimg.alt = "delete slidenote >>>"+title+"";
+      del.appendChild(delimg);
+      del.targeturl = url+"/delete";
+      del.onclick = function(){
+        if(confirm("are you shure you want to delete selected slidenote?")){
+          location.href=this.targeturl;
+        };
+      }
+      var renb = document.createElement("button");
+      renb.classList.add("sysbutton");
+      renb.innerText="rename";
+      renb.onclick = function(){
+        //slidenoteguardian.passwordPrompt()
+        //or dialog???
+      }
+      var chpasswb = document.createElement("button");
+      chpasswb.classList.add("sysbutton");
+      chpasswb.innerText="change password";
+      chpasswb.onclick = function(){
+        //slidenoteguardian.passwordPrompt("")
+        //or dialog???
+      }
+      var nodetitle = document.createElement("div");
+      nodetitle.classList.add("actualnote");
+      nodetitle.innerText=slidenoteguardian.notetitle;
+      var nodetitlearea = document.createElement("div");
+      nodetitlearea.classList.add("actualnotearea");
+      nodetitlearea.appendChild(nodetitle);
+      nodetitlearea.appendChild(del);
+      nodetitlearea.appendChild(renb);
+      nodetitlearea.appendChild(chpasswb);
+      */
+
+      var list = slidenoteguardian.loadedSlidenotes;
+      for(var x=0;x<list.length;x++){
+        //if(url.indexOf(location.pathname)>-1)continue;//lod.classList.add("actnotebutton");
         var title = list[x].title;
         var url = encodeURI(decodeURI(decodeURI(list[x].url)));
         var nid = url.substring(url.lastIndexOf("/")+1);
@@ -148,628 +148,628 @@ menumanager.buildSlidenoteList = function(){
         //li.appendChild(del);
         li.appendChild(lod);
         menu.appendChild(li);
+      }
+
     }
 
-}
+    menumanager.buildPublishedMenu = function(){
+        var list = slidenoteguardian.loadedPresentations;
+        var menu = document.getElementById("publishedlist");
+        menu.innerHTML = "";
+        if(list.length===0){
+          var li = document.createElement("li");
+          li.innerText = "no published Presentation of this Slidenote";
+          menu.appendChild(li);
+          return;
+        }
+        for(var x=0;x<list.length;x++){
+            var delurl = "/node/"+list[x].slidenote+"/delete";
+            var title=list[x].title;
+            var url = list[x].url;
+            var li = document.createElement("li");
+            var del = document.createElement("button");
+            var lod = document.createElement("a");
+            var cpl = document.createElement("button");
+            lod.classList.add("menuitem");
+            lod.classList.add("loadnotebutton");
+            del.classList.add("menuitem");
+            cpl.classList.add("menuitem");
+            del.classList.add("circle");
+            var delimg = new Image();
+            delimg.src = "images/buttons/-.png";
+            delimg.alt = "delete presentation >>>"+title+"";
+            del.appendChild(delimg);
+            var deltext = document.createElement("div");
+            deltext.innerText = "delete";
+            del.appendChild(deltext);
+            del.targeturl = delurl;
+            del.onclick = function(){
 
-menumanager.buildPublishedMenu = function(){
-    var list = slidenoteguardian.loadedPresentations;
-    var menu = document.getElementById("publishedlist");
-    menu.innerHTML = "";
-    if(list.length===0){
-      var li = document.createElement("li");
-      li.innerText = "no published Presentation of this Slidenote";
-      menu.appendChild(li);
-      return;
+                //if(confirm("are you shure you want to delete selected slidenote?"))
+                var dialogoptions = {
+                  type: "confirm",
+                  title:"delete presentation",
+                  content:"Do you wish to delete the presentation published to slidenotes.io?",
+                  confirmbutton:"delete"
+                };
+                dialoger.buildDialog(dialogoptions, function(){
+                  location.href=this.targeturl;
+                });
+
+            }
+            var lodtitle = document.createElement("div");
+            lodtitle.innerHTML = list[x].title;
+            var loddate = document.createElement("div");
+            loddate.innerText = list[x].date;
+            let commentstring = list[x].commentstring;
+            var commenttext = "";
+            if(commentstring && commentstring.length>0){
+              let commentcount = commentstring.split(":");
+              if(commentcount[1] && commentcount[1]*1>0){
+                commenttext+= commentcount[1]+" comments";
+              }
+              if(commentcount[0] && commentcount[0]*1>0){
+                commenttext+=" ("+commentcount[0]+" new)";
+              }
+            }
+            if(commenttext==="")commenttext = "no comments so far";
+            var lodcomment = document.createElement("div");
+            lodcomment.innerText = commenttext;
+            lod.appendChild(lodtitle);
+            lod.appendChild(loddate);
+            lod.appendChild(lodcomment);
+            //lod.innerText = list[x].date;
+            //if(url.indexOf("%25")>1)url.replace("%25","%"); //i dont know why it encodes % again but it does?!?
+            lod.href = encodeURI(url);
+            //lod.targeturl = url;
+            //lod.onclick = function(){
+                //TODO: put save question here
+            //    location.href=this.targeturl;
+            //}
+            cpl.classList.add("copylink");
+            var cplimg = new Image();
+            cplimg.src = "images/buttons/publish.svg";
+            cplimg.alt = "copy link of presentation >>>"+title;
+            cpl.appendChild(cplimg);
+            var cpltext = document.createElement("div");
+            cpltext.innerText="copy link";
+            cpl.appendChild(cpltext);
+            cpl.value = url;
+            cpl.onclick = function(){
+                var text = this.value;
+                var input = document.createElement('input');
+                input.setAttribute('value', text);
+                document.body.appendChild(input);
+                input.select();
+                var result = document.execCommand('copy');
+                document.body.removeChild(input)
+                console.log("copied "+text+" to clipboard:"+result);
+                var oldlinkcopied = document.getElementById("linkcopyalert");
+                if(oldlinkcopied)oldlinkcopied.parentElement.removeChild(oldlinkcopied);
+                var linkcopied = document.createElement("div");
+                var linktext = document.createElement("span");
+                linktext.innerText = "link copied";
+                var svgcheck = document.getElementById("cloud-ok");
+                linkcopied.innerHTML = svgcheck.innerHTML;
+                linkcopied.appendChild(linktext);
+                linkcopied.id = "linkcopyalert";
+                this.appendChild(linkcopied);
+                setTimeout(function(){
+                  var oldlinkcopied = document.getElementById("linkcopyalert");
+                  if(oldlinkcopied)oldlinkcopied.parentElement.removeChild(oldlinkcopied);
+                }, 6000);
+            }
+            li.appendChild(lod);
+            li.appendChild(del);
+            li.appendChild(cpl);
+            menu.appendChild(li);
+        }
     }
-    for(var x=0;x<list.length;x++){
-        var delurl = "/node/"+list[x].slidenote+"/delete";
-        var title=list[x].title;
-        var url = list[x].url;
+
+    menumanager.showPresentationOptionsDialog = function(){
+      var dialogoptions = {
+        type:"dialog",
+        title:"slide design",
+        content: "design-list",
+        closebutton:true,
+        cssclass:"presentationoptionsdialog",
+        arrownavleftright:true
+      };
+      dialogoptions.content = this.buildPresentationMenu();
+      dialoger.buildDialog(dialogoptions);
+    };
+
+    menumanager.buildPresentationMenu = function(){
+      var cssthemes = slidenote.extensions.CssThemes();
+      var list = document.createElement("ul");//document.getElementById("basicthemelist");
+      list.innerHTML = "";
+      for(var x=0;x<cssthemes.length;x++){
         var li = document.createElement("li");
-        var del = document.createElement("button");
-        var lod = document.createElement("a");
-        var cpl = document.createElement("button");
-        lod.classList.add("menuitem");
-        lod.classList.add("loadnotebutton");
-        del.classList.add("menuitem");
-        cpl.classList.add("menuitem");
-        del.classList.add("circle");
-        var delimg = new Image();
-        delimg.src = "images/buttons/-.png";
-        delimg.alt = "delete presentation >>>"+title+"";
-        del.appendChild(delimg);
-        var deltext = document.createElement("div");
-        deltext.innerText = "delete";
-        del.appendChild(deltext);
-        del.targeturl = delurl;
-        del.onclick = function(){
+        var title = document.createElement("div");
+        title.innerText = cssthemes[x].classname;
+        title.classList.add("themepreviewtitle");
+        var radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "basictheme";
+        radio.value = cssthemes[x].classname;
+        radio.tabable = false;
+        if(cssthemes[x].active){
+          radio.checked = true;
+          li.id="presentationoptionactiveradio";
+        } else radio.checked=false;
+        var preview = document.createElement("div");
+        preview.classList.add("themepreview");
+        preview.classList.add(cssthemes[x].classname);
+        preview.innerHTML="<div>Welcome</div><p>to Slidenotes</p>";
+        title.title=cssthemes[x].description;
+        radio.title=cssthemes[x].description;
+        preview.title=cssthemes[x].description;
+        radio.onchange = function(){
+          slidenote.extensions.changeThemeStatusByClassname(this.value,this.checked);
+          slidenoteguardian.saveConfig("local");
+          //set li to active:
+          var oldli = document.getElementById("presentationoptionactiveradio");
+          if(oldli)oldli.id="";
 
-            //if(confirm("are you shure you want to delete selected slidenote?"))
-            var dialogoptions = {
-              type: "confirm",
-              title:"delete presentation",
-              content:"Do you wish to delete the presentation published to slidenotes.io?",
-              confirmbutton:"delete"
-            };
-            dialoger.buildDialog(dialogoptions, function(){
-              location.href=this.targeturl;
-            });
-
+          this.parentElement.id="presentationoptionactiveradio";
         }
-        var lodtitle = document.createElement("div");
-        lodtitle.innerHTML = list[x].title;
-        var loddate = document.createElement("div");
-        loddate.innerText = list[x].date;
-        let commentstring = list[x].commentstring;
-        var commenttext = "";
-        if(commentstring && commentstring.length>0){
-          let commentcount = commentstring.split(":");
-          if(commentcount[1] && commentcount[1]*1>0){
-            commenttext+= commentcount[1]+" comments";
-          }
-          if(commentcount[0] && commentcount[0]*1>0){
-            commenttext+=" ("+commentcount[0]+" new)";
-          }
+        var previewcontainer = document.createElement("button");
+        previewcontainer.classList.add("themepreviewcontainer");
+        previewcontainer.appendChild(preview);
+        li.appendChild(previewcontainer);
+        li.appendChild(radio);
+        li.appendChild(title);
+        li.onclick = function(e){
+          var radio = this.getElementsByTagName("input")[0];
+          if(e.target != radio)radio.click();
         }
-        if(commenttext==="")commenttext = "no comments so far";
-        var lodcomment = document.createElement("div");
-        lodcomment.innerText = commenttext;
-        lod.appendChild(lodtitle);
-        lod.appendChild(loddate);
-        lod.appendChild(lodcomment);
-        //lod.innerText = list[x].date;
-        //if(url.indexOf("%25")>1)url.replace("%25","%"); //i dont know why it encodes % again but it does?!?
-        lod.href = encodeURI(url);
-        //lod.targeturl = url;
-        //lod.onclick = function(){
-            //TODO: put save question here
-        //    location.href=this.targeturl;
-        //}
-        cpl.classList.add("copylink");
-        var cplimg = new Image();
-        cplimg.src = "images/buttons/publish.svg";
-        cplimg.alt = "copy link of presentation >>>"+title;
-        cpl.appendChild(cplimg);
-        var cpltext = document.createElement("div");
-        cpltext.innerText="copy link";
-        cpl.appendChild(cpltext);
-        cpl.value = url;
-        cpl.onclick = function(){
-            var text = this.value;
-            var input = document.createElement('input');
-            input.setAttribute('value', text);
-            document.body.appendChild(input);
-            input.select();
-            var result = document.execCommand('copy');
-            document.body.removeChild(input)
-            console.log("copied "+text+" to clipboard:"+result);
-            var oldlinkcopied = document.getElementById("linkcopyalert");
-            if(oldlinkcopied)oldlinkcopied.parentElement.removeChild(oldlinkcopied);
-            var linkcopied = document.createElement("div");
-            var linktext = document.createElement("span");
-            linktext.innerText = "link copied";
-            var svgcheck = document.getElementById("cloud-ok");
-            linkcopied.innerHTML = svgcheck.innerHTML;
-            linkcopied.appendChild(linktext);
-            linkcopied.id = "linkcopyalert";
-            this.appendChild(linkcopied);
-            setTimeout(function(){
-              var oldlinkcopied = document.getElementById("linkcopyalert");
-              if(oldlinkcopied)oldlinkcopied.parentElement.removeChild(oldlinkcopied);
-            }, 6000);
+        list.appendChild(li);
+      }
+      return list;
+    }
+
+    menumanager.init = function(){
+        document.getElementById("presentationoptionsbutton").onclick = function(){
+          menumanager.showPresentationOptionsDialog();
         }
-        li.appendChild(lod);
-        li.appendChild(del);
-        li.appendChild(cpl);
-        menu.appendChild(li);
-    }
-}
+        var menus = ["menuload","menucloud","menupublish","menuimportexport", "menuoptionseditor","toolbar", "imagegallery", "menusearchbox"]; //, "menuoptionspresentation"
+        this.standardmenus = menus;
+        var menubuttons = ["loadnote","cloud","publishbutton","importexportbutton", "optionsbutton","toolbarbutton", "imagegallerybutton","searchbutton"]; //,"presentationoptionsbutton"
+        for(var x=0;x<menus.length;x++){
+            var button = document.getElementById(menubuttons[x]);
+            var menu = document.getElementById(menus[x]);
+            this.menus.push({name:menus[x],menu:menu,button:button});
+            button.menu = menus[x];
+            menu.button = menubuttons[x];
+          //  if(menus[x]==="menuoptionspresentation")button.addEventListener("click",function(){
+          //    slidenote.menumanager.buildPresentationMenu();
+          //  });
+            button.onclick = function(){
+                var menus = document.getElementsByClassName("autohidemenu");
+                var menu  = document.getElementById(this.menu);
+                for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
+                    menus[x].classList.remove("active");
+                    if(menus[x].button)
+                    document.getElementById(menus[x].button).classList.remove("active");
+                }
+                if(menu===null||menu===undefined)return;
+                if(menu.classList.contains("active")){
+                    menu.classList.remove("active");
+                    this.classList.remove("active");
 
-menumanager.showPresentationOptionsDialog = function(){
-  var dialogoptions = {
-    type:"dialog",
-    title:"slide design",
-    content: "design-list",
-    closebutton:true,
-    cssclass:"presentationoptionsdialog",
-    arrownavleftright:true
-  };
-  dialogoptions.content = this.buildPresentationMenu();
-  dialoger.buildDialog(dialogoptions);
-};
-
-menumanager.buildPresentationMenu = function(){
-  var cssthemes = slidenote.extensions.CssThemes();
-  var list = document.createElement("ul");//document.getElementById("basicthemelist");
-  list.innerHTML = "";
-  for(var x=0;x<cssthemes.length;x++){
-    var li = document.createElement("li");
-    var title = document.createElement("div");
-    title.innerText = cssthemes[x].classname;
-    title.classList.add("themepreviewtitle");
-    var radio = document.createElement("input");
-    radio.type = "radio";
-    radio.name = "basictheme";
-    radio.value = cssthemes[x].classname;
-    radio.tabable = false;
-    if(cssthemes[x].active){
-      radio.checked = true;
-      li.id="presentationoptionactiveradio";
-    } else radio.checked=false;
-    var preview = document.createElement("div");
-    preview.classList.add("themepreview");
-    preview.classList.add(cssthemes[x].classname);
-    preview.innerHTML="<div>Welcome</div><p>to Slidenotes</p>";
-    title.title=cssthemes[x].description;
-    radio.title=cssthemes[x].description;
-    preview.title=cssthemes[x].description;
-    radio.onchange = function(){
-      slidenote.extensions.changeThemeStatusByClassname(this.value,this.checked);
-      slidenoteguardian.saveConfig("local");
-      //set li to active:
-      var oldli = document.getElementById("presentationoptionactiveradio");
-      if(oldli)oldli.id="";
-
-      this.parentElement.id="presentationoptionactiveradio";
-    }
-    var previewcontainer = document.createElement("button");
-    previewcontainer.classList.add("themepreviewcontainer");
-    previewcontainer.appendChild(preview);
-    li.appendChild(previewcontainer);
-    li.appendChild(radio);
-    li.appendChild(title);
-    li.onclick = function(e){
-      var radio = this.getElementsByTagName("input")[0];
-      if(e.target != radio)radio.click();
-    }
-    list.appendChild(li);
-  }
-  return list;
-}
-
-menumanager.init = function(){
-    document.getElementById("presentationoptionsbutton").onclick = function(){
-      menumanager.showPresentationOptionsDialog();
-    }
-    var menus = ["menuload","menucloud","menupublish","menuimportexport", "menuoptionseditor","toolbar", "imagegallery", "menusearchbox"]; //, "menuoptionspresentation"
-    this.standardmenus = menus;
-    var menubuttons = ["loadnote","cloud","publishbutton","importexportbutton", "optionsbutton","toolbarbutton", "imagegallerybutton","searchbutton"]; //,"presentationoptionsbutton"
-    for(var x=0;x<menus.length;x++){
-        var button = document.getElementById(menubuttons[x]);
-        var menu = document.getElementById(menus[x]);
-        this.menus.push({name:menus[x],menu:menu,button:button});
-        button.menu = menus[x];
-        menu.button = menubuttons[x];
-      //  if(menus[x]==="menuoptionspresentation")button.addEventListener("click",function(){
-      //    slidenote.menumanager.buildPresentationMenu();
-      //  });
-        button.onclick = function(){
+                } else{
+                    if(this.menu==="imagegallery"){
+                      slidenote.base64images.buildImageGallery();
+                    }
+                    menu.classList.add("active");
+                    this.classList.add("active");
+                }
+                var firstbutton = menu.getElementsByClassName("focusitem");
+                if(firstbutton.length<1)firstbutton = menu.getElementsByClassName("menuitem");
+                if(firstbutton.length<1)firstbutton = menu.getElementsByTagName("button");
+                if(firstbutton.length<1)return;
+                firstbutton[0].focus();
+            }
+            if(menus[x]!="toolbar" && menus[x]!="menusearchbox" && menus[x]!="imagegallery"){
+                menu.classList.add("autohidemenu");
+                //menu.onblur = function(){console.log("test onblur");this.classList.remove("active");};
+                //menu.onfocusout = function(){console.log("test onfocusout");this.classList.remove("active");};
+            }
+        }
+        document.getElementById("slidenotediv").addEventListener("click",function(event){
+        console.log(event.target);
+        var activemenu = document.querySelector(".autohidemenu.active");
+        if(activemenu)var actbutton = document.getElementById(activemenu.button);
+        console.log(activemenu);
+        if(activemenu==null ||
+          (event.target && activemenu && activemenu.contains(event.target))||
+          (actbutton && actbutton.contains(event.target))){
+          console.log("found");
+          return;
+        }
+        //return;
+        //document.getElementsByTagName("textarea")[0].addEventListener("focus",function(event){
             var menus = document.getElementsByClassName("autohidemenu");
-            var menu  = document.getElementById(this.menu);
-            for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
+            for(var x=0;x<menus.length;x++){
                 menus[x].classList.remove("active");
                 if(menus[x].button)
                 document.getElementById(menus[x].button).classList.remove("active");
             }
-            if(menu===null||menu===undefined)return;
-            if(menu.classList.contains("active")){
-                menu.classList.remove("active");
-                this.classList.remove("active");
-
-            } else{
-                if(this.menu==="imagegallery"){
-                  slidenote.base64images.buildImageGallery();
-                }
-                menu.classList.add("active");
-                this.classList.add("active");
+        });
+        this.buildSlidenoteList();
+        var editorsel = document.getElementById("editorchoice");
+        editorsel.onkeydown = function(e){if(e.key==="ArrowUp"||e.key==="ArrowDown")e.preventDefault();};
+        editorsel.onkeypress = function(e){if(e.key==="ArrowUp"||e.key==="ArrowDown")e.preventDefault();};
+        editorsel.onkeyup = function(e){if(e.key==="ArrowUp"||e.key==="ArrowDown")e.preventDefault();};
+        //more buttons: night-mode toggle:
+        document.getElementById("nightmodetoggle").onclick = function(){
+            //var sleditor = document.getElementById("slidenoteeditor");
+            var slbody = document.getElementsByTagName("body")[0];
+            if(slbody.classList.contains("nightmode")){
+                slbody.classList.remove("nightmode");
+                slbody.style.background = "unset";
+            }  else {
+              slbody.classList.add("nightmode");
+              slbody.style.background="black";
             }
-            var firstbutton = menu.getElementsByClassName("focusitem");
-            if(firstbutton.length<1)firstbutton = menu.getElementsByClassName("menuitem");
-            if(firstbutton.length<1)firstbutton = menu.getElementsByTagName("button");
-            if(firstbutton.length<1)return;
-            firstbutton[0].focus();
+            if(slidenoteguardian){
+              slidenoteguardian.saveConfig("local");
+            }
         }
-        if(menus[x]!="toolbar" && menus[x]!="menusearchbox" && menus[x]!="imagegallery"){
-            menu.classList.add("autohidemenu");
-            //menu.onblur = function(){console.log("test onblur");this.classList.remove("active");};
-            //menu.onfocusout = function(){console.log("test onfocusout");this.classList.remove("active");};
-        }
-    }
-    document.getElementById("slidenotediv").addEventListener("click",function(event){
-    console.log(event.target);
-    var activemenu = document.querySelector(".autohidemenu.active");
-    if(activemenu)var actbutton = document.getElementById(activemenu.button);
-    console.log(activemenu);
-    if(activemenu==null ||
-      (event.target && activemenu && activemenu.contains(event.target))||
-      (actbutton && actbutton.contains(event.target))){
-      console.log("found");
-      return;
-    }
-    //return;
-    //document.getElementsByTagName("textarea")[0].addEventListener("focus",function(event){
-        var menus = document.getElementsByClassName("autohidemenu");
-        for(var x=0;x<menus.length;x++){
-            menus[x].classList.remove("active");
-            if(menus[x].button)
-            document.getElementById(menus[x].button).classList.remove("active");
-        }
-    });
-    this.buildSlidenoteList();
-    var editorsel = document.getElementById("editorchoice");
-    editorsel.onkeydown = function(e){if(e.key==="ArrowUp"||e.key==="ArrowDown")e.preventDefault();};
-    editorsel.onkeypress = function(e){if(e.key==="ArrowUp"||e.key==="ArrowDown")e.preventDefault();};
-    editorsel.onkeyup = function(e){if(e.key==="ArrowUp"||e.key==="ArrowDown")e.preventDefault();};
-    //more buttons: night-mode toggle:
-    document.getElementById("nightmodetoggle").onclick = function(){
-        //var sleditor = document.getElementById("slidenoteeditor");
-        var slbody = document.getElementsByTagName("body")[0];
-        if(slbody.classList.contains("nightmode")){
-            slbody.classList.remove("nightmode");
-            slbody.style.background = "unset";
-        }  else {
-          slbody.classList.add("nightmode");
-          slbody.style.background="black";
-        }
-        if(slidenoteguardian){
-          slidenoteguardian.saveConfig("local");
-        }
-    }
-    document.getElementById("findinput").addEventListener("keydown",function(e){
-      if(e.key!="Enter")return;
-      document.getElementById("findbutton").click();
-      this.focus();
-    });
-    document.getElementById("findbutton").onclick = function(){
-      var searchinput = document.getElementById("findinput")
-      var searchtext = searchinput.value;
-      var resultdiv = document.getElementById("searchresult");
-      var selstart = slidenote.textarea.selectionStart;
-      var selend = slidenote.textarea.selectionEnd;
-      if(!searchtext || !searchtext.length || searchtext.length===0)return;
-      var resultcount;
-      var searchflag = "";
-      var nextresult = {};
-      var actcursor = {
-        start:slidenote.textarea.selectionStart,
-        end:slidenote.textarea.selectionEnd
-      };
-      var sc = slidenote.textarea.value;
-      var searchmode = document.getElementById("searchinputchoice").value;
-      if(searchmode ==="regex"){
-        if(searchtext.charAt(0)==="/"&&searchtext.indexOf("/",1)>-1){
-          //regex
-          //parse regex and searchtext should only be the pattern-part
-          var tmpsearchflag = searchtext.substring(searchtext.indexOf("/",1)+1);
-          searchtext = searchtext.substring(1,searchtext.indexOf("/",1));
-          var allowedflags = ['i','m'];
-          for(var fx=0;fx<allowedflags.length;fx++)if(tmpsearchflag.indexOf(allowedflags[fx])>-1)searchflag+=allowedflags[fx];
-        }
-        nextresult.searchtext = searchtext;
-        var findregex = new RegExp(searchtext,searchflag);
-        let scshort = sc.substring(selstart+1);
-        var tmppos = scshort.search(findregex);
-        var actm = scshort.match(findregex);
-
-        if(tmppos>-1)tmppos+=selstart+1; else{
-        tmppos = sc.search(findregex);
-        actm = sc.match(findregex);
-        }
-        if(tmppos>-1)nextresult.startpos = tmppos;
-        console.log(actm);
-        if(actm){
-          nextresult.searchtext = actm[0];
-          nextresult.regExString = "/"+searchtext+"/"+searchflag;
-        }
-        var rcex = new RegExp(searchtext,"g"+searchflag);
-        resultcount = sc.match(rcex);
-        if(resultcount)resultcount = resultcount.length; else resultcount =0;
-      }else{
-        //standard search
-        if(searchmode==="normal"){
-          searchtext = searchtext.replace(/\\n/g,"\n");
-        }
-        nextresult = {
-          startpos: sc.indexOf(searchtext,actcursor.end),
-          searchtext:searchtext
-        };
-        if(nextresult.startpos===-1)nextresult.startpos = sc.indexOf(searchtext);
-        var actpos = 0;
-        resultcount=0;
-        while(sc.indexOf(searchtext,actpos)>-1){
-          actpos=sc.indexOf(searchtext,actpos)+1;
-          resultcount++;
-        }
-      }
-      var resulttext = " result found for '";
-      if(resultcount!=1)resulttext = " results found for '";
-      if(nextresult.regExString)resulttext+="Regular Expression "+nextresult.regExString+"', actual Result:'";
-      resultdiv.innerText = resultcount + resulttext + nextresult.searchtext+"'";
-      document.getElementById("findinput").foundTerm = nextresult.searchtext;
-      if(nextresult.startpos >-1){
-        slidenote.textarea.selectionStart = nextresult.startpos;
-        slidenote.textarea.selectionEnd = nextresult.startpos + nextresult.searchtext.length;
-        slidenote.scrollToPosition();
-        console.log("parseneu forced by searchbox");
-        slidenote.parseneu();
-        slidenote.textarea.focus();
-        this.focus();
-      }
-    }//end of findbutton.onclick
-
-    document.getElementById("replacebutton").onclick = function(){
-      var ta = slidenote.textarea;
-      var text = ta.value;
-      var actselstart = slidenote.textarea.selectionStart;
-      var actselend = slidenote.textarea.selectionEnd;
-      var actsel = text.substring(actselstart,actselend);
-      var actsearch = document.getElementById("findinput").foundTerm;
-
-      var matches = (actsearch===actsel)
-      var actreplace = document.getElementById("replaceinput").value;
-      console.log("replace current selected "+actsel+" with "+actreplace+"? "+matches);
-      actreplace = actreplace.replace(/\\n/g,"\n");
-      if(!matches)console.log("replace aborted. actsearch:"+actsearch);
-      if(matches){
-        text = text.substring(0,actselstart)+actreplace+text.substring(actselend);
-        ta.value = text;
-        ta.setSelectionRange(actselstart,actselstart+actreplace.length);
-        console.log("parseneu forced by search-replace");
-        slidenote.parseneu();
-      }
-      document.getElementById("findbutton").click();
-      this.focus();
-    }
-    document.getElementById("replaceinput").onclick = function(){
-      document.getElementById("findbutton").click();
-      this.focus();
-    }
-    document.getElementById("replaceinput").addEventListener("keydown",function(e){
-      if(e.key!="Enter")return;
-      document.getElementById("replacebutton").click();
-    });
-    document.getElementById("replaceallbutton").onclick = function(){
-      var rpb = document.getElementById("replacebutton");
-      var res = document.getElementById("searchresult");
-      var text = slidenote.textarea.value;
-      var findinput = document.getElementById("findinput").value;
-      var replinput = document.getElementById("replaceinput").value;
-      var searchpattern = findinput;
-      var searchflag = "g";
-      var searchmode = document.getElementById("searchinputchoice").value;
-      if(searchmode ==="regex"){
-        if(findinput.charAt(0)==="/" && findinput.indexOf("/",1)>-1){
-          searchpattern = findinput.substring(1,findinput.indexOf("/",1));
-          let parsedsearchflag = findinput.substring(searchpattern.length+2);
-          var allowedflags = ['i','m'];
-          for(var fx=0;fx<allowedflags.length;fx++)if(parsedsearchflag.indexOf(allowedflags[fx])>-1)searchflag+=allowedflags[fx];
-        }
-        var rex = new RegExp(searchpattern,searchflag);
-        var matchcount = text.match(rex);
-        if(matchcount)matchcount = matchcount.length;
-        text = text.replace(rex,replinput);
-      }else{
-        searchpattern = searchpattern.replace(/\\n/g,"\n");
-        var rit = replinput.replace(/\\n/g,"\n");
-        var actpos=text.length-1;
-        var matchcount = 0;
-        while(actpos>=0 && text.lastIndexOf(searchpattern,actpos)>-1){
-          actpos = text.lastIndexOf(searchpattern,actpos);
-          text = text.substring(0,actpos)+rit+text.substring(actpos+findinput.length);
-          matchcount++;
-          actpos--;
-        }
-      }
-      slidenote.textarea.value = text;
-      res.innerText = matchcount + " instances of '"+findinput+"' replaced with '"+replinput+"'";
-      slidenote.parseneu();
-      this.focus();
-    }
-    /*
-    //temporary here to have it available on monday, TODO: delete this part:
-    document.getElementById("praesentationrahmen").onkeydown = function(event){
-
-      //Keyboardsteuerung der Slideshow:
-      var key=""+event.key;
-      if(key==="undefined")key=getKeyOfKeyCode(event.keyCode);
-      //console.log("keycode of pressed key:"+key);
-      if(key==="Escape")slidenote.presentation.showpresentation();
-      if(key==="ArrowRight" || key===" ")presentation.nextPage();
-      if(key==="ArrowLeft")presentation.lastPage();
-      if(key==="0" ||key==="1" ||key==="2" ||key==="3" ||key==="4" ||key==="5" ||key==="6" ||key==="7" ||key==="8" ||key==="9" ){
-        if(presentation.lastpressednrkey==undefined)presentation.lastpressednrkey="";
-        presentation.lastpressednrkey+=key;
-      }
-      if(key==="Enter"){
-        presentation.lastpressednrkey--;
-        console.log(presentation.lastpressednrkey);
-        presentation.showPage(presentation.lastpressednrkey);
-        presentation.lastpressednrkey="";
-      }
-    };
-    */
-}
-
-function initeditor(){
-    //console.log("focus on editor");
-    if(slidenote==null){
-        var texted = 		document.getElementById("quelltext");
-		    var texterr =		 document.getElementById("texteditorerrorlayer");
-		    var slideshow = 	document.getElementById("praesentation");
-        if(texted===null||texterr==null||slideshow===null){
-            console.log("something is missing...");
-            setTimeout("initeditor()",500);
-            return;
-        }else{
-            slidenote = new slidenotes(texted,texterr,null,slideshow);
-            presentation = slidenote.presentation;
-			      texted.onresize= function(){slidenote.parseneu();};
-			      texted.onkeydown= function(event){
-				          slidenote.keypressdown(event, texted);
-			      };
-    			texted.onkeyup=function(event){slidenote.keypressup(event, texted);};
-    			texted.onpaste=function(){setTimeout('slidenote.parseneu()',150)};
-    			texted.oncut=function(){setTimeout('slidenote.parseneu()',150)};
-    			//autofocus tonfocus="initeditor(this.value);
-    			texted.onscroll=function(){slidenote.scroll(texted);};
-    			texted.onclick = function(){
-            setTimeout(''+
-            'console.log("parseneu forced by click"+ slidenote.textarea.selectionEnd);'+
-            'console.log("click on:"+slidenote.textarea.selectionStart + "/"+slidenote.textarea.selectionEnd);'+
-            'slidenote.parseneu();'
-           ,1);
+        document.getElementById("findinput").addEventListener("keydown",function(e){
+          if(e.key!="Enter")return;
+          document.getElementById("findbutton").click();
+          this.focus();
+        });
+        document.getElementById("findbutton").onclick = function(){
+          var searchinput = document.getElementById("findinput")
+          var searchtext = searchinput.value;
+          var resultdiv = document.getElementById("searchresult");
+          var selstart = slidenote.textarea.selectionStart;
+          var selend = slidenote.textarea.selectionEnd;
+          if(!searchtext || !searchtext.length || searchtext.length===0)return;
+          var resultcount;
+          var searchflag = "";
+          var nextresult = {};
+          var actcursor = {
+            start:slidenote.textarea.selectionStart,
+            end:slidenote.textarea.selectionEnd
           };
-    			texted.addEventListener("focus",function(){
-    				var carret = document.getElementById("carret");
-    				if(carret)carret.classList.remove("unfocused");
-            var sel = document.getElementsByClassName("selectioncarretmarker");
-            if(sel.length===0)return;
-            for(var x=sel.length-1;x>=0;x--){
-              //sel[x].parentElement.removeChild(sel[x]);
-              //sel[x].classList.add("hiddenselectioncarretmarker");
-              var seltxt = sel[x].parentElement.innerHTML;
-              //console.log(seltxt);
-              seltxt = seltxt.replace('<u class="selectioncarretmarker">','');
-              seltxt = seltxt.replace('</u>','');
-              //console.log("ergebnis:"+seltxt);
-              sel[x].parentElement.innerHTML = seltxt;
-              //sel[x].classList.remove("selectioncarretmarker");
+          var sc = slidenote.textarea.value;
+          var searchmode = document.getElementById("searchinputchoice").value;
+          if(searchmode ==="regex"){
+            if(searchtext.charAt(0)==="/"&&searchtext.indexOf("/",1)>-1){
+              //regex
+              //parse regex and searchtext should only be the pattern-part
+              var tmpsearchflag = searchtext.substring(searchtext.indexOf("/",1)+1);
+              searchtext = searchtext.substring(1,searchtext.indexOf("/",1));
+              var allowedflags = ['i','m'];
+              for(var fx=0;fx<allowedflags.length;fx++)if(tmpsearchflag.indexOf(allowedflags[fx])>-1)searchflag+=allowedflags[fx];
             }
-            //slidenote.parseneu();
+            nextresult.searchtext = searchtext;
+            var findregex = new RegExp(searchtext,searchflag);
+            let scshort = sc.substring(selstart+1);
+            var tmppos = scshort.search(findregex);
+            var actm = scshort.match(findregex);
 
-    			});
-    			texted.addEventListener("focusout",function(){
-    				var carret = document.getElementById("carret");
-    				if(carret)carret.classList.add("unfocused");
-    				//console.log("onblur show carret");
-    				//console.log(carret);
-            //adding selection-marking:
-            var selstart = slidenote.textarea.selectionStart;
-            var selend = slidenote.textarea.selectionEnd;
-            if(selend-selstart!=0){
-              var startline = slidenote.parser.lineAtPosition(selstart);
-              var endline = slidenote.parser.lineAtPosition(selend);
-              var bglines = document.getElementsByClassName("backgroundline");
-              var startpos = selstart - slidenote.parser.map.linestart[startline];
-              var endpos = selend - slidenote.parser.map.linestart[endline];
-              //set end: (first end because of changes later on)
-              /*var changesinline = slidenote.parser.mdcodeeditorchanges[endline];
-              var inspos = endpos;
-              for(var x=0;x<changesinline.length;x++){
-                if(startpos>=changesinline[x].pos){
-                  inspos+=changesinline[x].html.length;
-                  if(changesinline[x].typ==="<")inspos--;
-                }
-              }
-              var txt = bglines[endline].innerHTML;
-              txt = txt.substring(0,inspos)+'<u class="selectioncarretmarker">'+txt.substring(inspos);
-              bglines[endline].innerHTML = txt;
-              */
-              //helper function: do all changes:
-              function applychanges(changes, text){
-                var txt=text;
-                for(var x=0;x<changes.length;x++){
-                  txt = txt.substring(0,changes[x].pos)+changes[x].html+txt.substring(changes[x].pos);
-                }
-                return txt;
-              }
-              //set start:
-              var changesinline = new Array();
-              var changesinendline = new Array();
-              for(var x=0;x<slidenote.parser.mdcodeeditorchanges.length;x++){
-                if(slidenote.parser.mdcodeeditorchanges[x].typ==="cursor")continue;
-                if(slidenote.parser.mdcodeeditorchanges[x].line===startline)changesinline.push(slidenote.parser.mdcodeeditorchanges[x]);
-                if(slidenote.parser.mdcodeeditorchanges[x].line===endline)changesinendline.push(slidenote.parser.mdcodeeditorchanges[x]);
-              }
-              var inspos = startpos;
-              for(var x=0;x<changesinline.length;x++){
-                if(startpos>changesinline[x].pos){
-                  inspos+=changesinline[x].html.length;
-                  if(changesinline[x].typ==="<")inspos--;
-                }
-              }
-              var txt = bglines[startline].innerHTML;
-              if(slidenote.parser.lineswithhtml[startline]==="code")txt = applychanges(changesinline,slidenote.parser.sourcecode.split("\n")[startline]);
-              txt = txt.substring(0,inspos)+'<u class="selectioncarretmarker">'+txt.substring(inspos);
-              var starthtml = txt;
-              txt=bglines[endline].innerHTML;
-              if(slidenote.parser.lineswithhtml[endline]==="code")txt = applychanges(changesinline,slidenote.parser.sourcecode.split("\n")[endline]);
-              var inspos2 = endpos;
-              for(var x=0;x<changesinendline.length;x++){
-                var ch = changesinendline[x];
-                if(endpos>ch.pos){
-                  inspos2+=ch.html.length;
-                  if(ch.typ==="<")inspos2--;
-                }
-              }
-              if(startline===endline){
-                var carretstart = txt.indexOf('<span id="carret"');
-                var carretend = txt.indexOf('</span>',carretstart)+'</span>'.length;
-                var carretlength = carretend - carretstart;
-                if(carretstart===-1)carretlength=0;
-                inspos2+=carretlength;
-              }
-              txt = txt.substring(0,inspos2)+"</u>"+txt.substring(inspos2);
-              if(startline===endline)txt = txt.substring(0,inspos)+'<u class="selectioncarretmarker">'+txt.substring(inspos);
-              var endhtml = txt;
-              if(startline!=endline){
-                starthtml+="</u>";
-                bglines[startline].innerHTML = starthtml;
-                endhtml = '<u class="selectioncarretmarker">'+endhtml;
-              }
-              bglines[endline].innerHTML = endhtml;
-              //bglines[startline].innerHTML = txt;
-              //set in-between:
-              if(startline!=endline){
-                for(var x=startline+1;x<endline;x++){
-                  if(bglines[x].classList.contains("pagebreak")){
-                    var pbtxt = bglines[x].innerHTML;
-                    pbtxt = '<u class="selectioncarretmarker">---</u>' + pbtxt.substring(3);
-                    bglines[x].innerHTML = pbtxt;
-                  }else bglines[x].innerHTML = '<u class="selectioncarretmarker">'+bglines[x].innerHTML+'</u>';
-                }
-              }
-
+            if(tmppos>-1)tmppos+=selstart+1; else{
+            tmppos = sc.search(findregex);
+            actm = sc.match(findregex);
             }
-    			});
-          document.getElementById("importbutton").addEventListener("click",function(){
-            var impb = document.getElementById("importfile");
-            impb.value="";
-            impb.click();
-          });
-          console.log("slidenote-object created");
-          console.log(slidenote);
-          slidenote.menumanager = menumanager;
-          slidenote.menumanager.init();
-          slidenote.extensions.addAfterLoadingThemesHook(function(){
-    				slidenoteguardian = new slidenoteGuardian(slidenote);
-    			});
-      }
+            if(tmppos>-1)nextresult.startpos = tmppos;
+            console.log(actm);
+            if(actm){
+              nextresult.searchtext = actm[0];
+              nextresult.regExString = "/"+searchtext+"/"+searchflag;
+            }
+            var rcex = new RegExp(searchtext,"g"+searchflag);
+            resultcount = sc.match(rcex);
+            if(resultcount)resultcount = resultcount.length; else resultcount =0;
+          }else{
+            //standard search
+            if(searchmode==="normal"){
+              searchtext = searchtext.replace(/\\n/g,"\n");
+            }
+            nextresult = {
+              startpos: sc.indexOf(searchtext,actcursor.end),
+              searchtext:searchtext
+            };
+            if(nextresult.startpos===-1)nextresult.startpos = sc.indexOf(searchtext);
+            var actpos = 0;
+            resultcount=0;
+            while(sc.indexOf(searchtext,actpos)>-1){
+              actpos=sc.indexOf(searchtext,actpos)+1;
+              resultcount++;
+            }
+          }
+          var resulttext = " result found for '";
+          if(resultcount!=1)resulttext = " results found for '";
+          if(nextresult.regExString)resulttext+="Regular Expression "+nextresult.regExString+"', actual Result:'";
+          resultdiv.innerText = resultcount + resulttext + nextresult.searchtext+"'";
+          document.getElementById("findinput").foundTerm = nextresult.searchtext;
+          if(nextresult.startpos >-1){
+            slidenote.textarea.selectionStart = nextresult.startpos;
+            slidenote.textarea.selectionEnd = nextresult.startpos + nextresult.searchtext.length;
+            slidenote.scrollToPosition();
+            console.log("parseneu forced by searchbox");
+            slidenote.parseneu();
+            slidenote.textarea.focus();
+            this.focus();
+          }
+        }//end of findbutton.onclick
+
+        document.getElementById("replacebutton").onclick = function(){
+          var ta = slidenote.textarea;
+          var text = ta.value;
+          var actselstart = slidenote.textarea.selectionStart;
+          var actselend = slidenote.textarea.selectionEnd;
+          var actsel = text.substring(actselstart,actselend);
+          var actsearch = document.getElementById("findinput").foundTerm;
+
+          var matches = (actsearch===actsel)
+          var actreplace = document.getElementById("replaceinput").value;
+          console.log("replace current selected "+actsel+" with "+actreplace+"? "+matches);
+          actreplace = actreplace.replace(/\\n/g,"\n");
+          if(!matches)console.log("replace aborted. actsearch:"+actsearch);
+          if(matches){
+            text = text.substring(0,actselstart)+actreplace+text.substring(actselend);
+            ta.value = text;
+            ta.setSelectionRange(actselstart,actselstart+actreplace.length);
+            console.log("parseneu forced by search-replace");
+            slidenote.parseneu();
+          }
+          document.getElementById("findbutton").click();
+          this.focus();
+        }
+        document.getElementById("replaceinput").onclick = function(){
+          document.getElementById("findbutton").click();
+          this.focus();
+        }
+        document.getElementById("replaceinput").addEventListener("keydown",function(e){
+          if(e.key!="Enter")return;
+          document.getElementById("replacebutton").click();
+        });
+        document.getElementById("replaceallbutton").onclick = function(){
+          var rpb = document.getElementById("replacebutton");
+          var res = document.getElementById("searchresult");
+          var text = slidenote.textarea.value;
+          var findinput = document.getElementById("findinput").value;
+          var replinput = document.getElementById("replaceinput").value;
+          var searchpattern = findinput;
+          var searchflag = "g";
+          var searchmode = document.getElementById("searchinputchoice").value;
+          if(searchmode ==="regex"){
+            if(findinput.charAt(0)==="/" && findinput.indexOf("/",1)>-1){
+              searchpattern = findinput.substring(1,findinput.indexOf("/",1));
+              let parsedsearchflag = findinput.substring(searchpattern.length+2);
+              var allowedflags = ['i','m'];
+              for(var fx=0;fx<allowedflags.length;fx++)if(parsedsearchflag.indexOf(allowedflags[fx])>-1)searchflag+=allowedflags[fx];
+            }
+            var rex = new RegExp(searchpattern,searchflag);
+            var matchcount = text.match(rex);
+            if(matchcount)matchcount = matchcount.length;
+            text = text.replace(rex,replinput);
+          }else{
+            searchpattern = searchpattern.replace(/\\n/g,"\n");
+            var rit = replinput.replace(/\\n/g,"\n");
+            var actpos=text.length-1;
+            var matchcount = 0;
+            while(actpos>=0 && text.lastIndexOf(searchpattern,actpos)>-1){
+              actpos = text.lastIndexOf(searchpattern,actpos);
+              text = text.substring(0,actpos)+rit+text.substring(actpos+findinput.length);
+              matchcount++;
+              actpos--;
+            }
+          }
+          slidenote.textarea.value = text;
+          res.innerText = matchcount + " instances of '"+findinput+"' replaced with '"+replinput+"'";
+          slidenote.parseneu();
+          this.focus();
+        }
+        /*
+        //temporary here to have it available on monday, TODO: delete this part:
+        document.getElementById("praesentationrahmen").onkeydown = function(event){
+
+          //Keyboardsteuerung der Slideshow:
+          var key=""+event.key;
+          if(key==="undefined")key=getKeyOfKeyCode(event.keyCode);
+          //console.log("keycode of pressed key:"+key);
+          if(key==="Escape")slidenote.presentation.showpresentation();
+          if(key==="ArrowRight" || key===" ")presentation.nextPage();
+          if(key==="ArrowLeft")presentation.lastPage();
+          if(key==="0" ||key==="1" ||key==="2" ||key==="3" ||key==="4" ||key==="5" ||key==="6" ||key==="7" ||key==="8" ||key==="9" ){
+            if(presentation.lastpressednrkey==undefined)presentation.lastpressednrkey="";
+            presentation.lastpressednrkey+=key;
+          }
+          if(key==="Enter"){
+            presentation.lastpressednrkey--;
+            console.log(presentation.lastpressednrkey);
+            presentation.showPage(presentation.lastpressednrkey);
+            presentation.lastpressednrkey="";
+          }
+        };
+        */
     }
-}
-function insertbutton(code){
-	if(slidenote!=null)slidenote.insertbutton(code);
-}
-</script>
 
+    function initeditor(){
+        //console.log("focus on editor");
+        if(slidenote==null){
+            var texted = 		document.getElementById("quelltext");
+    		    var texterr =		 document.getElementById("texteditorerrorlayer");
+    		    var slideshow = 	document.getElementById("praesentation");
+            if(texted===null||texterr==null||slideshow===null){
+                console.log("something is missing...");
+                setTimeout("initeditor()",500);
+                return;
+            }else{
+                slidenote = new slidenotes(texted,texterr,null,slideshow);
+                presentation = slidenote.presentation;
+    			      texted.onresize= function(){slidenote.parseneu();};
+    			      texted.onkeydown= function(event){
+    				          slidenote.keypressdown(event, texted);
+    			      };
+        			texted.onkeyup=function(event){slidenote.keypressup(event, texted);};
+        			texted.onpaste=function(){setTimeout('slidenote.parseneu()',150)};
+        			texted.oncut=function(){setTimeout('slidenote.parseneu()',150)};
+        			//autofocus tonfocus="initeditor(this.value);
+        			texted.onscroll=function(){slidenote.scroll(texted);};
+        			texted.onclick = function(){
+                setTimeout(''+
+                'console.log("parseneu forced by click"+ slidenote.textarea.selectionEnd);'+
+                'console.log("click on:"+slidenote.textarea.selectionStart + "/"+slidenote.textarea.selectionEnd);'+
+                'slidenote.parseneu();'
+               ,1);
+              };
+        			texted.addEventListener("focus",function(){
+        				var carret = document.getElementById("carret");
+        				if(carret)carret.classList.remove("unfocused");
+                var sel = document.getElementsByClassName("selectioncarretmarker");
+                if(sel.length===0)return;
+                for(var x=sel.length-1;x>=0;x--){
+                  //sel[x].parentElement.removeChild(sel[x]);
+                  //sel[x].classList.add("hiddenselectioncarretmarker");
+                  var seltxt = sel[x].parentElement.innerHTML;
+                  //console.log(seltxt);
+                  seltxt = seltxt.replace('<u class="selectioncarretmarker">','');
+                  seltxt = seltxt.replace('</u>','');
+                  //console.log("ergebnis:"+seltxt);
+                  sel[x].parentElement.innerHTML = seltxt;
+                  //sel[x].classList.remove("selectioncarretmarker");
+                }
+                //slidenote.parseneu();
+
+        			});
+        			texted.addEventListener("focusout",function(){
+        				var carret = document.getElementById("carret");
+        				if(carret)carret.classList.add("unfocused");
+        				//console.log("onblur show carret");
+        				//console.log(carret);
+                //adding selection-marking:
+                var selstart = slidenote.textarea.selectionStart;
+                var selend = slidenote.textarea.selectionEnd;
+                if(selend-selstart!=0){
+                  var startline = slidenote.parser.lineAtPosition(selstart);
+                  var endline = slidenote.parser.lineAtPosition(selend);
+                  var bglines = document.getElementsByClassName("backgroundline");
+                  var startpos = selstart - slidenote.parser.map.linestart[startline];
+                  var endpos = selend - slidenote.parser.map.linestart[endline];
+                  //set end: (first end because of changes later on)
+                  /*var changesinline = slidenote.parser.mdcodeeditorchanges[endline];
+                  var inspos = endpos;
+                  for(var x=0;x<changesinline.length;x++){
+                    if(startpos>=changesinline[x].pos){
+                      inspos+=changesinline[x].html.length;
+                      if(changesinline[x].typ==="<")inspos--;
+                    }
+                  }
+                  var txt = bglines[endline].innerHTML;
+                  txt = txt.substring(0,inspos)+'<u class="selectioncarretmarker">'+txt.substring(inspos);
+                  bglines[endline].innerHTML = txt;
+                  */
+                  //helper function: do all changes:
+                  function applychanges(changes, text){
+                    var txt=text;
+                    for(var x=0;x<changes.length;x++){
+                      txt = txt.substring(0,changes[x].pos)+changes[x].html+txt.substring(changes[x].pos);
+                    }
+                    return txt;
+                  }
+                  //set start:
+                  var changesinline = new Array();
+                  var changesinendline = new Array();
+                  for(var x=0;x<slidenote.parser.mdcodeeditorchanges.length;x++){
+                    if(slidenote.parser.mdcodeeditorchanges[x].typ==="cursor")continue;
+                    if(slidenote.parser.mdcodeeditorchanges[x].line===startline)changesinline.push(slidenote.parser.mdcodeeditorchanges[x]);
+                    if(slidenote.parser.mdcodeeditorchanges[x].line===endline)changesinendline.push(slidenote.parser.mdcodeeditorchanges[x]);
+                  }
+                  var inspos = startpos;
+                  for(var x=0;x<changesinline.length;x++){
+                    if(startpos>changesinline[x].pos){
+                      inspos+=changesinline[x].html.length;
+                      if(changesinline[x].typ==="<")inspos--;
+                    }
+                  }
+                  var txt = bglines[startline].innerHTML;
+                  if(slidenote.parser.lineswithhtml[startline]==="code")txt = applychanges(changesinline,slidenote.parser.sourcecode.split("\n")[startline]);
+                  txt = txt.substring(0,inspos)+'<u class="selectioncarretmarker">'+txt.substring(inspos);
+                  var starthtml = txt;
+                  txt=bglines[endline].innerHTML;
+                  if(slidenote.parser.lineswithhtml[endline]==="code")txt = applychanges(changesinline,slidenote.parser.sourcecode.split("\n")[endline]);
+                  var inspos2 = endpos;
+                  for(var x=0;x<changesinendline.length;x++){
+                    var ch = changesinendline[x];
+                    if(endpos>ch.pos){
+                      inspos2+=ch.html.length;
+                      if(ch.typ==="<")inspos2--;
+                    }
+                  }
+                  if(startline===endline){
+                    var carretstart = txt.indexOf('<span id="carret"');
+                    var carretend = txt.indexOf('</span>',carretstart)+'</span>'.length;
+                    var carretlength = carretend - carretstart;
+                    if(carretstart===-1)carretlength=0;
+                    inspos2+=carretlength;
+                  }
+                  txt = txt.substring(0,inspos2)+"</u>"+txt.substring(inspos2);
+                  if(startline===endline)txt = txt.substring(0,inspos)+'<u class="selectioncarretmarker">'+txt.substring(inspos);
+                  var endhtml = txt;
+                  if(startline!=endline){
+                    starthtml+="</u>";
+                    bglines[startline].innerHTML = starthtml;
+                    endhtml = '<u class="selectioncarretmarker">'+endhtml;
+                  }
+                  bglines[endline].innerHTML = endhtml;
+                  //bglines[startline].innerHTML = txt;
+                  //set in-between:
+                  if(startline!=endline){
+                    for(var x=startline+1;x<endline;x++){
+                      if(bglines[x].classList.contains("pagebreak")){
+                        var pbtxt = bglines[x].innerHTML;
+                        pbtxt = '<u class="selectioncarretmarker">---</u>' + pbtxt.substring(3);
+                        bglines[x].innerHTML = pbtxt;
+                      }else bglines[x].innerHTML = '<u class="selectioncarretmarker">'+bglines[x].innerHTML+'</u>';
+                    }
+                  }
+
+                }
+        			});
+              document.getElementById("importbutton").addEventListener("click",function(){
+                var impb = document.getElementById("importfile");
+                impb.value="";
+                impb.click();
+              });
+              console.log("slidenote-object created");
+              console.log(slidenote);
+              slidenote.menumanager = menumanager;
+              slidenote.menumanager.init();
+              slidenote.extensions.addAfterLoadingThemesHook(function(){
+        				slidenoteguardian = new slidenoteGuardian(slidenote);
+        			});
+          }
+        }
+    }
+    function insertbutton(code){
+    	if(slidenote!=null)slidenote.insertbutton(code);
+    }
+  </script>
 </head>
 
 
 <body onload="testinit()">
   <script>
-  //load nightmode as fast as possible
-  var cfg = localStorage.getItem("config");
-  if(cfg && cfg.indexOf('nightmode":true')>-1)document.body.classList.add("nightmode");
+    //load nightmode as fast as possible
+    var cfg = localStorage.getItem("config");
+    if(cfg && cfg.indexOf('nightmode":true')>-1)document.body.classList.add("nightmode");
   </script>
 
-<div id="slidenotediv" class="initial">
+  <div id="slidenotediv" class="initial">
 
-<div id="slidenoteeditor">
+    <div id="slidenoteeditor">
+      <div id="noteinfoarea">
         <button id="cloud">
-        <!--  <img id="savestatus" src="images/buttons/cloud.svg"> -->
+          <!--  <img id="savestatus" src="images/buttons/cloud.svg"> -->
 
-         <div id="cloud-box">
+          <div id="cloud-box">
             <svg viewBox="0 0 34 19" class="cloud-box-element">
         			    <g transform="matrix(1,0,0,1,0.000534427,0.000239369)">
         			        <g transform="matrix(1,0,0,1,-1656.12,-83.708)">
@@ -788,132 +788,142 @@ function insertbutton(code){
           	</div>
               <!-- nur das div hier beinhält den Haken -->
           	<div id="cloud-ok"class="cloud-box-element">
-          				<svg viewBox="0 0 34 19">
-          					<path id="check-path" d="M10,10 l3,3 l8,-5" />
-          				</svg>
-          			</div>
+      				<svg viewBox="0 0 34 19">
+      					<path id="check-path" d="M10,10 l3,3 l8,-5" />
+      				</svg>
+      			</div>
               <!-- nur das div hier beinhält das x -->
           	<div id="cloud-error" class="cloud-box-element">
-          				<svg viewBox="0 0 34 19">
-          					<path id="x-path1" d="M13,14 l8,-7" />
-          					<path id="x-path2" d="M13,7 l8,7" />
-          				</svg>
+      				<svg viewBox="0 0 34 19">
+      					<path id="x-path1" d="M13,14 l8,-7" />
+      					<path id="x-path2" d="M13,7 l8,7" />
+      				</svg>
           	</div>
             <div id="cloud-undefined" class="cloud-box-element">
-                  <!--<div>°</div>-->
-        				<svg viewBox="0 0 34 19">
-        					<circle cx="17" cy="11" r="2" fill="white"></circle>
-        				</svg>
+              <!--<div>°</div>-->
+      				<svg viewBox="0 0 34 19">
+      					<circle cx="17" cy="11" r="2" fill="white"></circle>
+      				</svg>
             </div>
           </div>
         </button>
-        <button id="loadnote"><div><span id="slidenotetitle">new note</span><img src="images/buttons/loadnotebackground.png"></div></button>
+        <button id="loadnote">
+          <div>
+            <span id="slidenotetitle">new note</span>
+            <img src="images/buttons/loadnotebackground.png">
+          </div>
+        </button>
         <button id="outlet">95 Words, 12 Pages,<br> 120 Seconds to read...</button>
-    <div id="editorblock">
+      </div>
+      <div id="editorblock">
         <div id="texteditorerrorlayer"></div>
-		<textarea spellcheck="false" id="quelltext" onload="" autofocus         onfocus="setTimeout('initeditor()',100);"></textarea>
-
-    </div>
-    <div id="buttonarearight">
+    	  <textarea spellcheck="false" id="quelltext" onload="" autofocus         onfocus="setTimeout('initeditor()',100);"></textarea>
+      </div>
+      <div id="buttonarearight">
+        <button class="fluidbutton" id="searchbutton">
+          <img src="images/buttons/search.png" alt="open search and replace menu">
+        </button>
         <button class="fluidbutton" id="toolbarbutton"><img src="images/buttons/toolbar.png" alt="Toolbar"></button>
         <button class="fluidbutton" id="imagegallerybutton"><img src="images/buttons/imagegallery.png" alt="imagegallery"></button>
         <button class="fluidbutton" id="historyBackButton"><img src="images/buttons/undo.png" alt="undo"></button>
         <button class="fluidbutton" id="historyForwardButton"><img src="images/buttons/redo.png" alt="redo"></button>
-    </div>
-    <div id="toolbar"><div class="arrow_box" id="texteditorbuttons">
-        <div class="screenreader-only">Toolbar</div>
-        <ul id="toolbarbuttons">
-			<li><button class="basicbutton" onclick="insertbutton('---')" title="new slide"><img src="images/buttons/newslide.svg" alt="new slide"><span class="buttonmdcode">---</span><span class="toolbarbuttontitle"> new slide</span></button></li>
+      </div>
+      <div id="toolbar">
+        <div class="arrow_box" id="texteditorbuttons">
+          <div class="screenreader-only">Toolbar</div>
+          <ul id="toolbarbuttons">
+      			<li><button class="basicbutton" onclick="insertbutton('---')" title="new slide"><img src="images/buttons/newslide.svg" alt="new slide"><span class="buttonmdcode">---</span><span class="toolbarbuttontitle"> new slide</span></button></li>
 
-			<li><button class="basicbutton" onclick="insertbutton('%head1')" title="title"><img src="images/buttons/hash-h1.svg" alt="Title"><span class="buttonmdcode">#</span> <span class="toolbarbuttontitle"> headline</span></button></li>
+      			<li><button class="basicbutton" onclick="insertbutton('%head1')" title="title"><img src="images/buttons/hash-h1.svg" alt="Title"><span class="buttonmdcode">#</span> <span class="toolbarbuttontitle"> headline</span></button></li>
 
-			<li><button class="basicbutton" onclick="insertbutton('*')" title="italic"><img src="images/buttons/italic.svg" alt="italic"><span class="buttonmdcode">*</span><span class="toolbarbuttontitle">italic</span><span class="buttonmdcode">*</span></button></li>
+      			<li><button class="basicbutton" onclick="insertbutton('*')" title="italic"><img src="images/buttons/italic.svg" alt="italic"><span class="buttonmdcode">*</span><span class="toolbarbuttontitle">italic</span><span class="buttonmdcode">*</span></button></li>
 
-			<li><button class="basicbutton" onclick="insertbutton('**')" title="bold"><img src="images/buttons/bold.svg" alt="bold"><span class="buttonmdcode">**</span><span class="toolbarbuttontitle">bold</span><span class="buttonmdcode">**</span></button></li>
+      			<li><button class="basicbutton" onclick="insertbutton('**')" title="bold"><img src="images/buttons/bold.svg" alt="bold"><span class="buttonmdcode">**</span><span class="toolbarbuttontitle">bold</span><span class="buttonmdcode">**</span></button></li>
 
-			<li><button onclick="insertbutton('~~')" title="crossed"><img src="images/buttons/stroke.svg" alt="stroke"><span class="buttonmdcode">~~</span><span class="toolbarbuttontitle">deleted</span><span class="buttonmdcode">~~</span></button></li>
+      			<li><button onclick="insertbutton('~~')" title="crossed"><img src="images/buttons/stroke.svg" alt="stroke"><span class="buttonmdcode">~~</span><span class="toolbarbuttontitle">deleted</span><span class="buttonmdcode">~~</span></button></li>
 
-			<li><button class="basicbutton" onclick="insertbutton('%list')" title="unordered list"><img src="images/buttons/ul.svg" alt="list"><span class="buttonmdcode">- </span><span class="toolbarbuttontitle">list</span></button></li>
+      			<li><button class="basicbutton" onclick="insertbutton('%list')" title="unordered list"><img src="images/buttons/ul.svg" alt="list"><span class="buttonmdcode">- </span><span class="toolbarbuttontitle">list</span></button></li>
 
-			<li><button onclick="insertbutton('%nrlist')" title="ordered list"><img src="images/buttons/ol.svg" alt="ordered list"><span class="buttonmdcode">1. </span><span class="toolbarbuttontitle">ordered list</span></button></li>
+      			<li><button onclick="insertbutton('%nrlist')" title="ordered list"><img src="images/buttons/ol.svg" alt="ordered list"><span class="buttonmdcode">1. </span><span class="toolbarbuttontitle">ordered list</span></button></li>
 
-			<li><button class="basicbutton" onclick="insertbutton('%quote')" title="quote"><img src="images/buttons/quote.svg" alt="quote"><span class="buttonmdcode">&gt; </span><span class="toolbarbuttontitle">quote</span></button></li>
+      			<li><button class="basicbutton" onclick="insertbutton('%quote')" title="quote"><img src="images/buttons/quote.svg" alt="quote"><span class="buttonmdcode">&gt; </span><span class="toolbarbuttontitle">quote</span></button></li>
 
-			<li><button onclick="insertbutton('%footnote')" title="footnote"><img src="images/buttons/footnote.svg" alt="footnote"><span class="buttonmdcode">[^*]</span><span class="toolbarbuttontitle"> footnote</span></button></li>
+      			<li><button onclick="insertbutton('%footnote')" title="footnote"><img src="images/buttons/footnote.svg" alt="footnote"><span class="buttonmdcode">[^*]</span><span class="toolbarbuttontitle"> footnote</span></button></li>
 
-			<li><button onclick="insertbutton('%comment')" title="comment"><img src="images/buttons/comment.svg" alt="comment"><span class="buttonmdcode">//</span> <span class="toolbarbuttontitle">comment</span></button></li>
+      			<li><button onclick="insertbutton('%comment')" title="comment"><img src="images/buttons/comment.svg" alt="comment"><span class="buttonmdcode">//</span> <span class="toolbarbuttontitle">comment</span></button></li>
 
-			<li><button onclick="insertbutton('%code')" title="code"><img src="images/buttons/code.svg" alt="code"><span class="buttonmdcode">`</span><span class="toolbarbuttontitle">code</span><span class="buttonmdcode">`</span></button></li>
+      			<li><button onclick="insertbutton('%code')" title="code"><img src="images/buttons/code.svg" alt="code"><span class="buttonmdcode">`</span><span class="toolbarbuttontitle">code</span><span class="buttonmdcode">`</span></button></li>
 
-			<li><button onclick="insertbutton('%link')" title="hyperlink"><img src="images/buttons/link.svg" alt="link"><span class="buttonmdcode">[</span><span class="toolbarbuttontitle">link</span><span class="buttonmdcode">](url)</span></button></li>
+      			<li><button onclick="insertbutton('%link')" title="hyperlink"><img src="images/buttons/link.svg" alt="link"><span class="buttonmdcode">[</span><span class="toolbarbuttontitle">link</span><span class="buttonmdcode">](url)</span></button></li>
 
-        </ul>
-    </div></div>
-    <div id="imagegallery">imagegallery</div>
-    <div id="optionarea">
-      <button id="importexportbutton">
-        <!--<img src="images/buttons/import-export.svg"><br>import&<br>export-->
-        <!-- file button-->
-        <svg viewBox="0 0 31 31" xml:space="preserve">
-          <g transform="matrix(1,0,0,1,-192.32,-3812.03)">
-            <g transform="matrix(1,0,0,1,0,3479)">
-              <g class="meta-button-backgr" transform="matrix(1,0,0,1,-34.2322,0.233)">
-                <g class="meta-button-backgr" transform="matrix(1,0,0,1,226.552,332.789)">
-                  <circle cx="15.5" cy="15.5" r="15.5"/>
-                </g>
-                <g class="meta-button-inside" transform="matrix(0.448942,0,0,-0.448942,94.5296,535.038)">
-                  <path d="M340.322,402.811C341.319,402.885 341.614,403.002 342.161,403.233C344.107,404.057 345.431,406.041 345.485,408.21L345.485,430.752C345.413,433.623 342.98,436.086 340.079,436.157L323.145,436.157C320.266,436.086 317.811,433.646 317.738,430.752L317.738,408.21C317.914,401.244 330.5,402.508 340.322,402.811ZM323.186,406.145C322.091,406.173 321.166,407.043 321.082,408.143C320.891,415.699 320.891,423.262 321.082,430.818C321.162,431.873 322.022,432.733 323.077,432.813C328.765,432.957 334.458,432.957 340.146,432.813C341.198,432.733 342.061,431.88 342.142,430.818C342.333,423.262 342.333,415.699 342.142,408.143C342.061,407.088 341.202,406.228 340.146,406.148C334.494,406.005 328.839,406.145 323.186,406.145Z"/>
-                </g>
-                <g transform="matrix(0.465576,0,0,0.448942,86.2266,161.917)">
-                  <path d="M342.144,408.33C342.144,407.124 341.2,406.145 340.038,406.145L323.186,406.145C322.023,406.145 321.079,407.124 321.079,408.33L321.079,430.632C321.079,431.837 322.023,432.816 323.186,432.816L340.038,432.816C341.2,432.816 342.144,431.837 342.144,430.632L342.144,408.33Z"/>
-                </g>
-                <g class="meta-button-inside" transform="matrix(1,0,0,1,23.6993,-3492.53)">
-                  <path d="M222.971,3847.89C222.938,3849.18 221.845,3850.28 220.544,3850.31L212.941,3850.31C211.65,3850.28 210.547,3849.18 210.514,3847.89L210.514,3837.66C210.547,3836.36 211.65,3835.26 212.941,3835.23L220.544,3835.23C221.845,3835.26 222.938,3836.36 222.971,3837.66L222.971,3847.89ZM221.534,3842.77C221.534,3841.09 221.512,3839.41 221.47,3837.74C221.434,3837.26 221.048,3836.88 220.574,3836.84C218.037,3836.78 215.498,3836.84 212.96,3836.84C212.468,3836.85 212.053,3837.24 212.015,3837.74C211.973,3839.41 211.951,3841.09 211.951,3842.77C211.951,3844.45 211.973,3846.13 212.015,3847.81C212.053,3848.3 212.468,3848.69 212.96,3848.7C215.498,3848.7 218.037,3848.77 220.574,3848.7C221.048,3848.67 221.434,3848.28 221.47,3847.81C221.512,3846.13 221.534,3844.45 221.534,3842.77Z"/>
-                </g>
-              </g>
-            </g>
-          </g>
-        </svg>
-        <br><span>file</span>
-      </button>
-      <button id="publishbutton" title="Open Publish Menu">
-        <!--<img src="images/buttons/publish.svg">-->
-        <!-- PUBLISH BUTTON -->
-        <svg viewBox="0 0 31 31" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-          <g transform="matrix(1,0,0,1,-235.853,-3812.03)">
-            <g transform="matrix(1,0,0,1,0,3479)">
-              <g transform="matrix(1,0,0,1,-1459.15,247.022)">
-                <g class="meta-button-backgr" transform="matrix(1,0,0,1,1695,86)">
-                  <circle cx="15.5" cy="15.5" r="15.5"/>
-                </g>
-                <g class="meta-button-inside"transform="matrix(1,0,0,1,1459.15,-3726.03)">
-                  <path d="M252.751,3822.61C252.733,3822.48 252.724,3822.35 252.724,3822.21C252.724,3820.61 254.028,3819.3 255.635,3819.3C257.241,3819.3 258.546,3820.61 258.546,3822.21C258.546,3823.82 257.241,3825.12 255.635,3825.12C254.716,3825.12 253.895,3824.7 253.362,3824.03C251.402,3825.19 249.401,3826.29 247.412,3827.4C247.552,3827.76 247.629,3828.16 247.629,3828.57C247.629,3828.73 247.618,3828.88 247.597,3829.03C249.51,3830.09 251.39,3831.22 253.283,3832.32C253.812,3831.59 254.669,3831.12 255.635,3831.12C257.241,3831.12 258.546,3832.42 258.546,3834.03C258.546,3835.64 257.241,3836.94 255.635,3836.94C254.028,3836.94 252.724,3835.64 252.724,3834.03C252.724,3833.94 252.728,3833.86 252.735,3833.77C250.806,3832.72 248.915,3831.59 247.015,3830.48C246.42,3831.31 245.449,3831.85 244.354,3831.85C242.546,3831.85 241.079,3830.38 241.079,3828.57C241.079,3826.77 242.546,3825.3 244.354,3825.3C245.189,3825.3 245.952,3825.61 246.53,3826.13C248.58,3824.91 250.675,3823.78 252.751,3822.61Z"/>
-                </g>
-              </g>
-            </g>
-          </g>
-        </svg>
-        <br><span>publish</span>
-      </button>
-        <button id="optionsbutton">
-          <!--<img src="images/buttons/options.svg">-->
-          <!-- OPTIONS BUTTON -->
-          <svg viewBox="0 0 31 31" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-              <g transform="matrix(1,0,0,1,-296.175,-3812.62)">
-                  <g transform="matrix(1,0,0,1,0,3479)">
-                          <g class="meta-button-backgr" transform="matrix(1,0,0,1,296.175,333.617)">
-                              <circle cx="15.5" cy="15.5" r="15.5"/>
-                          </g>
-                          <g class="meta-button-inside" transform="matrix(1,0,0,1,0,-3479)">
-                              <path d="M311.588,3820.8C315.458,3820.8 318.6,3823.95 318.6,3827.82C318.6,3831.69 315.458,3834.83 311.588,3834.83C307.718,3834.83 304.576,3831.69 304.576,3827.82C304.576,3823.95 307.718,3820.8 311.588,3820.8ZM311.588,3822.82C314.346,3822.82 316.585,3825.06 316.585,3827.82C316.585,3830.57 314.346,3832.81 311.588,3832.81C308.83,3832.81 306.591,3830.57 306.591,3827.82C306.591,3825.06 308.83,3822.82 311.588,3822.82Z"/>
-                          </g>
+          </ul>
+        </div>
+      </div>
+      <div id="imagegallery">imagegallery</div>
+      <div id="optionarea">
+        <button id="importexportbutton">
+          <!--<img src="images/buttons/import-export.svg"><br>import&<br>export-->
+          <!-- file button-->
+          <svg viewBox="0 0 31 31" xml:space="preserve">
+            <g transform="matrix(1,0,0,1,-192.32,-3812.03)">
+              <g transform="matrix(1,0,0,1,0,3479)">
+                <g class="meta-button-backgr" transform="matrix(1,0,0,1,-34.2322,0.233)">
+                  <g class="meta-button-backgr" transform="matrix(1,0,0,1,226.552,332.789)">
+                    <circle cx="15.5" cy="15.5" r="15.5"/>
                   </g>
+                  <g class="meta-button-inside" transform="matrix(0.448942,0,0,-0.448942,94.5296,535.038)">
+                    <path d="M340.322,402.811C341.319,402.885 341.614,403.002 342.161,403.233C344.107,404.057 345.431,406.041 345.485,408.21L345.485,430.752C345.413,433.623 342.98,436.086 340.079,436.157L323.145,436.157C320.266,436.086 317.811,433.646 317.738,430.752L317.738,408.21C317.914,401.244 330.5,402.508 340.322,402.811ZM323.186,406.145C322.091,406.173 321.166,407.043 321.082,408.143C320.891,415.699 320.891,423.262 321.082,430.818C321.162,431.873 322.022,432.733 323.077,432.813C328.765,432.957 334.458,432.957 340.146,432.813C341.198,432.733 342.061,431.88 342.142,430.818C342.333,423.262 342.333,415.699 342.142,408.143C342.061,407.088 341.202,406.228 340.146,406.148C334.494,406.005 328.839,406.145 323.186,406.145Z"/>
+                  </g>
+                  <g transform="matrix(0.465576,0,0,0.448942,86.2266,161.917)">
+                    <path d="M342.144,408.33C342.144,407.124 341.2,406.145 340.038,406.145L323.186,406.145C322.023,406.145 321.079,407.124 321.079,408.33L321.079,430.632C321.079,431.837 322.023,432.816 323.186,432.816L340.038,432.816C341.2,432.816 342.144,431.837 342.144,430.632L342.144,408.33Z"/>
+                  </g>
+                  <g class="meta-button-inside" transform="matrix(1,0,0,1,23.6993,-3492.53)">
+                    <path d="M222.971,3847.89C222.938,3849.18 221.845,3850.28 220.544,3850.31L212.941,3850.31C211.65,3850.28 210.547,3849.18 210.514,3847.89L210.514,3837.66C210.547,3836.36 211.65,3835.26 212.941,3835.23L220.544,3835.23C221.845,3835.26 222.938,3836.36 222.971,3837.66L222.971,3847.89ZM221.534,3842.77C221.534,3841.09 221.512,3839.41 221.47,3837.74C221.434,3837.26 221.048,3836.88 220.574,3836.84C218.037,3836.78 215.498,3836.84 212.96,3836.84C212.468,3836.85 212.053,3837.24 212.015,3837.74C211.973,3839.41 211.951,3841.09 211.951,3842.77C211.951,3844.45 211.973,3846.13 212.015,3847.81C212.053,3848.3 212.468,3848.69 212.96,3848.7C215.498,3848.7 218.037,3848.77 220.574,3848.7C221.048,3848.67 221.434,3848.28 221.47,3847.81C221.512,3846.13 221.534,3844.45 221.534,3842.77Z"/>
+                  </g>
+                </g>
               </g>
-           </svg>
-          <br><span>options</span>
+            </g>
+          </svg>
+          <br><span>file</span>
         </button>
-    </div>
-    <div id="sidebarcontainer">
+        <button id="publishbutton" title="Open Publish Menu">
+          <!--<img src="images/buttons/publish.svg">-->
+          <!-- PUBLISH BUTTON -->
+          <svg viewBox="0 0 31 31" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+            <g transform="matrix(1,0,0,1,-235.853,-3812.03)">
+              <g transform="matrix(1,0,0,1,0,3479)">
+                <g transform="matrix(1,0,0,1,-1459.15,247.022)">
+                  <g class="meta-button-backgr" transform="matrix(1,0,0,1,1695,86)">
+                    <circle cx="15.5" cy="15.5" r="15.5"/>
+                  </g>
+                  <g class="meta-button-inside"transform="matrix(1,0,0,1,1459.15,-3726.03)">
+                    <path d="M252.751,3822.61C252.733,3822.48 252.724,3822.35 252.724,3822.21C252.724,3820.61 254.028,3819.3 255.635,3819.3C257.241,3819.3 258.546,3820.61 258.546,3822.21C258.546,3823.82 257.241,3825.12 255.635,3825.12C254.716,3825.12 253.895,3824.7 253.362,3824.03C251.402,3825.19 249.401,3826.29 247.412,3827.4C247.552,3827.76 247.629,3828.16 247.629,3828.57C247.629,3828.73 247.618,3828.88 247.597,3829.03C249.51,3830.09 251.39,3831.22 253.283,3832.32C253.812,3831.59 254.669,3831.12 255.635,3831.12C257.241,3831.12 258.546,3832.42 258.546,3834.03C258.546,3835.64 257.241,3836.94 255.635,3836.94C254.028,3836.94 252.724,3835.64 252.724,3834.03C252.724,3833.94 252.728,3833.86 252.735,3833.77C250.806,3832.72 248.915,3831.59 247.015,3830.48C246.42,3831.31 245.449,3831.85 244.354,3831.85C242.546,3831.85 241.079,3830.38 241.079,3828.57C241.079,3826.77 242.546,3825.3 244.354,3825.3C245.189,3825.3 245.952,3825.61 246.53,3826.13C248.58,3824.91 250.675,3823.78 252.751,3822.61Z"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </svg>
+          <br><span>publish</span>
+        </button>
+          <button id="optionsbutton">
+            <!--<img src="images/buttons/options.svg">-->
+            <!-- OPTIONS BUTTON -->
+            <svg viewBox="0 0 31 31" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+                <g transform="matrix(1,0,0,1,-296.175,-3812.62)">
+                    <g transform="matrix(1,0,0,1,0,3479)">
+                            <g class="meta-button-backgr" transform="matrix(1,0,0,1,296.175,333.617)">
+                                <circle cx="15.5" cy="15.5" r="15.5"/>
+                            </g>
+                            <g class="meta-button-inside" transform="matrix(1,0,0,1,0,-3479)">
+                                <path d="M311.588,3820.8C315.458,3820.8 318.6,3823.95 318.6,3827.82C318.6,3831.69 315.458,3834.83 311.588,3834.83C307.718,3834.83 304.576,3831.69 304.576,3827.82C304.576,3823.95 307.718,3820.8 311.588,3820.8ZM311.588,3822.82C314.346,3822.82 316.585,3825.06 316.585,3827.82C316.585,3830.57 314.346,3832.81 311.588,3832.81C308.83,3832.81 306.591,3830.57 306.591,3827.82C306.591,3825.06 308.83,3822.82 311.588,3822.82Z"/>
+                            </g>
+                    </g>
+                </g>
+             </svg>
+            <br><span>options</span>
+          </button>
+      </div>
+      <div id="sidebarcontainer">
         <div id="sidebar"></div>
         <div id="nicesidebarsymbol">
           <a id="nicesidebarsymbolcontainer" href="javascript:slidenote.presentation.showInsertMenu();">
@@ -922,53 +932,52 @@ function insertbutton(code){
           </a>
           <img id="cursorlinearrow" src="images/buttons/cursorlineneu.png">
         </div>
-			<div id="insertarea">
+        <div id="insertarea">
           <div id="insertmenulabel" class="screenreader-only"></div>
-			    <div id="standardinsertmenu">
-					<!--<button class="newpagebutton" onclick="insertbutton('---')" >new Page</button>-->
-				</div>
-				<div id="extrainsertmenu">
-<!-- some test-data:
-<button>- </button><button>+ </button><button>* </button><hr><button>1. </button><button>1.) </button><button>1) </button><button>a) </button><button>I) </button>
-end test-data-->
-				</div>
-			</div>
-
-    </div>
-    <div id="playbuttonarea">
+  		    <div id="standardinsertmenu">
+            <!--<button class="newpagebutton" onclick="insertbutton('---')" >new Page</button>-->
+  			  </div>
+  			  <div id="extrainsertmenu">
+            <!-- some test-data:
+            <button>- </button><button>+ </button><button>* </button><hr><button>1. </button><button>1.) </button><button>1) </button><button>a) </button><button>I) </button>
+            end test-data-->
+  			  </div>
+        </div>
+      </div>
+      <div id="playbuttonarea">
         <button class="fluidbutton" id="presentationoptionsbutton">
           <!--
           <img src="images/buttons/presentation-options.svg">
           -->
           <svg viewBox="0 0 54 50" style="fill-rule:evenodd;clip-rule:evenodd;">
 
-                      <path filter="url(#presentationoptions-glow)" d="M22.361,34.174c-11.059,-6.016 -17.523,-2.76 -18.253,-13.28c-0.546,-7.86 15.243,-12.505 27.686,-7.46c10.295,4.174 18.13,20.108 12.763,27.504c-8.776,12.092 -14.754,-2.716 -22.196,-6.764Z" style="fill:url(#presentationoptions-linear);"></path>
+            <path filter="url(#presentationoptions-glow)" d="M22.361,34.174c-11.059,-6.016 -17.523,-2.76 -18.253,-13.28c-0.546,-7.86 15.243,-12.505 27.686,-7.46c10.295,4.174 18.13,20.108 12.763,27.504c-8.776,12.092 -14.754,-2.716 -22.196,-6.764Z" style="fill:url(#presentationoptions-linear);"></path>
 
 
-                      <clipPath id="_clip-presentationoptions">
-      					<path d="M22.361,34.174c-11.059,-6.016 -17.523,-2.76 -18.253,-13.28c-0.546,-7.86 15.243,-12.505 27.686,-7.46c10.295,4.174 18.13,20.108 12.763,27.504c-8.776,12.092 -14.754,-2.716 -22.196,-6.764Z"></path>
-      				</clipPath>
+            <clipPath id="_clip-presentationoptions">
+    					<path d="M22.361,34.174c-11.059,-6.016 -17.523,-2.76 -18.253,-13.28c-0.546,-7.86 15.243,-12.505 27.686,-7.46c10.295,4.174 18.13,20.108 12.763,27.504c-8.776,12.092 -14.754,-2.716 -22.196,-6.764Z"></path>
+    				</clipPath>
 
-      				<g clip-path="url(#_clip-presentationoptions)"><path d="M25.11,21.001c0.708,0.052 1.394,0.191 2.048,0.406l1.324,-1.349l1.663,0.93l-0.211,1.939l-0.066,-0.036c0.404,0.329 0.778,0.693 1.117,1.09l1.809,-0.455l0.933,1.661l-1.173,1.523c0.177,0.507 0.308,1.038 0.388,1.587l1.752,0.553l-0.077,1.904l-1.8,0.682c-0.132,0.575 -0.323,1.131 -0.565,1.658l1.121,1.311l-1.071,1.575l-1.825,-0.36c-0.338,0.333 -0.704,0.638 -1.094,0.912l0.137,-0.067l0.326,1.877l-1.727,0.806l-1.451,-1.302l0.257,-0.125c-0.599,0.178 -1.227,0.293 -1.876,0.337c-4.242,0.281 -7.972,-2.588 -8.897,-6.602l0.214,1.759l-1.881,-0.3l-0.204,-1.895l1.671,-0.933c-0.043,-0.656 -0.011,-1.298 0.089,-1.921l-1.468,-1.094l0.698,-1.773l1.81,-0.049c0.261,-0.45 0.562,-0.875 0.899,-1.269l-0.738,-1.589l1.457,-1.228l1.693,0.856c0.521,-0.285 1.077,-0.517 1.659,-0.69l0.376,-1.789l1.902,-0.112l0.781,1.572Zm-1.046,2.239c3.457,-0.23 6.45,2.39 6.68,5.847c0.23,3.457 -2.39,6.451 -5.847,6.68c-3.457,0.23 -6.451,-2.39 -6.68,-5.847c-0.23,-3.457 2.39,-6.45 5.847,-6.68Z" style="fill:#fcfcfc;fill-opacity:0.82;"></path></g>
+    				<g clip-path="url(#_clip-presentationoptions)"><path d="M25.11,21.001c0.708,0.052 1.394,0.191 2.048,0.406l1.324,-1.349l1.663,0.93l-0.211,1.939l-0.066,-0.036c0.404,0.329 0.778,0.693 1.117,1.09l1.809,-0.455l0.933,1.661l-1.173,1.523c0.177,0.507 0.308,1.038 0.388,1.587l1.752,0.553l-0.077,1.904l-1.8,0.682c-0.132,0.575 -0.323,1.131 -0.565,1.658l1.121,1.311l-1.071,1.575l-1.825,-0.36c-0.338,0.333 -0.704,0.638 -1.094,0.912l0.137,-0.067l0.326,1.877l-1.727,0.806l-1.451,-1.302l0.257,-0.125c-0.599,0.178 -1.227,0.293 -1.876,0.337c-4.242,0.281 -7.972,-2.588 -8.897,-6.602l0.214,1.759l-1.881,-0.3l-0.204,-1.895l1.671,-0.933c-0.043,-0.656 -0.011,-1.298 0.089,-1.921l-1.468,-1.094l0.698,-1.773l1.81,-0.049c0.261,-0.45 0.562,-0.875 0.899,-1.269l-0.738,-1.589l1.457,-1.228l1.693,0.856c0.521,-0.285 1.077,-0.517 1.659,-0.69l0.376,-1.789l1.902,-0.112l0.781,1.572Zm-1.046,2.239c3.457,-0.23 6.45,2.39 6.68,5.847c0.23,3.457 -2.39,6.451 -5.847,6.68c-3.457,0.23 -6.451,-2.39 -6.68,-5.847c-0.23,-3.457 2.39,-6.45 5.847,-6.68Z" style="fill:#fcfcfc;fill-opacity:0.82;"></path></g>
 
 
-      		    <defs>
-      		        <linearGradient id="presentationoptions-linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(37.2753,-56.8819,56.8819,37.2753,0.165507,67.0311)">
-      		            <stop offset="0" style="stop-color:#c87f6d;stop-opacity:1"></stop>
-      		            <stop offset="1" style="stop-color:#89bec9;stop-opacity:1"></stop>
-      		        </linearGradient>
+    		    <defs>
+  		        <linearGradient id="presentationoptions-linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(37.2753,-56.8819,56.8819,37.2753,0.165507,67.0311)">
+  	            <stop offset="0" style="stop-color:#c87f6d;stop-opacity:1"></stop>
+  	            <stop offset="1" style="stop-color:#89bec9;stop-opacity:1"></stop>
+  		        </linearGradient>
 
-      		        <filter id="presentationoptions-glow">
-      		            <feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur>
-      		                <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
-      		                <feFlood flood-color="rgb(30,87,99)" flood-opacity="0.4"></feFlood>
-      		                <feComposite in2="offsetblur" operator="in"></feComposite>
-      		                <feMerge>
-      		                    <feMergeNode></feMergeNode>
-      		                    <feMergeNode in="SourceGraphic"></feMergeNode>
-      		                </feMerge>
-      		        </filter>
-      		    </defs>
+  		        <filter id="presentationoptions-glow">
+  	            <feGaussianBlur in="SourceAlpha" stdDeviation="2"></feGaussianBlur>
+                <feOffset dx="0" dy="0" result="offsetblur"></feOffset>
+                <feFlood flood-color="rgb(30,87,99)" flood-opacity="0.4"></feFlood>
+                <feComposite in2="offsetblur" operator="in"></feComposite>
+                <feMerge>
+                  <feMergeNode></feMergeNode>
+                  <feMergeNode in="SourceGraphic"></feMergeNode>
+                </feMerge>
+  		        </filter>
+    		    </defs>
       		</svg>
         </button>
         <button class="fluidbutton" id="playbutton" onclick="slidenote.presentation.showpresentation()">
@@ -977,608 +986,610 @@ end test-data-->
           insert svg here
           -->
         </button>
-    </div>
-    <div id="searchbuttonarea">
-      <button class="fluidbutton" id="searchbutton">
-        <img src="images/buttons/search.png" alt="open search and replace menu">
-      </button>
-    </div>
-<!-- the menus:-->
-    <div id="menucloud"><div class="arrow_box">
-        <div>cloud status:<span id="cloudstatus"></span></div>
-        <button id="savebutton">save to cloud now</button>
-        <button id="addrevision">add revision</button>
-        <div class="separator">revert to revision</div>
-        <ul id="revisionlist">
-<!-- just for testing purpose some elements -->
+      </div>
+      <div id="searchbuttonarea">
+        
+      </div>
+      <!-- the menus:-->
+      <div id="menucloud">
+        <div class="arrow_box">
+          <div>cloud status:<span id="cloudstatus"></span></div>
+          <button id="savebutton">save to cloud now</button>
+          <button id="addrevision">add revision</button>
+          <div class="separator">revert to revision</div>
+          <ul id="revisionlist">
+            <!-- just for testing purpose some elements -->
             <li><button>mon 06-11-19 11:49</button></li>
             <li><button>mon 06-11-19 11:49</button></li>
             <li><button>mon 06-11-19 11:49</button></li>
-        </ul>
-    </div></div>
-    <div id="menuload"><div class="arrow_box">
-        <button id="newnote" class="menuitem" onclick="slidenoteguardian.createNewSlidenote()"><img src="images/buttons/+.png"><span>new slidenote</span></button>
-        <div id="actnotearea">
-          <div id="actnotetitle">new note</div>
-          <button id="deletebutton" class="minibutton menuitem">delete</button>
-          <button id="renamebutton" class="minibutton menuitem">rename</button>
-          <button id="changepasswordbutton" class="minibutton menuitem">change password</button>
+          </ul>
         </div>
-        <ul id="notelist">
+      </div>
+      <div id="menuload">
+        <div class="arrow_box">
+          <button id="newnote" class="menuitem" onclick="slidenoteguardian.createNewSlidenote()"><img src="images/buttons/+.png"><span>new slidenote</span></button>
+          <div id="actnotearea">
+            <div id="actnotetitle">new note</div>
+            <button id="deletebutton" class="minibutton menuitem">delete</button>
+            <button id="renamebutton" class="minibutton menuitem">rename</button>
+            <button id="changepasswordbutton" class="minibutton menuitem">change password</button>
+          </div>
+          <ul id="notelist">
             <li><a class="menuitem loadnotebutton">new note</a></li>
             <li><a class="loadnotebutton menuitem">dinosaurs today</a></li>
             <li><a class="loadnotebutton menuitem">reading literature in the last century</a></li>
-        </ul>
-    </div></div>
-    <div id="menuoutlet"></div>
-    <div id="menupublish"><div class="arrow_box"><div class="arrow_box_content">
-        <button id="publishtocms" onclick="slidenoteguardian.exportPresentationToCMS()">publish presentation to slidenotes.io</button>
-        <div class="separator">published to slidenotes.io</div>
-        <ul id="publishedlist">
-<!-- some test-data to see structure: -->
-            <li>
-              <button class="loadnotebutton">mon 06-11-19 11:49</button>
+          </ul>
+        </div>
+      </div>
+      <div id="menuoutlet"></div>
+      <div id="menupublish"><div class="arrow_box"><div class="arrow_box_content">
+            <button id="publishtocms" onclick="slidenoteguardian.exportPresentationToCMS()">publish presentation to slidenotes.io</button>
+            <div class="separator">published to slidenotes.io</div>
+            <ul id="publishedlist">
+              <!-- some test-data to see structure: -->
+              <li>
+                <button class="loadnotebutton">mon 06-11-19 11:49</button>
                 <button class="circle"><img src="images/buttons/-.png" alt="delete presentation"> delete</button>
                 <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
-            </li>
-            <li>
-              <button class="loadnotebutton">mon 06-11-19 11:00</button>
+              </li>
+              <li>
+                <button class="loadnotebutton">mon 06-11-19 11:00</button>
                 <button class="circle"><img src="images/buttons/-.png" alt="delete presentation">delete</button>
                 <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
-            </li>
-        </ul>
-    </div></div></div>
-    <div id="menuimportexport"><div class="arrow_box"><div class="arrow_box_content">
-        <button id="importbutton" title="import slidenote or MD-file">
-          <img src="images/buttons/noteblock.png">
-          <img src="images/buttons/export.png" class="importpng">
-          <span>import slidenote or MD-file</span>
-          <input type="file" id="importfile" accept=".slidenote,.txt,.md,.csv">
-        </button>
-        <div class="separator">download slidenote as</div>
-        <button id="exportasslidenotebutton" onclick="slidenoteguardian.saveNote('filesystem')" title="download as encrypted .slidenote file">
-          <img src="images/buttons/noteblock.png">
-          <img src="images/buttons/encrypted.png">
-          <img src="images/buttons/export.png">
-          <span class="screenreader-only">download slidenote as</span>
-          <span>encrypted .slidenote file</span>
-        </button>
-        <button id="exportasmdfilebutton" onclick="slidenoteguardian.exportToFilesystem(slidenote.textarea.value, slidenoteguardian.notetitle+'.md')" title="download as unencrypted text file">
-          <img src="images/buttons/noteblock.png">
-          <img src="images/buttons/notencrypted.png">
-          <img src="images/buttons/export.png">
-          <span class="screenreader-only">download code as</span>
-          <span>unencrypted .md/.txt file</span>
-        </button>
-        <div class="separator">download presentation as</div>
-        <button id="exportasenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(true);" title="download presentation as encrypted .html file">
-          <img src="images/buttons/presentationnice.png">
-          <img src="images/buttons/encrypted.png">
-          <img src="images/buttons/export.png">
-          <span class="screenreader-only">download presentation as</span>
-          <span>encrypted .html file</span>
-        </button>
-        <button id="exportasunenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(false);" title="download presentation as unencrypted .html file">
-          <img src="images/buttons/presentationnice.png">
-          <img src="images/buttons/notencrypted.png">
-          <img src="images/buttons/export.png">
-          <span class="screenreader-only">download presentation as</span>
-          <span>unencrypted .html file</span>
-        </button>
-    </div></div></div>
-    <div id="menuoptionseditor"><div class="arrow_box"><div class="arrow_box_content">
-        <a href="/user" class="menuitem"><img src="images/buttons/account.png"><span>Account</span></a>
-        <a href='/user/logout' class="menuitem"><img src="images/buttons/logout.png"><span>log out</span></a>
-        <div class="separator"><span>night shift</span></div>
-        <button id="nightmodetoggle" class="menuitem"><div>on</div><div>off</div></button>
-        <div class="separator">view mode</div>
-        <div id="optionmenuinterfacedesign">
-                <!--<button id="editorchoicebutton" class="menuitem">-->
-				<select id="editorchoice" class="menuitem"  onchange="slidenote.choseEditor(this.value)">
-					<option value="md-texteditor" selected>context-mode (default)</option>
-					<option value="focus">focus-mode</option>
-					<option value="raw-text">raw text</option>
-          <option value="big-mode">big mode</option>
-          <option value="basic-mode">basic mode</option>
-          <option value="audio-mode">audio mode</option>
+              </li>
+            </ul>
+      </div></div></div>
+      <div id="menuimportexport"><div class="arrow_box"><div class="arrow_box_content">
+            <button id="importbutton" title="import slidenote or MD-file">
+              <img src="images/buttons/noteblock.png">
+              <img src="images/buttons/export.png" class="importpng">
+              <span>import slidenote or MD-file</span>
+              <input type="file" id="importfile" accept=".slidenote,.txt,.md,.csv">
+            </button>
+            <div class="separator">download slidenote as</div>
+            <button id="exportasslidenotebutton" onclick="slidenoteguardian.saveNote('filesystem')" title="download as encrypted .slidenote file">
+              <img src="images/buttons/noteblock.png">
+              <img src="images/buttons/encrypted.png">
+              <img src="images/buttons/export.png">
+              <span class="screenreader-only">download slidenote as</span>
+              <span>encrypted .slidenote file</span>
+            </button>
+            <button id="exportasmdfilebutton" onclick="slidenoteguardian.exportToFilesystem(slidenote.textarea.value, slidenoteguardian.notetitle+'.md')" title="download as unencrypted text file">
+              <img src="images/buttons/noteblock.png">
+              <img src="images/buttons/notencrypted.png">
+              <img src="images/buttons/export.png">
+              <span class="screenreader-only">download code as</span>
+              <span>unencrypted .md/.txt file</span>
+            </button>
+            <div class="separator">download presentation as</div>
+            <button id="exportasenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(true);" title="download presentation as encrypted .html file">
+              <img src="images/buttons/presentationnice.png">
+              <img src="images/buttons/encrypted.png">
+              <img src="images/buttons/export.png">
+              <span class="screenreader-only">download presentation as</span>
+              <span>encrypted .html file</span>
+            </button>
+            <button id="exportasunenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(false);" title="download presentation as unencrypted .html file">
+              <img src="images/buttons/presentationnice.png">
+              <img src="images/buttons/notencrypted.png">
+              <img src="images/buttons/export.png">
+              <span class="screenreader-only">download presentation as</span>
+              <span>unencrypted .html file</span>
+            </button>
+      </div></div></div>
+      <div id="menuoptionseditor"><div class="arrow_box"><div class="arrow_box_content">
+            <a href="/user" class="menuitem"><img src="images/buttons/account.png"><span>Account</span></a>
+            <a href='/user/logout' class="menuitem"><img src="images/buttons/logout.png"><span>log out</span></a>
+            <div class="separator"><span>night shift</span></div>
+            <button id="nightmodetoggle" class="menuitem"><div>on</div><div>off</div></button>
+            <div class="separator">view mode</div>
+            <div id="optionmenuinterfacedesign">
+              <!--<button id="editorchoicebutton" class="menuitem">-->
+        			<select id="editorchoice" class="menuitem"  onchange="slidenote.choseEditor(this.value)">
+        				<option value="md-texteditor" selected>context-mode (default)</option>
+        				<option value="focus">focus-mode</option>
+        				<option value="raw-text">raw text</option>
+                <option value="big-mode">big mode</option>
+                <option value="basic-mode">basic mode</option>
+                <option value="audio-mode">audio mode</option>
 
-				</select>
-                <!--</button>-->
-		</div>
-        <div class="separator">---</div>
-        <button class="menuitem" onclick="slidenote.extensions.showAdvancedMenu()"><img src="images/buttons/options.png"><span class="screenreader-only">Open </span><span>Advanced Options</span></button>
-        <div class="separator">slidenotes.io service</div>
-        <ul>
-				<li><a href="?id=158" class="menuitem">tutorials</a></li>
-				<li><a href="#" class="menuitem">documentation</a></li>
-				<li><a href="#" class="menuitem">bug reports</a></li>
-				<li><a href="#" class="menuitem">community</a></li>
-			</ul>
+        			</select>
+              <!--</button>-->
+    		    </div>
+            <div class="separator">---</div>
+            <button class="menuitem" onclick="slidenote.extensions.showAdvancedMenu()"><img src="images/buttons/options.png"><span class="screenreader-only">Open </span><span>Advanced Options</span></button>
+            <div class="separator">slidenotes.io service</div>
+            <ul>
+      				<li><a href="?id=158" class="menuitem">tutorials</a></li>
+      				<li><a href="#" class="menuitem">documentation</a></li>
+      				<li><a href="#" class="menuitem">bug reports</a></li>
+      				<li><a href="#" class="menuitem">community</a></li>
+            </ul>
+      </div></div></div>
+      <div id="menuoptionspresentation"><div class="arrow_box_down">
+          <div class="separator">slide design</div>
+          <ul id="basicthemelist">
+  					<li><div>prototype</div><input type="radio" name="basictheme" value="prototype"><div class="prototype"><div>WELCOME</div>TO SLIDENOTES</div></li>
+  					<li><div>prototype</div><input type="radio" name="basictheme" value="pop"><div class="pop"><div>WELCOME</div> TO SLIDENOTES</div></li>
+            <li><div>prototype</div><input type="radio" name="basictheme" value="coding"><div class="coding"><div>WELCOME</div> TO SLIDENOTES</div></li>
+  		</ul>
+      </div></div>
+      <div id="menusearchbox"><div class="arrow_box"><div class="arrow_box_content">
+            <!--<div class="separator">Search</div>-->
+            <div class="separator">
+              <select class="menuitem" name="searchinputchoice" id="searchinputchoice">
+                <option value="normal" selected title="normal search. You can use '\n' for line-break">Normal Search</option>
+                <option value="regex" title="Use a Regular Expression like /myRegex/flags . Allowed Flags are: i,m">RegEx Search </option>
+                <option value="raw" title="Search for Text 'as it is'">Raw-Text Search</option>
+              </select>
+            </div>
+            <input type="text" name="find" id="findinput" class="menuitem focusitem">
+            <div class="buttonarea">
+              <button id="findbutton" class="menuitem">Find</button>
+            </div>
+            <div class="separator">Replace</div>
+            <input type="text" name="replace" id="replaceinput" class="menuitem">
+            <div class="buttonarea">
+              <button id="replacebutton" class="menuitem">replace</button>
+              <button id="replaceallbutton" class="menuitem">replace all</button>
+            </div>
+            <div id="searchresult"></div>
+      </div></div></div>
+      <!-- only stuff for making shadows and such:-->
+          <!-- old stuff(cornerleft)
+          <div id="cornerleft"></div>
+          <div id="topleft"></div>
+          <img id="cornerleftimage" src="images/cornerleftimage.png">
+          <div id="topmiddle"></div>
+          <div id="noteareaempty"><img src="images/borderleft.png"></div>
+          <div id="cornerright"></div>
+      -->
+      <!-- <div id="topright"><svg viewBox="0 0 40 40" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+  	    <g transform="matrix(1,0,0,1,-1190.49,-3479)">
+  	        <g transform="matrix(1,0,0,1,0,3479)">
+  	            <g transform="matrix(1,0,0,1,0,-3479)">
+  	                <path class="rightcorner" filter="url(#rightcorner-shadow" d="M1230.49,3519L1230.41,3519C1229.09,3497.58 1211.92,3480.41 1190.49,3479.09L1190.49,3479L1230.49,3479L1230.49,3519Z"/>
+  	                <path class="rightcorner" d="M1230.49,3519L1230.41,3519C1229.09,3497.58 1211.92,3480.41 1190.49,3479.09L1190.49,3479L1230.49,3479L1230.49,3519Z"/>
+  	            </g>
+  	        </g>
+  	    </g>
+  	    <defs>
+  	    	<filter id="rightcorner-shadow">
+  	    		<feOffset result="offOut" in="SourceAlpha" dx="-1" dy="0" />
+    					<feGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
+    					<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+    					<feComponentTransfer>
+  						<feFuncA type="linear" slope="0.3"/>
+  					</feComponentTransfer>
+      			</filter>
+  	    </defs>
+  		</svg></div> -->
+      <div id="shadowelleft"></div>
+      <div id="rahmenright"></div>
+      <div id="slidenoteloadingscreenwrapper">
+        <div id="slidenoteeditorloadingscreen">
+          <div id="slidenoteeditorloadingscreenbackground"></div>
+          <div id="circle-colorful"></div>
+          <div id="slidenoteeditorhidetexteditor"></div>
+          <img id="loadingcircle" src="images/loadingscreen.gif">
+          <div id="initialLoadingProgress"></div>
+        </div>
+      </div>
 
-    </div></div></div>
-    <div id="menuoptionspresentation"><div class="arrow_box_down">
-        <div class="separator">slide design</div>
-        <ul id="basicthemelist">
-					<li><div>prototype</div><input type="radio" name="basictheme" value="prototype"><div class="prototype"><div>WELCOME</div>TO SLIDENOTES</div></li>
-					<li><div>prototype</div><input type="radio" name="basictheme" value="pop"><div class="pop"><div>WELCOME</div> TO SLIDENOTES</div></li>
-          <li><div>prototype</div><input type="radio" name="basictheme" value="coding"><div class="coding"><div>WELCOME</div> TO SLIDENOTES</div></li>
-		</ul>
-    </div></div>
-    <div id="menusearchbox"><div class="arrow_box"><div class="arrow_box_content">
-      <!--<div class="separator">Search</div>-->
-      <div class="separator">
-        <select class="menuitem" name="searchinputchoice" id="searchinputchoice">
-          <option value="normal" selected title="normal search. You can use '\n' for line-break">Normal Search</option>
-          <option value="regex" title="Use a Regular Expression like /myRegex/flags . Allowed Flags are: i,m">RegEx Search </option>
-          <option value="raw" title="Search for Text 'as it is'">Raw-Text Search</option>
+    </div><!--end of slidenoteeditor-div-->
+  	<div id="praesentationrahmen">
+      <div id="previewselector">
+        <h1>how does my presentation look like on...</h1>
+        <span id="previewdimension">1920x1080px</span>
+        <select id="previewselection" onclick="presentation.setPreviewStyle(this.value)">
+          <option value="fullhd">wide screen monitors (fullHD)</option>
+          <option value="widescreen">wide screen monitors (HD)</option>
+          <option value="beamer">old beamer</option>
+          <option value="ipad">iPad</option>
+          <option value="iphone">iPhoneX</option>
+          <option value="galaxy">Galaxy S9</option>
         </select>
       </div>
-      <input type="text" name="find" id="findinput" class="menuitem focusitem">
-      <div class="buttonarea">
-        <button id="findbutton" class="menuitem">Find</button>
+  		<div id="praesentation"></div>
+  		<div id="controlarea">
+          <!-- presentation-interface -->
+          <!-- ====================== -->
+
+          <!-- horizontal interface -->
+          <!-- -------------------- -->
+
+          <!-- interface close -->
+          <svg id="controlarea_close" viewBox="0 0 328 58">
+
+            <!-- blob in -->
+            <path d="M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z" style="fill:url(#_Radial1);">
+              <animate class="animateToClose" id="animate-to-close_blob1" begin="indefinite" dur="0.2s" attributeName="d"
+                values="
+                M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;
+
+                M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;
+
+                M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <!-- main -->
+            <path d="M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z" fill-rule="nonzero" style="fill:#1E1E1E; cursor: pointer;" filter="url(#presentation-interface_glow)">
+              <animate class="animateToClose" id="animate-to-close" begin="indefinite" dur="0.4s" attributeName="d"
+                values="
+                M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;
+
+                M24.34,11.438c12.485,5.274 15.458,13.78 14.946,29.369c-0.221,6.757 -1.714,13.066 -6.827,17.217l-32.459,0l0,-53.064c9.116,2.823 17.699,3.672 24.34,6.478Z;
+
+                M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+              <animate class="animateToClose" id="animate-to-close_color" begin="indefinite" dur="0.4s" fill="freeze" attributeName="fill" to="#BEBEBE">
+              </animate>
+            </path>
+
+            <!-- shine -->
+            <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16; pointer-events: none;">
+              <animate class="animateToClose" id="animate-to-close_shine1" begin="indefinite" dur="0.4s" attributeName="d"
+                values="
+                M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;
+
+                M27.498,15.127c7.123,4.651 8.623,9.062 5.487,11.86c-3.431,3.061 -3.251,-0.281 -10.373,-4.932c-7.123,-4.651 -8.529,-5.497 -7.229,-7.489c1.301,-1.992 4.992,-4.091 12.115,0.561Z;
+
+                M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <path d="M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z" style="fill:#fff;fill-opacity:0.24; pointer-events: none;">
+              <animate class="animateToClose" id="animate-to-close_shine2" begin="indefinite" dur="0.4s" attributeName="d"
+                values="
+                M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;
+
+                M37.47,33.14c0.36,1.373 -0.327,3.366 -2.219,3.821c-1.893,0.455 -2.848,-1.01 -3.231,-2.432c-0.709,-2.627 0.575,-3.303 1.654,-3.593c1.88,-0.506 3.348,0.496 3.796,2.204Z;
+
+                M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+          </svg>
+
+          <!-- interface open -->
+          <svg id="controlarea_open" viewBox="0 0 328 58">
+
+            <!-- blob out -->
+            <path d="M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z" style="fill:url(#_Radial1); cursor: pointer;" filter="url(#presentation-interface_glow)">
+              <animate class="animateToOpen" id="animate-to-open_blob1" begin="0s" dur="0.42s" attributeName="d"
+                values="
+                M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z;
+
+                M269.869,9.776c-12.938,3.491 -13.37,14.602 0.202,14.397c6.109,-0.092 14.428,1.541 18.574,3.494c11.382,5.362 13.123,-5.265 3.207,-13.727c-4.965,-4.237 -15.317,-5.963 -21.983,-4.164Z;
+
+                M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <path d="M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z" style="fill:#fff;fill-opacity:0.08;pointer-events: none;">
+              <animate class="animateToOpen" id="animate-to-open_blob1-shine" begin="0s" dur="0.42s" attributeName="d"
+                values="
+                M12.049,58.232c2.583,0.948 9.326,5.269 8.138,8.335c-1.188,3.066 -7.423,-2.295 -10.107,-3.262c-4.964,-1.788 -11.622,-2.021 -10.994,-3.802c1.092,-3.101 9.75,-2.45 12.963,-1.271Z;
+
+                M285.729,11.992c2.583,0.947 9.326,5.269 8.138,8.335c-1.188,3.066 -7.422,-2.295 -10.107,-3.262c-4.963,-1.788 -11.622,-2.021 -10.994,-3.803c1.093,-3.1 9.75,-2.449 12.963,-1.27Z;
+
+                M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+
+            <!-- main -->
+            <path d="M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z" fill-rule="nonzero" style="fill:#BEBEBE;" filter="url(#presentation-interface_glow)">
+              <animate class="animateToOpen" id="animate-to-open" begin="0s" dur="0.4s" attributeName="d"
+                values="
+                M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;
+
+                M155.718,35.328c63.276,-22.434 114.049,-36.858 149.453,-13.52c14.686,9.68 17.082,19.54 22.675,36.216l-327.846,0l0,-19.802c37.412,-10.233 127.52,7.103 155.718,-2.894Z;
+
+                M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+              <animate class="animateToOpen" id="animate-to-open_color" begin="0s" dur="0.4s" fill="freeze" attributeName="fill" to="#1E1E1E">
+              </animate>
+            </path>
+
+            <!-- shine -->
+            <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16;">
+              <animate class="animateToOpen" id="animate-to-open_shine1" begin="0s" dur="0.4s" attributeName="d"
+                values="
+                M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;
+
+                M287.785,16.257c7.878,3.209 9.219,6.262 6.674,9.607c-2.785,3.658 -7.736,-0.087 -12.386,-2.207c-7.74,-3.528 -11.95,-3.162 -10.216,-7.42c1.735,-4.258 8.05,-3.189 15.928,0.02Z;
+
+                M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <path d="M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z" style="fill:#fff;fill-opacity:0.24;">
+              <animate class="animateToOpen" id="animate-to-open_shine2" begin="0s" dur="0.4s" attributeName="d"
+                values="
+                M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;
+
+                M308.038,28.68c1.922,1.525 3.209,4.796 1.346,7.06c-1.864,2.265 -4.53,-1.122 -6.534,-2.691c-3.704,-2.902 -3.33,-4.518 -2.3,-5.851c1.792,-2.32 5.096,-0.415 7.488,1.482Z;
+
+                M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <defs>
+              <filter id="presentation-interface_glow">
+                <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+                <feOffset dx="0" dy="0" result="offsetblur"/>
+                <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.8"/>
+                <feComposite in2="offsetblur" operator="in"/>
+                <feMerge>
+                  <feMergeNode/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+
+              <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(17.1133,-17.3818,17.3818,17.1133,291.869,26.8478)">
+                <stop offset="0" style="stop-color:#020000;stop-opacity:1"/>
+                <stop offset="1" style="stop-color:#727272;stop-opacity:1"/>
+              </radialGradient>
+            </defs>
+          </svg>
+
+          <!-- vertical blobs -->
+          <!-- -------------- -->
+
+          <!-- vertical blobs close -->
+          <svg id="controlarea-vertical_close" viewBox="0 0 47 158" style="background-color: none">
+            <path d="M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob1);">
+              <animate class="animateToClose" id="animate-to-close_vertical-blob1" begin="0.5s" dur="0.2s" attributeName="d"
+                values="
+                M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;
+
+                M17.377,79.614c-4.572,-1.413 -10.636,1.439 -11.131,4.07c-0.871,4.639 3.347,7.947 7.45,7.984c4.104,0.037 8.365,-1.746 8.263,-4.881c-0.07,-2.144 -0.799,-6.003 -4.582,-7.173Z;
+
+                M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <defs>
+              <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
+                <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
+                <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+
+            <path d="M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob2);">
+              <animate class="animateToClose" id="animate-to-close_vertical-blob2" begin="0.5s" dur="0.2s" attributeName="d"
+                values="
+              M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;
+
+              M15.016,52.635c-2.908,-0.777 -6.969,0.527 -7.26,4.129c-0.421,5.21 0.869,6.185 7.225,6.347c6.355,0.162 7.752,-2.056 7.751,-4.873c0,-2.891 -1.239,-3.873 -7.716,-5.603Z;
+
+              M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;"
+
+              fill="freeze"
+              calcMode="spline"
+              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <defs>
+              <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
+                <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
+                <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- vertical blobs open -->
+          <svg id="controlarea-vertical_open" viewBox="0 0 47 158">
+            <path d="M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z" style="fill:url(#_gradient-vertical-blob1);">
+              <animate class="animateToOpen" id="animate-to-open_vertical-blob1" begin="0" dur="0.2s" attributeName="d"
+                values="
+                M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;
+
+                M22.488,56.41c-11.687,1.312 -17.729,7.789 -19.46,18.509c-1.944,12.049 14.227,23.529 26.669,23.529c12.444,0 16.772,-8.662 16.772,-20.867c0,-12.204 -11.616,-22.558 -23.981,-21.171Z;
+
+                M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <defs>
+              <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
+                <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
+                <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+
+            <path d="M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z" style="fill:url(#_gradient-vertical-blob2);">
+              <animate class="animateToOpen" id="animate-to-open_vertical-blob2" begin="0" dur="0.2s" attributeName="d"
+                values="
+                M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;
+
+                M27.767,1.336c-10.826,1.215 -22.866,9.246 -24.469,19.177c-1.801,11.161 14.176,23.121 25.702,23.121c11.527,0 17.128,-11.207 17.128,-22.512c0,-11.305 -6.906,-21.072 -18.361,-19.786Z;
+
+                M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;"
+
+                fill="freeze"
+                calcMode="spline"
+                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+              </animate>
+            </path>
+
+            <defs>
+              <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
+                <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
+                <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+              </linearGradient>
+            </defs>
+          </svg>
+
+          <!-- interface interaction -->
+          <!-- --------------------- -->
+
+          <!-- open-menu -->
+          <button id="controlarea_open-menu" class="controlbutton controlbuttonbubble" onclick="slidenote.presentation.animatePresentationControl(true)" title="show controlarea">
+            <span class="screenreader-only">show controlarea</span>
+            <div id="controlarea_open-menu_rect1"></div>
+            <div id="controlarea_open-menu_rect2"></div>
+            <!-- <img src="images/buttons/ctrlbuttonbubble.png"> -->
+          </button>
+          <!-- back-in -->
+          <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="slidenote.presentation.animatePresentationControl(false)" title="hide controlarea">
+            <span class="screenreader-only">hide controlarea</span>
+            <img src="images/buttons/ctrlbuttonhidearea.png">
+          </button>
+          <!-- first-slide -->
+          <button id="controlarea_first-slide" class="controlbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
+            <span class="screenreader-only">first page</span>
+            <img src="images/buttons/ctrlbuttonfirst.png">
+          </button>
+          <!-- previous-slide -->
+          <button id="controlarea_previous-slide" class="controlbutton" onclick="presentation.lastPage()" title="page before">
+            <span class="screenreader-only">page before</span>
+            <img src="images/buttons/ctrlbuttonbefore.png">
+          </button>
+          <!-- next-slide -->
+          <button id="controlarea_next-slide" class="controlbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
+            <span class="screenreader-only">next page</span>
+            <img src="images/buttons/ctrlbuttonnext.png">
+          </button>
+          <!-- last slide -->
+          <button id="controlarea_last-slide" class="controlbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
+            <span class="screenreader-only">last page</span>
+            <img src="images/buttons/ctrlbuttonlast.png">
+          </button>
+
+          <!-- additional interaction -->
+          <!-- ---------------------- -->
+
+          <!-- preview-screen -->
+          <button id="controlarea_preview-screen" class="controlbutton controlbuttonleft" onclick="presentation.enterPreviewMode();" title="enter preview mode">
+            <span class="screenreader-only">enter preview mode</span>
+            <img src="images/buttons/ctrlbuttonpreview.png">
+          </button>
+          <!-- back-to-editor -->
+          <button id="controlarea_back-to-editor" class="controlbutton controlbuttonleft" onclick="presentation.showpresentation()" title="hide presentation">
+            <span class="screenreader-only">hide presentation</span>
+            <img src="images/buttons/ctrlbuttonclose.png">
+          </button>
+  		</div>
+  	</div>
+
+  	<div id="options">
+  		<h1>Options<button id="optionsclose" onclick="slidenote.extensions.hideThemes()" value="close">close</button></h1>
+  		<div class="tabbar">
+  			<h2><a href="javascript:slidenote.extensions.optionsTab(0)">Design Options</a></h2>
+  			<h2><a href="javascript:slidenote.extensions.optionsTab(1)">Global Options</a></h2>
+  			<h2><a href="javascript:slidenote.extensions.optionsTab(2)">Extensions</a></h2>
+  		</div>
+  		<div id="designoptionstab" class="optiontab"></div>
+  		<div id="globaloptionstab" class="optiontab"></div>
+  		<div id="themeselectiontab" class="optiontab"></div>
+  	</div>
+
+    <div id="imagesblock" class="dialogboxparent">
+      <div id="imagesuploadblock" class="dialog_box" style="display:none;">
+        <h1>Image Upload <button onclick="Javascript:document.getElementById('imagesblock').classList.remove('visible');">close</button></h1>
+        <div>
+          Select an local image file to upload, then click on image to use it in this slidenote
+        </div>
+        <div id="imageResizeOptions">
+          <input type="radio" name="imageResize" value="1024x768" onchange="slidenote.base64images.changeMaxSize(this.value)"><label>Background/Big (1024x768)</label>
+          <input type="radio" name="imageResize" value="400x300" onchange="slidenote.base64images.changeMaxSize(this.value)"><label>Medium (400x300)</label>
+          <input type="radio" name="imageResize" value="100x50" onchange="slidenote.base64images.changeMaxSize(this.value)"><label>Icon (100x50)</label>
+        </div>
+        <div id="filePreview"></div>
+        <div id="fileOld"></div>
+        <input type="file" id="fileInput">
       </div>
-      <div class="separator">Replace</div>
-      <input type="text" name="replace" id="replaceinput" class="menuitem">
-      <div class="buttonarea">
-        <button id="replacebutton" class="menuitem">replace</button>
-        <button id="replaceallbutton" class="menuitem">replace all</button>
+      <div id="imagesreuseblock" class="dialogbox">
+        <h1 class="dialogtitle">
+          <span>image gallery</span>
+          <button class="dialogclosebutton" onclick="document.getElementById('imagesblock').classList.remove('visible');">close <img src="images/buttons/x.png"></button>
+        </h1>
+        <div id="imageselectionlist" class="dialogboxcontent"></div>
+        <div id="imageselectiondialogbuttons">
+          <button id="imageselectionuploadbutton" class="plusbutton" title="add image to imagegallery" onclick="document.getElementById('fileInput').value='';slidenote.base64images.uploadmode='imageselection'; document.getElementById('fileInput').click();">
+            <img src="images/buttons/+.png" alt="add image to gallery">
+            <span>add image</span>
+            <span class="screenreader-only">to gallery</span>
+          </button>
+          <span>or choose image from gallery</span>
+        </div>
       </div>
-      <div id="searchresult"></div>
-    </div></div></div>
-<!-- only stuff for making shadows and such:-->
-    <!-- old stuff(cornerleft)
-    <div id="cornerleft"></div>
-    <div id="topleft"></div>
-    <img id="cornerleftimage" src="images/cornerleftimage.png">
-    <div id="topmiddle"></div>
-    <div id="noteareaempty"><img src="images/borderleft.png"></div>
-    <div id="cornerright"></div>
--->
-  <!-- <div id="topright"><svg viewBox="0 0 40 40" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-			    <g transform="matrix(1,0,0,1,-1190.49,-3479)">
-			        <g transform="matrix(1,0,0,1,0,3479)">
-			            <g transform="matrix(1,0,0,1,0,-3479)">
-			                <path class="rightcorner" filter="url(#rightcorner-shadow" d="M1230.49,3519L1230.41,3519C1229.09,3497.58 1211.92,3480.41 1190.49,3479.09L1190.49,3479L1230.49,3479L1230.49,3519Z"/>
-			                <path class="rightcorner" d="M1230.49,3519L1230.41,3519C1229.09,3497.58 1211.92,3480.41 1190.49,3479.09L1190.49,3479L1230.49,3479L1230.49,3519Z"/>
-			            </g>
-			        </g>
-			    </g>
-			    <defs>
-			    	<filter id="rightcorner-shadow">
-			    		<feOffset result="offOut" in="SourceAlpha" dx="-1" dy="0" />
-      					<feGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
-      					<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-      					<feComponentTransfer>
-    						<feFuncA type="linear" slope="0.3"/>
-  						</feComponentTransfer>
-        			</filter>
-			    </defs>
-			</svg></div> -->
-    <div id="shadowelleft"></div>
-    <div id="rahmenright"></div>
-    <div id="slidenoteloadingscreenwrapper">
-      <div id="slidenoteeditorloadingscreen">
-        <div id="slidenoteeditorloadingscreenbackground"></div>
-        <div id="circle-colorful"></div>
-        <div id="slidenoteeditorhidetexteditor"></div>
-        <img id="loadingcircle" src="images/loadingscreen.gif">
-        <div id="initialLoadingProgress"></div>
+
+    </div>
+
+  </div><!-- end of slidenotediv-->
+  <div id="slidenoteGuardianPasswordPromptStore">
+    <div id="slidenoteGuardianPasswordPromptTemplate" class="initial dialogbox">
+    	<h1 class="dialogtitle" id="slidenoteGuardianPasswordPromptNotetitle">TITLE</h1>
+      <div class="dialogcontent">
+      	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
+      	<form onsubmit="event.preventDefault();" action="#" method="POST">
+      		<label id="slidenoteGuardianPasswordPromptUsernameLabel">FILENAME FOR EXPORT</label>
+      		<input type="text" id="username">
+      		<label>PASSWORD</label>
+      		<input type="password" id="password">
+      		<label id="slidenoteGuardianPasswordPromptRetypeLabel">RE-TYPE PASSWORD</label>
+      		<input type="password" id="pwcheckfield">
+          <div class="buttonarea">
+        		<button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">ENCRYPT</button>
+            <button id="skippassword" onclick="slidenoteguardian.skipPassword()">skip</button>
+            <button id="passwordgen" onclick="slidenoteguardian.passwordGenerator()">Generate a Password for me</butt>
+          </div>
+      		<div id="slidenoteGuardianPasswortPromptAfterText">we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.</div>
+      	</form>
       </div>
     </div>
-</div><!--end of slidenoteeditor-div-->
-	<div id="praesentationrahmen">
-    <div id="previewselector">
-      <h1>how does my presentation look like on...</h1>
-      <span id="previewdimension">1920x1080px</span>
-      <select id="previewselection" onclick="presentation.setPreviewStyle(this.value)">
-        <option value="fullhd">wide screen monitors (fullHD)</option>
-        <option value="widescreen">wide screen monitors (HD)</option>
-        <option value="beamer">old beamer</option>
-        <option value="ipad">iPad</option>
-        <option value="iphone">iPhoneX</option>
-        <option value="galaxy">Galaxy S9</option>
-      </select>
-    </div>
-		<div id="praesentation"></div>
-		<div id="controlarea">
-        <!-- presentation-interface -->
-        <!-- ====================== -->
-
-        <!-- horizontal interface -->
-        <!-- -------------------- -->
-
-        <!-- interface close -->
-        <svg id="controlarea_close" viewBox="0 0 328 58">
-
-          <!-- blob in -->
-          <path d="M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z" style="fill:url(#_Radial1);">
-            <animate class="animateToClose" id="animate-to-close_blob1" begin="indefinite" dur="0.2s" attributeName="d"
-              values="
-              M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;
-
-              M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;
-
-              M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <!-- main -->
-          <path d="M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z" fill-rule="nonzero" style="fill:#1E1E1E; cursor: pointer;" filter="url(#presentation-interface_glow)">
-            <animate class="animateToClose" id="animate-to-close" begin="indefinite" dur="0.4s" attributeName="d"
-              values="
-              M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;
-
-              M24.34,11.438c12.485,5.274 15.458,13.78 14.946,29.369c-0.221,6.757 -1.714,13.066 -6.827,17.217l-32.459,0l0,-53.064c9.116,2.823 17.699,3.672 24.34,6.478Z;
-
-              M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-            <animate class="animateToClose" id="animate-to-close_color" begin="indefinite" dur="0.4s" fill="freeze" attributeName="fill" to="#BEBEBE">
-            </animate>
-          </path>
-
-          <!-- shine -->
-          <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16; pointer-events: none;">
-            <animate class="animateToClose" id="animate-to-close_shine1" begin="indefinite" dur="0.4s" attributeName="d"
-              values="
-              M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;
-
-              M27.498,15.127c7.123,4.651 8.623,9.062 5.487,11.86c-3.431,3.061 -3.251,-0.281 -10.373,-4.932c-7.123,-4.651 -8.529,-5.497 -7.229,-7.489c1.301,-1.992 4.992,-4.091 12.115,0.561Z;
-
-              M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <path d="M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z" style="fill:#fff;fill-opacity:0.24; pointer-events: none;">
-            <animate class="animateToClose" id="animate-to-close_shine2" begin="indefinite" dur="0.4s" attributeName="d"
-              values="
-              M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;
-
-              M37.47,33.14c0.36,1.373 -0.327,3.366 -2.219,3.821c-1.893,0.455 -2.848,-1.01 -3.231,-2.432c-0.709,-2.627 0.575,-3.303 1.654,-3.593c1.88,-0.506 3.348,0.496 3.796,2.204Z;
-
-              M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-        </svg>
-
-        <!-- interface open -->
-        <svg id="controlarea_open" viewBox="0 0 328 58">
-
-          <!-- blob out -->
-          <path d="M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z" style="fill:url(#_Radial1); cursor: pointer;" filter="url(#presentation-interface_glow)">
-            <animate class="animateToOpen" id="animate-to-open_blob1" begin="0s" dur="0.42s" attributeName="d"
-              values="
-              M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z;
-
-              M269.869,9.776c-12.938,3.491 -13.37,14.602 0.202,14.397c6.109,-0.092 14.428,1.541 18.574,3.494c11.382,5.362 13.123,-5.265 3.207,-13.727c-4.965,-4.237 -15.317,-5.963 -21.983,-4.164Z;
-
-              M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <path d="M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z" style="fill:#fff;fill-opacity:0.08;pointer-events: none;">
-            <animate class="animateToOpen" id="animate-to-open_blob1-shine" begin="0s" dur="0.42s" attributeName="d"
-              values="
-              M12.049,58.232c2.583,0.948 9.326,5.269 8.138,8.335c-1.188,3.066 -7.423,-2.295 -10.107,-3.262c-4.964,-1.788 -11.622,-2.021 -10.994,-3.802c1.092,-3.101 9.75,-2.45 12.963,-1.271Z;
-
-              M285.729,11.992c2.583,0.947 9.326,5.269 8.138,8.335c-1.188,3.066 -7.422,-2.295 -10.107,-3.262c-4.963,-1.788 -11.622,-2.021 -10.994,-3.803c1.093,-3.1 9.75,-2.449 12.963,-1.27Z;
-
-              M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-
-          <!-- main -->
-          <path d="M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z" fill-rule="nonzero" style="fill:#BEBEBE;" filter="url(#presentation-interface_glow)">
-            <animate class="animateToOpen" id="animate-to-open" begin="0s" dur="0.4s" attributeName="d"
-              values="
-              M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;
-
-              M155.718,35.328c63.276,-22.434 114.049,-36.858 149.453,-13.52c14.686,9.68 17.082,19.54 22.675,36.216l-327.846,0l0,-19.802c37.412,-10.233 127.52,7.103 155.718,-2.894Z;
-
-              M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-            <animate class="animateToOpen" id="animate-to-open_color" begin="0s" dur="0.4s" fill="freeze" attributeName="fill" to="#1E1E1E">
-            </animate>
-          </path>
-
-          <!-- shine -->
-          <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16;">
-            <animate class="animateToOpen" id="animate-to-open_shine1" begin="0s" dur="0.4s" attributeName="d"
-              values="
-              M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;
-
-              M287.785,16.257c7.878,3.209 9.219,6.262 6.674,9.607c-2.785,3.658 -7.736,-0.087 -12.386,-2.207c-7.74,-3.528 -11.95,-3.162 -10.216,-7.42c1.735,-4.258 8.05,-3.189 15.928,0.02Z;
-
-              M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <path d="M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z" style="fill:#fff;fill-opacity:0.24;">
-            <animate class="animateToOpen" id="animate-to-open_shine2" begin="0s" dur="0.4s" attributeName="d"
-              values="
-              M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;
-
-              M308.038,28.68c1.922,1.525 3.209,4.796 1.346,7.06c-1.864,2.265 -4.53,-1.122 -6.534,-2.691c-3.704,-2.902 -3.33,-4.518 -2.3,-5.851c1.792,-2.32 5.096,-0.415 7.488,1.482Z;
-
-              M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <defs>
-            <filter id="presentation-interface_glow">
-              <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
-              <feOffset dx="0" dy="0" result="offsetblur"/>
-              <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.8"/>
-              <feComposite in2="offsetblur" operator="in"/>
-              <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/>
-              </feMerge>
-            </filter>
-
-            <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(17.1133,-17.3818,17.3818,17.1133,291.869,26.8478)">
-              <stop offset="0" style="stop-color:#020000;stop-opacity:1"/>
-              <stop offset="1" style="stop-color:#727272;stop-opacity:1"/>
-            </radialGradient>
-          </defs>
-        </svg>
-
-        <!-- vertical blobs -->
-        <!-- -------------- -->
-
-        <!-- vertical blobs close -->
-        <svg id="controlarea-vertical_close" viewBox="0 0 47 158" style="background-color: none">
-          <path d="M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob1);">
-            <animate class="animateToClose" id="animate-to-close_vertical-blob1" begin="0.5s" dur="0.2s" attributeName="d"
-              values="
-              M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;
-
-              M17.377,79.614c-4.572,-1.413 -10.636,1.439 -11.131,4.07c-0.871,4.639 3.347,7.947 7.45,7.984c4.104,0.037 8.365,-1.746 8.263,-4.881c-0.07,-2.144 -0.799,-6.003 -4.582,-7.173Z;
-
-              M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <defs>
-            <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
-              <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
-              <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-            </linearGradient>
-          </defs>
-
-          <path d="M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob2);">
-            <animate class="animateToClose" id="animate-to-close_vertical-blob2" begin="0.5s" dur="0.2s" attributeName="d"
-              values="
-            M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;
-
-            M15.016,52.635c-2.908,-0.777 -6.969,0.527 -7.26,4.129c-0.421,5.21 0.869,6.185 7.225,6.347c6.355,0.162 7.752,-2.056 7.751,-4.873c0,-2.891 -1.239,-3.873 -7.716,-5.603Z;
-
-            M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;"
-
-            fill="freeze"
-            calcMode="spline"
-            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <defs>
-            <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
-              <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
-              <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <!-- vertical blobs open -->
-        <svg id="controlarea-vertical_open" viewBox="0 0 47 158">
-          <path d="M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z" style="fill:url(#_gradient-vertical-blob1);">
-            <animate class="animateToOpen" id="animate-to-open_vertical-blob1" begin="0" dur="0.2s" attributeName="d"
-              values="
-              M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;
-
-              M22.488,56.41c-11.687,1.312 -17.729,7.789 -19.46,18.509c-1.944,12.049 14.227,23.529 26.669,23.529c12.444,0 16.772,-8.662 16.772,-20.867c0,-12.204 -11.616,-22.558 -23.981,-21.171Z;
-
-              M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <defs>
-            <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
-              <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
-              <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-            </linearGradient>
-          </defs>
-
-          <path d="M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z" style="fill:url(#_gradient-vertical-blob2);">
-            <animate class="animateToOpen" id="animate-to-open_vertical-blob2" begin="0" dur="0.2s" attributeName="d"
-              values="
-              M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;
-
-              M27.767,1.336c-10.826,1.215 -22.866,9.246 -24.469,19.177c-1.801,11.161 14.176,23.121 25.702,23.121c11.527,0 17.128,-11.207 17.128,-22.512c0,-11.305 -6.906,-21.072 -18.361,-19.786Z;
-
-              M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;"
-
-              fill="freeze"
-              calcMode="spline"
-              keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-            </animate>
-          </path>
-
-          <defs>
-            <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
-              <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
-              <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-            </linearGradient>
-          </defs>
-        </svg>
-
-        <!-- interface interaction -->
-        <!-- --------------------- -->
-
-        <!-- open-menu -->
-        <button id="controlarea_open-menu" class="controlbutton controlbuttonbubble" onclick="slidenote.presentation.animatePresentationControl(true)" title="show controlarea">
-          <span class="screenreader-only">show controlarea</span>
-          <div id="controlarea_open-menu_rect1"></div>
-          <div id="controlarea_open-menu_rect2"></div>
-          <!-- <img src="images/buttons/ctrlbuttonbubble.png"> -->
-        </button>
-        <!-- back-in -->
-        <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="slidenote.presentation.animatePresentationControl(false)" title="hide controlarea">
-          <span class="screenreader-only">hide controlarea</span>
-          <img src="images/buttons/ctrlbuttonhidearea.png">
-        </button>
-        <!-- first-slide -->
-        <button id="controlarea_first-slide" class="controlbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
-          <span class="screenreader-only">first page</span>
-          <img src="images/buttons/ctrlbuttonfirst.png">
-        </button>
-        <!-- previous-slide -->
-        <button id="controlarea_previous-slide" class="controlbutton" onclick="presentation.lastPage()" title="page before">
-          <span class="screenreader-only">page before</span>
-          <img src="images/buttons/ctrlbuttonbefore.png">
-        </button>
-        <!-- next-slide -->
-        <button id="controlarea_next-slide" class="controlbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
-          <span class="screenreader-only">next page</span>
-          <img src="images/buttons/ctrlbuttonnext.png">
-        </button>
-        <!-- last slide -->
-        <button id="controlarea_last-slide" class="controlbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
-          <span class="screenreader-only">last page</span>
-          <img src="images/buttons/ctrlbuttonlast.png">
-        </button>
-
-        <!-- additional interaction -->
-        <!-- ---------------------- -->
-
-        <!-- preview-screen -->
-        <button id="controlarea_preview-screen" class="controlbutton controlbuttonleft" onclick="presentation.enterPreviewMode();" title="enter preview mode">
-          <span class="screenreader-only">enter preview mode</span>
-          <img src="images/buttons/ctrlbuttonpreview.png">
-        </button>
-        <!-- back-to-editor -->
-        <button id="controlarea_back-to-editor" class="controlbutton controlbuttonleft" onclick="presentation.showpresentation()" title="hide presentation">
-          <span class="screenreader-only">hide presentation</span>
-          <img src="images/buttons/ctrlbuttonclose.png">
-        </button>
-		</div>
-	</div>
-
-	<div id="options">
-		<h1>Options<button id="optionsclose" onclick="slidenote.extensions.hideThemes()" value="close">close</button></h1>
-		<div class="tabbar">
-			<h2><a href="javascript:slidenote.extensions.optionsTab(0)">Design Options</a></h2>
-			<h2><a href="javascript:slidenote.extensions.optionsTab(1)">Global Options</a></h2>
-			<h2><a href="javascript:slidenote.extensions.optionsTab(2)">Extensions</a></h2>
-		</div>
-		<div id="designoptionstab" class="optiontab"></div>
-		<div id="globaloptionstab" class="optiontab"></div>
-		<div id="themeselectiontab" class="optiontab"></div>
-	</div>
-
-  <div id="imagesblock" class="dialogboxparent">
-    <div id="imagesuploadblock" class="dialog_box" style="display:none;">
-      <h1>Image Upload <button onclick="Javascript:document.getElementById('imagesblock').classList.remove('visible');">close</button></h1>
-    <div>
-      Select an local image file to upload, then click on image to use it in this slidenote
-    </div>
-    <div id="imageResizeOptions">
-      <input type="radio" name="imageResize" value="1024x768" onchange="slidenote.base64images.changeMaxSize(this.value)"><label>Background/Big (1024x768)</label>
-      <input type="radio" name="imageResize" value="400x300" onchange="slidenote.base64images.changeMaxSize(this.value)"><label>Medium (400x300)</label>
-      <input type="radio" name="imageResize" value="100x50" onchange="slidenote.base64images.changeMaxSize(this.value)"><label>Icon (100x50)</label>
-    </div>
-    <div id="filePreview"></div>
-    <div id="fileOld"></div>
-    <input type="file" id="fileInput">
   </div>
-    <div id="imagesreuseblock" class="dialogbox">
-      <h1 class="dialogtitle">
-        <span>image gallery</span>
-        <button class="dialogclosebutton" onclick="document.getElementById('imagesblock').classList.remove('visible');">close <img src="images/buttons/x.png"></button>
-      </h1>
-      <div id="imageselectionlist" class="dialogboxcontent"></div>
-      <div id="imageselectiondialogbuttons">
-        <button id="imageselectionuploadbutton" class="plusbutton" title="add image to imagegallery" onclick="document.getElementById('fileInput').value='';slidenote.base64images.uploadmode='imageselection'; document.getElementById('fileInput').click();">
-          <img src="images/buttons/+.png" alt="add image to gallery">
-          <span>add image</span>
-          <span class="screenreader-only">to gallery</span>
-        </button>
-        <span>or choose image from gallery</span>
-      </div>
-    </div>
-
+  <div id="slidenoteLoadingScreen">
+  	<h1>Please wait while your presentation is generated...</h1>
+  	<img src="images/wait-charlie-chaplin.gif" height="80%">
   </div>
-
-</div><!-- end of slidenotediv-->
-<div id="slidenoteGuardianPasswordPromptStore">
-<div id="slidenoteGuardianPasswordPromptTemplate" class="initial dialogbox">
-	<h1 class="dialogtitle" id="slidenoteGuardianPasswordPromptNotetitle">TITLE</h1>
-  <div class="dialogcontent">
-  	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
-  	<form onsubmit="event.preventDefault();" action="#" method="POST">
-  		<label id="slidenoteGuardianPasswordPromptUsernameLabel">FILENAME FOR EXPORT</label>
-  		<input type="text" id="username">
-  		<label>PASSWORD</label>
-  		<input type="password" id="password">
-  		<label id="slidenoteGuardianPasswordPromptRetypeLabel">RE-TYPE PASSWORD</label>
-  		<input type="password" id="pwcheckfield">
-      <div class="buttonarea">
-    		<button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">ENCRYPT</button>
-        <button id="skippassword" onclick="slidenoteguardian.skipPassword()">skip</button>
-        <button id="passwordgen" onclick="slidenoteguardian.passwordGenerator()">Generate a Password for me</butt>
-      </div>
-  		<div id="slidenoteGuardianPasswortPromptAfterText">we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.</div>
-  	</form>
-  </div>
-</div>
-</div>
-<div id="slidenoteLoadingScreen">
-	<h1>Please wait while your presentation is generated...</h1>
-	<img src="images/wait-charlie-chaplin.gif" height="80%">
-</div>
 </body>
 </html>
