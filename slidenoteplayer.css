@@ -116,12 +116,12 @@
 .gridx1 p,
 .gridx2 div,
 .gridx2 p{
-  /*align-self:center;*/ 
+  /*align-self:center;*/
   justify-self:center;
 }
 
-.ppage div h1+p, 
-.ppage div h2+p, 
+.ppage div h1+p,
+.ppage div h2+p,
 .ppage div h3+p {
     text-align: center;
 }
@@ -166,13 +166,13 @@
 .ppage section.chart{
   font-size: 0.5em;
   /*Portrait to 4:3*/
-  max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
+  /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
   justify-self: center;
 }
 /*4:3 to 2:1*/
 @media only screen and (max-height: 75vw){
   .ppage section.chart{
-    max-height: calc(113.7vh/1.618); /*85.2*(4/3*vh) = 113.7vh; golden ratio = 1.618*/
+    /*max-height: calc(113.7vh/1.618); /*85.2*(4/3*vh) = 113.7vh; golden ratio = 1.618*/
   }
 }
 
