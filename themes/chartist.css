@@ -658,12 +658,26 @@ section.chart.chart3{
 */
 /*form a grid: */
 section.chart{
-  display: block;
+  display: grid;
   grid-template:". datasetLabels"
                 "yAxis chartGraph"
                 ". xAxis";
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr auto;
+  width:100%;
+  overflow:hidden;
+}
+
+.containsChart{
+  overflow:auto;
+}
+
+div.chart{
+  grid-area:chartGraph;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+
 }
 
 .chart-datasetlabel-container{
