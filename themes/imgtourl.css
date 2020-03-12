@@ -42,6 +42,8 @@ h1 img{
   grid-row-end: 5;
   margin-top:5.5em;
   color:#9c9c9c;
+  margin-right: calc(var(--grid-margin)*1em);
+  margin-left: calc(var(--grid-margin)*1em);
 }
 #imagegallery .arrow_box:before,
 #imagegallery .arrow_box:after{

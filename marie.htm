@@ -765,7 +765,7 @@
   <div id="slidenotediv" class="initial">
 
     <div id="slidenoteeditor">
-      <div id="noteinfoarea">
+      <nav id="noteinfoarea">
         <button id="cloud">
           <!--  <img id="savestatus" src="images/buttons/cloud.svg"> -->
 
@@ -810,24 +810,36 @@
         <button id="loadnote">
           <div>
             <span id="slidenotetitle">new note</span>
-            <img src="images/buttons/loadnotebackground.png">
+            <svg width="100%" height="100%" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><circle id="Ellipse_46" class="meta-button-backgr" cx="11.656" cy="11.656" r="11.656" style=""/><path class="meta-button-inside" d="M7.07,9.847c0.266,0.024 0.505,0.14 0.688,0.335l3.782,4.265c0,0 4.092,-4.178 4.092,-4.178c0.756,-0.644 2.233,0.408 1.427,1.396c-1.563,1.697 -3.227,3.299 -4.841,4.948c-0.393,0.378 -1.023,0.383 -1.421,0.009c-1.562,-1.659 -3.024,-3.409 -4.536,-5.114c-0.518,-0.622 -0.181,-1.691 0.809,-1.661Z" style="fill:#fff;"/></svg>
           </div>
         </button>
         <button id="outlet">95 Words, 12 Pages,<br> 120 Seconds to read...</button>
-      </div>
-      <div id="editorblock">
+      </nav>
+      <main id="editorblock">
         <div id="texteditorerrorlayer"></div>
     	  <textarea spellcheck="false" id="quelltext" onload="" autofocus         onfocus="setTimeout('initeditor()',100);"></textarea>
-      </div>
+      </main>
       <div id="buttonarearight">
         <button class="fluidbutton" id="searchbutton">
-          <img src="images/buttons/search.png" alt="open search and replace menu">
+          <img src="images/buttons/search.svg" alt="open search and replace menu">
         </button>
-        <button class="fluidbutton" id="toolbarbutton"><img src="images/buttons/toolbar.png" alt="Toolbar"></button>
-        <button class="fluidbutton" id="imagegallerybutton"><img src="images/buttons/imagegallery.png" alt="imagegallery"></button>
-        <button class="fluidbutton" id="historyBackButton"><img src="images/buttons/undo.png" alt="undo"></button>
-        <button class="fluidbutton" id="historyForwardButton"><img src="images/buttons/redo.png" alt="redo"></button>
+        <button class="fluidbutton" id="toolbarbutton">
+          <img src="images/buttons/toolbar.svg" alt="toolbar">
+        </button>
+        <button class="fluidbutton" id="imagegallerybutton">
+          <img src="images/buttons/image-gallery.svg" alt="imagegallery">
+        </button>
+        <button class="fluidbutton" id="historyBackButton">
+          <img src="images/buttons/undo.svg" alt="undo">
+        </button>
+        <button class="fluidbutton" id="historyForwardButton">
+          <img src="images/buttons/redo.svg" alt="redo">
+        </button>
+        <button class="fluidbutton closebutton" id="buttonarearightclose" onclick="document.getElementById('buttonarearight').classList.remove('active');">
+          <img src="images/buttons/x.png" alt="back">
+        </button>
       </div>
+      <button id="buttonarearightbutton" onclick="document.getElementById('buttonarearight').classList.toggle('active');"></button>
       <div id="toolbar">
         <div class="arrow_box" id="texteditorbuttons">
           <div class="screenreader-only">Toolbar</div>
@@ -857,6 +869,9 @@
       			<li><button onclick="insertbutton('%link')" title="hyperlink"><img src="images/buttons/link.svg" alt="link"><span class="buttonmdcode">[</span><span class="toolbarbuttontitle">link</span><span class="buttonmdcode">](url)</span></button></li>
 
           </ul>
+          <button class="fluidbutton closebutton" id="toolbarclose" onclick="document.getElementById('toolbar').classList.remove('active');">
+            <img src="images/buttons/x.png" alt="back">
+          </button>
         </div>
       </div>
       <div id="imagegallery">imagegallery</div>
@@ -864,65 +879,35 @@
         <button id="importexportbutton">
           <!--<img src="images/buttons/import-export.svg"><br>import&<br>export-->
           <!-- file button-->
-          <svg viewBox="0 0 31 31" xml:space="preserve">
-            <g transform="matrix(1,0,0,1,-192.32,-3812.03)">
-              <g transform="matrix(1,0,0,1,0,3479)">
-                <g class="meta-button-backgr" transform="matrix(1,0,0,1,-34.2322,0.233)">
-                  <g class="meta-button-backgr" transform="matrix(1,0,0,1,226.552,332.789)">
-                    <circle cx="15.5" cy="15.5" r="15.5"/>
-                  </g>
-                  <g class="meta-button-inside" transform="matrix(0.448942,0,0,-0.448942,94.5296,535.038)">
-                    <path d="M340.322,402.811C341.319,402.885 341.614,403.002 342.161,403.233C344.107,404.057 345.431,406.041 345.485,408.21L345.485,430.752C345.413,433.623 342.98,436.086 340.079,436.157L323.145,436.157C320.266,436.086 317.811,433.646 317.738,430.752L317.738,408.21C317.914,401.244 330.5,402.508 340.322,402.811ZM323.186,406.145C322.091,406.173 321.166,407.043 321.082,408.143C320.891,415.699 320.891,423.262 321.082,430.818C321.162,431.873 322.022,432.733 323.077,432.813C328.765,432.957 334.458,432.957 340.146,432.813C341.198,432.733 342.061,431.88 342.142,430.818C342.333,423.262 342.333,415.699 342.142,408.143C342.061,407.088 341.202,406.228 340.146,406.148C334.494,406.005 328.839,406.145 323.186,406.145Z"/>
-                  </g>
-                  <g transform="matrix(0.465576,0,0,0.448942,86.2266,161.917)">
-                    <path d="M342.144,408.33C342.144,407.124 341.2,406.145 340.038,406.145L323.186,406.145C322.023,406.145 321.079,407.124 321.079,408.33L321.079,430.632C321.079,431.837 322.023,432.816 323.186,432.816L340.038,432.816C341.2,432.816 342.144,431.837 342.144,430.632L342.144,408.33Z"/>
-                  </g>
-                  <g class="meta-button-inside" transform="matrix(1,0,0,1,23.6993,-3492.53)">
-                    <path d="M222.971,3847.89C222.938,3849.18 221.845,3850.28 220.544,3850.31L212.941,3850.31C211.65,3850.28 210.547,3849.18 210.514,3847.89L210.514,3837.66C210.547,3836.36 211.65,3835.26 212.941,3835.23L220.544,3835.23C221.845,3835.26 222.938,3836.36 222.971,3837.66L222.971,3847.89ZM221.534,3842.77C221.534,3841.09 221.512,3839.41 221.47,3837.74C221.434,3837.26 221.048,3836.88 220.574,3836.84C218.037,3836.78 215.498,3836.84 212.96,3836.84C212.468,3836.85 212.053,3837.24 212.015,3837.74C211.973,3839.41 211.951,3841.09 211.951,3842.77C211.951,3844.45 211.973,3846.13 212.015,3847.81C212.053,3848.3 212.468,3848.69 212.96,3848.7C215.498,3848.7 218.037,3848.77 220.574,3848.7C221.048,3848.67 221.434,3848.28 221.47,3847.81C221.512,3846.13 221.534,3844.45 221.534,3842.77Z"/>
-                  </g>
-                </g>
-              </g>
-            </g>
+          <svg height="100%" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+            <circle id="Ellipse_46" class="meta-button-backgr" cx="15.5" cy="15.5" r="15.5"/>
+            <path d="M17.668,24.952l-7.565,0c-1.35,0 -2.446,-1.096 -2.446,-2.446c0,0 0,-10.082 0,-10.082c0,-1.35 1.096,-2.446 2.446,-2.446l0.52,0l0,-0.967c0,-1.35 1.096,-2.446 2.446,-2.446l7.566,0c1.35,0 2.445,1.096 2.445,2.446c0,0 0,10.082 0,10.082c0,1.35 -1.095,2.446 -2.445,2.446l-0.521,0l0,0.967c0,1.35 -1.096,2.446 -2.446,2.446Zm0.005,-13.489l-7.566,0c-0.431,0 -0.795,0.29 -0.909,0.685c-0.027,0.087 -0.041,0.18 -0.041,0.276l0,10.082c0,0.522 0.424,0.946 0.946,0.946l7.565,0c0.432,0 0.796,-0.289 0.909,-0.684c0.027,-0.088 0.041,-0.18 0.041,-0.277l0,-10.082c0,-0.522 -0.423,-0.946 -0.945,-0.946Zm2.962,-3.398l-7.566,0c-0.522,0 -0.946,0.424 -0.946,0.946l0,0.967l5.545,0c0.277,0.002 0.551,0.046 0.813,0.139c0.692,0.244 1.251,0.802 1.495,1.494c0.092,0.262 0.136,0.536 0.138,0.813l0,7.615l0.521,0c0.522,0 0.945,-0.424 0.945,-0.946l0,-10.082c0,-0.522 -0.423,-0.946 -0.945,-0.946Z" class="meta-button-inside" />
           </svg>
           <br><span>file</span>
         </button>
         <button id="publishbutton" title="Open Publish Menu">
           <!--<img src="images/buttons/publish.svg">-->
           <!-- PUBLISH BUTTON -->
-          <svg viewBox="0 0 31 31" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-            <g transform="matrix(1,0,0,1,-235.853,-3812.03)">
-              <g transform="matrix(1,0,0,1,0,3479)">
-                <g transform="matrix(1,0,0,1,-1459.15,247.022)">
-                  <g class="meta-button-backgr" transform="matrix(1,0,0,1,1695,86)">
-                    <circle cx="15.5" cy="15.5" r="15.5"/>
-                  </g>
-                  <g class="meta-button-inside"transform="matrix(1,0,0,1,1459.15,-3726.03)">
-                    <path d="M252.751,3822.61C252.733,3822.48 252.724,3822.35 252.724,3822.21C252.724,3820.61 254.028,3819.3 255.635,3819.3C257.241,3819.3 258.546,3820.61 258.546,3822.21C258.546,3823.82 257.241,3825.12 255.635,3825.12C254.716,3825.12 253.895,3824.7 253.362,3824.03C251.402,3825.19 249.401,3826.29 247.412,3827.4C247.552,3827.76 247.629,3828.16 247.629,3828.57C247.629,3828.73 247.618,3828.88 247.597,3829.03C249.51,3830.09 251.39,3831.22 253.283,3832.32C253.812,3831.59 254.669,3831.12 255.635,3831.12C257.241,3831.12 258.546,3832.42 258.546,3834.03C258.546,3835.64 257.241,3836.94 255.635,3836.94C254.028,3836.94 252.724,3835.64 252.724,3834.03C252.724,3833.94 252.728,3833.86 252.735,3833.77C250.806,3832.72 248.915,3831.59 247.015,3830.48C246.42,3831.31 245.449,3831.85 244.354,3831.85C242.546,3831.85 241.079,3830.38 241.079,3828.57C241.079,3826.77 242.546,3825.3 244.354,3825.3C245.189,3825.3 245.952,3825.61 246.53,3826.13C248.58,3824.91 250.675,3823.78 252.751,3822.61Z"/>
-                  </g>
-                </g>
-              </g>
-            </g>
+          <svg height="100%" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+            <circle id="Ellipse_46" class="meta-button-backgr" cx="15.5" cy="15.5" r="15.5"/>
+            <path id="Ellipse_44" class="meta-button-inside" d="M16.899,10.587c-0.019,-0.131 -0.028,-0.265 -0.028,-0.401c0,-1.607 1.304,-2.911 2.911,-2.911c1.607,0 2.911,1.304 2.911,2.911c0,1.607 -1.304,2.911 -2.911,2.911c-0.931,0 -1.761,-0.438 -2.294,-1.119l-5.931,3.389c0.141,0.367 0.219,0.764 0.219,1.18c0,0.169 -0.013,0.335 -0.038,0.497l5.689,3.251c0.529,-0.728 1.387,-1.201 2.355,-1.201c1.607,0 2.911,1.304 2.911,2.911c0,1.607 -1.304,2.911 -2.911,2.911c-1.607,0 -2.911,-1.304 -2.911,-2.911c0,-0.098 0.005,-0.196 0.014,-0.292l-5.716,-3.267c-0.594,0.833 -1.568,1.376 -2.668,1.376c-1.808,0 -3.275,-1.467 -3.275,-3.275c0,-1.808 1.467,-3.275 3.275,-3.275c0.849,0 1.623,0.324 2.205,0.854l6.193,-3.539Z"/>
           </svg>
           <br><span>publish</span>
         </button>
-          <button id="optionsbutton">
-            <!--<img src="images/buttons/options.svg">-->
-            <!-- OPTIONS BUTTON -->
-            <svg viewBox="0 0 31 31" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-                <g transform="matrix(1,0,0,1,-296.175,-3812.62)">
-                    <g transform="matrix(1,0,0,1,0,3479)">
-                            <g class="meta-button-backgr" transform="matrix(1,0,0,1,296.175,333.617)">
-                                <circle cx="15.5" cy="15.5" r="15.5"/>
-                            </g>
-                            <g class="meta-button-inside" transform="matrix(1,0,0,1,0,-3479)">
-                                <path d="M311.588,3820.8C315.458,3820.8 318.6,3823.95 318.6,3827.82C318.6,3831.69 315.458,3834.83 311.588,3834.83C307.718,3834.83 304.576,3831.69 304.576,3827.82C304.576,3823.95 307.718,3820.8 311.588,3820.8ZM311.588,3822.82C314.346,3822.82 316.585,3825.06 316.585,3827.82C316.585,3830.57 314.346,3832.81 311.588,3832.81C308.83,3832.81 306.591,3830.57 306.591,3827.82C306.591,3825.06 308.83,3822.82 311.588,3822.82Z"/>
-                            </g>
-                    </g>
-                </g>
-             </svg>
-            <br><span>options</span>
-          </button>
+        <button id="optionsbutton">
+          <!--<img src="images/buttons/options.svg">-->
+          <!-- OPTIONS BUTTON -->
+          <svg height="100%" viewBox="0 0 31 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+            <circle id="Ellipse_46" class="meta-button-backgr" cx="15.5" cy="15.5" r="15.5"/>
+            <path class="meta-button-inside" d="M15.41,8.194c-3.863,0 -7,3.137 -7,7c0,3.863 3.137,7 7,7c3.863,0 7,-3.137 7,-7c0,-3.863 -3.137,-7 -7,-7Zm0,2c2.76,0 5,2.24 5,5c0,2.76 -2.24,5 -5,5c-2.76,0 -5,-2.24 -5,-5c0,-2.76 2.24,-5 5,-5Z"/>
+          </svg>
+          <br><span>options</span>
+        </button>
+        <button class="fluidbutton closebutton" id="optionareaclose" onclick="document.getElementById('optionarea').classList.remove('active');">
+          <img src="images/buttons/x.png" alt="back">
+        </button>
       </div>
+      <button id="optionareabutton" onclick="document.getElementById('optionarea').classList.toggle('active');"></button>
       <div id="sidebarcontainer">
         <div id="sidebar"></div>
         <div id="nicesidebarsymbol">
@@ -949,7 +934,7 @@
           <!--
           <img src="images/buttons/presentation-options.svg">
           -->
-          <svg viewBox="0 0 54 50" style="fill-rule:evenodd;clip-rule:evenodd;">
+          <!-- <svg viewBox="0 0 54 50" style="fill-rule:evenodd;clip-rule:evenodd;">
 
             <path filter="url(#presentationoptions-glow)" d="M22.361,34.174c-11.059,-6.016 -17.523,-2.76 -18.253,-13.28c-0.546,-7.86 15.243,-12.505 27.686,-7.46c10.295,4.174 18.13,20.108 12.763,27.504c-8.776,12.092 -14.754,-2.716 -22.196,-6.764Z" style="fill:url(#presentationoptions-linear);"></path>
 
@@ -978,10 +963,11 @@
                 </feMerge>
   		        </filter>
     		    </defs>
-      		</svg>
+      		</svg> -->
+          <img src="images/buttons/advanced-options.svg">
         </button>
         <button class="fluidbutton" id="playbutton" onclick="slidenote.presentation.showpresentation()">
-          <img src="images/buttons/play-buttonneu.png">
+          <img src="images/buttons/play-button.svg">
           <!--
           insert svg here
           -->
@@ -1023,117 +1009,117 @@
       </div>
       <div id="menuoutlet"></div>
       <div id="menupublish"><div class="arrow_box"><div class="arrow_box_content">
-            <button id="publishtocms" onclick="slidenoteguardian.exportPresentationToCMS()">publish presentation to slidenotes.io</button>
-            <div class="separator">published to slidenotes.io</div>
-            <ul id="publishedlist">
-              <!-- some test-data to see structure: -->
-              <li>
-                <button class="loadnotebutton">mon 06-11-19 11:49</button>
-                <button class="circle"><img src="images/buttons/-.png" alt="delete presentation"> delete</button>
-                <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
-              </li>
-              <li>
-                <button class="loadnotebutton">mon 06-11-19 11:00</button>
-                <button class="circle"><img src="images/buttons/-.png" alt="delete presentation">delete</button>
-                <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
-              </li>
-            </ul>
+        <button id="publishtocms" onclick="slidenoteguardian.exportPresentationToCMS()">publish presentation to slidenotes.io</button>
+        <div class="separator">published to slidenotes.io</div>
+        <ul id="publishedlist">
+          <!-- some test-data to see structure: -->
+          <li>
+            <button class="loadnotebutton">mon 06-11-19 11:49</button>
+            <button class="circle"><img src="images/buttons/-.png" alt="delete presentation"> delete</button>
+            <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
+          </li>
+          <li>
+            <button class="loadnotebutton">mon 06-11-19 11:00</button>
+            <button class="circle"><img src="images/buttons/-.png" alt="delete presentation">delete</button>
+            <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
+          </li>
+        </ul>
       </div></div></div>
       <div id="menuimportexport"><div class="arrow_box"><div class="arrow_box_content">
-            <button id="importbutton" title="import slidenote or MD-file">
-              <img src="images/buttons/noteblock.png">
-              <img src="images/buttons/export.png" class="importpng">
-              <span>import slidenote or MD-file</span>
-              <input type="file" id="importfile" accept=".slidenote,.txt,.md,.csv">
-            </button>
-            <div class="separator">download slidenote as</div>
-            <button id="exportasslidenotebutton" onclick="slidenoteguardian.saveNote('filesystem')" title="download as encrypted .slidenote file">
-              <img src="images/buttons/noteblock.png">
-              <img src="images/buttons/encrypted.png">
-              <img src="images/buttons/export.png">
-              <span class="screenreader-only">download slidenote as</span>
-              <span>encrypted .slidenote file</span>
-            </button>
-            <button id="exportasmdfilebutton" onclick="slidenoteguardian.exportToFilesystem(slidenote.textarea.value, slidenoteguardian.notetitle+'.md')" title="download as unencrypted text file">
-              <img src="images/buttons/noteblock.png">
-              <img src="images/buttons/notencrypted.png">
-              <img src="images/buttons/export.png">
-              <span class="screenreader-only">download code as</span>
-              <span>unencrypted .md/.txt file</span>
-            </button>
-            <div class="separator">download presentation as</div>
-            <button id="exportasenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(true);" title="download presentation as encrypted .html file">
-              <img src="images/buttons/presentationnice.png">
-              <img src="images/buttons/encrypted.png">
-              <img src="images/buttons/export.png">
-              <span class="screenreader-only">download presentation as</span>
-              <span>encrypted .html file</span>
-            </button>
-            <button id="exportasunenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(false);" title="download presentation as unencrypted .html file">
-              <img src="images/buttons/presentationnice.png">
-              <img src="images/buttons/notencrypted.png">
-              <img src="images/buttons/export.png">
-              <span class="screenreader-only">download presentation as</span>
-              <span>unencrypted .html file</span>
-            </button>
+        <button id="importbutton" title="import slidenote or MD-file">
+          <img src="images/buttons/noteblock.png">
+          <img src="images/buttons/export.png" class="importpng">
+          <span>import slidenote or MD-file</span>
+          <input type="file" id="importfile" accept=".slidenote,.txt,.md,.csv">
+        </button>
+        <div class="separator">download slidenote as</div>
+        <button id="exportasslidenotebutton" onclick="slidenoteguardian.saveNote('filesystem')" title="download as encrypted .slidenote file">
+          <img src="images/buttons/noteblock.png">
+          <img src="images/buttons/encrypted.png">
+          <img src="images/buttons/export.png">
+          <span class="screenreader-only">download slidenote as</span>
+          <span>encrypted .slidenote file</span>
+        </button>
+        <button id="exportasmdfilebutton" onclick="slidenoteguardian.exportToFilesystem(slidenote.textarea.value, slidenoteguardian.notetitle+'.md')" title="download as unencrypted text file">
+          <img src="images/buttons/noteblock.png">
+          <img src="images/buttons/notencrypted.png">
+          <img src="images/buttons/export.png">
+          <span class="screenreader-only">download code as</span>
+          <span>unencrypted .md/.txt file</span>
+        </button>
+        <div class="separator">download presentation as</div>
+        <button id="exportasenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(true);" title="download presentation as encrypted .html file">
+          <img src="images/buttons/presentationnice.png">
+          <img src="images/buttons/encrypted.png">
+          <img src="images/buttons/export.png">
+          <span class="screenreader-only">download presentation as</span>
+          <span>encrypted .html file</span>
+        </button>
+        <button id="exportasunenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(false);" title="download presentation as unencrypted .html file">
+          <img src="images/buttons/presentationnice.png">
+          <img src="images/buttons/notencrypted.png">
+          <img src="images/buttons/export.png">
+          <span class="screenreader-only">download presentation as</span>
+          <span>unencrypted .html file</span>
+        </button>
       </div></div></div>
       <div id="menuoptionseditor"><div class="arrow_box"><div class="arrow_box_content">
-            <a href="/user" class="menuitem"><img src="images/buttons/account.png"><span>Account</span></a>
-            <a href='/user/logout' class="menuitem"><img src="images/buttons/logout.png"><span>log out</span></a>
-            <div class="separator"><span>night shift</span></div>
-            <button id="nightmodetoggle" class="menuitem"><div>on</div><div>off</div></button>
-            <div class="separator">view mode</div>
-            <div id="optionmenuinterfacedesign">
-              <!--<button id="editorchoicebutton" class="menuitem">-->
-        			<select id="editorchoice" class="menuitem"  onchange="slidenote.choseEditor(this.value)">
-        				<option value="md-texteditor" selected>context-mode (default)</option>
-        				<option value="focus">focus-mode</option>
-        				<option value="raw-text">raw text</option>
-                <option value="big-mode">big mode</option>
-                <option value="basic-mode">basic mode</option>
-                <option value="audio-mode">audio mode</option>
+        <a href="/user" class="menuitem"><img src="images/buttons/account.png"><span>Account</span></a>
+        <a href='/user/logout' class="menuitem"><img src="images/buttons/logout.png"><span>log out</span></a>
+        <div class="separator"><span>night shift</span></div>
+        <button id="nightmodetoggle" class="menuitem"><div>on</div><div>off</div></button>
+        <div class="separator">view mode</div>
+        <div id="optionmenuinterfacedesign">
+          <!--<button id="editorchoicebutton" class="menuitem">-->
+    			<select id="editorchoice" class="menuitem"  onchange="slidenote.choseEditor(this.value)">
+    				<option value="md-texteditor" selected>context-mode (default)</option>
+    				<option value="focus">focus-mode</option>
+    				<option value="raw-text">raw text</option>
+            <option value="big-mode">big mode</option>
+            <option value="basic-mode">basic mode</option>
+            <option value="audio-mode">audio mode</option>
 
-        			</select>
-              <!--</button>-->
-    		    </div>
-            <div class="separator">---</div>
-            <button class="menuitem" onclick="slidenote.extensions.showAdvancedMenu()"><img src="images/buttons/options.png"><span class="screenreader-only">Open </span><span>Advanced Options</span></button>
-            <div class="separator">slidenotes.io service</div>
-            <ul>
-      				<li><a href="?id=158" class="menuitem">tutorials</a></li>
-      				<li><a href="#" class="menuitem">documentation</a></li>
-      				<li><a href="#" class="menuitem">bug reports</a></li>
-      				<li><a href="#" class="menuitem">community</a></li>
-            </ul>
+    			</select>
+          <!--</button>-->
+		    </div>
+        <div class="separator">---</div>
+        <button class="menuitem" onclick="slidenote.extensions.showAdvancedMenu()"><img src="images/buttons/options.png"><span class="screenreader-only">Open </span><span>Advanced Options</span></button>
+        <div class="separator">slidenotes.io service</div>
+        <ul>
+  				<li><a href="?id=158" class="menuitem">tutorials</a></li>
+  				<li><a href="#" class="menuitem">documentation</a></li>
+  				<li><a href="#" class="menuitem">bug reports</a></li>
+  				<li><a href="#" class="menuitem">community</a></li>
+        </ul>
       </div></div></div>
       <div id="menuoptionspresentation"><div class="arrow_box_down">
-          <div class="separator">slide design</div>
-          <ul id="basicthemelist">
-  					<li><div>prototype</div><input type="radio" name="basictheme" value="prototype"><div class="prototype"><div>WELCOME</div>TO SLIDENOTES</div></li>
-  					<li><div>prototype</div><input type="radio" name="basictheme" value="pop"><div class="pop"><div>WELCOME</div> TO SLIDENOTES</div></li>
-            <li><div>prototype</div><input type="radio" name="basictheme" value="coding"><div class="coding"><div>WELCOME</div> TO SLIDENOTES</div></li>
+        <div class="separator">slide design</div>
+        <ul id="basicthemelist">
+  				<li><div>prototype</div><input type="radio" name="basictheme" value="prototype"><div class="prototype"><div>WELCOME</div>TO SLIDENOTES</div></li>
+  				<li><div>prototype</div><input type="radio" name="basictheme" value="pop"><div class="pop"><div>WELCOME</div> TO SLIDENOTES</div></li>
+          <li><div>prototype</div><input type="radio" name="basictheme" value="coding"><div class="coding"><div>WELCOME</div> TO SLIDENOTES</div></li>
   		</ul>
       </div></div>
       <div id="menusearchbox"><div class="arrow_box"><div class="arrow_box_content">
-            <!--<div class="separator">Search</div>-->
-            <div class="separator">
-              <select class="menuitem" name="searchinputchoice" id="searchinputchoice">
-                <option value="normal" selected title="normal search. You can use '\n' for line-break">Normal Search</option>
-                <option value="regex" title="Use a Regular Expression like /myRegex/flags . Allowed Flags are: i,m">RegEx Search </option>
-                <option value="raw" title="Search for Text 'as it is'">Raw-Text Search</option>
-              </select>
-            </div>
-            <input type="text" name="find" id="findinput" class="menuitem focusitem">
-            <div class="buttonarea">
-              <button id="findbutton" class="menuitem">Find</button>
-            </div>
-            <div class="separator">Replace</div>
-            <input type="text" name="replace" id="replaceinput" class="menuitem">
-            <div class="buttonarea">
-              <button id="replacebutton" class="menuitem">replace</button>
-              <button id="replaceallbutton" class="menuitem">replace all</button>
-            </div>
-            <div id="searchresult"></div>
+        <!--<div class="separator">Search</div>-->
+        <div class="separator">
+          <select class="menuitem" name="searchinputchoice" id="searchinputchoice">
+            <option value="normal" selected title="normal search. You can use '\n' for line-break">Normal Search</option>
+            <option value="regex" title="Use a Regular Expression like /myRegex/flags . Allowed Flags are: i,m">RegEx Search </option>
+            <option value="raw" title="Search for Text 'as it is'">Raw-Text Search</option>
+          </select>
+        </div>
+        <input type="text" name="find" id="findinput" class="menuitem focusitem">
+        <div class="buttonarea">
+          <button id="findbutton" class="menuitem">Find</button>
+        </div>
+        <div class="separator">Replace</div>
+        <input type="text" name="replace" id="replaceinput" class="menuitem">
+        <div class="buttonarea">
+          <button id="replacebutton" class="menuitem">replace</button>
+          <button id="replaceallbutton" class="menuitem">replace all</button>
+        </div>
+        <div id="searchresult"></div>
       </div></div></div>
       <!-- only stuff for making shadows and such:-->
           <!-- old stuff(cornerleft)
