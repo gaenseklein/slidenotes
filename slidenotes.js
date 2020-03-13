@@ -4111,6 +4111,11 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	var texteditorrahmen = this.textarea.parentElement;//document.getElementById("texteditor");
 	var eingabeblock = this.textarea;
 	var texteditorfehlerlayer = this.texteditorerrorlayer;
+	var maxspace = texteditorrahmen.offsetWidth-4;
+	//set texteditor-width to max-space:
+	eingabeblock.style.width = maxspace+"px";
+	texteditorfehlerlayer.style.width = maxspace+"px";
+	/*old stuff:
 	//check if textarea bigger than space available:
 	var maxspace = window.innerWidth - 30 - hardcodedwith; //521 is hard-coded widths from neighbours, could change in future
 	maxspace = maxspace - (maxspace/16);
@@ -4127,10 +4132,11 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	texteditorrahmen.style.height = eingabeblock.clientHeight+"px";
 	texteditorfehlerlayer.style.width = (eingabeblock.offsetWidth-4) + "px";
 	//texteditorfehlerlayer.style.height = (eingabeblock.offsetHeight-4)+"px";
-	eingabeblock.style.height = document.getElementById("sidebarcontainer").offsetHeight+"px";
+	//eingabeblock.style.height = document.getElementById("sidebarcontainer").offsetHeight+"px";
 	texteditorfehlerlayer.style.height = (eingabeblock.clientHeight-4)+"px";
 	//frag mich nicht warum 4px abgezogen werden müssen, aber dann passts.
 	//vermutung ist der focus-rahmen vom texteditor...
+	*/
 };
 var oldrendermode = false;
 

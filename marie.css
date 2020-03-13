@@ -454,8 +454,8 @@ body{
     grid-area:editor;
     /*background-color: var(--lvl0-color);*/
     position:initial;
-    height:95vh;
-    width:900px;
+    /*height:95vh;
+    width:900px;*/
   }
 
   #texteditorerrorlayer{
@@ -473,8 +473,7 @@ body{
     border: 1px solid transparent;
     margin: 1px;
     padding: 1px;
-    width: 900px;/*60vw 550px;*/
-    height:90vh;
+    height:100%;
     line-height:1.5em;
     outline:none;
   }
