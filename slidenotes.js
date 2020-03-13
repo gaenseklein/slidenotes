@@ -4105,7 +4105,7 @@ slidenotes.prototype.choseEditor = function(editor){
 * this function serves to get the textarea and the rendered sourcecode
 * to the same size, so that they overlap perfectly
 */
-var hardcodedwith = 521;
+//var hardcodedwith = 521;
 slidenotes.prototype.texteditorrahmensetzen = function(){
 	//setzt den rahmen vom errorlayer auf textarea-größe:
 	var texteditorrahmen = this.textarea.parentElement;//document.getElementById("texteditor");

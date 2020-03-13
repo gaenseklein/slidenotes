@@ -745,6 +745,11 @@
               slidenote.extensions.addAfterLoadingThemesHook(function(){
         				slidenoteguardian = new slidenoteGuardian(slidenote);
         			});
+              //adding texteditorrahmensetzen on windows-resize
+              window.addEventListener("resize",function(){
+                slidenote.texteditorrahmensetzen();
+                //console.log("resize happened");
+              });
           }
         }
     }
