@@ -835,3 +835,8 @@ ul.chartist-chartbuttonarea {
 .chartist-chartbuttonarea li {
     width: 100%;
 }
+
+/*giving min-height to charts:*/
+section.chart{
+  min-height:20vh;
+}

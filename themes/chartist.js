@@ -507,8 +507,12 @@ newtheme.styleThemeSpecials = function(){
       console.log(metadata);console.log(chartdata);
       //data is ready - time to start the chart:
       var presentationdiv = datadivs[datax];
+      var chartdiv = document.createElement("div");
       if(chartdata){
         presentationdiv.innerHTML = "";
+        presentationdiv.appendChild(chartdiv);
+        chartdiv.classList.add("chart");
+        chartdiv.classList.add("chart-"+charttype);
         presentationdiv.classList.add("chart");
         presentationdiv.classList.add("chart-"+charttype);
       }else{
@@ -519,8 +523,9 @@ newtheme.styleThemeSpecials = function(){
 
 
       //TODO: find out dimension for graph
-      presentationdiv.classList.add("ct-perfect-fourth");
-
+      //presentationdiv.classList.add("ct-perfect-fourth");
+      chartdiv.classList.add("ct-square");
+      //chartdiv.classList.add("ct-perfect-fourth");
 
       var chartoptions = this.getChartOptions({
         dataobject:dataobject, headsub:headsub,
@@ -534,9 +539,9 @@ newtheme.styleThemeSpecials = function(){
       console.log("chart:presentationdiv clientheight"+presentationdiv.clientHeight);
 
       if(charttype==="line"){
-        chsvg = new Chartist.Line(presentationdiv, chartdata, chartoptions);
+        chsvg = new Chartist.Line(chartdiv, chartdata, chartoptions);
       }else if(charttype==="bar"){
-        chsvg = new Chartist.Bar(presentationdiv, chartdata, chartoptions);
+        chsvg = new Chartist.Bar(chartdiv, chartdata, chartoptions);
       }else if(charttype="pie"){
         var sum = function(a, b) { return a + b };
         var pielabels = new Array();
@@ -651,8 +656,8 @@ newtheme.getChartOptions = function(data){
   	]
   };
   if(charttype == "line"){
-  	options.fullWidth = true;
-    options.chartPadding=60;
+  	options.fullWidth = false;
+    options.chartPadding=5;
   	options.axisY = {
   		onlyInteger:true,
   		offset:20
@@ -712,6 +717,7 @@ newtheme.getChartOptions = function(data){
   		onlyInteger:true,
   		//offset:20
   	}
+    options.seriesBarDistance = 30;
     if(data.chartdata.series.length===1){
       options.distributeSeries= true;
       data.chartdata.series = data.chartdata.series[0];
@@ -719,7 +725,7 @@ newtheme.getChartOptions = function(data){
   	if(head.indexOf("horizontal")>-1){
       //options.axisY = undefined;
       console.log("horizontalbar");
-      options.seriesBarDistance = 10;
+      options.seriesBarDistance = 30;
   		options.horizontalBars = true;
   		options.reverseData = true; //what does this do? test it
   		//options.axisY.offset = 70;

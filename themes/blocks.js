@@ -236,8 +236,10 @@ newtheme.buildgrid = function(gridcontainer){
   //helper function - checks if chart is in line
   function chartinline(line){
     var result=false;
-    for(var cil=0;cil<line.length;cil++)
+    for(var cil=0;cil<line.length;cil++){
           if(line[cil].classList.contains("chart"))result=true;
+          if(line[cil].classList.contains("containsChart"))result=true;
+    }
     return result;
   }
   //build gridTemplateRows:
@@ -256,6 +258,7 @@ newtheme.buildgrid = function(gridcontainer){
   rowheights+="20px ";
   console.log("gridTemplateRows:"+rowheights);
   gridcontainer.style.gridTemplateRows=rowheights;
+  gridcontainer.classList.add("gridy"+(rows+1));
 }
 
 newtheme.clientHeight = function(element, width){
@@ -360,6 +363,9 @@ newtheme.addBlockClassesToElements = function(gridcontainer){
         //node.firstElementChild.nodeName ==="IMG"){
         //  node.firstElementChild.classList.add("bgimg");
         //}
+    }
+    if(node.classList.contains("chart")){
+      pagenode.classList.add("containsChart");
     }
   }//end of nodes
 }
