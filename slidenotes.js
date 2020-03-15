@@ -2897,6 +2897,7 @@ pagegenerator.prototype.showPage = function(page){
 	document.location.hash = "slide"+slidenr;
 	console.log("aktpage:"+this.aktpage+" pagedivslength:"+this.pagedivs.length+" page:"+page);
 	this.pagedivs[page].classList.add("active");
+	this.pagedivs[page].scrollTop = 0;
 }
 
 /*
