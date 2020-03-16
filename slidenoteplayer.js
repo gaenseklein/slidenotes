@@ -142,6 +142,7 @@ slidenoteplayer.gotoPage = function (pagenumber){
   if(pn<0)pn=0;
   if(pn>=this.pages.length)pn=this.pages.length-1;
   this.pages[pn].classList.add("active");
+  this.pages[pn].scrollTop = 0;
   this.actpage = pn;
   pn++;
   console.log(pn +" actpage:" +this.actpage);

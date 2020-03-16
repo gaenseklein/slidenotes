@@ -2897,6 +2897,7 @@ pagegenerator.prototype.showPage = function(page){
 	document.location.hash = "slide"+slidenr;
 	console.log("aktpage:"+this.aktpage+" pagedivslength:"+this.pagedivs.length+" page:"+page);
 	this.pagedivs[page].classList.add("active");
+	this.pagedivs[page].scrollTop = 0;
 }
 
 /*
@@ -4105,12 +4106,17 @@ slidenotes.prototype.choseEditor = function(editor){
 * this function serves to get the textarea and the rendered sourcecode
 * to the same size, so that they overlap perfectly
 */
-var hardcodedwith = 521;
+//var hardcodedwith = 521;
 slidenotes.prototype.texteditorrahmensetzen = function(){
 	//setzt den rahmen vom errorlayer auf textarea-größe:
 	var texteditorrahmen = this.textarea.parentElement;//document.getElementById("texteditor");
 	var eingabeblock = this.textarea;
 	var texteditorfehlerlayer = this.texteditorerrorlayer;
+	var maxspace = texteditorrahmen.offsetWidth-4;
+	//set texteditor-width to max-space:
+	eingabeblock.style.width = maxspace+"px";
+	texteditorfehlerlayer.style.width = maxspace+"px";
+	/*old stuff:
 	//check if textarea bigger than space available:
 	var maxspace = window.innerWidth - 30 - hardcodedwith; //521 is hard-coded widths from neighbours, could change in future
 	maxspace = maxspace - (maxspace/16);
@@ -4127,10 +4133,11 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	texteditorrahmen.style.height = eingabeblock.clientHeight+"px";
 	texteditorfehlerlayer.style.width = (eingabeblock.offsetWidth-4) + "px";
 	//texteditorfehlerlayer.style.height = (eingabeblock.offsetHeight-4)+"px";
-	eingabeblock.style.height = document.getElementById("sidebarcontainer").offsetHeight+"px";
+	//eingabeblock.style.height = document.getElementById("sidebarcontainer").offsetHeight+"px";
 	texteditorfehlerlayer.style.height = (eingabeblock.clientHeight-4)+"px";
 	//frag mich nicht warum 4px abgezogen werden müssen, aber dann passts.
 	//vermutung ist der focus-rahmen vom texteditor...
+	*/
 };
 var oldrendermode = false;
 

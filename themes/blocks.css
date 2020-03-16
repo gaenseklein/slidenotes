@@ -28,6 +28,12 @@
 }
 .blocks .ppage{
   display:grid;
+  width:100vw;
+  height:100vh;
+  position: absolute;
+  top: 0;
+  left:0;
+  overflow-y:auto;
 }
 
 .blocks .bgimg.griditem{
@@ -43,7 +49,7 @@
 
 /*background-images:*/
 img.bgimg {
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 div > img.bgimg {
