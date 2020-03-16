@@ -657,7 +657,14 @@ newtheme.getChartOptions = function(data){
   };
   if(charttype == "line"){
   	options.fullWidth = true;
-    let lastLabelLength = data.chartdata.labels[data.chartdata.labels.length-1].length;
+    let lastLabel =  data.chartdata.labels[data.chartdata.labels.length-1];
+    let lastLabelLength = lastLabel.length;
+    if(lastLabel.indexOf(" ")>-1){
+      let firstwordlength = lastLabel.indexOf(" ");
+      let secondwordlength = lastLabel.length - firstwordlength;
+      lastLabelLength = firstwordlength;
+      if(secondwordlength>firstwordlength)lastLabelLength=secondwordlength;
+    }
     lastLabelLength = lastLabelLength*9;
     options.chartPadding={
       right:lastLabelLength,
