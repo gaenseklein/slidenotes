@@ -656,8 +656,13 @@ newtheme.getChartOptions = function(data){
   	]
   };
   if(charttype == "line"){
-  	options.fullWidth = false;
-    options.chartPadding=5;
+  	options.fullWidth = true;
+    let lastLabelLength = data.chartdata.labels[data.chartdata.labels.length-1].length;
+    lastLabelLength = lastLabelLength*9;
+    options.chartPadding={
+      right:lastLabelLength,
+      top:30,left:15,bottom:15
+    };
   	options.axisY = {
   		onlyInteger:true,
   		offset:20
