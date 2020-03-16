@@ -33,29 +33,46 @@ h1 img{
 }
 
 /*new stuff:*/
-#imagegallery.active{
-  visibility:unset;
+#imagegallery{
   grid-area:unset;
   grid-column-start: 5;
   grid-column-end: 8;
   grid-row-start: 2;
   grid-row-end: 5;
-  margin-top:5.5em;
-  color:#9c9c9c;
-  margin-right: calc(var(--grid-margin)*1em);
-  margin-left: calc(var(--grid-margin)*1em);
+  margin-top:6.1em;
+  color:black;
+  margin-right: calc(var(--grid-margin)*var(--emToVh)*1vh);
+  margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);
+  visibility: hidden;
+}
+#imagegallery.active{
+  visibility:unset;
 }
 #imagegallery .arrow_box:before,
 #imagegallery .arrow_box:after{
-  left:9em;
+  left: calc((var(--grid-s) - var(--grid-margin))*var(--emToVh)*1vh + 1.5em);
 }
+
+#imagegallerybox{
+  background: rgba(255,255,255,0.5);
+  height: 100%;
+  border-radius: calc(13/10.8*1vh) calc(13/10.8*1vh) 0 0;
+  max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1em);
+}
+
+#imagegallerybox > div {
+  text-align: center;
+  margin-top: calc(17/10.8*1vh);
+  margin-bottom: calc(20/10.8*1vh);
+}
+
 #imagegallerybox > button{
-  background:#f4f4f4;
+  background:white;
   border:none;
   width:85%;
-  color:#9c9c9c;
   height:3em;
   border-radius: 1vh;
+  margin-left: calc(7/10.8*1vh);
 }
 
 #imagegallerybox button:hover,
@@ -71,46 +88,73 @@ h1 img{
 }
 
 #imagegallery ul {
-    overflow-y: auto;
-    padding-left: 0;
-    list-style: none;
-    max-height: 50vh;
-    overflow-x: hidden;
-    background:#f4f4f4;
-    border-radius:1vh;
+  overflow-y: auto;
+  padding-left: 0;
+  list-style: none;
+  max-height: calc(95.45vh - var(--grid-s)*var(--emToVh)*0.32vh - 10.1em);
+  overflow-x: hidden;
+  /*background:#f4f4f4;*/
+  border-radius:1vh;
+  margin-top: calc(9/10.8*1vh);
 }
 
 #imagegallery li {
-    background:white;
-    display: inline-grid;
-    width: 13vh;
-    height: 7em;
-    overflow: hidden;
-    grid-template-areas: "minus title" "usedslides usedslides" "image image";
-    grid-template-columns: 1em 10vh;
-    grid-template-rows: 1em 1em 5em;
-    grid-gap: 2px 1vh;
-    margin:1.6vh;
-    border-radius:1vh;
-    padding:1vh;
+  background:white;
+  display: inline-grid;
+  width: 82%;
+  /*height: 7em;*/
+  overflow: hidden;
+  /*grid-template-areas: "minus title" "usedslides usedslides" "image image";*/
+  grid-template-areas: "title" "usedslides" "minus" "image";
+  grid-template-columns: auto;
+  grid-template-rows: calc(30/16*1em) calc(20/16*1em) calc(25/16*1em) calc(97/10.8*1vh);
+  margin: calc(13/10.8*1vh);
+  border-radius: calc(12.2/10.8*1vh) calc(12.2/10.8*1vh) 0 0;
+  padding:0;
 }
 
 button.imagegallery-delbutton {
   grid-area: minus;
-  border-radius: 50%;
-  width: 100%;
-  height: 100%;
+  border-radius: calc(2.5/11*1em);
+  height: calc(20/11*1em);
+  width: calc(79/11*1em);
   padding:0;
   border:none;
-  background:none;
+  background: var(--lvl3-button-focus);
+  font-size: calc(11/20*1em);
+  color: white;
+  text-align: center;
+  align-self: start;
+  margin-right: auto;
+  position: relative;
+  margin-left: calc(13/10.8*1vh);
+
+}
+
+.imagegallery-delbutton img, .imagegallery-delbutton svg{
+  height: calc(12/11*1em);
+  /*Temporary filter for .png-image*/
+  filter: brightness(50%) contrast(200%) invert();
+  position: absolute;
+  top: calc(4.2/11*1em);
+  left: calc(6.4/11*1em);
+}
+
+.imagegallery-delbutton::after {
+  content: " delete";
+  position: absolute;
+  top: calc(4/11*1em);
+  left: calc(27/11*1em);
 }
 
 .imagegallery-name {
     grid-area: title;
     overflow: hidden;
-    font-weight: bold;
     white-space: nowrap;
     text-overflow: ellipsis;
+    padding-left: calc(13/10.8*1vh);
+    padding-top: calc(12/10.8*1vh);
+    font-size: calc(15/20*1em);
 }
 
 .imagegallery-usedslides {
@@ -118,24 +162,24 @@ button.imagegallery-delbutton {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    color: #626262;
+    padding-left: calc(13/10.8*1vh);
+    font-size: calc(13/20*1em);
 }
 
 .imagegallery-unnamed, .imagegallery-unconnected{
-  font-style:italic;
+  /*font-style:italic;*/
 }
 
 
 button.imagegallery-image {
     grid-area: image;
-}
-
-button.imagegallery-image {
     height: 100%;
     width: 100%;
     overflow: hidden;
     padding: 0;
-    border-radius: 1vh;
     background: none;
+    border: none;
 }
 
 #imagegallery .imagegallery-image img {
