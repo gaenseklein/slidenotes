@@ -8,9 +8,17 @@
   /*------*/
 
   --object-color: #939393;
-  --active-object-color: #90C1C8;
+  --active-object-color: #90c1c8;
   --menu-font-color: #626262;
-  --emphazing-font-color: #0e5e69;
+  --emphazing-font-color: #125E69;
+  --text-color:#030303;
+  --light-blue-backg:#eaf7f7;
+  --light-dark-blue-backg: #DFEDEE;
+  --light-green-backg:#ECF4EE;
+  --light-grey-backg:#efefef;
+  --code-backg: #23241f;
+  --caret-color:#ff8405;
+  --caret-color-backg:#ff84057a;
   /*editorblock level*/
   --lvl0-color: #fbfcfc; 
   /*sidemenue level*/
@@ -449,7 +457,7 @@ body{
     z-Index:2;
     background:none;
     color:transparent;
-    caret-color:black;
+    caret-color: var(--caret-color);
   }
 
 /* buttonarearight */
@@ -2126,13 +2134,13 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
   }
   #texteditorerrorlayer .error{
-  	color: red;
-  	border-bottom:3px solid red;
+  	color: var(--emphazing-font-color);
+  	border-bottom:0.1em solid var(--active-object-color);
   }
   .proposedsymbol{
-  	color:grey;
-  	background:white;
-  	margin-left: 5px;
+  	color:var(--emphazing-font-color);
+    background-color: rgba(144, 193, 200, 0.3);  /*var(--active-object-color)*/
+    margin-left: 0.3em;
   }
   .errordescription{
   	background:rgba(0,255,255,0.8);
@@ -2140,9 +2148,13 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   	color: red;
   }
   /*mdcodeeditor*/
+  #carret{
+    border-right:0.2em solid var(--caret-color-backg);
+    margin-right: -0.2em;
+  }
   #carret.unfocused{
-    border-right:1px solid black;
-    margin-right:-1px;
+    border-right:0.2em solid var(--caret-color-backg);
+    margin-right: -0.2em;
   }
   /*
   ::selection{
@@ -2171,27 +2183,40 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   	word-wrap: break-word;
   }
   .backgroundline.h1{
-  	color:blue;
-  	font-family: 'ubuntuMonoBold';
+    color:var(--emphazing-font-color);
+    border-bottom: 0.2em solid;
+    font-family: 'ubuntuMonoBold';
+    background-color:var(--light-blue-backg);
+    box-shadow: 0 0 0 0.3em var(--light-blue-backg);
   }
   .backgroundline.h2{
-  	color:blue;
+    color:var(--emphazing-font-color);
+    font-family: 'ubuntuMonoBold';
+    background-color:var(--light-blue-backg);
+    box-shadow: 0 0 0 0.3em var(--light-blue-backg);
+  }
+  .backgroundline.h3{
+    color:var(--emphazing-font-color);
+    background-color:var(--light-blue-backg);
+    box-shadow: 0 0 0 0.3em var(--light-blue-backg);
   }
   .backgroundline b, .backgroundline i, .backgroundline strike{
-  	border-bottom:1px solid lightgreen;
+  	/*border-bottom:1px solid lightgreen;*/
   }
   .backgroundline.code, .backgroundline code,
-  .backgroundline.codehead, .backgroundline.metadata.codehead{
-  	background:#ecf4ee;
+  .backgroundline.codehead, .backgroundline.metadata.codehead, .backgroundline.code.metadata{
+  	background:var(--code-backg);
+    color: white;
   	font-family:unset;
   	font-size:unset;
+    opacity: 1;
   }
   .backgroundline.code{
   	display:inline-block;
   	width:100%;
   }
   .backgroundline.quote{
-  	background:gainsboro;
+  	background: var(--light-green-backg);
   	font-style:italic;
   	display:inline-block;
   	width:100%;
@@ -2199,12 +2224,13 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
   #texteditorerrorlayer .pagenr {
       /*content: "»»» new page";*/
-      color: white;
-  		font-style:italic;
+      color: var(--text-color);
+      font-family: ubuntuMonoItalic;
   }
   .backgroundline.pagebreak {
       display: inline-block;
-      background: grey;
+      background: lightgrey;
+      opacity: 0.5;
       width: 100%;
   }
   .backgroundline.data{
@@ -2213,17 +2239,18 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   	background:#f3f8f8;
   }
   .backgroundline.metadataseparator {
-      background: darkgreen;
+      background: var(--light-dark-blue-backg);
   }
 
   .backgroundline.metadata {
-      background: lightgreen;
+      background: var(--light-dark-blue-backg);
+      opacity: 0.7;
   }
 
   .backgroundline.layout{
   	display:inline-block;
   	width:100%;
-  	background: rgba(238, 199, 85, 0.54);
+  	background: var(--light-green-backg);
   }
   .backgroundline .imagetag{
   	color:blue;
@@ -2249,8 +2276,9 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   	color:blue;
   }
   .backgroundline .comment {
-  	background:#d3d3d3;
   	font-style:italic;
+    background-color: var(--light-grey-backg);
+    box-shadow: 0 0 0 0.3em var(--light-grey-backg);
   }
 
 /*texteditor modi*/

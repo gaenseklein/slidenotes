@@ -173,6 +173,8 @@
   overflow-wrap: break-word;
   max-width: 45em;
   justify-self: center;
+  height: fit-content;
+  height: -moz-fit-content;
 
 }
 .ppage code.codeblock li{
