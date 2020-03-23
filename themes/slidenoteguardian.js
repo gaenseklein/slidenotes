@@ -274,7 +274,42 @@ slidenoteGuardian.prototype.initLoad = async function(){
   this.getRestToken(); //always get a RestToken we can use later on
   var searchurl = location.search;
   var nid = searchurl.substring(searchurl.lastIndexOf("=")+1);
-  if(nid*1!=nid){ this.init();return;} //no valid node-id found
+  if(!nid*1>0){
+    //this.init();
+    this.loadFromRest("/myslidenotes", function(){
+      if(this.status===403){
+        //not logged in:
+        window.location.href="/user/login";
+      }else if(this.status===200){
+        var xmlDoc = this.responseXML;
+        var items = xmlDoc.getElementsByTagName("item");
+        var lastslidenote = {id:0,lastChange:0};
+        for(var x=0;x<items.length;x++){
+          var lastdate = items[x].getElementsByTagName("pubDate")[0].innerHTML*1;
+          if(lastslidenote.lastChange<lastdate){
+            let nid = items[x].getElementsByTagName("guid")[0].innerHTML;
+            if(nid.indexOf(" ")>-1)nid = nid.substring(0,nid.indexOf(" "));
+            nid = nid*1;
+            lastslidenote = {
+              id:nid,
+              lastChange:lastdate
+            };
+          }
+        }
+        if(lastslidenote.id===0){
+          //no slidenotes found - put a new one:
+          //this.createNewSlidenote();
+          if(slidenoteguardian.restToken){
+            //alert("create new slidenote"+slidenoteguardian.restToken);
+            slidenoteguardian.createNewSlidenote();
+          }
+        }else{
+          window.location.search="id="+lastslidenote.id;
+        }
+      }
+    });
+    return;
+  } //no valid node-id found
   this.loadFromRest("/node/"+nid+".json",
     //loadHandler:
     function(){
@@ -706,7 +741,14 @@ slidenoteGuardian.prototype.importSlidenotesList = function(response){
   for(var x=0;x<items.length;x++){
       var title = items[x].getElementsByTagName("title")[0];
       var link = items[x].getElementsByTagName("link")[0];
-      loadedSlidenotes.push({title:title.innerHTML,url:link.innerHTML});
+      var nid = items[x].getElementsByTagName("guid")[0].innerHTML;
+      nid = nid.substring(0,nid.indexOf(" "));
+      var lastdate = items[x].getElementsByTagName("pubDate")[0];
+      loadedSlidenotes.push({
+        title:title.innerHTML,
+        url:link.innerHTML,
+        lastChange: lastdate.innerHTML,
+        id:nid});
   }
   slidenoteguardian.loadedSlidenotes = loadedSlidenotes;
   if(menumanager)menumanager.buildSlidenoteList();
@@ -880,7 +922,10 @@ slidenoteGuardian.prototype.getRestToken = async function(afterwards){
   tokenquest.addEventListener("load",function(){
     if(this.status==200&& this.statusText==="OK")
       slidenoteguardian.restToken = this.response;
-      else slidenoteguardian.restToken = undefined;
+      else if(this.status===403){
+        window.location.href="/user/login?destination="+window.location.pathname+window.location.search;
+        slidenoteguardian.restToken = undefined;
+      }else slidenoteguardian.restToken = undefined;
     console.log("Token loaded:"+this.statusText);
   });
   tokenquest.open("GET","/restws/session/token");
@@ -1091,7 +1136,7 @@ slidenoteGuardian.prototype.createNewSlidenote = async function(){
     console.log(this);
     if(this.statusText==="Created"){
       var respobj = JSON.parse(this.response);
-      if(window.location.href.indexOf("marie.htm?")>-1){
+      if(window.location.href.indexOf(".htm?")>-1){
         let nid = respobj.uri.substring(respobj.uri.lastIndexOf("/")+1);
         if(nid)window.location.search = "id="+nid;
       }else{
@@ -1100,7 +1145,9 @@ slidenoteGuardian.prototype.createNewSlidenote = async function(){
     }
 
   });
-  var nid = this.restObject.nid;
+  var nid;
+  if(this.restObject && this.restObject.nid)nid=this.restObject.nid;
+  else window.location.href="/editor/newnote";
   postReq.open("POST","/node/"+nid); //node/nid needs to be of type slidenote to work
   postReq.setRequestHeader("CONTENT-TYPE","application/json");
   postReq.setRequestHeader('X-CSRF-TOKEN', this.restToken);
@@ -1116,10 +1163,16 @@ slidenoteGuardian.prototype.createNewSlidenote = async function(){
 prepares the uploadobject to be uploaded via rest to drupal 7
 */
 slidenoteGuardian.prototype.prepareDrupal7Rest = function(mode){
-  var path = "/node/"+this.restObject.drupal7.nid;
-  var payloadobj = {
-    nid:this.restObject.drupal7.nid
-  }
+  var path;
+  var payloadobj = {};
+  if(this.restObject &&
+    this.restObject.drupal7 &&
+    this.restObject.drupal7.nid){
+      path = "/node/"+this.restObject.drupal7.nid;
+      payloadobj = {
+        nid:this.restObject.drupal7.nid
+      }
+    }
   if(mode=="text"){
     payloadobj.field_encryptednote = this.uploadRestObject.encnote;
     payloadobj.field_notehash=this.uploadRestObject.notehash;
