@@ -62,10 +62,11 @@ document.getElementsByTagName("head")[0].appendChild(cssfile);
 */
 newtheme.loadingFiles = new Array();
 newtheme.loadingFiles.push(slidenote.appendFile("script","highlight/highlight.pack.js"));
-slidenote.appendFile("css","highlight/styles/default.css");
+//slidenote.appendFile("css","highlight/styles/default.css");
+slidenote.appendFile("css","highlight/styles/monokai-sublime.css");
 //slidenote.appendFile("script", "highlight/highlightjs-line-numbers.js");
 
-newtheme.description = "Automagicaly highlightning Codes in Codeblock using hljs. For more Information "+
+newtheme.description = "automagically highlighting codes in codeblock using hljs. for more information "+
 												"see http://highlightjs.org";
 newtheme.styleThemeSpecials = function(){
 	var codeblocks = document.getElementsByClassName("codeblock");

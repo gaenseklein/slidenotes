@@ -701,12 +701,12 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 		var pline =this.map.pagestart[x].line-1;
 		if(pline<0)pline=0;
 		var pbpos = lines[pline].length;
-		if(pline>0 || this.lineswithhtml[pline]==="pagebreak")lines[pline]+='<span class="pagenr">    »»» new slide #'+(x+1)+'</span>';
+		if(pline>0 || this.lineswithhtml[pline]==="pagebreak")lines[pline]+='<span class="pagenr">  start slide '+(x+1)+'</span>';
 		changes.push({
 			line:pline,
 			posinall:this.map.lineend[pline],//this.map.linestart[this.perror[er].line]+lines[this.perror[er].line].length,
 			pos:pbpos,
-			html:'<span class="pagenr">    »»» new slide #'+(x+1)+'</span>',
+			html:'<span class="pagenr">  start slide '+(x+1)+'</span>',
 			mdcode:"",
 			typ:"pagenr",
 			tag:"pagebreak pagenr"

@@ -28,7 +28,7 @@ span code{
 }*/
 
 span.codeline{
-	opacity:0.5;
+	/*opacity:0.5;*/
 }
 span.specialline, span.specialinline{
 	opacity:1;
