@@ -93,26 +93,51 @@ slidenoteplayer.initButtons = function(){
   this.commentSaveButton = document.createElement("button");
   this.commentSaveButton.innerText = "Encrypt & Send";
   this.commentSaveButton.onclick = function(){
+  document.getElementById("edit-field-pagenr-und-0-value").value=slidenoteplayer.actpage+1;
 	var test = slidenoteguardian.encryptComment();
 	//if(test)this.formSaveButton.click();
   };
   this.commentSaveButton.classList.add("comment-form");
   document.getElementById("comments").appendChild(this.commentSaveButton);
 
-  this.commentAddCommentButton = document.createElement("button");
-  this.commentAddCommentButton.innerText = "+";
-  this.commentAddCommentButton.id="commentAddButton";
+  this.commentAddCommentButton = document.getElementById("commentAddButton");
+  this.commentAddCommentButton.innerText = "post comment ⌄";
+  //this.commentAddCommentButton.id="commentAddButton";
   this.commentAddCommentButton.onclick = function(){
-	slidenoteplayer.showCommentForm();
+    if(this.innerText==="post comment ⌄"){
+      slidenoteplayer.showCommentForm();
+      this.innerText="post comment ⌃";
+    }else{
+      slidenoteplayer.hideCommentForm();
+      this.innerText="post comment ⌄";
+    }
   }
   this.commentblock = document.getElementById("comments");
+  //var commentformtitle = document.querySelector(".title.comment-form");
+  //this.commentblock.replaceChild(this.commentAddCommentButton,commentformtitle);
+  //this.commentblock.appendChild(this.commentAddCommentButton);
+  //this.hideCommentsButton = document.createElement("button");
+  //this.hideCommentsButton.innerText = "x";
+  //this.hideCommentsButton.classList.add("dialogclosebutton");
+  this.hideCommentsButton = document.getElementById("commentCloseButton");
+  this.hideCommentsButton.onclick = function(){
+    slidenoteplayer.hideCommentBlock();
+  }
+  var cblocktitle = document.createElement("span");
+  cblocktitle.innerText="comments";
+  cblocktitle.id="commentblocktitle";
+  this.commentBlockTitle = cblocktitle;
   var commenttitle = this.commentblock.firstElementChild;
-  commenttitle.appendChild(this.commentAddCommentButton);
+  commenttitle.innerHTML = "";
+  commenttitle.appendChild(cblocktitle);
+  commenttitle.appendChild(this.hideCommentsButton);
+  commenttitle.classList.add("dialogtitle");
+
 
   this.commentShowAllButton = document.createElement("button");
   this.commentShowAllButton.innerText = "show all";
   this.commentShowAllButton.onclick = function(){slidenoteplayer.showAllComments();};
-  commenttitle.appendChild(this.commentShowAllButton);
+  //commenttitle.appendChild(this.commentShowAllButton);
 }
 
 slidenoteplayer.initKeystrokes = function(){
@@ -249,8 +274,8 @@ slidenoteplayer.commentCount = function(pagenr){
 }
 
 slidenoteplayer.setCommentFormPagenr = function(){
- var pagenrfield = document.getElementById("edit-field-pagenr-und-0-value");
- pagenrfield.value = this.actpage+1;
+ var pagenrfield = document.getElementById("commentblocktitle");
+ pagenrfield.innerText = "comments on slide "+(this.actpage+1);
 }
 
 slidenoteplayer.showCommentForm = function(){
@@ -258,7 +283,12 @@ slidenoteplayer.showCommentForm = function(){
   this.setCommentFormPagenr();
   commentform.classList.add("show");
  //var commentbody = document.getElementById("edit-comment-body-und-0-value");
-  var commentformtitle = document.querySelector(".title.comment-form");
-  commentformtitle.classList.add("show");
+  //var commentformtitle = document.querySelector(".title.comment-form");
+  //commentformtitle.classList.add("show");
   this.commentSaveButton.classList.add("show");
+}
+slidenoteplayer.hideCommentForm = function(){
+  var commentform = document.getElementById("comment-form");
+  commentform.classList.remove("show");
+  this.commentSaveButton.classList.remove("show");
 }

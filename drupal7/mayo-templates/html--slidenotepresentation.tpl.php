@@ -47,6 +47,8 @@
 <head>
   <title><?php print $head_title; ?></title>
   <link rel="stylesheet" href="/sites/all/libraries/slidenotes/slidenoteplayer.css">
+  <link rel="stylesheet" href="/sites/all/libraries/slidenotes/drupal7/presentations.css">
+  <!--added css and js-bibs from script:-->
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page; ?>

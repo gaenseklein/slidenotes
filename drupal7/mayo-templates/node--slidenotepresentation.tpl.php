@@ -78,64 +78,6 @@
  * @see template_process()
  */
 ?>
-<style>
-.ppage{
-  display:none;
-}
-.ppage.active{
-  display:block;
-}
-
-#slidenotepresentation > div {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-}
-
-#comments {
-    position: fixed;
-    top: 0;
-    right: 0;
-    display: none;
-}
-
-#comments.show {
-    display: block;
-}
-
-.comment{
-	display:none;
-}
-.comment.show{
-	display:block;
-}
-
-div#edit-author--2 {
-    display: none;
-}
-
-fieldset#edit-comment-body-und-0-format {
-    display: none;
-}
-
-div#edit-field-pagenr {
-    display: none;
-}
-
-input#edit-preview, input#edit-submit {
-    display: none;
-}
-
-.comment-form{
-	display:none;
-}
-.comment-form.show{
-	display:block;
-}
-
-</style>
 <script language="javascript" src="/sites/all/libraries/slidenotes/slidenotes.js"></script>
 <script language="javascript">
 var slidenoteguardian = {
@@ -850,5 +792,6 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
 </div>
 </div>
 <img src="/sites/all/libraries/slidenotes/images/buttons/bold.png" width="1" onload="slidenoteguardian.init()">
+
 <?php print render($content['comments']); ?> <!-- added -->
 

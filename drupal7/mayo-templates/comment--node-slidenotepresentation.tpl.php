@@ -69,11 +69,12 @@
   <h3<?php print $title_attributes; ?>><?php print $title ?></h3>
   <?php print render($title_suffix); ?>
 -->
-  <div class="submitted">
+  <div class="submitted" title="<?php print t($created)?>">
     <?php
-      print t('!username on !datetime:',
-        array('!username' => $author, '!datetime' => $created));
-    ?>
+      #print t('!username on !datetime:',
+       # array('!username' => $author, '!datetime' => $created));
+       print t($author)
+    ?>:
   </div>
 
   <div class="enccontent"<?php print $content_attributes; ?>><?php

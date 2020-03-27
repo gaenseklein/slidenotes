@@ -1,0 +1,151 @@
+/*special declarations for presentations online, mainly comments*/
+#slidenotepresentation > div {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#comments {
+    background: #f4f4f4;
+    border-radius:1vh;
+    position: fixed;
+    left: 5vw;
+    bottom: 7vh;
+    display: none;
+    max-width:80vw;
+}
+
+#comments.show.dialogbox{
+    box-shadow:0 0 5px 5px rgba(0,0,0,0.25);
+    display:grid;
+    overflow:hidden;
+    grid-template-areas:
+        "title"
+        "comments"
+        "hidebutton"
+        "form"
+        "sendbutton";
+    grid-gap: 1ch;
+    grid-template-columns:100%;
+}
+
+
+.comment{
+	display:none;
+}
+.comment.show{
+	display:block;
+}
+
+div#edit-author--2 {
+    display: none;
+}
+
+fieldset#edit-comment-body-und-0-format {
+    display: none;
+}
+
+div#edit-field-pagenr {
+    display: none;
+}
+
+input#edit-preview, input#edit-submit {
+    display: none;
+}
+
+.comment-form{
+	display:none;
+}
+.comment-form.show{
+	display:block;
+}
+
+.dialogtitle{
+    text-align:center;
+    height:3em;
+    display:grid;
+    grid-template-columns: 15ch 1fr 15ch;
+    align-items:end;
+    align-content:center;
+    justify-content: center;
+    grid-template-areas:". title close";
+    margin:0;
+    padding:0;
+    font-size:large;
+}
+.dialogtitle span{
+    grid-area:title;
+ }
+  .dialogbox .dialogtitle .dialogclosebutton{
+    align-self:start;
+    justify-self:end;
+    border:none;
+    background:none;
+    grid-area:close;
+    margin-right:1vh;
+    margin-top:1vh;
+  }
+  .dialogclosebutton:hover{
+    filter:brightness(0.4);
+  }
+  .dialogcontent{
+    border-radius: 3vh;
+    min-height: 5em;
+    display: grid;
+    align-items: center;
+    max-width:80vw;
+    max-height:82vh;
+    overflow-y:auto;
+  }
+
+#comments > div {
+    background: #fff;
+}
+
+button#commentAddButton {
+    background: white;
+    border-radius: 1ch;
+    padding-left: 2ch;
+    padding-right: 1ch;
+    justify-self: center;
+}
+
+#comments form label {
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  opacity: 0;
+  position: absolute;
+  }
+
+.comment {
+    margin-left: 3vh;
+}
+
+
+form#comment-form textarea {
+    margin-left: 1ch;
+    margin-right: 1ch;
+    border-radius: 1ch;
+    resize: vertical;
+    max-width: 100%;
+}
+
+form#comment-form {
+  width: 100%;
+  }
+
+form.comment-form.show {
+    justify-self: center;
+}
+
+button.comment-form.show {
+    margin-left: 1ch;
+    margin-bottom: 1em;
+    justify-self: start;
+    border-radius: 0.5ch;
+    background: #505050;
+    color: white;
+}

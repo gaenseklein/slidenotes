@@ -1,0 +1,191 @@
+@font-face {
+  font-family: 'Rubik-reg';
+  src: url("/sites/all/libraries/slidenotes/fonts/Rubik-Regular.ttf"); }
+
+@font-face {
+  font-family: 'Rubik-med';
+  src: url("/sites/all/libraries/slidenotes/fonts/Rubik-Medium.ttf"); }
+
+@font-face {
+  font-family: 'roboto-mono-reg';
+  src: url("/sites/all/libraries/slidenotes/fonts/RobotoMono-Regular.ttf"); }
+
+@font-face {
+  font-family: 'roboto-mono-light';
+  src: url("/sites/all/libraries/slidenotes/fonts/RobotoMono-Light.ttf"); }
+
+
+.page-user-login.not-logged-in #main-wrapper {
+    position:absolute;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+}
+
+.page-user-login div#slidenotelogowrapper {
+    text-align: center;
+}
+.page-user-login #slidenotelogowrapper img{
+    width:5em;
+    margin-top:1.2em;
+    margin-bottom:1em;
+}
+.page-user-login div#header,
+.page-user-login div#footer-wrapper,
+.page-user-login h1#page-title,
+.page-user-login div.tabs {
+    display: none;
+}
+
+
+.page-user-login .description {
+    visibility: hidden;
+    height: 0px;
+}
+.page-user-login input {
+    font-family: inherit;
+    font-size: 1.2em;
+    border: none;
+    padding: 0.3em 0 0 0.3em;
+    color: #fafafa;
+    background-color: #313131;
+    border-radius: 0;
+    border-bottom-style: solid;
+    border-bottom-width: 0.01em;
+    margin-right: 0.5em;
+    transition: 0.3s;
+}
+
+.page-user-login input#edit-submit {
+    padding: 0.5em 1em 0.5em 1em;
+    transform: translateX(-50%);
+    color: #fafafa;
+    background: #125E69;
+    border-color: #125E69;
+    border-radius: 2em;
+    cursor: pointer;
+    font-size: 1.2em;
+    margin-left: 50%;
+    text-transform: lowercase;
+}
+
+.page-user-login div#main {
+    width: 28ch;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.page-user-login input {
+    margin: 0;
+    color: #1f1f1f;
+    border-color: #125E69;
+    background: #ebebeb;
+    max-width: 100%;
+}
+.form-text.required{
+    width:100%;
+}
+.page-user-login input:focus {
+    border-bottom-width: 0.15em;
+    /* background-color: #555555; */
+    outline: none;
+}
+
+.page-user-login label{
+    color: #1f1f1f;
+    font-weight:unset;
+}
+body.page-user-login {
+    font-size: calc(0.5em + 1vw);
+    line-height: 1.5em;
+    text-rendering: optimizeLegibility;
+    font-family:"Rubik-reg", Sans-Serif;
+    font-size-adjust: 0.42;
+    font-smoothing: auto;
+    font-feature-settings: "calt" on, "liga" on, "dlig" on, "kern" on;
+    text-size-adjust: 100%;
+}
+
+@media only screen and (max-width: 80vh) {
+  body.page-user-login  {
+    font-size: calc(0.5em + 1vh); }
+}
+.page-user-login .messages.error {
+background: none; 
+background-image: none; 
+border-color: transparent; 
+color: #9D2530; 
+}
+
+body.page-user-login #main-wrapper{
+    background: white;
+}
+@media (prefers-color-scheme: dark) {
+    .page-user-login .messages.error{
+        color: #ff5e69; 
+    }
+     body.page-user-login #main-wrapper {
+        background: #1B1917; }
+    .page-user-login a {
+        color: #fafafa;
+        text-decoration-color: #fafafa; }
+    .page-user-login label {
+        color: #fafafa; }
+    .page-user-login input {
+        color: #fafafa;
+        border-color: #553935;
+        background-color: #313131; }
+    .page-user-login input#edit-submit {
+        color: #fafafa;
+        background-color: #553935;
+        border: none; }  
+    .page-user-login label{
+        color:#fafafa; }  
+    .page-user-login div#page, 
+    .page-user-login div#page-wrapper,
+    .page-user-login div#main {
+        background: none;}
+
+}
+
+/*body.page-user-login.dark {
+  background-color: #1B1917; 
+  color: #fafafa;
+}
+.page-user-login.dark a {
+        color: #fafafa;
+        text-decoration-color: #fafafa; }
+.page-user-login.dark input {
+        color: #fafafa;
+        border-color: #553935;
+        background-color: #313131; }
+.page-user-login.dark #edit-submit {
+        color: #fafafa;
+        background-color: #553935;
+        border: none; }    
+.page-user-login.dark label{
+        color:#fafafa;
+}*/
+
+.page-user-login span.form-required {
+    display: none;
+}
+
+.page-user-login label {
+    text-transform: lowercase;
+}
+
+.page-user-login .form-item, .page-user-login .form-actions {
+    margin-bottom: 1em;
+    margin-top: 1.5em;
+}
+
+
+/*.page-user-login.dark div#page, 
+.page-user-login.dark div#page-wrapper,
+.page-user-login.dark div#main {
+    background: none;
+}*/
+
+
