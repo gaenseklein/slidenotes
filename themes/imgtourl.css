@@ -21,9 +21,9 @@ h1 img{
 }
 
 #insertarea img.insertmenu-preview-image {
-    width: 80%;
+    width: 100%;
     display: block;
-    margin-top:1em;
+    /*margin-top:1em;*/
     margin-left:auto;
     margin-right:auto;
 }
@@ -134,7 +134,7 @@ button.imagegallery-delbutton {
 .imagegallery-delbutton img, .imagegallery-delbutton svg{
   height: calc(12/11*1em);
   /*Temporary filter for .png-image*/
-  filter: brightness(50%) contrast(200%) invert();
+  /*filter: brightness(50%) contrast(200%) invert();*/
   position: absolute;
   top: calc(4.2/11*1em);
   left: calc(6.4/11*1em);

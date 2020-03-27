@@ -516,6 +516,16 @@ body{
     top: 9.526em;
   }
 
+/* toolbar, imagegallery, menusearchbox */
+/* ------------------------------------ */
+
+  #menusearchbox .arrow_box:before, #toolbar .arrow_box:before, #imagegallery .arrow_box:before {
+    border-width: calc(var(--emToVh)*0.5vh);
+    margin-left: calc(var(--emToVh)*-0.5vh);
+    margin-bottom: calc(5vh/10.8);
+    box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) rgb(0,0,0,0.2);
+  }
+
 /* toolbar */
 /* ------- */
 
@@ -646,25 +656,6 @@ body{
     fill: white;
   }
 
-  /*optionarea buttons:*/
-  div#menupublish,
-  #menuimportexport,
-  #menuoptionseditor {
-    grid-column: 2;
-    grid-row: 4;
-    margin-top: 1em;/*margin-top: 20px;*/
-    margin-right: calc(var(--grid-margin)*var(--emToVh)*-1vh); /*margin-right:-15%;*/
-    /*margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);*/
-  }
-  #menuimportexport .arrow_box_content, #menupublish .arrow_box_content, #menuoptionseditor .arrow_box_content {
-    max-height: 58vh;
-    overflow-y: auto;
-    margin-top: calc(6/10.8*1vh);
-    margin-left: calc(10/10.8*1vh);
-    margin-right: calc(10/10.8*1vh);
-    margin-bottom: calc(18/10.8*1vh);
-  }
-
   /*div#optionarea {
     border-top: 1px solid lightgray;
     border-right: 1px solid lightgray;
@@ -733,6 +724,7 @@ body{
     color: var(--lvl2-color);
     text-decoration: none;
     box-sizing: border-box;
+    margin-right: calc(1.8/10.8*1vh);
   }
 
   #nicesidebarsymbollabel{
@@ -788,6 +780,19 @@ body{
 
     align-self: start;
     z-index: -1;
+  }
+
+  #nicesidebarsymbol #insertarea{
+    visibility: hidden;
+    opacity: 0;
+    transition-duration: 100ms;
+    transition-property: visibility, opacity;
+    transition-timing-function: ease-out;
+  }
+
+  #nicesidebarsymbol.active #insertarea{
+    opacity: 1;
+    visibility: visible;
   }
 
   #insertarea.top{
@@ -958,7 +963,7 @@ body{
     right:16px;
   }
   #actnotearea {
-    background: #f4f4f4;
+    background: var(--lvl2-color-button);
     border-radius: 1vh;
     margin-top: 1vh;
     display: grid;
@@ -986,7 +991,7 @@ body{
   #menuload button {
     width: 100%;
     display: block;
-    background: #f4f4f4;
+    background: var(--lvl2-color-button);
     border: 1px solid transparent;
     border-radius: 10px;
     height: 3em;
@@ -1011,7 +1016,7 @@ body{
   }
 
   #menuload img {
-    height: unset;
+    /*height: unset;*/
   }
 
   #notelist button.circle {
@@ -1034,31 +1039,68 @@ body{
 
   /* trash?*/
 
+/* menupublish, menuimportexport, menuoptionseditor */
+/* ------------------------------------------------ */
+
+  /*optionarea buttons:*/
+  div#menupublish,
+  #menuimportexport,
+  #menuoptionseditor {
+    grid-column: 2;
+    grid-row: 4;
+    margin-top: 1em;/*margin-top: 20px;*/
+    margin-right: calc(var(--grid-margin)*var(--emToVh)*-1vh); /*margin-right:-15%;*/
+    /*margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);*/
+  }
+  /*#menuimportexport .arrow_box_content, #menupublish .arrow_box_content, #menuoptionseditor .arrow_box_content {
+    max-height: 58vh;
+    overflow-y: auto;
+    margin-top: calc(6/10.8*1vh);
+    margin-left: calc(10/10.8*1vh);
+    margin-right: calc(10/10.8*1vh);
+    margin-bottom: calc(18/10.8*1vh);
+  }*/
+
+  #menuimportexport button, button.menuitem,
+  #menucloud button, #menupublish button {
+    border-radius: calc(6/10.8*1vh);
+    width: 100%;
+    /*height: 3em;*/
+    border: 1px solid transparent;
+    margin-top: calc(12/10.8*1vh);
+    background: var(--lvl2-color-button);
+    line-height: 1.2em;
+    padding-top: calc(20/10.8*1vh);
+    padding-bottom: calc(17/10.8*1vh);
+  }
+
 /* menupublish */
 /* ----------- */
 
   /*publishmenu*/
   #menupublish #publishtocms{
-    background: #f4f4f4;
+    background: var(--lvl2-color-button);
     color:unset;
-    height:auto;
+    font-size: calc(20/20*1em);
+    /*height:auto;*/
   }
   #menupublish button,
   #menupublish .loadnotebutton {
-    border: 1px solid transparent;
-    border-radius: 10px;
-    width: 100%;
-    height: 3em;
-    font-size: large;
+    /*border: 1px solid transparent;*/
+    /*border-radius: 10px;*/
+    /*width: 100%;*/
+    /*height: 3em;*/
+    /*font-size: large;*/
     background:#505050;
     color:white;
-    padding-top: 1em;
-    padding-bottom: 1em;
-    margin: 0;
+    /*padding-top: 1em;
+    padding-bottom: 1em;*/
+    /*margin: 0;*/
+    font-size: calc(15/20*1em);
   }
 
   #menupublish .arrow_box:before, #menupublish .arrow_box:after {
-    left: 6em;
+    left: calc(122/10.8*1vh);
   }
 
   #publishedlist {
@@ -1069,9 +1111,19 @@ body{
 
   #publishedlist li {
     display: grid;
-    margin-top: 1vh;
+    margin-top: calc(12/10.8*1vh);
     grid-template-areas:"loadnotebutton loadnotebutton" "delete copy";
-    grid-gap:0.5vh;
+    grid-row-gap: calc(6.1/10.8*1vh); /*2020/03: deprecated, still in use in safari*/
+    grid-column-gap: calc(20/10.8*1vh);; /*2020/03: deprecated, still in use in safari*/
+    row-gap: calc(6.1/10.8*1vh);
+    column-gap: calc(20/10.8*1vh);
+    background-color: var(--lvl2-color-button);
+    border-radius: calc(10/10.8*1vh);
+    padding-bottom: calc(9.3/10.8*1vh);
+  }
+
+  #publishedlist li button{
+    margin-top: 0;
   }
 
   #publishedlist .loadnotebutton{
@@ -1080,18 +1132,22 @@ body{
 
 
   #menupublish button.circle, #menupublish button.copylink {
-    font-size: x-small;
+    font-size: calc(14/20*1em);
     height: 1rem;
-    padding: 2px;
-    width: 75%;
-    justify-self: center;
-    align-self: center;
+    padding: calc(2/10.8*1vh);
+    width: unset;
+    /*justify-self: center;*/
+    /*align-self: center;*/
     border-radius: 5px;
-    position: relative;
+    /*position: relative;*/
     /*    height: 20px;
     width: 20px;
     padding: 0;
     align-self: center;*/
+  }
+
+  #menupublish button img{
+    height: 0.89em;
   }
 
   #menupublish button.copylink {
@@ -1101,6 +1157,7 @@ body{
     width: 40px;*/
   }
 
+  /*trash?*/
   #menupublish .copylink div,#menupublish .circle div{
     display: inline-block;
     margin-left:1ch;
@@ -1144,10 +1201,8 @@ body{
     margin-right:-1ch;
   }
 
-
-
   #menupublish .separator {
-    margin-top: 25px;
+    margin-top: calc(12/10.8*1vh);
   }
 
 /* menuimportexport */
@@ -1155,24 +1210,11 @@ body{
 
   /*menu import export*/
   #menuimportexport .arrow_box:before, #menuimportexport .arrow_box:after {
-    left: 1.8em;
+    left: calc(40/10.8*1vh);
   }
 
   input#importfile {
     display: none;
-  }
-
-  #menuimportexport button, button.menuitem,
-  #menucloud button {
-    border-radius: 10px;
-    width: 100%;
-    height: 3em;
-    border: 1px solid transparent;
-    margin-top: calc(12/10.8*1vh);
-    background: #f4f4f4;
-    line-height: 1em;
-    padding-top: calc(20/10.8*1vh);
-    padding-bottom: calc(17/10.8*1vh);
   }
 
   #menuimportexport .separator {
@@ -1185,14 +1227,14 @@ body{
   /*optionsmenu*/
 
   #menuoptionseditor .arrow_box:before, #menuoptionseditor .arrow_box:after {
-    left: 10.5em;
+    left: calc(205/10.8*1vh);
   }
 
   a.menuitem {
     display: block;
     text-decoration: none;
     color: black;
-    background: #f4f4f4;
+    background: var(--lvl2-color-button);
     padding: 0.5em 0;
     border-radius: 10px;
     text-align: center;
@@ -1248,12 +1290,12 @@ body{
   }
 
   button#nightmodetoggle div:first-child {
-    background: #f4f4f4;
+    background: var(--lvl2-color-button);
     color:black;
   }
 
   .nightmode #nightmodetoggle div{
-    background:#f4f4f4;
+    background:var(--lvl2-color-button);
     color:black;
   }
   .nightmode #nightmodetoggle div:first-child{
@@ -1332,7 +1374,7 @@ body{
       justify-items: center;
       margin-top:10px;
       grid-row-gap:5px;
-      background:#f4f4f4;
+      background:var(--lvl2-color-button);
   }
 
   #basicthemelist li div:first-child {
@@ -1456,6 +1498,21 @@ body{
   }
   .initial #shadowelright img{
     display:block;
+  }
+
+/* shadoweltop */
+/* ----------- */
+
+  /* mobile only */
+
+  #shadoweltop{
+    grid-column: 1/4;
+    grid-row: 1/2;
+    box-shadow: 1vw 0vw 2vw #00000030;
+    display: none;
+    margin-left: -10vh;
+    margin-right: -10vh;
+    pointer-events: none;
   }
 
 /* rahmenright */
@@ -1609,7 +1666,7 @@ body{
     filter:brightness(0.4);
   }
   .dialogcontent{
-    background:#f4f4f4;
+    background:var(--lvl2-color-button);
     border-radius: 3vh 3vh 0 0;
     min-height: 5em;
     display: grid;
@@ -1626,7 +1683,7 @@ body{
     grid-template-columns: auto;
     justify-items: center;
     align-items: center;
-    background: #f4f4f4;
+    background: var(--lvl2-color-button);
   }
 
   .dialogbox .buttonarea button {
@@ -1648,7 +1705,7 @@ body{
 
   /* trash?*/
   .dontbotherarea{
-    background:#f4f4f4;
+    background:var(--lvl2-color-button);
   }
 
   /*hide imagesblock as fast as possible:*/
@@ -1943,7 +2000,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   .arrow_box:before {
     border-color: rgba(255, 255, 255, 0.9);
     border-width: calc(var(--emToVh)*0.5vh);
-    margin-left: -16px;
+    margin-left: calc(var(--emToVh)*-0.5vh);
     margin-bottom: calc(5vh/10.8);
     border-radius: 50%;
     box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) rgb(0,0,0,0.2);
@@ -1966,6 +2023,14 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     animation-duration:150ms;*/
   }
 
+  .arrow_box_content {
+    max-height: 58vh;
+    overflow-y: auto;
+    margin-top: calc(6/10.8*1vh);
+    margin-left: calc(10/10.8*1vh);
+    margin-right: calc(10/10.8*1vh);
+    margin-bottom: calc(18/10.8*1vh);
+  }
   
   @keyframes appearbox{
       from{
@@ -2735,11 +2800,16 @@ button#importbutton .importpng {
     #nicesidebarsymbol a{
     }
 
-    #nicesidebarsymbollabel{
+    #nicesidebarsymbolcontainer{
+      transition-property: width;
+      transition-duration: 200ms;
+    }
+
+    #nicesidebarsymbol #nicesidebarsymbollabel, #nicesidebarsymbol #insertarea{
       display: none;
     }
 
-    #nicesidebarsymbol.active #nicesidebarsymbollabel{
+    #nicesidebarsymbol.active #nicesidebarsymbollabel, #nicesidebarsymbol.active #insertarea{
       display: unset;
     }
 
@@ -2768,6 +2838,7 @@ button#importbutton .importpng {
     gets resolved, font-size must remain dependant of only one unit.
     font-size: calc(0.5rem + 1vw);*/
     font-size: 1.7407vw;
+    font-size: calc(0.5rem + 1vw);
     grid-template-areas: "buttonleft noteinfoarea buttonright" "editor editor editor" "editor editor editor";
     grid-template-columns: calc(70/377*100vw) auto calc(67/377*100vw);
     grid-template-rows: calc(58/377*100vw) calc(74/377*100vw) auto;
@@ -2861,7 +2932,9 @@ button#importbutton .importpng {
       grid-area: unset;
       grid-column-start: 1;
       grid-column-end: 4;
-      grid-row: 1;
+      grid-row: 1/2;
+      height: unset;
+
       display: none;
     }
 
@@ -2969,6 +3042,13 @@ button#importbutton .importpng {
     #menucloud, #menuimportexport, #menupublish{
       grid-column: 1 /last;
       grid-row: 1 / last;
+    }
+
+  /* frames */
+  /* ------ */
+
+    #shadoweltop{
+      display: unset;
     }
 
 

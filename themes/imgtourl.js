@@ -140,7 +140,7 @@ slidenote.base64images = {
     title.innerText = "image gallery";
     imggallery.appendChild(title);
     let uploadbutton = document.createElement("button");
-    uploadbutton.innerHTML = '<img src="images/buttons/+.png"><span>add image</span>';
+    uploadbutton.innerHTML = '<img src="images/buttons/plus.svg"><span>add image</span>';
     uploadbutton.classList.add("plusbutton");
     uploadbutton.title="add image to imagegallery";
     uploadbutton.onclick = function(){
@@ -164,7 +164,7 @@ slidenote.base64images = {
       if(imagegallery){
         var delbutton = document.createElement("button");
         delbutton.classList.add("imagegallery-delbutton");
-        delbutton.innerHTML = '<img src="images/buttons/-.png">';
+        delbutton.innerHTML = '<img src="images/buttons/minus.svg">';
         if(actimg.unnamed){
           delbutton.delurl = actimg.base64url;
           delbutton.onclick = function(){
