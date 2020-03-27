@@ -92,7 +92,7 @@
       //del.classList.add("circle");
       del.classList.add("sysbutton");
       var delimg = new Image();
-      delimg.src = slidenote.imagespath + "/buttons/-.png";
+      delimg.src = slidenote.imagespath + "/buttons/minus.svg";
       delimg.alt = "delete slidenote >>>"+title+"";
       del.appendChild(delimg);
       del.targeturl = url+"/delete";
@@ -176,7 +176,7 @@
             cpl.classList.add("menuitem");
             del.classList.add("circle");
             var delimg = new Image();
-            delimg.src = "images/buttons/-.png";
+            delimg.src = "images/buttons/minus.svg";
             delimg.alt = "delete presentation >>>"+title+"";
             del.appendChild(delimg);
             var deltext = document.createElement("div");
@@ -916,11 +916,11 @@
       <div id="sidebarcontainer">
         <div id="sidebar"></div>
         <div id="nicesidebarsymbol">
-          <a id="nicesidebarsymbolcontainer" href="javascript:slidenote.presentation.showInsertMenu();">
+          <a id="nicesidebarsymbolcontainer" href="javascript:slidenote.presentation.showInsertMenu();" onclick="document.getElementById('nicesidebarsymbol').classList.toggle('active');">
             <span id="nicesidebarsymbollabel"></span>
             <img src="images/buttons/arrow-down_single.svg" alt="open Elements Menu">
           </a>
-          <img id="cursorlinearrow" src="images/buttons/cursorlineneu.png">
+          <img id="cursorlinearrow" src="images/buttons/context-menu-arrow.svg">
         
           <div id="insertarea">
             <div id="insertmenulabel" class="screenreader-only"></div>
@@ -999,7 +999,7 @@
       </div>
       <div id="menuload">
         <div class="arrow_box">
-          <button id="newnote" class="menuitem" onclick="slidenoteguardian.createNewSlidenote()"><img src="images/buttons/+.png"><span>new slidenote</span></button>
+          <button id="newnote" class="menuitem" onclick="slidenoteguardian.createNewSlidenote()"><img src="images/buttons/plus.svg"><span>new slidenote</span></button>
           <div id="actnotearea">
             <div id="actnotetitle">new note</div>
             <button id="deletebutton" class="minibutton menuitem">delete</button>
@@ -1016,17 +1016,17 @@
       <div id="menuoutlet"></div>
       <div id="menupublish"><div class="arrow_box"><div class="arrow_box_content">
         <button id="publishtocms" onclick="slidenoteguardian.exportPresentationToCMS()">publish presentation to slidenotes.io</button>
-        <div class="separator">published to slidenotes.io</div>
+        <div class="separator">published to <br>slidenotes.io</div>
         <ul id="publishedlist">
           <!-- some test-data to see structure: -->
           <li>
             <button class="loadnotebutton">mon 06-11-19 11:49</button>
-            <button class="circle"><img src="images/buttons/-.png" alt="delete presentation"> delete</button>
+            <button class="circle"><img src="images/buttons/minus.svg" alt="delete presentation"> delete</button>
             <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
           </li>
           <li>
             <button class="loadnotebutton">mon 06-11-19 11:00</button>
-            <button class="circle"><img src="images/buttons/-.png" alt="delete presentation">delete</button>
+            <button class="circle"><img src="images/buttons/minus.svg" alt="delete presentation">delete</button>
             <button class="copylink"><img src="images/buttons/publish.svg" alt="copy link of presentation...">copy link</button>
           </li>
         </ul>
@@ -1157,6 +1157,7 @@
   	    </defs>
   		</svg></div> -->
       <div id="shadowelleft"></div>
+      <div id="shadoweltop"></div>
       <div id="rahmenright"></div>
       <div id="slidenoteloadingscreenwrapper">
         <div id="slidenoteeditorloadingscreen">
@@ -1546,7 +1547,7 @@
         <div id="imageselectionlist" class="dialogboxcontent"></div>
         <div id="imageselectiondialogbuttons">
           <button id="imageselectionuploadbutton" class="plusbutton" title="add image to imagegallery" onclick="document.getElementById('fileInput').value='';slidenote.base64images.uploadmode='imageselection'; document.getElementById('fileInput').click();">
-            <img src="images/buttons/+.png" alt="add image to gallery">
+            <img src="images/buttons/plus.svg" alt="add image to gallery">
             <span>add image</span>
             <span class="screenreader-only">to gallery</span>
           </button>
