@@ -25,7 +25,7 @@
   /*sidemenue level*/
   --lvl1-color: #f8f9f9;
   /*arrowbox level*/
-  --lvl2-color-transparent: #f8f8f888; /*TODO: Auf neuesten Stand überprüfen*/
+  --lvl2-color-transparent: #ffffff80; /*TODO: Auf neuesten Stand überprüfen*/
   --lvl2-color: #fff;
   --lvl2-color-button: #f4f4f4; 
   --lvl2-color-button2: #f0f1f1; 
@@ -519,11 +519,19 @@ body{
 /* toolbar, imagegallery, menusearchbox */
 /* ------------------------------------ */
 
+  div#texteditorbuttons, #imagegallerybox, #menusearchbox .arrow_box{
+    background: var(--lvl2-color-transparent);
+  }
+
   #menusearchbox .arrow_box:before, #toolbar .arrow_box:before, #imagegallery .arrow_box:before {
     border-width: calc(var(--emToVh)*0.5vh);
     margin-left: calc(var(--emToVh)*-0.5vh);
     margin-bottom: calc(5vh/10.8);
     box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) rgb(0,0,0,0.2);
+  }
+
+  div#texteditorbuttons button, #imagegallerybox button, #menusearchbox button{
+    background: var(--lvl2-color);
   }
 
 /* toolbar */
@@ -591,7 +599,6 @@ body{
   }
 
   div#texteditorbuttons {
-    background: rgba(255,255,255,0.5);
     height: 100%;
     border-radius: calc(var(--emToVh)*1.526vh) calc(var(--emToVh)*1.526vh) 0 0;
   }
@@ -694,7 +701,7 @@ body{
     align-items: center;
   }
 
-  #nicesidebarsymbol a {
+  #nicesidebarsymbolcontainer {
     /*width: 100%;
     height: 2em;
     background: #90c1c8;
@@ -707,7 +714,7 @@ body{
     text-decoration:none;
     color:white;*/
 
-    width: 100%;
+    width: calc(100% - 1.8/10.8*1vh);
 
     justify-self: right;
     background-color: var(--emphazing-font-color);
@@ -725,6 +732,7 @@ body{
     text-decoration: none;
     box-sizing: border-box;
     margin-right: calc(1.8/10.8*1vh);
+    border: none;
   }
 
   #nicesidebarsymbollabel{
@@ -734,7 +742,7 @@ body{
     text-align: right;
   }
 
-  #nicesidebarsymbol a img {
+  #nicesidebarsymbolcontainer img {
     /*margin: 5px;*/
     width: calc(11.3/16*1em);
     justify-self: center;
@@ -780,6 +788,7 @@ body{
 
     align-self: start;
     z-index: -1;
+    margin-right: calc(1.8/10.8*1vh);
   }
 
   #nicesidebarsymbol #insertarea{
@@ -844,8 +853,6 @@ body{
     flex-direction: column;
   }
 
-
-
 /* playbuttonarea */
 /* -------------- */
 
@@ -903,6 +910,16 @@ body{
     z-index: 11;
   }
 
+/* menucloud, menuload(, menuoutlet) */
+/* ------------------- */
+
+  #menucloud .arrow_box, #menuload .arrow_box{
+    padding-top: calc(6/10.8*1vh);
+    padding-left: calc(10/10.8*1vh);
+    padding-right: calc(10/10.8*1vh);
+    padding-bottom: calc(18/10.8*1vh);
+  }
+
 /* menucloud */
 /* --------- */
 
@@ -913,13 +930,13 @@ body{
     grid-column: 2;
     /*display: none;*/
     visibility: hidden;
-    margin-top:2.5em;
+    margin-top: calc(36.7/10.8*1vh);
     margin-right: calc(var(--grid-margin)*var(--emToVh)*-1vh);
     margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);
   }
 
   #menucloud .arrow_box:before, #menucloud .arrow_box:after {
-    left: 15%;
+    left: calc(var(--grid-margin)*var(--emToVh)*2vh + 0.85em);
   }
 
   #menucloud button {
@@ -953,14 +970,14 @@ body{
     grid-row-start: 2;
     grid-row-end: 5;
     /*margin-right: -20px;*/
-    margin-top: 6em;
+    margin-top: calc(var(--emToVh)*2.18vh + 1.5em);
     margin-right: calc(var(--grid-margin)*var(--emToVh)*-1vh);
     margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);
 
   }
   #menuload .arrow_box:before, #menuload .arrow_box:after {
     left: unset;
-    right:16px;
+    right: calc(var(--grid-margin)*var(--emToVh)*1vh + 0.15vh + 0.65em);
   }
   #actnotearea {
     background: var(--lvl2-color-button);
@@ -1924,8 +1941,8 @@ body{
 #menucloud button:hover, #menucloud button:focus,
 button.menuitem:hover, button.menuitem:focus,
 button:hover, button:focus,
-#nicesidebarsymbol a:hover,
-#nicesidebarsymbol a:focus,
+#nicesidebarsymbolcontainer:hover,
+#nicesidebarsymbolcontainer:focus,
 #menuoptionseditor a.menuitem:hover,
 #menuoptionseditor a.menuitem:focus,
 #nightmodetoggle:hover div,
@@ -1999,11 +2016,12 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   }*/
   .arrow_box:before {
     border-color: rgba(255, 255, 255, 0.9);
-    border-width: calc(var(--emToVh)*0.5vh);
-    margin-left: calc(var(--emToVh)*-0.5vh);
-    margin-bottom: calc(5vh/10.8);
+    border-width: calc(var(--emToVh)*0.3vh);
+    margin-left: calc(var(--emToVh)*-0.3vh);
+    margin-bottom: calc(3vh/10.8);
     border-radius: 50%;
     box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) rgb(0,0,0,0.2);
+    color: var(--menu-font-color);
   }
 
   /*animation of menus*/
@@ -2797,7 +2815,7 @@ button#importbutton .importpng {
       width: unset;
     }
 
-    #nicesidebarsymbol a{
+    #nicesidebarsymbolcontainer{
     }
 
     #nicesidebarsymbolcontainer{
@@ -2817,7 +2835,7 @@ button#importbutton .importpng {
 
 /* media query for mobile-version of sidebar at greater font sizes*/
 @media only screen and (max-width: calc(700/10.8*1em)) {
-  #nicesidebarsymbol a {
+  #nicesidebarsymbolcontainer {
     /*test-color*/
     background-color: hotpink;
   }
