@@ -40,7 +40,6 @@ h1 img{
   grid-row-start: 2;
   grid-row-end: 5;
   margin-top:6.1em;
-  color:black;
   margin-right: calc(var(--grid-margin)*var(--emToVh)*1vh);
   margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);
   visibility: hidden;
@@ -54,10 +53,10 @@ h1 img{
 }
 
 #imagegallerybox{
-  background: rgba(255,255,255,0.5);
   height: 100%;
   border-radius: calc(13/10.8*1vh) calc(13/10.8*1vh) 0 0;
   max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1em);
+  color: var(--text-color);
 }
 
 #imagegallerybox > div {
@@ -113,7 +112,7 @@ h1 img{
   padding:0;
 }
 
-button.imagegallery-delbutton {
+#imagegallerybox button.imagegallery-delbutton{
   grid-area: minus;
   border-radius: calc(2.5/11*1em);
   height: calc(20/11*1em);
@@ -128,7 +127,6 @@ button.imagegallery-delbutton {
   margin-right: auto;
   position: relative;
   margin-left: calc(13/10.8*1vh);
-
 }
 
 .imagegallery-delbutton img, .imagegallery-delbutton svg{
