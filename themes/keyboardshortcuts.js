@@ -448,9 +448,24 @@ keyboardshortcuts.init = function(){
     */
     //insertmenu:
     this.addShortcut(new this.shortcut("open insertmenu", "global", "ContextMenu", function(){
-        slidenote.presentation.showInsertMenu();
+        //slidenote.presentation.showInsertMenu();
+        //console.log("global shortcut on:"); console.log(this);
+        nsbs = document.getElementById("nicesidebarsymbolcontainer");
+        if(nsbs){
+          nsbs.focus();
+          nsbs.click();
+        }
+        setTimeout(function(){        
         var b=document.getElementById("insertarea").getElementsByTagName("button");
-        if(b && b[0])b[0].focus();
+        if(b && b[0]){
+          b[0].focus();
+          console.log("focus on insertmenu");
+        }else{
+          console.log("no focus-object available for insertmenu");
+        }
+      },100);
+
+
     }));
     this.addShortcut(new this.shortcut("arrownavigate insertmenu","insertmenu",{multipleChoiceKeys:["ArrowUp","ArrowDown"],metakey:false},function(event){
         var insmen = document.getElementById("insertarea");
@@ -862,6 +877,7 @@ keyboardshortcuts.attachShortcuts = function(){
     window.addEventListener("keydown",function(e){
       slidenote.keyboardshortcuts.pressKey(e);
       slidenote.keyboardshortcuts.reactOn(e,"globals");
+      console.log("react on global"+e.key);
     });
 
     slidenote.textarea.addEventListener("keydown",function(e){

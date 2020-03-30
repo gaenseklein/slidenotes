@@ -1211,13 +1211,16 @@ emdparser.prototype.setDropDownMenu = function (){
 	var sidebar = document.getElementById("sidebar");
 	//var newtop = carretsymbol.offsetTop + sidebar.offsetTop;
 	var carret = document.getElementById("carret");
-	if(!nicesymbol || !sidebar || !carret){
-		if(nicesymbol){
-			nicesymbol.style.top="10px";
-			document.getElementById("insertarea").style.visibility = "hidden";
-		}else{
-			return;
-		}
+	//if(!nicesymbol || !sidebar || !carret){
+	//	if(nicesymbol){
+	//		nicesymbol.style.top="10px";
+	//		document.getElementById("insertarea").style.visibility = "hidden";
+	//	}else{
+	//		return;
+	//	}
+	if(slidenote.editormodus==="raw-text"){
+		nicesymbol.style.top="10px";
+		nicesymbol.classList.remove("top");
 	} else {
 		//look out for attached menu:
 		var insertmenu = document.getElementById("insertarea");
@@ -2914,10 +2917,12 @@ pagegenerator.prototype.showInsertMenu = function(){
 
 	var insertmenu = document.getElementById("insertarea");
 	var xtram = document.getElementById("extrainsertmenu");
+	var container = document.getElementById("nicesidebarsymbol");
+	container.classList.add("active");
 
 	//check if we are on an object:
 	var onObject = slidenote.parser.CarretOnElement(slidenote.textarea.selectionEnd);
-
+	console.log("show insertMenu with "+onObject);
 	if(onObject && onObject.dataobject){
 		console.log("insertmenu: dataobject found");
 		//get theme:
@@ -2958,7 +2963,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 	}else if(onObject && onObject.typ==="pagebreak"){
 		insertmenu.classList.add("insertmenu-extra");
 		xtram.innerHTML = "";
-		xtram.appendChild(constructButton("Add Backgroundimage", function(){
+		xtram.appendChild(constructButton("add background&shy;image", function(){
 			var pagenr = slidenote.parser.map.pageAtPosition(slidenote.textarea.selectionEnd)+1;
 			console.log("Add Backgroundimage to slide"+pagenr);
 			var inserttext = "![](backgroundslide"+pagenr+")\n\n";
@@ -3088,57 +3093,45 @@ pagegenerator.prototype.showInsertMenu = function(){
 
 	}else{
 		insertmenu.classList.remove("insertmenu-extra");
+		container.classList.remove("active");
+		return;
 		//document.getElementById("insertmenulabel").innerText = "INSERT";
 		//document.getElementById("extrainsertmenu").innerHTML = "nothing";
 	}
 	//safari-hack:
-	insertmenu.style.left = document.getElementById("sidebar").offsetLeft + "px";
+	//insertmenu.style.left = document.getElementById("sidebar").offsetLeft + "px";
 
 	console.log("show insertMenu");
-	insertmenu.style.visibility = "visible";
+	//insertmenu.style.visibility = "visible";
 	insertmenu.tabIndex = 0;
 	//position insertmenu after carretsymbol or above:
-	var carretline = document.getElementsByClassName("carretline")[0];
+	//var carretline = document.getElementsByClassName("carretline")[0];
 	var cursorlinesymbol = document.getElementById("cursorlinesymbol");
 	var symbol = document.getElementById("nicesidebarsymbol");
-	if(carretline){
-		var top = carretline.offsetTop + document.getElementById("sidebar").offsetTop +5;
-		if(top<0)top=8;
-		console.log("insertmenu-top:"+top);
-		var topmax = slidenote.textarea.offsetHeight - insertmenu.offsetHeight;
-		if(top>topmax){
-			top-=insertmenu.offsetHeight;
-			//var cursorlinesymboltop = insertmenu.offsetHeight -9;
-			//cursorlinesymbol.style.top = cursorlinesymboltop+"px";
-			//insertmenu.getElementsByTagName("IMG")[1].style.display="none";
-		} else{
-			//insertmenu.getElementsByTagName("IMG")[1].style.display="unset";
-			//cursorlinesymbol.style.top = "-7px";
-		}
-		insertmenu.style.top = top+"px";
-	}else{
-		var top = symbol.offsetTop + (symbol.offsetHeight);
-		var topmax = slidenote.textarea.offsetHeight - insertmenu.offsetHeight;
-		if(top>topmax){
-			top-=insertmenu.offsetHeight;
-			top-=(symbol.offsetHeight/2);
-			insertmenu.classList.add("top");
 
-			//var cursorlinesymboltop = insertmenu.offsetHeight -9;
-			//cursorlinesymbol.style.top = cursorlinesymboltop+"px";
-		} else{
-			insertmenu.classList.remove("top");
-			//cursorlinesymbol.style.top ="-7px";
-		}
-		insertmenu.style.top = top+"px";
+	var top = symbol.offsetTop + (symbol.offsetHeight);
+	var topmax = slidenote.textarea.offsetHeight - insertmenu.offsetHeight;
+	console.log("top vs. topmax:"+top+"/"+topmax+"\ntextarea.offsetHeight:"+slidenote.textarea.offsetHeight+", symbol.offsetHeight:"+symbol.offsetHeight+", offsetTop:"+symbol.offsetTop);
+	if(top>topmax && symbol.offsetTop>symbol.offsetHeight){
+		//top-=insertmenu.offsetHeight;
+		//top-=(symbol.offsetHeight/2);
+		insertmenu.classList.add("top");
 
+		//var cursorlinesymboltop = insertmenu.offsetHeight -9;
+		//cursorlinesymbol.style.top = cursorlinesymboltop+"px";
+	} else{
+		insertmenu.classList.remove("top");
+		//cursorlinesymbol.style.top ="-7px";
 	}
+	//insertmenu.style.top = top+"px";
+
+
 	//slidenote.textarea.blur();
 	//slidenote.textarea.focus(); //get focus on slidenote again to regain cursor
 	var carretdiv = document.getElementById("carret");
 	if(carretdiv)carretdiv.classList.add("show");
 	//insertmenu.focus();
-	if(carretline)carretline.style.visibility="hidden";
+	//if(carretline)carretline.style.visibility="hidden";
 	//symbol.style.visibility = "hidden";
 
 	this.closeMenu = function(e){
@@ -3146,25 +3139,32 @@ pagegenerator.prototype.showInsertMenu = function(){
 		console.log(e);
 		slidenote.textarea.removeEventListener("click",slidenote.presentation.closeMenu);
 		slidenote.textarea.removeEventListener("keydown",slidenote.presentation.closeMenu);
+		slidenote.textarea.removeEventListener("keyup",slidenote.presentation.closeMenu);
+		slidenote.textarea.removeEventListener("focus",slidenote.presentation.closeMenu);
 		slidenote.textarea.removeEventListener("scroll",slidenote.presentation.closeMenu);
 		setTimeout(function (){
 			var cursor = document.getElementById("carret");
 			if(cursor)cursor.classList.remove("show");
 			var insertmenu = document.getElementById("insertarea");
 			var symbol = document.getElementById("nicesidebarsymbol");
-			symbol.style.visibility = "visible";
+			symbol.classList.remove("active");
+			//symbol.style.visibility = "visible";
 			insertmenu.tabIndex = undefined;
-			insertmenu.style.visibility = "hidden";
+			//insertmenu.style.visibility = "hidden";
 			document.getElementById("extrainsertmenu").innerHTML = "";
-			var carretline = document.getElementsByClassName("carretline")[0]
-			if(carretline)carretline.style.visibility="visible";
+			//var carretline = document.getElementsByClassName("carretline")[0]
+			//if(carretline)carretline.style.visibility="visible";
 			slidenote.textarea.focus();
 		},2);
 
 	}
+	//how often will this be called? when do i have to focus?
+	console.log("insert menu ready to focus?" + xtram.firstChild.innerHTML);
+	//setTimeout("console.log('focus on insertmenu-button:');document.getElementById('extrainsertmenu').firstChild.focus()",500);
+	//xtram.firstChild.focus();
 	//insertmenu.onclick = this.closeMenu;
 		slidenote.textarea.addEventListener("click", this.closeMenu);
-		slidenote.textarea.addEventListener("keyup",this.closeMenu);
+		slidenote.textarea.addEventListener("focus",this.closeMenu);
 		slidenote.textarea.addEventListener("scroll",this.closeMenu);
 		for(var x=0;x<slidenote.extensions.themes.length;x++){
 			if(slidenote.extensions.themes[x].active)slidenote.extensions.themes[x].styleThemeMDCodeEditor("insertAreaVisible"); //Hook-Funktion

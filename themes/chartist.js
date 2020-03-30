@@ -141,8 +141,10 @@ newtheme.insertMenuArea = function(dataobject){
     }
     if(e.key==="ArrowLeft"||e.key==="ArrowRight"||e.keyCode===37||e.keyCode===39){
       slidenote.extensions.getThemeByName("chartist").changeChartType(list[nr]);
-      slidenote.presentation.showInsertMenu();
-      document.getElementById("extrainsertmenu").getElementsByTagName("button")[0].focus();
+      setTimeout(function(){
+        slidenote.presentation.showInsertMenu();
+        setTimeout(function(){document.getElementById("extrainsertmenu").getElementsByTagName("button")[0].focus();},100);
+      },100);
     }
   }
   previewbutton.onclick = function(e){
