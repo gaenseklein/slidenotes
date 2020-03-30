@@ -664,10 +664,10 @@ slidenoteGuardian.prototype.initTutorial = function(){
 
   //overwriting cloud-button:
   var cloudbutton = document.getElementById("cloud");
-  cloudbutton.innerHTML = "Back to Editor";
-  cloudbutton.onclick = function(){
-    document.href="/editor";
-  }
+  var backlink = document.createElement("a");
+  backlink.href = window.location.pathname;
+  backlink.innerText = "back to editor";
+  cloudbutton.replaceWith(backlink);
 
   //adding tutorial.css:
   slidenote.appendFile("css","tutorial.css");
