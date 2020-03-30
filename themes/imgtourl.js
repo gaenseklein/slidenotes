@@ -132,7 +132,7 @@ slidenote.base64images = {
       console.log("no image-gallery found - aborting");
       return;
     }
-    imggalleryparent.innerHTML = "";
+    /*imggalleryparent.innerHTML = "";
     var imggallery = document.createElement("div");
     imggallery.classList.add("arrow_box");
     imggallery.id = "imagegallerybox";
@@ -143,17 +143,21 @@ slidenote.base64images = {
     uploadbutton.innerHTML = '<img src="images/buttons/plus.svg"><span>add image</span>';
     uploadbutton.classList.add("plusbutton");
     uploadbutton.title="add image to imagegallery";
+    */
+    let uploadbutton = document.querySelector("#imagegallery .plusbutton");
     uploadbutton.onclick = function(){
       slidenote.base64images.uploadmode="imagegallery";
       document.getElementById("fileInput").value="";
       document.getElementById("fileInput").click();
     };
-    imggallery.appendChild(uploadbutton);
-
+    //imggallery.appendChild(uploadbutton);
+    var imggallery = document.getElementById('imagegallerybox');
+    let oldlist = document.querySelector("#imagegallerybox ul");
+    if(oldlist)imggallery.removeChild(oldlist);
     var imagelist = this.buildImageList(true);
     imggallery.appendChild(imagelist);
 
-    imggalleryparent.appendChild(imggallery);
+    //imggalleryparent.appendChild(imggallery);
   },
   buildImageList: function(imagegallery){
     var images = this.allImagesByName();
