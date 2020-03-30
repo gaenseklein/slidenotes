@@ -667,7 +667,9 @@ slidenoteGuardian.prototype.initTutorial = function(){
   var backlink = document.createElement("a");
   backlink.href = window.location.pathname;
   backlink.innerText = "back to editor";
-  cloudbutton.replaceWith(backlink);
+  //cloudbutton.replaceWith(backlink);
+  cloudbutton.style.display = "none";
+  cloudbutton.parentElement.insertBefore(backlink,cloudbutton);
 
   //adding tutorial.css:
   slidenote.appendFile("css","tutorial.css");
