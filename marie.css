@@ -694,7 +694,7 @@ body{
     align-items: center;
   }
 
-  #nicesidebarsymbol a {
+  #nicesidebarsymbolcontainer {
     /*width: 100%;
     height: 2em;
     background: #90c1c8;
@@ -707,7 +707,7 @@ body{
     text-decoration:none;
     color:white;*/
 
-    width: 100%;
+    width: calc(100% - 1.8/10.8*1vh);
 
     justify-self: right;
     background-color: var(--emphazing-font-color);
@@ -725,6 +725,7 @@ body{
     text-decoration: none;
     box-sizing: border-box;
     margin-right: calc(1.8/10.8*1vh);
+    border: none;
   }
 
   #nicesidebarsymbollabel{
@@ -734,7 +735,7 @@ body{
     text-align: right;
   }
 
-  #nicesidebarsymbol a img {
+  #nicesidebarsymbolcontainer img {
     /*margin: 5px;*/
     width: calc(11.3/16*1em);
     justify-self: center;
@@ -780,6 +781,7 @@ body{
 
     align-self: start;
     z-index: -1;
+    margin-right: calc(1.8/10.8*1vh);
   }
 
   #nicesidebarsymbol #insertarea{
@@ -1924,8 +1926,8 @@ body{
 #menucloud button:hover, #menucloud button:focus,
 button.menuitem:hover, button.menuitem:focus,
 button:hover, button:focus,
-#nicesidebarsymbol a:hover,
-#nicesidebarsymbol a:focus,
+#nicesidebarsymbolcontainer:hover,
+#nicesidebarsymbolcontainer:focus,
 #menuoptionseditor a.menuitem:hover,
 #menuoptionseditor a.menuitem:focus,
 #nightmodetoggle:hover div,
@@ -2797,7 +2799,7 @@ button#importbutton .importpng {
       width: unset;
     }
 
-    #nicesidebarsymbol a{
+    #nicesidebarsymbolcontainer{
     }
 
     #nicesidebarsymbolcontainer{
@@ -2817,7 +2819,7 @@ button#importbutton .importpng {
 
 /* media query for mobile-version of sidebar at greater font sizes*/
 @media only screen and (max-width: calc(700/10.8*1em)) {
-  #nicesidebarsymbol a {
+  #nicesidebarsymbolcontainer {
     /*test-color*/
     background-color: hotpink;
   }
