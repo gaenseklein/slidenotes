@@ -39,7 +39,7 @@ h1 img{
   grid-column-end: 8;
   grid-row-start: 2;
   grid-row-end: 5;
-  margin-top:6.1em;
+  margin-top:6.1rem;
   margin-right: calc(var(--grid-margin)*var(--emToVh)*1vh);
   margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);
   visibility: hidden;
@@ -49,13 +49,13 @@ h1 img{
 }
 #imagegallery .arrow_box:before,
 #imagegallery .arrow_box:after{
-  left: calc((var(--grid-s) - var(--grid-margin))*var(--emToVh)*1vh + 1.5em);
+  left: calc((var(--grid-s) - var(--grid-margin))*var(--emToVh)*1vh + 1.5rem);
 }
 
 #imagegallerybox{
   height: 100%;
   border-radius: calc(13/10.8*1vh) calc(13/10.8*1vh) 0 0;
-  max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1em);
+  max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1rem);
   color: var(--text-color);
 }
 
@@ -183,6 +183,8 @@ button.imagegallery-image {
 #imagegallery .imagegallery-image img {
     height: unset;
     width: 100%;
+    transform: translateY(-50%);
+    margin-top: calc(97/2/10.8*1vh);
 }
 
 /*imageupload*/
@@ -193,7 +195,6 @@ button.imagegallery-image {
   grid-template-rows: 3em 1fr;
   grid-gap:4.6vh; /*50px in 1920x1080*/
   width:95vh;
-
 }
 .imgtourl_dialog_innertitle{
   justify-self:center;
