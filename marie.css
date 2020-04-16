@@ -2472,12 +2472,12 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   	background: var(--light-green-backg);
   }
   .backgroundline .imagetag{
-  	color:blue;
+  	color:var(--emphazing-font-color);
   	font-family: 'ubuntuMonoBold';
-  	background:lightblue;
+  	background:var(--light-green-backg);
   }
   .backgroundline .imagesrc, .backgroundline .imagealt{
-  	color:green;
+  	font-family: 'ubuntuMonoreg';
   }
   .backgroundline .imagesrc.imagenotfound{
   	color:red;
@@ -2492,7 +2492,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   	margin-top:-1px;
   }
   .backgroundline .footnoteanchor{
-  	color:blue;
+  	color:var(--light-blue-backg);
   }
   .backgroundline .comment {
   	font-style:italic;
