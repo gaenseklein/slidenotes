@@ -8,3 +8,4 @@ drupal7/mayo-templates/unused
 themes/filesaver
 testnotes/*.slidenote
 themes/unused
+*.DS_Store
