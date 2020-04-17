@@ -73,6 +73,7 @@ a[href], input[type='submit'], input[type='image'], label[for], select, button, 
 /*give all buttons parental dependent font size*/
 button{
   font-size: 1em;
+  font-family: rubikReg;
 }
 
 /*show special border on all focus elements*/
@@ -546,7 +547,7 @@ body{
     border-width: calc(var(--emToVh)*0.5vh);
     margin-left: calc(var(--emToVh)*-0.5vh);
     margin-bottom: calc(5vh/10.8);
-    box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) rgb(0,0,0,0.2);
+    box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) var(--shadow-dark);
   }
 
   div#texteditorbuttons button, #imagegallerybox button, #menusearchbox button{
@@ -2083,7 +2084,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     background: var(--lvl2-color);
     border: 1px solid transparent;
     border-radius: calc(14/10.8*1vh);
-    /*box-shadow:0 0 5px 3px rgb(0,0,0,0.2);*/
+    /*box-shadow:0 0 5px 3px var(--shadow-dark);*/
     filter: drop-shadow(10px 3px 0.75rem rgba(0,0,0,0.2));
     z-index: 100;
     box-sizing: border-box;
@@ -2111,7 +2112,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     margin-left: calc(var(--emToVh)*-0.3vh);
     margin-bottom: calc(3vh/10.8);
     border-radius: 50%;
-    box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) rgb(0,0,0,0.2);
+    box-shadow: calc(1vh/10.8) calc(1vh/10.8) calc(4vh/10.8) calc(0vh/10.8) var(--shadow-dark);
     color: var(--menu-font-color);
   }
 
@@ -3059,9 +3060,6 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     }
 
     #nicesidebarsymbolcontainer{
-    }
-
-    #nicesidebarsymbolcontainer{
       transition-property: width;
       transition-duration: 200ms;
     }
@@ -3072,6 +3070,20 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #nicesidebarsymbol.active #nicesidebarsymbollabel, #nicesidebarsymbol.active #insertarea{
       display: unset;
+    }
+
+    #cursorlinearrow{
+      visibility: hidden;
+    }
+
+    img#cursorlinearrow-mobile{
+      display: unset;
+      grid-column: 1/4;
+      position: absolute;
+      grid-row: 1;
+      transform: translateY(-50%);
+      z-index: -1;
+      height: calc(42.2/20*1em);
     }
 
 }
@@ -3088,10 +3100,9 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 /*--------*/
 
 /*Objects that are only visible on portrait are hidden in landscape*/
-#buttonarearightbutton, #optionareabutton, .closebutton/*#buttonarearightclose, #toolbarclose, #optionareaclose*/{
+#buttonarearightbutton, #optionareabutton, .closebutton, #cursorlinearrow-mobile/*#buttonarearightclose, #toolbarclose, #optionareaclose*/{
   display: none
 }
-
 @media only screen and (max-width: 100vh) {
   #slidenoteeditor{
     /* Bug in Chromium: https://bugs.chromium.org/p/chromium/issues/detail?id=843584
@@ -3108,13 +3119,6 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
   /*general*/
   /*-------*/
-
-    #buttonarearightbutton, #optionareabutton{
-      display: unset;
-      background-color: hotpink;
-      border-radius: 50%;
-    }
-
 
     div#toolbar, div#imagegallery, div#imagegallery.active, #menusearchbox, #searchbuttonarea{
       grid-column-start: 1;
@@ -3142,6 +3146,11 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       grid-template-columns: 1fr 3fr;
       grid-template-rows: 1fr auto auto;
       justify-self: stretch;
+      width: calc(100% - (15.5 - 24)/3.77*1vw);
+      font-size: calc(15/3.77*1vw);
+      padding-bottom: calc(8/3.77*1vw);
+      padding-right: calc(24/3.77*1vw);
+      padding-left: calc(15.5/3.77*1vw);
     }
 
     #noteinfoarea button{
@@ -3150,19 +3159,24 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #cloud{
       grid-row: 2;
-      justify-self: center;
+      /*justify-self: center;*/
     }
 
     #loadnote{
       grid-column: 2;
       justify-self: start;
+      width: 100%;
+    }
+
+    #slidenotetitle{
+
     }
 
     #outlet{
       grid-column: 2;
     }
 
-    #outlineblock{
+    div#outlineblock{
       grid-template-rows: auto;
       grid-template-columns: auto auto 1fr;
     }
@@ -3178,6 +3192,10 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       content: "";
     }
 
+    #outlineSpeakTime span + span{
+      display: none;
+    }
+
   /*editorblock*/
   /*-----------*/
 
@@ -3185,6 +3203,49 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       margin-left: calc(40/377*100vw);
     }
 
+  /*buttonarearightbutton, optionareabutton*/
+  /*---------------------------------------*/
+
+    #buttonarearightbutton, #optionareabutton{
+      display: unset;
+      background-color: var(--lvl0-color);
+      font-size: calc(15/377*100vw);
+      height: calc(100% + 50/3.77*1vw);
+      z-index: 1;
+      margin-top: calc(-15/3.77*1vw);
+      padding-top: calc(55/3.77*1vw);
+      margin-top: calc(-50/3.77*1vw);
+      box-shadow: calc(1vw/3.77) calc(1vw/3.77) calc(4vw/3.77) calc(0vw/3.77) var(--shadow-dark);
+      border: none;
+      display: grid;
+      grid-template-rows: calc(26/3.77*1vw) 1fr;
+    }
+
+    #buttonarearightbutton{
+      grid-column: 3;
+      grid-row: 1;  
+      border-radius: 0 0 0 calc(26/377*100vw);
+      padding-left: calc(15.6/377*100vw);
+      padding-right: calc(10/377*100vw);
+    }
+
+    #optionareabutton{
+      grid-column: 1;
+      grid-row: 1;  
+      border-radius: 0 0 calc(26/377*100vw) 0;
+      padding-left: calc(14.7/377*100vw);
+      padding-right: calc(17/377*100vw);
+    }
+
+    #buttonarearightbutton img, #optionareabutton img {
+      width: 100%;
+      height: unset;
+      align-self: center;
+    }
+
+    #buttonarearightbutton span, #optionareabutton span {
+      color: var(--menu-font-color);
+    }
 
   /*buttonarearight*/
   /*---------------*/
@@ -3201,11 +3262,6 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #buttonarearight.active{
       display: unset;
-    }
-
-    #buttonarearightbutton{
-      grid-column: 1;
-      grid-row: 1;  
     }
 
     #searchbutton{
@@ -3268,11 +3324,6 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       font-size: 2em;
     }
 
-    #optionareabutton{
-      grid-column: 3;
-      grid-row: 1;  
-    }
-
   /*sidebarcontainer*/
   /*----------------*/
 
@@ -3281,6 +3332,10 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       grid-column: 1;
       grid-row-start: 2;
       grid-row-end: 4;
+    }
+
+    img#cursorlinearrow-mobile{
+      height: calc(42.2/3.77*1vw);
     }
 
   /*menus*/
