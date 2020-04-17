@@ -150,6 +150,14 @@ body{
   }
 }
 
+/* tutorial editor */
+#slidenoteeditor.tutorialmode{
+	background-color: #f0fdff;
+	border-top: solid var(--emphazing-font-color) 1em;
+}
+
+
+
 
 
 /* noteinfoarea */
@@ -2680,6 +2688,15 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   }*/
 
   /*noteinfoarea*/
+  #noteinfoarea a {
+    background-color: var(--emphazing-backg-color);
+    box-shadow: 0 0 0.1em var(--emphazing-backg-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.1em 0.1em 0.1em 0.3em;
+    margin-bottom: 0.2em;
+    font-size: 0.8em;
+}
   /*------------*/
 
     /*.big-mode #loadnote div{
