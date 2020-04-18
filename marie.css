@@ -32,14 +32,14 @@
   --caret-color:#ff8405;
   --caret-color-backg:#ff84057a;
   /*editorblock level*/
-  --lvl0-color: #fbfcfc; 
+  --lvl0-color: #fbfcfc;
   /*sidemenue level*/
   --lvl1-color: #f8f9f9;
   /*arrowbox level*/
   --lvl2-color-transparent: #ffffff80; /*TODO: Auf neuesten Stand überprüfen*/
   --lvl2-color: #fff;
-  --lvl2-color-button: #f4f4f4; 
-  --lvl2-color-button2: #f0f1f1; 
+  --lvl2-color-button: #f4f4f4;
+  --lvl2-color-button2: #f0f1f1;
   /*overlay level*/
   --lvl3-color: #f4f4f4; /*TODO: Auf neuesten Stand überprüfen*/
   --lvl3-headline-color: #fcfcfc; /*TODO: Auf neuesten Stand überprüfen*/
@@ -127,14 +127,14 @@ body{
   grid-template-columns: 0.7fr calc(var(--grid-s)*var(--emToVh)*2vh) calc(var(--grid-s)*var(--emToVh)*1.5vh) calc(var(--grid-s)*var(--emToVh)*7vh) calc(var(--grid-s)*var(--emToVh)*0.7vh) calc(var(--grid-s)*var(--emToVh)*0.3vh) calc(var(--grid-s)*var(--emToVh)*1vh) 1fr;
   /*grid-template-columns: 1fr calc(var(--grid-s)*2em) calc(var(--grid-s)*1em) calc(var(--grid-s)*7em) calc(var(--grid-s)*0.7em) calc(var(--grid-s)*0.3em) calc(var(--grid-s)*1em) 1fr;*/
   grid-template-rows: calc(var(--grid-s)*var(--emToVh)*0.32vh) calc(var(--grid-s)*var(--emToVh)*1.34vh) calc(var(--grid-s)*var(--emToVh)*0.46vh) 1fr;
-  grid-template-areas: ". . sidebar editor . . . . " 
+  grid-template-areas: ". . sidebar editor . . . . "
   ". noteinfoarea sidebar editor . . buttonright ."
   ". buttonleft sidebar editor . . buttonright ."
   ". . sidebar editor . . buttonright .";
-  
+
   font-family:rubikReg;
   /* Bug in Chromium: https://bugs.chromium.org/p/chromium/issues/detail?id=843584
-  Calc in Media Queries accepts no combination of different units. Until it 
+  Calc in Media Queries accepts no combination of different units. Until it
   gets resolved, font-size must remain dependant of only one unit.
   font-size: calc(0.5rem + 1vh);*/ /* "Landscape first" font-size*/
   /*font-size: 1.7407vh; /*1vh+8*100px/1080px*1vh */
@@ -150,16 +150,6 @@ body{
     /*font-size: calc(0.5rem + 1vh);/*100%;*/
   }
 }
-
-/* tutorial editor */
-#slidenoteeditor.tutorialmode{
-	background-color: #f0fdff;
-	border-top: solid var(--emphazing-font-color) 1em;
-}
-
-
-
-
 
 /* noteinfoarea */
 /* ------------ */
@@ -592,7 +582,7 @@ body{
   #toolbarbuttons li:last-child button {
     margin-bottom: calc(var(--emToVh)*1.3vh);
   }
-  
+
 
   #toolbarbuttons button {
     width: 100%;
@@ -1544,7 +1534,7 @@ body{
     top: -100%;
     border-width: 0;
     border-style: solid;
-    
+
   }
 
 /* frame-left */
@@ -1583,7 +1573,7 @@ body{
 
 /* frame-right */
 /* ----------- */
-  
+
   .initial div#frame-right{
     grid-column-start:6;
   }
@@ -2141,7 +2131,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     margin-right: calc(10/10.8*1vh);
     margin-bottom: calc(18/10.8*1vh);
   }
-  
+
   @keyframes appearbox{
       from{
           overflow:hidden;
@@ -2553,14 +2543,14 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     --caret-color:#125E69;
     --caret-color-backg:#125E697a;
     /*editorblock level*/
-    --lvl0-color: #000000; 
+    --lvl0-color: #000000;
     /*sidemenue level*/
     --lvl1-color: #25221F;
     /*arrowbox level*/
     --lvl2-color-transparent: #22222280; /*TODO: Auf neuesten Stand überprüfen*/
     --lvl2-color: #222;
-    --lvl2-color-button: #111111; 
-    --lvl2-color-button2: #111111; 
+    --lvl2-color-button: #111111;
+    --lvl2-color-button2: #111111;
     /*overlay level*/
     --lvl3-color: #222; /*TODO: Auf neuesten Stand überprüfen*/
     --lvl3-headline-color: #333; /*TODO: Auf neuesten Stand überprüfen*/
@@ -2656,23 +2646,23 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     ". sidebar editor . buttonright ."
     "buttonleft sidebar editor . sidebarright ."
     "playbutton sidebar editor . sidebarright .";*/
-    grid-template-columns: 
-      0.7fr 
-      calc(var(--grid-s)*var(--emToVh)*1vh) 
-      calc(var(--grid-s)*var(--emToVh)*1vh) 
+    grid-template-columns:
+      0.7fr
+      calc(var(--grid-s)*var(--emToVh)*1vh)
+      calc(var(--grid-s)*var(--emToVh)*1vh)
       calc(var(--grid-s)*var(--emToVh)*1vh)
       calc(var(--grid-s)*var(--emToVh)*7vh)
       calc(var(--grid-s)*var(--emToVh)*0.7vh)
       calc(var(--grid-s)*var(--emToVh)*0.3vh)
-      calc(var(--grid-s)*var(--emToVh)*1vh) 
+      calc(var(--grid-s)*var(--emToVh)*1vh)
       1fr;
-    grid-template-rows: 
-      calc(var(--grid-s)*var(--emToVh)*0.32vh) 
-      calc(var(--grid-s)*var(--emToVh)*2.43vh) 
-      calc(var(--grid-s)*var(--emToVh)*0.46vh) 
+    grid-template-rows:
+      calc(var(--grid-s)*var(--emToVh)*0.32vh)
+      calc(var(--grid-s)*var(--emToVh)*2.43vh)
+      calc(var(--grid-s)*var(--emToVh)*0.46vh)
       1fr;
-    grid-template-areas: 
-      ". . . . editor . . . ." 
+    grid-template-areas:
+      ". . . . editor . . . ."
       ". noteinfoarea noteinfoarea . editor . . buttonright ."
       ". buttonleft . . editor . . buttonright ."
       ". buttonleft . . editor . . buttonright .";
@@ -2741,7 +2731,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     .big-mode #toolbarbuttons button {
       height: 8vh;
     }
-    
+
     .big-mode #toolbar span{
       display:none;
     }
@@ -3095,7 +3085,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     background-color: hotpink;
   }
 }
-  
+
 /*Portrait*/
 /*--------*/
 
@@ -3106,7 +3096,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 @media only screen and (max-width: 100vh) {
   #slidenoteeditor{
     /* Bug in Chromium: https://bugs.chromium.org/p/chromium/issues/detail?id=843584
-    Calc in Media Queries accepts no combination of different units. Until it 
+    Calc in Media Queries accepts no combination of different units. Until it
     gets resolved, font-size must remain dependant of only one unit.
     font-size: calc(0.5rem + 1vw);*/
     font-size: 1.7407vw;
@@ -3223,7 +3213,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #buttonarearightbutton{
       grid-column: 3;
-      grid-row: 1;  
+      grid-row: 1;
       border-radius: 0 0 0 calc(26/377*100vw);
       padding-left: calc(15.6/377*100vw);
       padding-right: calc(10/377*100vw);
@@ -3231,7 +3221,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #optionareabutton{
       grid-column: 1;
-      grid-row: 1;  
+      grid-row: 1;
       border-radius: 0 0 calc(26/377*100vw) 0;
       padding-left: calc(14.7/377*100vw);
       padding-right: calc(17/377*100vw);
@@ -3351,7 +3341,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     }
 
     #toolbarclose img{
-      display: 
+      display:
     }
 
 
