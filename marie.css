@@ -2323,7 +2323,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
   }
   */
 
-  /*loading screen*/
+  /*presentation loading screen*/
   #slidenoteLoadingScreen{
     position:fixed;
     top:0;
@@ -2332,14 +2332,28 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     height:100vh;
     background:#323232;
     color:var(--button-text-color-light);
-    visibility:hidden;
+    opacity:0;
     z-index: -1;
     text-align: center;
+    transition: all 500ms;
   }
   #slidenoteLoadingScreen.active{
-    visibility:visible;
     z-index: 9999;
+    opacity: 1;
+    transition:none;
   }
+  .loading-blob{
+    width:25em;
+    height:25em;
+    position: relative;
+    top: 5em;
+		display: none;
+		margin: 0 auto;
+  }
+  .loading-blob.active{
+    display:block;
+  }
+
 
 /* texteditor and background */
 /* ========================= */

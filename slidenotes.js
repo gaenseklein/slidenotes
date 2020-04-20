@@ -2590,15 +2590,21 @@ pagegenerator.prototype.afterStyle = function(){
 	this.calculationtimeend = new Date();
 	var calctime = this.calculationtimeend - this.calculationtimestart;
 	console.log("Timecheck: Presentation generated in "+calctime+"Ms");
-	if(calctime<2000 && calctime > 500){
-		setTimeout(function(){
-		var loadingscreen = document.getElementById("slidenoteLoadingScreen");
-			loadingscreen.classList.remove("active");
-			slidenote.presentation.animatePresentationControl(true);
-		},2000-calctime);
-	}else{
+	//as we work with transitions the following could be deleted:
+	//if(calctime<2000 && calctime > 500){
+	//	setTimeout(function(){
+	//	var loadingscreen = document.getElementById("slidenoteLoadingScreen");
+	//		loadingscreen.classList.remove("active");
+	//		slidenote.presentation.animatePresentationControl(true);
+	//	},2000-calctime);
+	//}else{
 		loadingscreen.classList.remove("active");
 		slidenote.presentation.animatePresentationControl(true);
+	//}
+	//remove animation to not render all the time:
+	loadingscreen.ontransitionend=function(){
+		var blobs = document.querySelectorAll(".loading-blob.active")
+		for(var x=blobs.length-1;x>=0;x--)blobs[x].classList.remove("active");
 	}
 	if(this.forExport)slidenoteguardian.exportIsReady(this.presentation);
 
@@ -2897,6 +2903,18 @@ pagegenerator.prototype.showInsertMenu = function(){
 
 }
 
+pagegenerator.prototype.startLoadingScreen = function(){
+	var loadingscreen = document.getElementById("slidenoteLoadingScreen");
+	loadingscreen.classList.add("active");
+	var blobs = loadingscreen.getElementsByClassName("loading-blob");
+	var randomnr = Math.floor(Math.random()*(blobs.length));
+	for(var x=0;x<blobs.length;x++){
+		if(x===randomnr)blobs[x].classList.add("active");
+		else blobs[x].classList.remove("active");
+	}
+
+}
+
 /* pagegenerator.showpresentation() startet und beendet die präsentation
  * startet die eigentliche präsentation durch aufruf von
  * 1. this.init() - erneutes und finales einlesen des geparsten codes etc. aus dem emdparse-objekt
@@ -2928,7 +2946,8 @@ pagegenerator.prototype.showpresentation = function(forExport){
 		//history-hack:
 		document.location.hash = "editor";
 		//this.init();
-		loadingscreen.classList.add("active");
+		//loadingscreen.classList.add("active");
+		this.startLoadingScreen();
 		slidenote.presentation.animatePresentationControl(false);
 		fullscreen=true;
 		slidenote.parser.renderMapToPresentation();
