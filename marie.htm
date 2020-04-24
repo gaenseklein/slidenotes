@@ -344,7 +344,7 @@
           //  if(menus[x]==="menuoptionspresentation")button.addEventListener("click",function(){
           //    slidenote.menumanager.buildPresentationMenu();
           //  });
-            button.onclick = function(){
+            button.onclick = function(e){
                 var menus = document.getElementsByClassName("autohidemenu");
                 var menu  = document.getElementById(this.menu);
                 for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
@@ -354,22 +354,28 @@
                 }
                 if(menu===null||menu===undefined)return;
                 if(menu.classList.contains("active")){
+                  //closing menu
                     menu.classList.remove("active");
                     this.classList.remove("active");
 
                 } else{
+                  //opening menu
                     if(this.menu==="imagegallery"){
                       slidenote.base64images.buildImageGallery();
                     }
                     menu.classList.add("active");
                     this.classList.add("active");
-                }
                 var firstbutton = menu.getElementsByClassName("focusitem");
                 if(firstbutton.length<1)firstbutton = menu.getElementsByClassName("menuitem");
                 if(firstbutton.length<1)firstbutton = menu.getElementsByTagName("button");
                 if(firstbutton.length<1)return;
-                firstbutton[0].focus();
-            }
+                //menu.ontransitionend = function(){
+                setTimeout(function(){
+                  firstbutton[0].focus();
+                },300); //we have to wait till transition is over
+                //}
+              }
+            } //end of on-click
             if(menus[x]!="toolbar" && menus[x]!="menusearchbox" && menus[x]!="imagegallery"){
                 menu.classList.add("autohidemenu");
                 //menu.onblur = function(){console.log("test onblur");this.classList.remove("active");};
