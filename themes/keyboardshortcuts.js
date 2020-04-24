@@ -17,6 +17,7 @@ var keyboardshortcuts = {
     dialog:[], //all shortcuts on dialog
     arrowleftright:[], //shortcuts arrownav left-right
     menuoptionseditor:[],//all shortcuts editor-options-menu
+    presentation:[],//all shortcuts for presentation
     pressedkeys:{}, //element that holds all pressed keys at the time - used to check if shortcut is found
     metakey: "Control", //global metakey to check against
     automaticClosure:true //global boolean if automatic closure is active or not
@@ -90,23 +91,27 @@ keyboardshortcuts.addShortcut = function(shortcut){
     this.allkeys.push(shortcut);
     //if(shortcut.keys.includes("Control"))this.ctrlkeys.push(shortcut); //not used, can be gone i think and added on later if we really need it
     //TODO: secondkey
-    var element = shortcut.element;
-    if(element==="toolbar")this.toolbar.push(shortcut);
-    if(element==="insertmenu")this.insertmenu.push(shortcut);
-    if(element==="imagegallery")this.imagegallery.push(shortcut);
-    if(element==="textarea")this.textarea.push(shortcut);
-    if(element==="options")this.options.push(shortcut);
-    if(element==="global")this.globals.push(shortcut);
-    if(element==="menuload")this.menuload.push(shortcut);
-    if(element==="menucloud")this.menucloud.push(shortcut);
-    if(element==="menupublish")this.menupublish.push(shortcut);
-    if(element==="menuimportexport")this.menuimportexport.push(shortcut);
-    if(element==="menuoptionseditor")this.menuoptionseditor.push(shortcut);
-    if(element==="menuoptionspresentation")this.menuoptionspresentation.push(shortcut);
-    if(element==="menusearchbox")this.menusearchbox.push(shortcut);
-    if(element==="dialog")this.dialog.push(shortcut);
-    if(element==="arrowleftright")this.arrowleftright.push(shortcut);
-
+    var elements = shortcut.element;
+    if(typeof elements === "string")elements = [shortcut.element];
+    for(var x=0;x<elements.length;x++){
+      let element = elements[x];
+      if(element==="toolbar")this.toolbar.push(shortcut);
+      if(element==="insertmenu")this.insertmenu.push(shortcut);
+      if(element==="imagegallery")this.imagegallery.push(shortcut);
+      if(element==="textarea")this.textarea.push(shortcut);
+      if(element==="options")this.options.push(shortcut);
+      if(element==="global")this.globals.push(shortcut);
+      if(element==="menuload")this.menuload.push(shortcut);
+      if(element==="menucloud")this.menucloud.push(shortcut);
+      if(element==="menupublish")this.menupublish.push(shortcut);
+      if(element==="menuimportexport")this.menuimportexport.push(shortcut);
+      if(element==="menuoptionseditor")this.menuoptionseditor.push(shortcut);
+      if(element==="menuoptionspresentation")this.menuoptionspresentation.push(shortcut);
+      if(element==="menusearchbox")this.menusearchbox.push(shortcut);
+      if(element==="dialog")this.dialog.push(shortcut);
+      if(element==="arrowleftright")this.arrowleftright.push(shortcut);
+      if(element==="presentation")this.presentation.push(shortcut);
+    }
 }
 
 keyboardshortcuts.toggleShortcut = function(shortcutname, state){
@@ -508,6 +513,10 @@ keyboardshortcuts.init = function(){
     this.addShortcut(new this.shortcut("open options", "global", "o",function(e){
       document.getElementById("optionsbutton").click();
     }));
+    //designmenu:
+    this.addShortcut(new this.shortcut("open design menu", "global", "d",function(e){
+      document.getElementById("presentationoptionsbutton").click();
+    }));
     /*this.addShortcut(new this.shortcut("escape optionsmenu","options",{key:"Escape",metakey:false},function(e){
       slidenote.textarea.focus();
       slidenote.extensions.optionmenu.classList.remove("active");
@@ -676,7 +685,7 @@ keyboardshortcuts.init = function(){
     })); //end of letter-navigation in toolbar
     //presentation-keyboard-navigation:
     this.addShortcut(new this.shortcut("presentation keyboard navigation",
-      "global",
+      "presentation",
       {multipleChoiceKeys:["ArrowLeft","ArrowRight", " ","Escape","Enter","0","1","2","3","4","5","6","7","8","9"],
       metakey:false},
         function(e){
@@ -772,7 +781,11 @@ keyboardshortcuts.reactOn = function(e, element){
             var continuedefault = list[x].activate(e);
             if(continuedefault != true)preventDefault=true;
         }
-        if(preventDefault)e.preventDefault();
+        if(preventDefault){
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        return preventDefault;
     }
 
 }
@@ -876,14 +889,15 @@ keyboardshortcuts.closeAutomagic = function(event){
 keyboardshortcuts.attachShortcuts = function(){
     window.addEventListener("keydown",function(e){
       slidenote.keyboardshortcuts.pressKey(e);
-      slidenote.keyboardshortcuts.reactOn(e,"globals");
+      if(fullscreen)slidenote.keyboardshortcuts.reactOn(e,"presentation");
+      else slidenote.keyboardshortcuts.reactOn(e,"globals");
       console.log("react on global"+e.key);
     });
 
     slidenote.textarea.addEventListener("keydown",function(e){
       slidenote.keyboardshortcuts.pressKey(e);
-      slidenote.keyboardshortcuts.reactOn(e,"globals");
-      slidenote.keyboardshortcuts.reactOn(e, "textarea");
+      let found = slidenote.keyboardshortcuts.reactOn(e,"globals");
+      if(!found)slidenote.keyboardshortcuts.reactOn(e, "textarea");
     });
     slidenote.textarea.addEventListener("keypress",function(e){
       slidenote.keyboardshortcuts.preventDefaultOnKeypress(e, "textarea");
