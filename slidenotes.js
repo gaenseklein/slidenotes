@@ -997,6 +997,9 @@ emdparser.prototype.setDropDownMenu = function (){
 		nicelabel.innerText = "";
 	}
 
+	//for code-area add class so carret can change color:
+	let insidecodearea = (celement!=undefined && (celement.label==="code" || celement.tag==="inlinecodestart"));
+	slidenote.textarea.classList.toggle("insidecodearea",insidecodearea);
 	//console.log("nicesymbol:"+nicesymbol.style.top+"carretsymbol:"+carretsymbol.offsetTop);
 	//nicesymbol.innerHTML='&nbsp;<a href="javascript:slidenote.presentation.showInsertMenu();"<img src="images/buttons/droptilde.png"></a>&nbsp;<img src="images/buttons/cursorline.png">';
 	//var timecheckend = new Date();
