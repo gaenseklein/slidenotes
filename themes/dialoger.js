@@ -140,8 +140,8 @@ dialoger.buildDialog = function(options, followfunction){
   document.getElementById("slidenotediv").appendChild(container);
   if(options.focuson){
     options.focuson.focus();
-  //focus on confirm-button if exists
   }else if(confirmbutton){
+    //focus on confirm-button if exists
     confirmbutton.focus();
   }else{
     //as the first button is the closebutton we want to avoid it by selecting last one:
@@ -153,7 +153,8 @@ dialoger.buildDialog = function(options, followfunction){
       dialogbox.tabable = true;
       dialogbox.focus();
     }else{
-      bns[bns.length-1].focus();
+      if(options.focusOnFirst)bns[0].focus();
+      else bns[bns.length-1].focus();
     }
   }
   return container;

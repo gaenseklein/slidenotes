@@ -119,6 +119,8 @@ keyboardshortcuts.toggleShortcut = function(shortcutname, state){
     if(shortcut===null){console.log("shortcut "+shortcutname+" not found");return;}
     if(state!=undefined && state!=null)shortcut.active=state;else shortcut.active=!shortcut.active;
     console.log("shortcut "+shortcutname+"deactivated");
+    slidenoteguardian.saveConfig("local");
+
 }
 
 keyboardshortcuts.shortcutByName = function(shortcutname){
@@ -130,18 +132,23 @@ keyboardshortcuts.shortcutByName = function(shortcutname){
    return shortcut;
 }
 
-keyboardshortcuts.buildOptionsMenu = function(){
+keyboardshortcuts.buildOptionsMenu = function(focusbutton){
     if(!this.optionsmenu){
         this.optionsmenu = document.createElement("div");
     }
     this.optionsmenu.innerHTML = "";
-    var allinone = document.createElement("ul"); //change later with different groups
+    //change later with different groups maybe:
+    var allinone = document.createElement("ul");
+    allinone.classList.add("keyboardshortcuts");
     //meta-key:
     let metali = document.createElement("li");
     let metabutton = document.createElement("button");
-    metali.innerText = "Metakey: ";
+    let metalabel = document.createElement("label");
+    metalabel.innerText = "metakey";
+    metali.appendChild(metalabel);
     metabutton.innerText = this.metakey;
     metabutton.changingactive = false;
+    metabutton.name = "metakey"
     metabutton.onclick = function(){
       if(this.changingactive)return;
         this.changingactive=false;
@@ -157,12 +164,13 @@ keyboardshortcuts.buildOptionsMenu = function(){
       var key = e.key+"";
       if(key==="undefined")key=getKeyOfKeyCode(e.keyCode);
       if(key===" ")key="Space";
+      if(e.code.indexOf("Numpad")>-1)key=e.code;
       if(this.changingactive){
         this.changingactive=false;
         if(confirm("set metakey to "+key)){
           if(key==="Space")key=" ";
           slidenote.keyboardshortcuts.metakey = key;
-          slidenote.keyboardshortcuts.buildOptionsMenu();
+          slidenote.extensions.showKeyboardConfig("metakey");
         }
       }
     }
@@ -170,7 +178,10 @@ keyboardshortcuts.buildOptionsMenu = function(){
     allinone.appendChild(metali);
     for(var x=0;x<this.allkeys.length;x++){
         var shortcut = this.allkeys[x];
-        if(shortcut.name.indexOf("arrow")>-1 || shortcut.name.indexOf("escape")>-1)continue;
+        if(shortcut.name.indexOf("arrow")>-1 ||
+        shortcut.name.indexOf("escape")>-1 ||
+        shortcut.name.indexOf("navigation")>-1 ||
+        shortcut.name.indexOf("slidenoteSpeaker")>-1)continue;
         var li = document.createElement("li");
         var check = document.createElement("input");
         check.type = "checkbox";
@@ -179,10 +190,11 @@ keyboardshortcuts.buildOptionsMenu = function(){
         check.onchange = function(){
             keyboardshortcuts.toggleShortcut(this.name, this.checked);
         }
-        li.appendChild(check);
         var label = document.createElement("label");
         label.innerText = shortcut.name;
         li.appendChild(label);
+        li.appendChild(check);
+
         var changebutton = document.createElement("button");
         var buttontext = "";
         if(shortcut.metakey)buttontext += this.metakey+" + ";
@@ -209,8 +221,10 @@ keyboardshortcuts.buildOptionsMenu = function(){
         }
         changebutton.onkeydown = function(e){
           if(!this.changingactive)return;
-          if(e.key===undefined)e.key=getKeyOfKeyCode(e.keyCode);
-          slidenote.keyboardshortcuts.tempkeydowns.push(e.key);
+          key = e.key;
+          if(key===undefined)key=getKeyOfKeyCode(e.keyCode);
+          if(e.code.indexOf("Numpad")>-1)key=e.code;
+          slidenote.keyboardshortcuts.tempkeydowns.push(key);
         };
         changebutton.onkeyup = function(e){
           if(!this.changingactive)return;
@@ -232,6 +246,7 @@ keyboardshortcuts.buildOptionsMenu = function(){
               if(shortcut.standardkeys===undefined)shortcut.standardkeys = shortcut.keys;
               shortcut.keys = pressedkeyarray;
               slidenote.extensions.showKeyboardConfig(this.name);
+              slidenoteguardian.saveConfig("local");
             }
             this.classList.remove("changingactive");
             slidenote.keyboardshortcuts.tempkeydowns = new Array();
@@ -253,6 +268,7 @@ keyboardshortcuts.buildOptionsMenu = function(){
               shortcut.keys = shortcut.standardkeys;
               shortcut.standardkeys = undefined;
               slidenote.extensions.showKeyboardConfig(this.name);
+              slidenoteguardian.saveConfig("local");
             }
           }
           li.appendChild(revertbutton);
@@ -460,7 +476,7 @@ keyboardshortcuts.init = function(){
           nsbs.focus();
           nsbs.click();
         }
-        setTimeout(function(){        
+        setTimeout(function(){
         var b=document.getElementById("insertarea").getElementsByTagName("button");
         if(b && b[0]){
           b[0].focus();
@@ -723,10 +739,13 @@ keyboardshortcuts.init = function(){
       slidenote.keyboardshortcuts.pressedkeys = {};
       console.log(slidenote.keyboardshortcuts.pressedkeys);
     });
-}
+    if(slidenoteSpeaker!=undefined)slidenoteSpeaker.initShortcuts();
+}//end of init
 keyboardshortcuts.pressKey = function(e){
-    if(e.key==="undefined")e.key=getKeyOfKeyCode(e.keyCode); //webkit-bug
-    this.pressedkeys[e.key]=true;
+    var key = e.key;
+    if(key==="undefined")key=getKeyOfKeyCode(e.keyCode); //webkit-bug
+    if(e.code.indexOf("Numpad")>-1)key=e.code;
+    this.pressedkeys[key]=true;
     console.log(e);
     if(e.ctrlKey && e.srcElement===slidenote.textarea){
       //prevent default from the following, hardcoded for speed:
@@ -736,6 +755,10 @@ keyboardshortcuts.pressKey = function(e){
         e.preventDefault();
         e.stopPropagation();
       }
+    }
+    if(key===this.metakey){
+      e.preventDefault();
+      //e.stopPropagation();
     }
 }
 keyboardshortcuts.preventDefaultOnKeypress = function(e){
@@ -748,19 +771,27 @@ keyboardshortcuts.preventDefaultOnKeypress = function(e){
       e.stopPropagation();
     }
   }
+  let key = e.key;
+  if(e.code.indexOf("Numpad")>-1)key=e.code;
+  if(key===this.metakey){
+    e.preventDefault();
+    e.stopPropagation();
+  }
 }
 keyboardshortcuts.releaseKey = function(e){
-    if(e.key==="undefined")e.key=getKeyOfKeyCode(e.keyCode); //webkit-bug
-    if(e.key===undefined && e.keyCode===undefined)return;
-    if(this.pressedkeys[e.key]===undefined){
+    let key = e.key;
+    if(key==="undefined")key=getKeyOfKeyCode(e.keyCode); //webkit-bug
+    if(e.code.indexOf("Numpad")>-1)key=e.code;
+    if(key===undefined && e.keyCode===undefined)return;
+    if(this.pressedkeys[key]===undefined){
       this.pressedkeys={};
       return;
     }
     console.log(e);
-    this.pressedkeys[e.key]=false;
-    if(e.key.length===1)this.pressedkeys[e.key.toUpperCase()]=false; //also delete uppercase-letter if shift is let go first
-    if(e.key==="Meta" || e.key==="Shift" ||
-        e.key==="Control" || e.key==="Alt")this.pressedkeys = {};
+    this.pressedkeys[key]=false;
+    if(key.length===1)this.pressedkeys[key.toUpperCase()]=false; //also delete uppercase-letter if shift is let go first
+    if(key==="Meta" || key==="Shift" || key==="Control" ||
+    key==="Alt" || key===this.metakey)this.pressedkeys = {};
 }
 
 keyboardshortcuts.shortcutFound = function(event, shortcut){
@@ -772,8 +803,10 @@ keyboardshortcuts.shortcutFound = function(event, shortcut){
 }
 
 keyboardshortcuts.reactOn = function(e, element){
-    if(e.key==="undefined")e.key=getKeyOfKeyCode(e.keyCode); //webkit-bug
-    if(!this.pressedkeys[e.key])slidenote.keyboardshortcuts.pressKey(e);
+    let key = e.key;
+    if(key==="undefined")key=getKeyOfKeyCode(e.keyCode); //webkit-bug
+    if(e.code.indexOf("Numpad")>-1)key=e.code;
+    if(!this.pressedkeys[key])slidenote.keyboardshortcuts.pressKey(e);
     if(this[element]!=undefined){
         var preventDefault=false;
         var list = this[element];

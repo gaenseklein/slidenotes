@@ -16,3 +16,30 @@ button.changingactive{
     background:red;
     color:white;
 }
+
+ul.keyboardshortcuts li {
+    display: grid;
+    grid-template-areas:
+        "check label button";
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    grid-gap: 0.5em;
+    margin-top: 0.5em;
+    margin-right:1ch;
+}
+
+.keyboardshortcuts label {
+    grid-area: label;
+}
+
+.keyboardshortcuts button.menuitem {
+    grid-area: button;
+    max-width: 15ch;
+    justify-self: end;
+    margin-top: unset;
+    border: 1px solid rgba(0,0,0,0.5);
+}
+
+.keyboardshortcuts input.menuitem {
+    grid-area: check;
+}

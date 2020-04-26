@@ -1,0 +1,19 @@
+ul.speechOptionsList {
+    display: none;
+    list-style: none;
+}
+
+.showAPIConfig ul.speechOptionsList {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    margin: 0.5em;
+}
+
+.speechOptionsList li {
+    display: grid;
+    grid-template-areas:
+        "title"
+        "slider";
+    justify-items: center;
+}

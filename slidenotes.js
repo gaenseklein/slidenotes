@@ -3244,7 +3244,7 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("switchparseelements", true);
 	this.loadTheme("sections");
 	this.loadTheme("outline");
-	this.loadTheme("speaker",true);
+	this.loadTheme("speaker");
 	//this.loadTheme("sequencediagram", true);
 	this.loadTheme("footnote",true);
 	this.loadTheme("progressbar");
@@ -3353,25 +3353,35 @@ ExtensionManager.prototype.getThemeByName = function(name){
 ExtensionManager.prototype.showAdvancedMenu = function(){
 	var dialognode = document.createElement("div");
 	var editoroptions = document.createElement("button");
+	editoroptions.classList.add("menuitem");
 	editoroptions.title = "Open Editor Options";
 	editoroptions.innerText = "Advanced Editor Options";
 	editoroptions.onclick = function(){slidenote.extensions.showEditorMenu()};
 	dialognode.appendChild(editoroptions);
 	var keyboardoptions = document.createElement("button");
+	keyboardoptions.classList.add("menuitem");
 	keyboardoptions.title = "Open Keyboard Configuration";
 	keyboardoptions.innerText = "Keyboard Configuration";
 	keyboardoptions.onclick = function(){slidenote.extensions.showKeyboardConfig()};
 	dialognode.appendChild(keyboardoptions);
 	var extensionsbutton = document.createElement("button");
+	extensionsbutton.classList.add("menuitem");
 	extensionsbutton.title = "Open Extensions Option";
 	extensionsbutton.innerText = "Extensions";
 	extensionsbutton.onclick = function(){slidenote.extensions.showExtensionMenu()};
 	dialognode.appendChild(extensionsbutton);
+	var speakerbutton = document.createElement("button");
+	speakerbutton.classList.add("menuitem");
+	speakerbutton.title = "open speaker option";
+	speakerbutton.innerText = "speaker";
+	speakerbutton.onclick = function(){slidenote.extensions.showSpeakerConfig()};
+	dialognode.appendChild(speakerbutton);
 	var dialogoptions = {
 		type:"dialog",
 		title: "Advanced Options",
 		content: dialognode,
-		closebutton: true
+		closebutton: true,
+		focusOnFirst:true
 	}
 	var dialog = dialoger.buildDialog(dialogoptions);
 }
@@ -3418,7 +3428,8 @@ ExtensionManager.prototype.showEditorMenu = function(){
 		type:"dialog",
 		title:"Advanced Editor Configuration",
 		content:parent,
-		closebutton:true
+		closebutton:true,
+		focusOnFirst:true
 	};
 	dialoger.buildDialog(dialogoptions);
 }
@@ -3427,8 +3438,9 @@ ExtensionManager.prototype.showEditorMenu = function(){
 ExtensionManager.prototype.showKeyboardConfig = function(focusOnOptionName){
 	var dialogoptions = {
 		type:"dialog",
-		title:"Keyboard Configuration",
-		closebutton:true
+		title:"keyboard configuration",
+		closebutton:true,
+		focusOnFirst:true
 	};
 	dialogoptions.content = slidenote.keyboardshortcuts.buildOptionsMenu();
 	var inputs = dialogoptions.content.getElementsByTagName("input");
@@ -3440,6 +3452,18 @@ ExtensionManager.prototype.showKeyboardConfig = function(focusOnOptionName){
 	}
 	dialoger.buildDialog(dialogoptions);
 }
+//dialog for speakerConfig:
+ExtensionManager.prototype.showSpeakerConfig = function(){
+	var dialogoptions = {
+		type:"dialog",
+		title:"speaker configuration",
+		closebutton:true,
+		focusOnFirst:true
+	};
+	dialogoptions.content = slidenoteSpeaker.buildConfigMenu();
+	dialoger.buildDialog(dialogoptions);
+}
+
 //dialog activate/deactivate Extensions:
 ExtensionManager.prototype.showExtensionMenu = function(){
 	var parent = document.createElement("div");
@@ -4100,6 +4124,14 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 										return;
 						    }
 					}
+					if(slidenote.keyboardshortcuts.metakey === key ||
+						slidenote.keyboardshortcuts.pressedkeys[slidenote.keyboardshortcuts.metakey] ||
+					event.code === slidenote.keyboardshortcuts.metakey ||
+					(slidenoteSpeaker.isActive()&&(
+					slidenote.keyboardshortcuts.pressedkeys[slidenoteSpeaker.metakey] ||
+					event.code === slidenoteSpeaker.metakey ||
+					key === slidenoteSpeaker.metakey))
+					)return;
 					var cursor = document.getElementById("carret");
 					cursor.innerHTML = cursor.innerHTML+""+key;
 					if(this.keypressstack===undefined)this.keypressstack=0;
