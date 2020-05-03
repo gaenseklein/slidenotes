@@ -713,6 +713,7 @@ body{
     align-items: start;
     margin-top: calc(15/16*1em);
     justify-items: end;
+    position: relative;
   }
 
   #nicesidebarsymbolcontainer {
@@ -794,6 +795,38 @@ body{
     transform: translateY(-50%);
     grid-column: 3;
   }
+
+  #cursorlinearrow-mobile, #cursorlinearrow-mobile-active{
+    grid-column: 1/4;
+    position: absolute;
+    grid-row: 1;
+    transform: translateY(-50%);
+    z-index: -1;
+    height: calc(42.2/20*1em);
+    /*transition-property: opacity, visibility;
+    transition-duration: 500ms;*/
+  }
+
+  #cursorlinearrow-mobile{
+    justify-self: start;
+  }
+
+  #cursorlinearrow-mobile-active{
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    overflow: hidden;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  #cursorlinearrow-mobile-active img{
+    height: 100%;
+    transform: translateX(-100%);
+    margin-left: 100%;
+  }
+
+    
 
 
   /*insert-menu*/
@@ -3061,34 +3094,55 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #nicesidebarsymbol{
       width: unset;
+      position: absolute;
+      left: calc(var(--grid-s)*var(--emToVh)*2vh + var(--grid-margin)*var(--emToVh)*1vh);
     }
 
     #nicesidebarsymbolcontainer{
-      transition-property: width;
-      transition-duration: 200ms;
+      /*transition-property: width;
+      transition-duration: 200ms;*/
+      background: none;
+      padding-left: calc(4.8/16*1em);
+    }
+
+    #nicesidebarsymbol.active #nicesidebarsymbolcontainer{
+      padding-left: calc(18.5/16*1em);      
     }
 
     #nicesidebarsymbol #nicesidebarsymbollabel, #nicesidebarsymbol #insertarea{
+      visibility: hidden;
+      opacity: 0;
       display: none;
     }
 
     #nicesidebarsymbol.active #nicesidebarsymbollabel, #nicesidebarsymbol.active #insertarea{
+      visibility: visible;
+      opacity: 1;
       display: unset;
     }
 
     #cursorlinearrow{
       visibility: hidden;
+      opacity: 0;
     }
 
     img#cursorlinearrow-mobile{
-      display: unset;
-      grid-column: 1/4;
-      position: absolute;
-      grid-row: 1;
-      transform: translateY(-50%);
-      z-index: -1;
-      height: calc(42.2/20*1em);
+      visibility: visible;
+      opacity: 1;
     }
+
+
+    #nicesidebarsymbol.active img#cursorlinearrow-mobile{
+      visibility: hidden;
+      opacity: 0;
+    }
+    #nicesidebarsymbol.active div#cursorlinearrow-mobile-active{
+      visibility: visible;
+      opacity: 1;
+    }
+
+    
+    
 
 }
 
@@ -3096,7 +3150,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 @media only screen and (max-width: calc(700/10.8*1em)) {
   #nicesidebarsymbolcontainer {
     /*test-color*/
-    background-color: hotpink;
+    /*background-color: hotpink;*/
   }
 }
 
@@ -3104,8 +3158,12 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 /*--------*/
 
 /*Objects that are only visible on portrait are hidden in landscape*/
-#buttonarearightbutton, #optionareabutton, .closebutton, #cursorlinearrow-mobile/*#buttonarearightclose, #toolbarclose, #optionareaclose*/{
+#buttonarearightbutton, #optionareabutton, .closebutton/*#buttonarearightclose, #toolbarclose, #optionareaclose*/{
   display: none
+}
+#cursorlinearrow-mobile, #cursorlinearrow-mobile-active{
+  visibility: hidden;
+  opacity: 0;
 }
 @media only screen and (max-width: 100vh) {
   #slidenoteeditor{
@@ -3150,7 +3208,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       grid-template-columns: 1fr 3fr;
       grid-template-rows: 1fr auto auto;
       justify-self: stretch;
-      width: calc(100% - (15.5 - 24)/3.77*1vw);
+      width: calc(100% - (15.5 + 24)/3.77*1vw);
       font-size: calc(15/3.77*1vw);
       padding-bottom: calc(8/3.77*1vw);
       padding-right: calc(24/3.77*1vw);
@@ -3205,6 +3263,10 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
     #editorblock{
       margin-left: calc(40/377*100vw);
+    }
+
+    #texteditorerrorlayer, #quelltext{
+      padding-right: calc(23.6/3.77*1vw);
     }
 
   /*buttonarearightbutton, optionareabutton*/
@@ -3336,10 +3398,20 @@ button.fluidbutton:hover, button.fluidbutton:focus,
       grid-column: 1;
       grid-row-start: 2;
       grid-row-end: 4;
+      padding-left: 0;
     }
 
-    img#cursorlinearrow-mobile{
+    #nicesidebarsymbol{
+      font-size: calc(15/3.77*1vw);
+      left: 0;
+    }
+
+    /*img#cursorlinearrow-mobile, img#cursorlinearrow-mobile-active{
       height: calc(42.2/3.77*1vw);
+    }*/
+
+    #insertarea{
+      max-width: 50vw;
     }
 
   /*menus*/
@@ -3355,7 +3427,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     }
 
     #toolbarclose img{
-      display:
+      display: unset;
     }
 
 
