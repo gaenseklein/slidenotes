@@ -152,7 +152,7 @@ h1 img{
     padding-left: calc(13/10.8*1vh);
     padding-top: calc(12/10.8*1vh);
     font-size: calc(15/20*1em);
-    color: var(--arrow-box-button3-font-color);
+    color: var(--dialogbox-button3-font-color);
 }
 
 .imagegallery-usedslides {
@@ -160,7 +160,7 @@ h1 img{
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    color: var(--arrow-box-font-color);
+    color: var(--dialogbox-button3-font2-color);
     padding-left: calc(13/10.8*1vh);
     font-size: calc(13/20*1em);
 }

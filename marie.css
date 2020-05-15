@@ -1416,6 +1416,11 @@ body{
     background-size: calc(22/16*1em);
     padding: calc(6/10.8*1vh);
     border-radius: calc(5/10.8*1vh);
+    border: 0;
+    border-right: solid var(--arrow-box-button4-bg-color) calc(6/10.8*1vh);
+    padding-right: calc(20/20*1em);
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
   /*#editorchoice:hover, #editorchoice:focus {
     *//*filter: brightness(0.8);*//*
@@ -2587,17 +2592,18 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 /* nightmode */
 /* ========= */
 
-  .nightmode #slidenoteeditor,
-  .nightmode #slidenoteloadingscreenwrapper,
-  .nightmode #slidenoteGuardianPasswordPromptTemplate{
-    /*filter:invert(1) brightness(2);
-    background:white;*/
+  /*Objects that are only visible on nightmode are hidden normally*/
+  .nightmode-only{
+    display: none;
   }
-  .nightmode #imagesblock img,
-  .nightmode #contextfieldimage,
-  .nightmode .imagesrc{
-    /*filter:invert(100%);*/
+
+  /*Objects that are not visible on nightmode*/
+  .nightmode .nightmode-hidden{
+    display: none;
   }
+
+  /*general*/
+  /*-------*/
 
   .nightmode {
     /*colors*/
@@ -2630,8 +2636,8 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     --arrow-box-button-font-color: #fff; /*menu-font-color*/
     --arrow-box-button2-bg-color: #505050; /*lvl3-button-focus*/
     --arrow-box-button2-font-color:#fff; /*button-text-color-light*/
-    --arrow-box-button3-bg-color: #fff; /*lvl2-color*/
-    --arrow-box-button3-font-color:#030303; /*button-text-color-dark*/
+    --arrow-box-button3-bg-color: #0D0D0D; /*lvl2-color*/
+    --arrow-box-button3-font-color:#fff; /*button-text-color-dark*/
     --arrow-box-button4-bg-color: #5D3730; /*emphazing-font-color*/
     --arrow-box-button4-font-color:#fff; /*button-text-color-dark*/
     /*shadows*/
@@ -2660,12 +2666,62 @@ button.fluidbutton:hover, button.fluidbutton:focus,
     --dialogbox-button2-bg-color: #777777;
     --dialogbox-button2-focus-bg-color: #505050;
     --dialogbox-button2-font-color: #f4f4f4;
-    --dialogbox-button3-bg-color: #fff;
-    --dialogbox-button3-font-color: #313131;
-    --dialogbox-button3-font2-color: #626262;
+    --dialogbox-button3-bg-color: #373737;
+    --dialogbox-button3-font-color: #fff;
+    --dialogbox-button3-font2-color: #CACACA;
     --dialogbox-focus-border-color: #BE6F61;
     --dialogbox-border-color: #CCCCCC;
   }
+
+  .nightmode .nightmode-only{
+    display: unset;
+  }
+
+  .nightmode #slidenoteeditor,
+  .nightmode #slidenoteloadingscreenwrapper,
+  .nightmode #slidenoteGuardianPasswordPromptTemplate{
+    /*filter:invert(1) brightness(2);
+    background:white;*/
+  }
+  .nightmode #imagesblock img,
+  .nightmode #contextfieldimage,
+  .nightmode .imagesrc{
+    /*filter:invert(100%);*/
+  }
+
+  .nightmode .active .meta-button-inside {
+    fill: var(--text-color);
+  }
+
+  .nightmode .big-mode #menuimportexport button img, 
+  .nightmode .big-mode #menuoptionseditor .menuitem img, 
+  .nightmode .big-mode .basicbutton img, 
+  .nightmode .big-mode #toolbar button img{
+    filter: invert(1) hue-rotate(180deg);
+  }
+
+
+  /*editorblock*/
+  /*-----------*/
+
+  /* against bright scrollbars e.g. on Ubuntu*/
+  .nightmode{
+    scrollbar-color: var(--icon-color) var(--editor-bg-color); /*Firefox*/
+    scrollbar-color: dark; /*Webkit*/
+  }
+
+  /*menus*/
+  /*-----*/
+
+  .nightmode button#nightmodetoggle div:first-child{
+    background: var(--arrow-box-button4-bg-color);
+  }
+
+  .nightmode button#nightmodetoggle div{
+    background: var(--arrow-box-button-bg-color);
+  }
+
+  
 
 /* focus-mode */
 /* ========== */
@@ -3148,7 +3204,7 @@ button.fluidbutton:hover, button.fluidbutton:focus,
 
 @media only screen and (max-width: calc(71.2*1.7407vh)) {
   #slidenoteeditor{
-    grid-template-columns: 0 calc(var(--grid-s)*var(--emToVh)*2vh) calc(var(--grid-s)*var(--emToVh)*1vh) 1fr calc(var(--grid-s)*var(--emToVh)*0.7vh) calc(var(--grid-s)*var(--emToVh)*0.3vh) calc(var(--grid-s)*var(--emToVh)*1vh) 0;
+    grid-template-columns: 0 calc(var(--grid-s)*var(--emToVh)*2vh) calc(var(--grid-s)*0.3em) 1fr calc(var(--grid-s)*var(--emToVh)*0.7vh) calc(var(--grid-s)*var(--emToVh)*0.3vh) calc(var(--grid-s)*var(--emToVh)*1vh) 0;
   }
 
   /*sidebarcontainer*/
