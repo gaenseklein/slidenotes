@@ -259,6 +259,7 @@ and all other options unavailable*/
     background-color: #F6F9F9;
     box-shadow: 0 0 10px 1px rgba(144, 193, 200, 0.7);
     transition: all 0.2s ease-in;
+    width: unset;
 }
 
 .abortedDecryption .fluidbutton,

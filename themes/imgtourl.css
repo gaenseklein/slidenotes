@@ -15,10 +15,6 @@
   text-align:center;
 }
 
-h1 img{
-  /*max-height:75px;*/
-  height: 0.75em;
-}
 
 #insertarea img.insertmenu-preview-image {
   width: 100%;
@@ -67,10 +63,7 @@ h1 img{
 }
 
 #imagegallerybox > button{
-  border:none;
   width:85%;
-  height:3em;
-  border-radius: 1vh;
   margin-left: calc(7/10.8*1vh);
 }
 
@@ -111,7 +104,7 @@ h1 img{
   padding:0;
 }
 
-#imagegallerybox button.imagegallery-delbutton{
+/*#imagegallerybox button.imagegallery-delbutton{
   grid-area: minus;
   border-radius: calc(2.5/11*1em);
   height: calc(20/11*1em);
@@ -126,6 +119,16 @@ h1 img{
   margin-right: auto;
   position: relative;
   margin-left: calc(13/10.8*1vh);
+}*/
+#imagegallerybox button.imagegallery-delbutton{
+  grid-area: minus;
+  width: calc(79/11*1em);
+  text-align: center;
+  align-self: start;
+  margin-right: auto;
+  position: relative;
+  margin-left: calc(13/10.8*1vh);
+  margin-top: 0;
 }
 
 .imagegallery-delbutton img, .imagegallery-delbutton svg{
@@ -145,24 +148,24 @@ h1 img{
 }
 
 .imagegallery-name {
-    grid-area: title;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding-left: calc(13/10.8*1vh);
-    padding-top: calc(12/10.8*1vh);
-    font-size: calc(15/20*1em);
-    color: var(--dialogbox-button3-font-color);
+  grid-area: title;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: calc(13/10.8*1vh);
+  padding-top: calc(12/10.8*1vh);
+  font-size: calc(15/20*1em);
+  color: var(--dialogbox-button3-font-color);
 }
 
 .imagegallery-usedslides {
-    grid-area: usedslides;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: var(--dialogbox-button3-font2-color);
-    padding-left: calc(13/10.8*1vh);
-    font-size: calc(13/20*1em);
+  grid-area: usedslides;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--dialogbox-button3-font2-color);
+  padding-left: calc(13/10.8*1vh);
+  font-size: calc(13/20*1em);
 }
 
 .imagegallery-unnamed, .imagegallery-unconnected{
@@ -171,20 +174,22 @@ h1 img{
 
 
 button.imagegallery-image {
-    grid-area: image;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    background: none;
-    border: none;
+  grid-area: image;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border: none;
+  margin-top: 0;
+  border-radius: 0;
 }
 
 #imagegallery .imagegallery-image img {
-    height: unset;
-    width: 100%;
-    transform: translateY(-50%);
-    margin-top: calc(97/2/10.8*1vh);
+  height: unset;
+  width: 100%;
+  transform: translateY(-50%);
+  margin-top: calc(97/2/10.8*1vh);
 }
 
 /*imageupload*/
@@ -313,26 +318,26 @@ button#imageselectionuploadbutton {
 }
 
 #imagesreuseblock h1.dialogtitle {
-    background: var(--dialogbox-button-bg-color);
-    color: var(--dialogbox-font-color);
+  background: var(--dialogbox-button-bg-color);
+  color: var(--dialogbox-font-color);
 }
 
 div#imageselectionlist {
-    background: var(--dialogbox-button-bg-color);
-    border-radius: 0 0 3vh 3vh;
-    height: 37vh;
+  background: var(--dialogbox-button-bg-color);
+  border-radius: 0 0 3vh 3vh;
+  height: 37vh;
 }
 
 div#imageselectiondialogbuttons {
-    justify-self: start;
-    align-self: center;
-    margin-left: calc(73/10.8*1vh);
-    margin-top: calc(34/10.8*1vh);
-    margin-bottom: calc(34/10.8*1vh);
-    color: var(--dialogbox-headline-color);
+  justify-self: start;
+  align-self: center;
+  margin-left: calc(73/10.8*1vh);
+  margin-top: calc(34/10.8*1vh);
+  margin-bottom: calc(34/10.8*1vh);
+  color: var(--dialogbox-headline-color);
 }
 
 div#imagesreuseblock {
-    grid-template-rows: auto 37vh 1fr;
-    width:95vh;
+  grid-template-rows: auto 37vh 1fr;
+  width:95vh;
 }
