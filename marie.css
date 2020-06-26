@@ -72,6 +72,9 @@
     --dialogbox-focus-border-color: #90c1c8;
     --dialogbox-border-color: #CCCCCC;
 
+    --dialogbox-shadow: 7px 7px 25px 5px var(--shadow-dark);
+    --dialogbox-round-corner: calc(23/10.8*1vh);
+
     /*lengths*/
     /*-------*/
 
@@ -2219,7 +2222,7 @@
   /*  height:60vh;/*650px */
     background: var(--dialogbox-bg-color);
     border-radius: calc(30/10.8*1vh);
-    box-shadow:0 0 5px 5px var(--shadow-dark);
+    box-shadow:var(--dialogbox-shadow);
     display:grid;
     grid-template-rows:3em 1fr auto;
   /*  grid-template-columns: 95vh;*/
@@ -2270,7 +2273,7 @@
   }
   .dialogcontent{
     background:var(--dialogbox-content-bg-color);
-    border-radius: calc(23/10.8*1vh);;
+    border-radius: var(--dialogbox-round-corner) var(--dialogbox-round-corner) 0 0;
     min-height: 5em;
     display: grid;
     align-items: center;
