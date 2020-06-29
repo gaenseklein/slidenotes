@@ -154,6 +154,8 @@ slidenote.base64images = {
     var imggallery = document.getElementById('imagegallerybox');
     let oldlist = document.querySelector("#imagegallerybox ul");
     if(oldlist)imggallery.removeChild(oldlist);
+    let oldempty = document.querySelector("#imagegallerybox .imagegallery-empty");
+    if(oldempty)imggallery.removeChild(oldempty);
     var imagelist = this.buildImageList(true);
     imggallery.appendChild(imagelist);
 

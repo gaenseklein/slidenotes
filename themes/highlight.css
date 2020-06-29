@@ -29,6 +29,7 @@ span code{
 
 span.codeline{
 	/*opacity:0.5;*/
+	white-space: pre;
 }
 span.specialline, span.specialinline{
 	opacity:1;
