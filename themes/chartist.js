@@ -74,7 +74,7 @@ newtheme.insertMenuArea = function(dataobject){
   previewbutton.classList.add("chartist-preview-button");
   previewbutton.classList.add("menuitem");
   var previewimg = new Image();
-  previewimg.src=slidenote.basepath+"themes/chartist/"+subtype+"button.png";
+  previewimg.src=slidenote.basepath+"themes/chartist/"+subtype+"button.svg";
   var previewtext = document.createElement("div");
   previewtext.classList.add("chartist-preview-text");
   previewtext.innerText = subtype;
@@ -101,7 +101,7 @@ newtheme.insertMenuArea = function(dataobject){
       button.classList.add("active");
     }
     var buttonimg = new Image();
-    buttonimg.src=slidenote.basepath+"themes/chartist/"+ctype+"button.png";
+    buttonimg.src=slidenote.basepath+"themes/chartist/"+ctype+"button.svg";
     button.appendChild(buttonimg);
     li.appendChild(button);
     chartbarea.appendChild(li);
