@@ -272,7 +272,9 @@ emdparser.prototype.returnparsedlines = function(text){
 /*lineAtPosition:
 returns the linenumber of position in sourcecode-text
 */
-emdparser.prototype.lineAtPosition = function(position){
+emdparser.prototype.lineAtPosition = function(pos){
+	let position = pos;
+	if(pos===null || pos===undefined)position=slidenote.textarea.selectionEnd;
 	var linepos = 0;
 	line = 0;
 	while(this.sourcecode.indexOf("\n",linepos)<position &&
@@ -946,6 +948,11 @@ emdparser.prototype.setDropDownMenu = function (){
 		nicesymbol.style.top="10px";
 		nicesymbol.classList.remove("top");
 	} else {
+		if(carret===null || carret===undefined){
+			console.warn("carret not found in setDropDownMenu");
+
+			return;
+		}
 		//look out for attached menu:
 		var insertmenu = document.getElementById("insertarea");
 		if(insertmenu && insertmenu.style.visibility==="visible"){
@@ -3948,6 +3955,12 @@ slidenotes.prototype.parseneu = function(){
 		}else{
 			this.parser.renderedBackgroundLines = newerrorlines;
 			if(this.oldparser.renderedBackgroundLines){
+				//remove old cursor so it does not stay if not inside changedlines
+				//let oldcarret = document.getElementById("carret");
+				//while(oldcarret){
+				//	oldcarret.parentElement.removeChild(oldcarret);
+				//	oldcarret = document.getElementById("carret");
+				//}
 				changedlines = this.parser.insertChangedLines(this.texteditorerrorlayer,newerrorlines, this.oldparser.renderedBackgroundLines);
 			}else{
 				this.texteditorerrorlayer.innerHTML = newerrorlines.join("\n");
