@@ -6,7 +6,7 @@
   display:grid;
 }
 .imagenotfound{
-  color:red;
+  color:var(--error-font-color);
   font-weight:bold;
   font-style:italic;
 }
@@ -15,17 +15,13 @@
   text-align:center;
 }
 
-h1 img{
-  /*max-height:75px;*/
-  height: 0.75em;
-}
 
 #insertarea img.insertmenu-preview-image {
-    width: 100%;
-    display: block;
-    /*margin-top:1em;*/
-    margin-left:auto;
-    margin-right:auto;
+  width: 100%;
+  display: block;
+  /*margin-top:1em;*/
+  margin-left:auto;
+  margin-right:auto;
 }
 
 #imagesuploadblock{
@@ -63,14 +59,11 @@ h1 img{
   text-align: center;
   margin-top: calc(17/10.8*1vh);
   margin-bottom: calc(20/10.8*1vh);
+  color: var(--arrow-box-headline-color);
 }
 
 #imagegallerybox > button{
-  background:white;
-  border:none;
   width:85%;
-  height:3em;
-  border-radius: 1vh;
   margin-left: calc(7/10.8*1vh);
 }
 
@@ -80,10 +73,9 @@ h1 img{
 }
 
 .plusbutton img{
-  margin-bottom:-0.3em;
-  margin-right:1vh;
-  height:1.5em;
-
+  margin-bottom: calc(-6/16*1em);
+  margin-right: calc(20/16*1vh);
+  height: calc(24/16*1em);
 }
 
 #imagegallery ul {
@@ -98,7 +90,7 @@ h1 img{
 }
 
 #imagegallery li {
-  background:white;
+  background:var(--arrow-box-button3-bg-color);
   display: inline-grid;
   width: 82%;
   /*height: 7em;*/
@@ -112,21 +104,31 @@ h1 img{
   padding:0;
 }
 
-#imagegallerybox button.imagegallery-delbutton{
+/*#imagegallerybox button.imagegallery-delbutton{
   grid-area: minus;
   border-radius: calc(2.5/11*1em);
   height: calc(20/11*1em);
   width: calc(79/11*1em);
   padding:0;
   border:none;
-  background: var(--lvl3-button-focus);
+  background: var(--arrow-box-button2-bg-color);
   font-size: calc(11/20*1em);
-  color: white;
+  color: var(--arrow-box-button2-font-color);
   text-align: center;
   align-self: start;
   margin-right: auto;
   position: relative;
   margin-left: calc(13/10.8*1vh);
+}*/
+#imagegallerybox button.imagegallery-delbutton{
+  grid-area: minus;
+  width: calc(79/11*1em);
+  text-align: center;
+  align-self: start;
+  margin-right: auto;
+  position: relative;
+  margin-left: calc(13/10.8*1vh);
+  margin-top: 0;
 }
 
 .imagegallery-delbutton img, .imagegallery-delbutton svg{
@@ -146,23 +148,24 @@ h1 img{
 }
 
 .imagegallery-name {
-    grid-area: title;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    padding-left: calc(13/10.8*1vh);
-    padding-top: calc(12/10.8*1vh);
-    font-size: calc(15/20*1em);
+  grid-area: title;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: calc(13/10.8*1vh);
+  padding-top: calc(12/10.8*1vh);
+  font-size: calc(15/20*1em);
+  color: var(--dialogbox-button3-font-color);
 }
 
 .imagegallery-usedslides {
-    grid-area: usedslides;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    color: #626262;
-    padding-left: calc(13/10.8*1vh);
-    font-size: calc(13/20*1em);
+  grid-area: usedslides;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--dialogbox-button3-font2-color);
+  padding-left: calc(13/10.8*1vh);
+  font-size: calc(13/20*1em);
 }
 
 .imagegallery-unnamed, .imagegallery-unconnected{
@@ -171,20 +174,22 @@ h1 img{
 
 
 button.imagegallery-image {
-    grid-area: image;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    padding: 0;
-    background: none;
-    border: none;
+  grid-area: image;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  border: none;
+  margin-top: 0;
+  border-radius: 0;
 }
 
 #imagegallery .imagegallery-image img {
-    height: unset;
-    width: 100%;
-    transform: translateY(-50%);
-    margin-top: calc(97/2/10.8*1vh);
+  height: unset;
+  width: 100%;
+  transform: translateY(-50%);
+  margin-top: calc(97/2/10.8*1vh);
 }
 
 /*imageupload*/
@@ -195,11 +200,13 @@ button.imagegallery-image {
   grid-template-rows: 3em 1fr;
   grid-gap:4.6vh; /*50px in 1920x1080*/
   width:95vh;
+  padding-bottom: calc(30/10.8*1vh);
 }
 .imgtourl_dialog_innertitle{
   justify-self:center;
   grid-area:title;
   align-self:center;
+  color: var(--dialogbox-font-color);
 }
 #imageuploadoriginalimage{
   max-height:37vh;
@@ -229,77 +236,108 @@ button.imagegallery-image {
 .resizebutton{
   height:8.3vh;
   border:none;
-  box-shadow:0 0 3px 3px rgba(0,0,0,0.25);
+  box-shadow:0 0 calc(14/10.8*1vh) 0px var(--dialogbox-focus-border-color);
   border-radius:1vh;
-  background:white;
+  background: var(--dialogbox-button3-bg-color);
+  color: var(--dialogbox-button3-font-color);
+  text-align: left;
+  padding: calc(8/10.8*1vh);
+  padding-left: calc(26/10.8*1vh);
+  line-height: calc(26/20*1em);
+  min-height: calc(56/16*1em);
 }
 .resizebutton:hover{
-  background:#9c9c9c;
+  background:var(--dialogbox-button3-focus-bg-color);
 }
 .resizebuttonsmall{
-  width:13vh;
+  min-width: calc(133/20*1em);
 }
 .resizebuttonmedium{
-  width:19.5vh;
+  min-width: calc(196/20*1em);
 }
 .resizebuttonlarge{
-  width:28vh;
+  min-width: calc(259/20*1em);
 }
 .resizebuttonoriginal{
-  width:16.2vh;
+  min-width: calc(165/20*1em);
+}
+.resizebutton div+div{
+  color: var(--dialogbox-button3-font2-color);
 }
 /*buildImageSelectionDialog*/
 #imageselectionlist ul {
-    display: block;
-    list-style: none;
-    width: 90%;
-    height: 33vh;
-    overflow-y: auto;
-    overflow-x: hidden;
+  display: block;
+  list-style: none;
+  width: 90%;
+  height: 33vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #imageselectionlist li, .importfile-image-preview-block li {
-    display: inline-block;
-    width: 12.7vh;
-    height: 12.7vh;
-    margin: 1vh 1vh;
-    background: white;
-    border-radius: 1vh;
-    box-shadow: 0 0px 4px 3px rgba(0,0,0,0.25);
-    padding: 0.5vh 1vh 0 1vh;
+  display: inline-grid;
+  background: var(--dialogbox-button3-bg-color);
+  /*box-shadow: 0 0px 4px 3px var(--shadow-dark);*/
+  overflow: hidden;
+  grid-template-areas: "title" "usedslides" "image";
+  grid-template-columns: auto;
+  grid-template-rows: calc(30/16*1em) calc(20/16*1em) calc(97/10.8*1vh);
+  margin: calc(13/10.8*1vh);
+  border-radius: calc(12.2/10.8*1vh);
+  padding: 0;
+  width: calc(133/16*1em);
+  height: calc(140/16*1em);
 }
 
 #imageselectionlist button.imagegallery-image {
-    width: 12vh;
-    height: 7.8vh;
+  /*width: 12vh;
+  height: 7.8vh;*/
+  width: calc(133/16*1em - 24/10.8*1vh);
+  border-radius: calc(5/10.8*1vh);
+  margin: calc(12/10.8*1vh);
+  margin-top: 0;
+  height: calc(80/16*1em);
 }
 
 #imageselectionlist img {
-    /* object-fit: cover; */
-    /* height: 7.8vh; */
+  height: unset;
+  width: 100%;
+  transform: translateY(-50%);
+  margin-top: calc(97/2/10.8*1vh);
 }
 button#imageselectionuploadbutton {
-    width: 13vh;
-    height: 3em;
+  border: none;
+  background: var(--dialogbox-button-bg-color);
+  color: var(--dialogbox-font-color);
+  border-radius: calc(6/10.8*1vh);
+  padding-left: calc(56/10.8*1vh);
+  padding-right: calc(75/10.8*1vh);
+  padding-top: calc(16/10.8*1vh);
+  padding-bottom: calc(15/10.8*1vh);
+  margin-right: calc(9/16*1em);
 }
 
 #imagesreuseblock h1.dialogtitle {
-    background: #f4f4f4;
+  background: var(--dialogbox-button-bg-color);
+  color: var(--dialogbox-font-color);
 }
 
 div#imageselectionlist {
-    background: #f4f4f4;
-    border-radius: 0 0 3vh 3vh;
-    height: 37vh;
+  background: var(--dialogbox-button-bg-color);
+  border-radius: 0 0 3vh 3vh;
+  height: 37vh;
 }
 
 div#imageselectiondialogbuttons {
-    justify-self: start;
-    align-self: center;
-    margin-left: 4vh;
+  justify-self: start;
+  align-self: center;
+  margin-left: calc(73/10.8*1vh);
+  margin-top: calc(34/10.8*1vh);
+  margin-bottom: calc(34/10.8*1vh);
+  color: var(--dialogbox-headline-color);
 }
 
 div#imagesreuseblock {
-    grid-template-rows: auto 37vh 1fr;
-    width:95vh;
+  grid-template-rows: auto 37vh 1fr;
+  width:95vh;
 }

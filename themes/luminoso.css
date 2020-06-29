@@ -6,46 +6,16 @@ ppage ist der jeweilige presentation-slide.
 generelle sachen, wie bspw. schriftfarben, schriften etc. in die hauptdeklaration, abweichungen dann in den weiteren. 
 ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt es einfach und semantisch, dann sollte nicht viel schief gehen.*/
 
-@font-face{
-  font-family: "NunitoLight";
-  src: url("minimalist_font/Nunito-Light.ttf");
-}
-@font-face{
-  font-family: "Nunito-ExtraLightItalic";
-  src: url("minimalist_font/Nunito-ExtraLightItalic.ttf");
-}
-@font-face{
-  font-family: "NunitoSans-Regular";
-  src: url("minimalist_font/NunitoSans-Regular.ttf");
-}
-@font-face{
-  font-family: "NunitoSans-ExtraLight";
-  src: url("minimalist_font/NunitoSans-ExtraLight.ttf");
-}
-@font-face{
-  font-family: "NunitoSans-LightItalic";
-  src: url("minimalist_font/NunitoSans-LightItalic.ttf");
-}
 
-@font-face{
-  font-family: "CourierPrime-Regular";
-  src: url("minimalist_font/CourierPrime-Regular.ttf");
-}
-@font-face{
-  font-family: "CourierPrime-Italic";
-  src: url("minimalist_font/CourierPrime-Italic.ttf");
-}
 
 :root{
   --minimalistBckgColor: #f4f4f4;
-  --pFontSize: 0.9em;
 }
 
 
 .luminoso, .luminoso .ppage {
 	background: var(--minimalistBckgColor);
 	color: #030303;
-  font-family: "NunitoSans-ExtraLight";
   font-weight: normal;
 }
 
@@ -53,89 +23,76 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*code affects both: inlinecode and codeblock*/
 /*inline*/
 .luminoso p code{
-  background: #e2e2e2;
+
 }
 
 .luminoso code { 
-	/*background: lightblue;
-	color: black;
-	padding: 2px;*/
-  font-family: "CourierPrime-Regular";
-  margin-top: -1em;
-  margin-bottom: 0.2em;
+
 }
 
 /*codeblock affects only codeblocks*/
 .luminoso code.codeblock{
-    font-size: 0.7em;
+    
 }
 
 
 
 .luminoso h1,.luminoso h2,.luminoso h3{
-  font-family: "NunitoLight";
-  font-weight: normal;
+  
 }
 
 .luminoso h1{
-  margin-top: 25vh;
-  font-size: 3em;
+  
 }
 
 .luminoso h2{
-  font-size: 2em;
-  margin-bottom: 0.1em;
+  
 }
 
 .luminoso h3{
-  margin: 0;
-  font-size: 1.4em;
+ 
 }
 
 .luminoso .pblock h1+p, 
 .luminoso .pblock h2+p, 
 .luminoso .pblock h3+p {
-    text-align: center;
-    font-size: 1.25em;
-    font-family: "Nunito-ExtraLightItalic";
+    
 }
 
 .luminoso .pblock h2+p, 
 .luminoso .pblock h3+p {
-    margin-bottom: 0;
+   
 }
 
 .luminoso p{
-  font-size: var(--pFontSize);
-  line-height: 1.3em;
-  max-width: 35em;
+  
 }
 .luminoso h1 img{
-  height: 2.8em;
+  
 }
 .luminoso h2 img{
-  height: 1.8em;
+  
 }
 .luminoso h3 img{
-  height: 1.3em;
+  
 }
 
 .luminoso .pblock h1+p img, 
 .luminoso .pblock h2+p img, 
 .luminoso .pblock h3+p img{
-  height: 1.15em;
+  
 }
 
 .luminoso p img{
-  height: 0.8em;
+  
 }
 
 .luminoso b{
-  font-family: "NunitoSans-Regular";
+  
 }
 
 .luminoso i{
-  font-family: "NunitoSans-LightItalic";
+  
 }
 
 .luminoso strike{
@@ -143,7 +100,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .luminoso ul, .luminoso ol{
-  font-size: var(--pFontSize);
+  
 }
 
 .luminoso ul{
@@ -159,7 +116,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .luminoso code.codeblock li{
-  line-height: 1.3em;
+  
 }
 
 
@@ -167,26 +124,17 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*sub-lists (unterpunkte/verschachtelung der listen)*/
 
 .luminoso ul ul, .luminoso ol ul{
-  line-height: 0.9em;
-  margin-top: 0.3em;
+  
 }
 
 .luminoso ol ul, .luminoso ol ol{
-  line-height: 0.9em;
-  margin-top: 0.3em;
+  
 }
 
 
 
 .luminoso quote{
-  background: none;
-  max-width: 25em;
-  justify-self: center;
-  font-family: "NunitoSans-LightItalic";
-  font-size: 1em;
-  line-height: 1.2em:;
-  margin-top: -0.5em;
-  margin-bottom: -0.5em;
+  
 }
 
 /* charts:*/
@@ -286,18 +234,15 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*tables stehen in einer klassenlosen section. wenn du also .luminoso section bearbeitest hat das auch effekt auf deren container. ansonsten steuer tabellen direkt an über*/
 
 .luminoso table{
-  font-size: 0.8em;
-  margin: -1em auto 0 auto;
-  border: 0.3em solid var(--minimalistBckgColor);
+  
 }
 
 .luminoso th, td{
-  border: 0.05em solid #030303;
-  padding: 0.1em 0.4em 0.1em 0.5em;
+  
 }
 
 .luminoso thead{
-  font-family: "NunitoSans-Regular";
+  
 }
 
 .luminoso tbody{

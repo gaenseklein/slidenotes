@@ -63,7 +63,7 @@ dialoger.buildDialog = function(options, followfunction){
       closebutton.appendChild(closespantxt);
     }
     var closespanimg = new Image();
-    closespanimg.src = slidenote.imagespath+"buttons/x.png";
+    closespanimg.src = slidenote.imagespath+"buttons/x.svg";
     closebutton.appendChild(closespanimg);
     if(options.closefunction)closebutton.addEventListener("click",options.closefunction);
     closebutton.onclick = closefunction;

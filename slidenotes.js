@@ -990,7 +990,7 @@ emdparser.prototype.setDropDownMenu = function (){
 		//nicesymbol.style.left = sidebar.offsetLeft + "px";
 	}
 	//timecheckposition = new Date();
-	nicesymbol.style.position="absolute";
+	//nicesymbol.style.position="absolute";
 	var celement = slidenote.parser.CarretOnElement();
 	var nicelabel = document.getElementById("nicesidebarsymbollabel");
 	var nicecontainer = document.getElementById("nicesidebarsymbolcontainer");
