@@ -17,6 +17,7 @@
 
   /*for padding*/
   --paddingPpage: 6.5vh 7.5vw 6vh 7.3vw;
+  --paddingPpageWide: 6.5vh 20vw 6vh 20vw;
   --paddingPpageNeg: -6.5vh -7.5vw -6vh -7.3vw;
 }
 
@@ -109,9 +110,6 @@
   margin-bottom: 1em;
   line-height: 1em;*/
 }
-.ppage h1+p{
-  /*margin-top: -2em;*/
-}
 
 .ppage section h1,
 .ppage section h2,
@@ -128,11 +126,12 @@
 }
 
 
-.luminoso .pblock h1+p,
-.luminoso .pblock h2+p,
-.luminoso .pblock h3+p {
+.ppage h1+p,
+.ppage h2+p, {
     text-align: center;
+    color:hotpink;
 }
+
 
 
 .ppage li+li{
@@ -168,13 +167,14 @@
 }
 /*codeblock*/
 .ppage code.codeblock{
+  overflow-wrap: break-word;
+  height: fit-content;
+  height: -moz-fit-content;
   /*font-size: 0.75em;
   padding: 0.5em 1em 0.5em 0;
-  overflow-wrap: break-word;
   max-width: 45em;
   justify-self: center;
-  height: fit-content;
-  height: -moz-fit-content;*/
+  */
 
 }
 .ppage code.codeblock li{
@@ -206,12 +206,12 @@
 
 /*table*/
 .ppage table{
-  /*position: relative;
+  position: relative;
   margin:auto;
-  border-collapse: collapse;*/
+  border-collapse: collapse;
 }
 .ppage table, th, td{
-  /*border: 0.1em solid #030303;*/
+  border: 0.1em solid #030303;
 }
 
 /*chart*/
@@ -232,6 +232,13 @@
 @media only screen and (max-height:50vw){
   .ppage section.chart{
     max-width: calc(170.4vh); /*85.2vw; 1vw=2vh; 85.2vw = 42,6vh*/
+  }
+}
+
+/*extra wide*/
+@media only screen and (max-height:50vw){
+  .ppage{
+    padding:var(--paddingPpageWide);
   }
 }
 
