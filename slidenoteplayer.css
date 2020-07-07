@@ -127,9 +127,8 @@
 
 
 .ppage h1+p,
-.ppage h2+p, {
+.ppage h2+p {
     text-align: center;
-    color:hotpink;
 }
 
 
