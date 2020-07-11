@@ -28,9 +28,9 @@ if(this.loadingFiles===undefined)this.loadingFiles = new Array();
       var file = this.loadingFiles[x];
       file.id="chartplugin"+x;
       file.onload = function(){
-        console.log("file "+this.id+" loaded");
+       //console.log("file "+this.id+" loaded");
         slidenote.extensions.removeFromLoadingList(this.id);
-        console.log(slidenote.extensions.loadingThemes.toString());
+       //console.log(slidenote.extensions.loadingThemes.toString());
       };
       file.onerror = function(){slidenote.extensions.failTheme(this.id)};
       slidenote.extensions.loadingThemes.push({name:file.id});
@@ -65,7 +65,7 @@ newtheme.insertMenuArea = function(dataobject){
   if(dataobject.head.indexOf("bar")>-1)type="bar";
   var subtype = dataobject.head.substring(9);
   if(subtype.length<2)subtype="line";
-  console.log("subtype:"+subtype);
+ //console.log("subtype:"+subtype);
 
   var result = document.createElement("div");
   result.classList.add("chartistinsertmenu")
@@ -226,20 +226,20 @@ newtheme.insertMenuArea = function(dataobject){
 
 newtheme.changeChartType = function(charttype){
   //var charttype = document.activeElement.value;
-  console.log("charttype:"+charttype);
+ //console.log("charttype:"+charttype);
   var selectionend = slidenote.textarea.selectionEnd;
   var selectionstart = slidenote.textarea.selectionStart;
   var actelement = slidenote.parser.CarretOnElement(selectionend);
-  console.log(actelement);
+ //console.log(actelement);
   var start = actelement.posinall //"´´´chart:".length;
-  console.log("insert "+charttype+" on ");
+ //console.log("insert "+charttype+" on ");
   slidenote.textarea.value = slidenote.textarea.value.substring(0,start+3) +
                               "chart:"+
                               charttype + //"\n"+
                               slidenote.textarea.value.substring(slidenote.textarea.value.indexOf("\n",start));
-  console.log("parseneu forced by chartist-changeChartType");
+ //console.log("parseneu forced by chartist-changeChartType");
   var diff = charttype.length + 9 - actelement.mdcode.length;
-  console.log("charttype:"+charttype+" md:"+actelement.mdcode+" diff:"+diff);
+ //console.log("charttype:"+charttype+" md:"+actelement.mdcode+" diff:"+diff);
   slidenote.textarea.selectionEnd = selectionend+diff;
   slidenote.textarea.selectionStart = selectionstart+diff;
   slidenote.parseneu();
@@ -248,21 +248,21 @@ newtheme.changeChartType = function(charttype){
 
 //internal function:
 newtheme.updatecharts = function(){
-  console.log("updating charts...");
+ //console.log("updating charts...");
   for(var x=0;x<this.charts.length;x++){
     this.charts[x].update();
   }
 }
 
 newtheme.importCsv = function(csv){
-  console.log("import csv");
+ //console.log("import csv");
   var selstart = slidenote.textarea.selectionStart;
   var selend = slidenote.textarea.selectionEnd;
   let posofchartbegin = slidenote.textarea.value.lastIndexOf("+++chart",selstart);
   posofchartbegin = slidenote.textarea.value.indexOf("\n",posofchartbegin)+1;
   let posofchartend = slidenote.textarea.value.indexOf("\n+++",selend);
   let posofseparator = slidenote.textarea.value.indexOf(this.syntaxContainer.headseparator,posofchartbegin);
-  console.log("chartbegin:"+posofchartbegin)
+ //console.log("chartbegin:"+posofchartbegin)
   if(posofseparator>posofchartend || posofseparator===-1){
     //no separator found, insert in selstart
     if(csv.substring(csv.length-1)==="\n"&&slidenote.textarea.value.substring(selend,selend+1)==="\n"){
@@ -283,7 +283,7 @@ newtheme.importCsv = function(csv){
       csv=csv.substring(0,csv.length-1);
     }
 
-    console.log(slidenote.textarea.value.substring(posofseparator,posofseparator+4)+"<<<");
+   //console.log(slidenote.textarea.value.substring(posofseparator,posofseparator+4)+"<<<");
     let txt = slidenote.textarea.value;
     txt = txt.substring(0,posofseparator)+csv+enter+txt.substring(posofseparator);
     slidenote.textarea.value = txt;
@@ -291,7 +291,7 @@ newtheme.importCsv = function(csv){
     slidenote.textarea.selectionEnd = posofseparator + csv.length;
   }
   slidenote.parseneu();
-  console.log("parseneu after import of csv");
+ //console.log("parseneu after import of csv");
   slidenote.textarea.blur();
   setTimeout("slidenote.textarea.focus()",100);
 }
@@ -339,7 +339,7 @@ newtheme.insert = function(selection){
         if(posoflastdatalabel>-1 && posoflastdatalabel>posofchartbegin){
           var datasetnr = slidenote.textarea.value.substring(posoflastdatalabel+this.syntaxContainer.datasetidentifier.length+1,slidenote.textarea.value.indexOf(this.syntaxContainer.metadataseparator,posoflastdatalabel));
           if(!isNaN(datasetnr))datasetnr++;
-          console.log("datasetnr:"+datasetnr);
+         //console.log("datasetnr:"+datasetnr);
           injection = "\n"+this.syntaxContainer.datasetidentifier+datasetnr+this.syntaxContainer.metadataseparator+" ";
           var nextlinepos = slidenote.textarea.value.indexOf("\n",posoflastdatalabel+1);
           if(nextlinepos>-1){
@@ -359,7 +359,7 @@ newtheme.insert = function(selection){
           selectionstart=oldposofelement+posibleinjections[selection].length+1;
           selectionend = selectionstart;
         }
-        console.log("chart:oldposofelement"+oldposofelement+"\n>>"+selection+"<<");
+       //console.log("chart:oldposofelement"+oldposofelement+"\n>>"+selection+"<<");
 
       }
 
@@ -368,12 +368,12 @@ newtheme.insert = function(selection){
   slidenote.textarea.value = slidenote.textarea.value.substring(0,selectionstart)+injection+slidenote.textarea.value.substring(selectionstart);
   diff+= injection.length;
   if(injection.substring(injection.length-1)==="\n")diff--;
-  console.log(">>>"+injection.substring(injection.length-1)+"<<<");
+ //console.log(">>>"+injection.substring(injection.length-1)+"<<<");
   slidenote.textarea.focus();
   slidenote.textarea.selectionStart = selectionstart + diff;
   slidenote.textarea.selectionEnd = selectionend + diff;
   slidenote.textarea.scrollTop = scrtop;
-  console.log("parseneu forced by insert of chartmenu");
+ //console.log("parseneu forced by insert of chartmenu");
   slidenote.parseneu();
 
 }
@@ -458,10 +458,10 @@ newtheme.parseData = function(origdata, metadata){
     if(isNaN(datamatrix[0][x]))horizontal = true;
   }
   if(horizontal){
-    console.log("horizontal data - label:");
+   //console.log("horizontal data - label:");
     data.labels = datamatrix.shift();
-    console.log(data.labels);
-    console.log(datamatrix);
+   //console.log(data.labels);
+   //console.log(datamatrix);
     for(var x=0;x<datamatrix.length;x++){
       for(var dx=0;dx<datamatrix[x].length;dx++){
         if(datamatrix[x][dx]==="" || isNaN(datamatrix[x][dx]))
@@ -489,24 +489,24 @@ newtheme.parseData = function(origdata, metadata){
 newtheme.styleThemeSpecials = function(){
   //get all data-blocks with chart:
   var datadivs = slidenote.presentationdiv.getElementsByTagName("section");
-  console.log("datadivs:")
-  console.log(datadivs);
+ //console.log("datadivs:")
+ //console.log(datadivs);
 
   for(var datax=0;datax<slidenote.parser.dataobjects.length;datax++){
     if(slidenote.parser.dataobjects[datax].type=="chart"){
-      console.log("chart gefunden");
+     //console.log("chart gefunden");
       var dataobject = slidenote.parser.dataobjects[datax];
       var metadata = this.parseMetadata(dataobject.raw);
       var chartdata = this.parseData(dataobject.raw);
-      console.log("headsubstring:"+dataobject.head.substring(9));
+     //console.log("headsubstring:"+dataobject.head.substring(9));
       var headsub = dataobject.head.substring(9);
       //charttype:
       var charttype="line";
       if(headsub.indexOf("pie")>-1 || headsub.indexOf("Pie")>-1)charttype="pie";
       if(headsub.indexOf("bar")>-1 || headsub.indexOf("Bar")>-1)charttype="bar";
 
-      console.log("data for chart scanned:");
-      console.log(metadata);console.log(chartdata);
+     //console.log("data for chart scanned:");
+     //console.log(metadata);console.log(chartdata);
       //data is ready - time to start the chart:
       var presentationdiv = datadivs[datax];
       var chartdiv = document.createElement("div");
@@ -532,13 +532,13 @@ newtheme.styleThemeSpecials = function(){
       var chartoptions = this.getChartOptions({
         dataobject:dataobject, headsub:headsub,
         charttype:charttype, chartdata:chartdata, metadata:metadata});
-      console.log("chartdata:");console.log(chartdata);
+     //console.log("chartdata:");console.log(chartdata);
       //responsiveOptions: can be called aditionaly
       var responsiveOptions = this.getResponsiveOptions({headsub:headsub,charttype:charttype});
       var chsvg;
       //chartoptions.width = "100%";
       //chartoptions.height = "40vh";
-      console.log("chart:presentationdiv clientheight"+presentationdiv.clientHeight);
+     //console.log("chart:presentationdiv clientheight"+presentationdiv.clientHeight);
 
       if(charttype==="line"){
         chsvg = new Chartist.Line(chartdiv, chartdata, chartoptions);
@@ -567,15 +567,15 @@ newtheme.styleThemeSpecials = function(){
       }
       //add viewbox to chart:
       chsvg.on("created", function(data){
-        console.log("chart created");
-        console.log(data);
+       //console.log("chart created");
+       //console.log(data);
         var w = data.svg._node.clientWidth;
         var h = data.svg._node.clientHeight;
         if(w==0||h==0){
           w = data.svg._node.parentNode.clientWidth;
           h = data.svg._node.parentNode.clientHeight;
         }
-        console.log("chartw/h:"+w+"/"+h);
+       //console.log("chartw/h:"+w+"/"+h);
         if(w>0&&h>0)
         data.svg.attr({
           viewBox:"0 0 "+w+" "+h,
@@ -594,7 +594,7 @@ newtheme.styleThemeSpecials = function(){
       //console.log("datasetlabel:"+metadata[this.syntaxContainer.])
       //console.log(datasetlabel);
       if(xlabel && charttype!="pie"){
-        console.log("x-axis-label:"+xlabel);
+       //console.log("x-axis-label:"+xlabel);
         var xlabeldiv = document.createElement("div");
         xlabeldiv.classList.add("chart-x-axis-label");
         xlabeldiv.classList.add("ct-label");
@@ -608,7 +608,7 @@ newtheme.styleThemeSpecials = function(){
         ylabeldiv.innerText=ylabel;
         presentationdiv.appendChild(ylabeldiv);
       }
-      console.log("chart:presentationdiv-height nach appending childs"+presentationdiv.clientHeight);
+     //console.log("chart:presentationdiv-height nach appending childs"+presentationdiv.clientHeight);
 
       if(datasetlabel && datasetlabel.length>0){
         var dsetlabeldiv = document.createElement("div");
@@ -695,7 +695,7 @@ newtheme.getChartOptions = function(data){
         onZoom: onZoom,
         resetOnRightMouseBtn: true
       }));
-      console.log(data.chartdata.labels);
+     //console.log(data.chartdata.labels);
   		options.axisX = {
       			type: Chartist.AutoScaleAxis,
             onlyInteger: true,
@@ -738,7 +738,7 @@ newtheme.getChartOptions = function(data){
     }
   	if(head.indexOf("horizontal")>-1){
       //options.axisY = undefined;
-      console.log("horizontalbar");
+     //console.log("horizontalbar");
       options.seriesBarDistance = 30;
   		options.horizontalBars = true;
   		options.reverseData = true; //what does this do? test it
@@ -765,8 +765,8 @@ newtheme.getChartOptions = function(data){
       var total = 0;
       for(var tx=0;tx<data.chartdata.series[0].length;tx++)total+=data.chartdata.series[0][tx];
       total = total*2;
-      console.log("halfpie with total:"+total);
-      console.log(data.chartdata.series);
+     //console.log("halfpie with total:"+total);
+     //console.log(data.chartdata.series);
   		options.donut= true;
   		options.donutWidth= 60;
     		options.donutSolid= true;
@@ -779,7 +779,7 @@ newtheme.getChartOptions = function(data){
   }else {
   	options = null;
   }
-  console.log("optionsobject:");console.log(options);
+ //console.log("optionsobject:");console.log(options);
   return options;
 }
 
@@ -805,7 +805,7 @@ newtheme.getResponsiveOptions = function(data){
   if(data.charttype==="line"||data.charttype==="bar")return smalllabeloptions;
 }
 newtheme.afterStyle = function(){
-  console.log("update charts:");
+ //console.log("update charts:");
   this.updatecharts();
 }
 

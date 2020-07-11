@@ -28,7 +28,7 @@ newtheme.changeGlobalOption = function(optionnr, value){
   var outlineblock = document.getElementById("outlineblock");
   if(this.speakTimeActivated)outlineblock.classList.remove("withoutSpeakTime");
   else outlineblock.classList.add("withoutSpeakTime");
-  console.log("changed outline speaktime to: "+this.speakTimeActivated + "value:"+value);
+  //console.log("changed outline speaktime to: "+this.speakTimeActivated + "value:"+value);
 }
 newtheme.saveConfigString = function(){return this.speakTimeActivated};
 newtheme.loadConfigString= function(data){
@@ -39,7 +39,7 @@ newtheme.changeThemeStatus = function(status){
   this.active = status;
   var ol = document.getElementById("outlineblock");
   if(this.active && !ol){
-    console.log("generate Outline Block")
+    //console.log("generate Outline Block")
     this.generateOutlineBlock();
   }else{
     if(!this.active && ol)ol.parentElement.removeChild(ol);
@@ -215,7 +215,7 @@ newtheme.calculateSpeakTime = function(wordcount, selectionbol){
   if(!wordcount)wordc = this.countWords(slidenote.textarea.value);
   var wordtime = Math.ceil(wordc/80*60) ;
   speaktime += wordtime;
-  console.log("wordtime:"+wordtime);
+  //console.log("wordtime:"+wordtime);
   //add here additional time:
   var selstart = 0;
   var selend = slidenote.textarea.value.length;
@@ -225,7 +225,7 @@ newtheme.calculateSpeakTime = function(wordcount, selectionbol){
   }
   function isbetween(number){
     var result = false;
-    console.log(selstart+ "<"+number + "<"+selend);
+    //console.log(selstart+ "<"+number + "<"+selend);
     result = selstart < number && selend > number;
     return result;
   }

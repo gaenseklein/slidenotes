@@ -25,14 +25,14 @@ newtheme.changeDesignOption = function(optionnr, value){
 	if(optionnr===0){
 		//if(this.highlightstylecssfile!=undefined)this.highlightstylecssfile.parentNode.removeChild(this.highlightcssfile);
 		this.highlightstylecssfile = slidenote.appendFile("css","highlight/styles/"+value+".css");
-		console.log("changedesignoption:"+optionnr+":"+value);
+		//console.log("changedesignoption:"+optionnr+":"+value);
 		var seldesign = 0;
 		for(var selx=0;selx<this.designoptions[0].values.length;selx++){
 			if(this.designoptions[0].values[selx] === value)seldesign = selx;
 		}
 		this.designoptions[optionnr].selected = seldesign;
 		this.seldesign = seldesign;
-		console.log("designoption changed hljs"+optionnr+"->"+value);
+		//console.log("designoption changed hljs"+optionnr+"->"+value);
 	}else if(optionnr===1){
 		this.showLineNumbers = value;
 	}
@@ -75,14 +75,14 @@ newtheme.styleThemeSpecials = function(){
 
 	for(var x=0;x<codeblocks.length;x++){
 		var block = codeblocks[x];
-		console.log("highlightlines:"+block.innerHTML);
+		//console.log("highlightlines:"+block.innerHTML);
 		if(block.innerHTML.substring(0,1)==="\n")block.innerHTML=block.innerHTML.substring(1);
 		//hljs.lineNumbersBlock(block);
 		var options;
 		if(codeheads[x] && codeheads[x].indexOf(this.metablockSymbol)>-1){
 			options = this.parseStyledBlockOptions(block);
 		}else options = new slidenotecodeblockoptions();
-		console.log(options);
+		//console.log(options);
 		this.options = options;
 		this.findHighlightLines(block); //remember lines to highlight before changing code
 		if(this.options.language && this.options.language.length>0){
@@ -115,12 +115,12 @@ newtheme.highlighteditor = function(){
 newtheme.findHighlightLines = function(block){
 	this.findHighlightInline(block);
 	var text = block.innerHTML;
-	console.log("find highlightlines in:\n"+text+
-							"\n linemarker:"+this.options.speciallinemarker + "eol");
+	//console.log("find highlightlines in:\n"+text+
+	//						"\n linemarker:"+this.options.speciallinemarker + "eol");
 	var lines = text.split("\n");
 	var foundlines = new Array();
 	for(var x=0;x<lines.length;x++){
-		console.log("linestart:"+lines[x].substring(0,this.options.speciallinemarker.length));
+		//console.log("linestart:"+lines[x].substring(0,this.options.speciallinemarker.length));
 		if(lines[x].substring(0,this.options.speciallinemarker.length) === this.options.speciallinemarker){
 				foundlines.push(x+1);
 				lines[x]=lines[x].substring(this.options.speciallinemarker.length);
@@ -128,13 +128,13 @@ newtheme.findHighlightLines = function(block){
 	}
 	if(this.options.linehighlight===null)this.options.linehighlight = foundlines.toString();
 	else this.options.linehighlight += ","+foundlines.toString();
-	console.log("found highlightlines:"+foundlines.toString());
+	//console.log("found highlightlines:"+foundlines.toString());
 	block.innerHTML = lines.join("\n");
 }
 
 newtheme.findHighlightInline = function(block){
 	var text = block.innerHTML;
-	console.log("find highlighted Inline");
+	//console.log("find highlighted Inline");
 	var lines = text.split("\n");
 	var foundlines = new Array();
 	var stm = this.options.specialstartmarker;
@@ -167,7 +167,7 @@ newtheme.findHighlightInline = function(block){
 
 newtheme.highlightLines = function(block){
 	var text = block.innerHTML;
-	console.log("start highlightlines with:"+text);
+	//console.log("start highlightlines with:"+text);
 	if(this.options === undefined)this.options = new slidenotecodeblockoptions();
 	//var linemarker = "\n"+this.options.speciallinemarker;
 	//this.speciallinemarker = linemarker;
@@ -204,7 +204,7 @@ newtheme.highlightLines = function(block){
 	text = textarr.join("\n");
 	block.innerHTML = text;
 	if(specialLinesFound)block.classList.add("specialline");
-	console.log("end with:"+text);
+	//console.log("end with:"+text);
 	return text;
 }
 
@@ -251,17 +251,17 @@ newtheme.hasInsertMenu = true;
 newtheme.insertMenuArea = function(dataobject){
 	var result = document.createElement("div");
 	result.classList.add("codeinsertmenu");
-	console.log("start codeinsertmenü");
-	console.log(this.options);
+	//console.log("start codeinsertmenü");
+	//console.log(this.options);
 	for(var key in this.options)if(this.options.hasOwnProperty(key) && typeof this.options[key] !="function"){
-		console.log("key:"+key);
+		//console.log("key:"+key);
 		var button = document.createElement("button");
 		button.innerText = key;
 		button.addEventListener("click", function(e){
 			var theme = slidenote.extensions.getThemeByName("highlight");
 			var key = this.innerText;
 			var keyvalue = theme.options[key];
-			console.log("codeinsertmenu key "+key + ":"+keyvalue);
+			//console.log("codeinsertmenu key "+key + ":"+keyvalue);
 			var celement = slidenote.parser.CarretOnElement();
 			if(celement.tag==="codeende")celement = slidenote.parser.CarretOnElement(slidenote.parser.map.linestart[celement.line-1]);
 			var codeblockstart = slidenote.parser.map.linestart[celement.line+1];
@@ -289,7 +289,7 @@ newtheme.insertMenuArea = function(dataobject){
 				slidenote.textarea.selectionEnd=sym;
 				slidenote.textarea.selectionStart=sym;
 				slidenote.textarea.focus();
-				console.log("element found, edit on it");
+				//console.log("element found, edit on it");
 				return;
 			}
 			if(metablockhead && metablockend){
@@ -314,8 +314,8 @@ newtheme.insertMenuArea = function(dataobject){
 		});
 		result.appendChild(button);
 	}
-	console.log("codeinsertmenü");
-	console.log(result);
+	//console.log("codeinsertmenü");
+	//console.log(result);
 	return result;
 }
 
@@ -326,7 +326,7 @@ newtheme.parseStyledBlockOptions = function(block){
 	var optionlines = text.split("\n");
 	var options = new slidenotecodeblockoptions();
 	for(var x=0;x<optionlines.length;x++){
-		console.log(optionlines[x]);
+		//console.log(optionlines[x]);
 		/*var oline = optionlines[x].split("=");
 		if(oline.length>2){
 			var tmp = oline.shift();
@@ -352,7 +352,7 @@ newtheme.parseStyledBlockOptions = function(block){
 		oline[1]=optionlines[x].substring(signpos+1);
 		var optionname = oline[0].replace(/\s/g,"").toLowerCase();
 		var optiondata = oline[1].replace(" ","");
-		console.log(optionname+":"+optiondata);
+		//console.log(optionname+":"+optiondata);
 		//check if default exist: if so, overwrite it. else do nothing
 		//if(options[optionname]===undefined)continue;
 		options[optionname]=optiondata;
@@ -515,7 +515,7 @@ newtheme.buildLines = function(block){
 	var text = block.innerHTML;
 	var markedlines = this.options.linesToHighlight();
 	if(markedlines.length>0)block.classList.add("specialline");
-	console.log(text);
+//console.log(text);
 	//text = text.replace('\n', '<ol start="'+this.options.linenumberingstart+'"><li>');
 	var firstli = "<li>";
 	if(markedlines.includes(1))firstli='<li class="specialline">';
@@ -525,7 +525,7 @@ newtheme.buildLines = function(block){
 		text = '<ul>'+firstli+text;
 	}
 
-	console.log(text);
+	//console.log(text);
 	var linenr = 1;
 	while(text.indexOf("\n")>-1){
 		linenr++;
@@ -534,7 +534,7 @@ newtheme.buildLines = function(block){
 		text = text.replace(/\n/, "</li>"+litag);
 	}
 	//text = text.replace(/\n/g, "</li><li>");
-	console.log(text);
+	//console.log(text);
 	text+="</li></ol>";
 	//text = text.replace(/\n/g,"");
 	block.innerHTML = text;

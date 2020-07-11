@@ -407,7 +407,7 @@ slidenote.base64images = {
       }else{
         //insert with filename
         this.insertImage(name);
-        console.log("imageinsert nombre name:"+nombre+"-"+name)
+       //console.log("imageinsert nombre name:"+nombre+"-"+name)
       }
     }
     this.uploadmode=undefined;
@@ -440,7 +440,7 @@ slidenote.base64images = {
   },
   insertImage: function(name){
     //adds image to md-code
-    console.log("imageinsert name"+name);
+   //console.log("imageinsert name"+name);
     insertbutton('%b64'+name);
     //TODO: "close/hide" the image-selection-div
     document.getElementById("imagesblock").classList.remove("visible");
@@ -595,7 +595,7 @@ slidenote.base64images = {
 };//end of new object slidenote.base64images
 
 newtheme.insideFinalizeHtml = function(template){
-  console.log("imgtourl - scan for images and replace them with data-urls");
+ //console.log("imgtourl - scan for images and replace them with data-urls");
   var imgtags =  template.content.querySelectorAll("img");//slidenote.presentationdiv.getElementsByTagName("img");
   for(var x=0;x<imgtags.length;x++){
     var imgtagname =  decodeURIComponent(imgtags[x].src);//imgtags[x].src.substring(imgtags[x].src.lastIndexOf("/")+1);
@@ -605,10 +605,10 @@ newtheme.insideFinalizeHtml = function(template){
     baseurl = window.location.href.substring(0,window.location.href.lastIndexOf("/")+1);
     if(imgtagname.substring(0,baseurl.length)===baseurl)imgtagname=imgtagname.substring(baseurl.length);
 
-    console.log("image mit src "+imgtagname+" gefunden");
+   //console.log("image mit src "+imgtagname+" gefunden");
     var b64image = slidenote.base64images.imageByName(imgtagname);
     if(b64image!=null){
-      console.log("image in datenbank gefunden. b64code:"+b64image.base64url);
+     //console.log("image in datenbank gefunden. b64code:"+b64image.base64url);
       imgtags[x].src=b64image.base64url;
     } else {
       //no image-tag found - replace image-src with error-image:
@@ -621,7 +621,7 @@ newtheme.init = function(){
     console.log("imgtourl: no fileinput found");
     return;//do nothing if no fileinput is present, therefore no editor
   }
-  console.log("imgtourl wird initialisiert");
+ //console.log("imgtourl wird initialisiert");
   //add imagebutton to texteditorbuttons
   var texteditorbuttons = document.getElementById("texteditorbuttons");
   var button = document.createElement("button");
@@ -673,7 +673,7 @@ newtheme.init = function(){
   li.appendChild(button);
   document.getElementById("toolbarbuttons").appendChild(li);
 
-  console.log(fileInput);
+ //console.log(fileInput);
   fileInput.addEventListener('change', function(e) {
         //console.log("adding eventlistener to fileinput");
   			var file = fileInput.files[0];
@@ -720,8 +720,8 @@ newtheme.init = function(){
 
   });
   slidenote.textarea.addEventListener("drop", function(e){
-    console.log("dropevent:");
-    console.log(e);
+   //console.log("dropevent:");
+   //console.log(e);
     var dt = e.dataTransfer;
     var file = dt.files[0];
     var nombre = file.name;

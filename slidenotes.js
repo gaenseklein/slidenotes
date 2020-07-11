@@ -132,7 +132,7 @@ mapping.prototype.pageAtPosition = function(position){
 		if(this.linestart[this.pagestart[x].line]<=p)result = x;
 		//console.log(this.pagestart[x].line+"<"+position);
 	}
-	console.log("Page at Position "+position+"/"+p+" : "+x);
+	//console.log("Page at Position "+position+"/"+p+" : "+x);
 	return result;
 
 }
@@ -450,13 +450,13 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 						 //console.log("image httpsrc: "+element.src);
 						 imgtocheck.onerror = function(){
 							 //alert("image not found")
-							 console.log("image not found:"+this.src);
+							 console.warn("image not found:"+this.src);
 							 imagenotfound += "imagenotfound";
 							 if(slidenote.HTTPImagesNotFound==undefined)slidenote.HTTPImagesNotFound = "";
 							 slidenote.HTTPImagesNotFound += this.src;
 							 var imgsrcs = document.getElementsByClassName("imagesrc");
 							 for(var i=0;i<imgsrcs.length;i++){
-								// console.log("imgsrcs innerhtml:"+imgsrcs[i].innerHTML);
+								//console.log("imgsrcs innerhtml:"+imgsrcs[i].innerHTML);
 								 if(imgsrcs[i].innerHTML === this.src || imgsrcs[i].innerHTML+"/"===this.src){
 									 imgsrcs[i].classList.add("imagenotfound");
 								 }
@@ -468,7 +468,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 			 }else {
 				 //image is not over http - check if it exists in database:
 				 if(slidenote.base64images && slidenote.base64images.imageByName(element.src)==null){
-					 console.log("image not in database:"+element.src);
+					 console.warn("image not in database:"+element.src);
 					 imagenotfound+="imagenotfound";
 				 }
 			 }
@@ -689,7 +689,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
  				if(proposedsymbol != ""){
  					if(this.perror[x].errorclass=="bold")doppelsternchen.push(x); else
  					 lines[this.perror[x].line]+=' <span class="proposedsymbol">'+proposedsymbol+'</span>';
-					 console.log("proposedsymbol:"+proposedsymbol);
+					//console.log("proposedsymbol:"+proposedsymbol);
  				}
 
  			}
@@ -740,7 +740,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 		returnlines.push(temptext);
 		temptext="";
 	}
-	//console.log("changes:"); console.log(changes);
+	//console.log("changes:");//console.log(changes);
 	this.mdcodeeditorchanges = changes;
 	return returnlines; //temptext;
 };
@@ -754,7 +754,7 @@ emdparser.prototype.renderNewCursorInCodeeditor = function(){
 		//return;
 	}
 	var cursorposinline = cursorposinall - this.map.linestart[cursorline];
-	console.log("new cursor at line:"+cursorline+", posinall:"+cursorposinall+", pos:"+cursorposinline);
+	//console.log("new cursor at line:"+cursorline+", posinall:"+cursorposinall+", pos:"+cursorposinline);
 	var codeofline = this.sourcecode.substring(this.map.linestart[cursorline],this.map.lineend[cursorline]);
 
 	var changes = new Array();
@@ -834,7 +834,7 @@ emdparser.prototype.renderNewCursorInCodeeditor = function(){
 				return -1;
 			}else
 			return a.pos-b.pos});
-	console.log(changes);
+	//console.log(changes);
 	//console.log(selectionlinechanges);
 	//console.log(selectioncodeofline);
 	for(var x=changes.length-1;x>=0;x--){
@@ -900,17 +900,17 @@ emdparser.prototype.renderCodeeditorImagePreview = function(){
 			var afterspace = 75-img.pos-img.mdcode.length;//(slidenote.textarea.clientWidth / 16) - img.pos - img.mdcode.length;
 			for(var ai=0;ai<afterspace;ai++)arrowtoimage+="-";
 			lines[img.line]+=beforetmp+arrowtoimage+">";
-			console.log(slidenote.textarea.clientWidth + ":clientwidth"+ beforetmp+arrowtoimage+afterspace);
+			//console.log(slidenote.textarea.clientWidth + ":clientwidth"+ beforetmp+arrowtoimage+afterspace);
 		}
 		if(img.src.substring(0,4)!="http" && slidenote.base64images){
 			//base64images is active, so check if image is in database:
 			if(slidenote.base64images.imageByName(img.src)!=null){
 				//base64image found in database:
-				console.log("image found: "+img.src);
+				//console.log("image found: "+img.src);
 				lines[img.line]+= '<img src="'+slidenote.base64images.imageByName(img.src).base64url+'">';
 			}else{
 				//base64image not found in database:
-				console.log("imagesrc:"+img.src);
+				//console.log("imagesrc:"+img.src);
 				//imgurl = "images/imageupload.png";
 				lines[img.line]+= '<img src="images/imageupload.png">';
 			}
@@ -1212,7 +1212,7 @@ emdparser.prototype.pageAtPosition = function(position, mode){
 emdparser.prototype.positionAtPage = function(page){
 	var position = 0;
 	var aktpos =0;
-	console.log("searching for position of page "+page+"...");
+	//console.log("searching for position of page "+page+"...");
 	for(var x=0;x<page;x++){
 		if(aktpos>-1){
 			position=aktpos;
@@ -1220,7 +1220,7 @@ emdparser.prototype.positionAtPage = function(page){
 		}
 	}
 	if(aktpos>position)position=aktpos+5;
-	console.log("found position at:"+position);
+	//console.log("found position at:"+position);
 	return position;
 }
 
@@ -1247,15 +1247,15 @@ emdparser.prototype.comparePages = function(){
 			break;
 		}
 	}
-	console.log("startpage found:"+startpage);
+	//console.log("startpage found:"+startpage);
 	//console.log("oldpages0:'"+oldpages[0]+ "', newpages0:'"+newpages[0]+"'");
 
 	if(startpage===newpages.length-1){
-		console.log("startpage is last page - return"+startpage);
+		//console.log("startpage is last page - return"+startpage);
 		return {start:startpage, end:startpage};
 	}
 	if(startpage===null){
-		console.log("startpage is null - no changes happened");
+		//console.log("startpage is null - no changes happened");
 		return{start:null, end:null};
 	}
 	var endpage;
@@ -1286,10 +1286,10 @@ emdparser.prototype.comparePages = function(){
 			if(newpages[x]===oldfoundpage){endpage=x;break;}
 		}
 	*/
-	console.log("sonderfall: startpage:"+startpage+" end: null")
+	//console.log("sonderfall: startpage:"+startpage+" end: null")
 	return{start:startpage, end:null};
 	}
-	console.log("startpage:"+startpage+" endpage:"+endpage+" oldendpage:"+oldendpage);
+	//console.log("startpage:"+startpage+" endpage:"+endpage+" oldendpage:"+oldendpage);
 //	var endtime = new Date();
 //	var usedtime = endtime - starttime;
 //	console.log("Timecheck: comparing Pages needed "+usedtime+"Ms");
@@ -1328,14 +1328,14 @@ emdparser.prototype.renderMapToPresentation = function(){
 		if(imgLength === lines[actimg.line].length){
 			//there are only images in this line, because md-code is just image-md-code
 			this.lineswithhtml[actimg.line]="imageline";
-			console.log("simple imageline found"+actimg.line);
+			//console.log("simple imageline found"+actimg.line);
 		} else{
 			//there could be spaces inside this line
-			console.log("not so simple imageline found"+actimg.line);
+			//console.log("not so simple imageline found"+actimg.line);
 			var imgline = lines[actimg.line];
 			imgline = imgline.replace(/\s/g,"");
 			imgMdCode = imgMdCode.replace(/\s/g,"");
-			console.log("imageline:"+imgline+"\nimgMdCode:"+imgMdCode);
+			//console.log("imageline:"+imgline+"\nimgMdCode:"+imgMdCode);
 			if(imgline.length === imgMdCode.length){
 				this.lineswithhtml[actimg.line]="imageline";
 			}
@@ -1409,7 +1409,7 @@ emdparser.prototype.renderMapToPresentation = function(){
 		if(y===undefined)y=1;
 		return x-y;
 	});
-	console.log("changes of parsetopresentation"); console.log(changes);
+	//console.log("changes of parsetopresentation");//console.log(changes);
   //helper function for change:
   function execute(element){
     line = lines[element.line];
@@ -1418,12 +1418,12 @@ emdparser.prototype.renderMapToPresentation = function(){
     line = line.substring(0,begin)+element.html+line.substring(end);
     lines[element.line]=line;
   }
-	console.log(changes);
+	//console.log(changes);
   for(var x=changes.length-1;x>=0;x--){
     var change = changes[x];
-		console.log(change);
+		//console.log(change);
     if(change.tag==="title"){
-			console.log("title found");
+			//console.log("title found");
       lines[change.line] = change.html + lines[change.line].substring(change.mdcode.length)+change.htmlend;
     }else{
       execute(change);
@@ -1728,7 +1728,7 @@ emdparser.prototype.parseMap = function(){
   		}
   		if(lines[x].substring(0,2)=="> "){
   			qlc=x;
-  			console.log("quote gefunden: "+lines[qlc]);
+  			//console.log("quote gefunden: "+lines[qlc]);
   			//console.log("wasn los? qlc="+qlc+" lines-länge:"+lines.length + "lines[qlc]="+lines[qlc]);
   			while(qlc<lines.length && lines[qlc].substring(0,2)=="> " ){ //}&& confirm("weiter in line?"+qlc+"llenght:"+lines.length)){
   				lines[qlc] = "€€"+lines[qlc].substring(2);
@@ -1783,7 +1783,7 @@ emdparser.prototype.parseMap = function(){
 					//datablock found:
 					var datahead = head;
 					var datatyp = datablocktypefound.type;
-					console.log("datablock found:"+datahead + "->"+datatyp);
+					//console.log("datablock found:"+datahead + "->"+datatyp);
 					//look out for dataend:
 					var dataende = x+1;
 					var innerblocks = 0;
@@ -1849,8 +1849,8 @@ emdparser.prototype.parseMap = function(){
 											typ:"multiline",text:datatyp,tag:datatyp,
 											startline:x, endline:dataende
 										});
-			    					console.log("neues dataobjekt hinzugefügt");
-			    					console.log(this.dataobjects);
+			    					//console.log("neues dataobjekt hinzugefügt");
+			    					//console.log(this.dataobjects);
 					}
 
 				} else{
@@ -1962,12 +1962,12 @@ emdparser.prototype.parseMap = function(){
           if(imginimg>-1 && imginimg<imgposend){
             this.perror.push(new parsererror(x,imgpos,nextspace,"image","image in image"));//
   					error="imginimg";
-  					console.log("image in image: imgpos:"+imgpos+"imginimg"+imginimg+"imgposend"+imgposend);
+  					//console.log("image in image: imgpos:"+imgpos+"imginimg"+imginimg+"imgposend"+imgposend);
           }
           if(imgposend==-1 && imginimg==-1){
             this.perror.push(new parsererror(x,imgpos,nextspace,"image","missing endsymbol )"));//
   					error="imgende";
-  					console.log("image: missing endsymbol"+imgpos+"->"+nextspace);
+  					//console.log("image: missing endsymbol"+imgpos+"->"+nextspace);
           }
           if(imgposmid==-1){
             this.perror.push(new parsererror(x,imgpos,lines[x].length-1,"image","missing midsymbol )"));//
@@ -2135,10 +2135,10 @@ emdparser.prototype.parseMap = function(){
     					var nextspace = lines[x].indexOf(" ",actpos);
 							if(nextspace===-1)nextspace = lines[x].length;
     					this.perror.push(new parsererror(x,actpos,nextspace,"footnote-anchor","missing endsymbol ]"));
-							console.log(this.perror);
+							//console.log(this.perror);
     				}
     				if(error!=null){
-    					console.log("footnote error:"+error);
+    					//console.log("footnote error:"+error);
     					break; //dont look further for other footnote-anchor
     				}
     				lines[x] = lines[x].substring(0,actpos)+ "€€"+
@@ -2155,7 +2155,7 @@ emdparser.prototype.parseMap = function(){
   				this.perror.push(new parsererror(x,0,nextspace,"footnote","missing endsymbol ]:"));
   			}else{
   				this.perror.push(new parsererror(x,0,endpos+2,"footnote","missing footanchor"));
-  				console.log("footnote missing footanchor");
+  				//console.log("footnote missing footanchor");
   			}
   		}
   		//end of footnote
@@ -2250,7 +2250,7 @@ emdparser.prototype.parseMap = function(){
   //save cursorpos:
 	this.parsedcursorpos = slidenote.textarea.selectionEnd;
 	this.map.insertedhtmlelements.sort(function(a,b){return a.posinall-b.posinall});
-  console.log("finished parsing elements");
+ //console.log("finished parsing elements");
   //console.log(this.lineswithhtml);
   //console.log(this.map);
   var TimecheckEnd = new Date().getTime();
@@ -2344,15 +2344,15 @@ stylepager.prototype.encapsuleHtml = function(pagelines,pagetaglines){
 	//alert(pagetaglines.toString());
 	//console.log("encapsulehtml pagetaglines-length:"+pagetaglines.length);
 	var startend = this.find(pagetaglines,0);
-	console.log("encapsulehtml startend:"+startend.start + "-"+startend.end+"muster:"+this.muster);
-	console.log(pagetaglines);
+	//console.log("encapsulehtml startend:"+startend.start + "-"+startend.end+"muster:"+this.muster);
+	//console.log(pagetaglines);
 	//alert(pagetaglines.toString() + "\n" +startend.toString());
 	//alert(pagetaglines==null);
 	var aktline=0;
 	//while(startend[0]>-1&&startend[1]>-1){
 	while(startend.start>-1&&startend.end>-1){
 	//if(startend[0]>-1&&startend[1]>-1){
-		console.log("encapsulehtml treffer:"+this.starthtml + " on line"+ startend.start);
+		//console.log("encapsulehtml treffer:"+this.starthtml + " on line"+ startend.start);
 		pagelines[startend.start]=this.starthtml + pagelines[startend.start];
 		pagelines[startend.end]+=this.endhtml;
 		aktline=startend.end+1;
@@ -2463,7 +2463,7 @@ pagegenerator.prototype.finalizeHtml = function(){
 	//this.stylePages();
 	//abfrage ob presentation gesetzt ist:
 	if(this.presentation==null){
-		console.log("präsentation war nicht gesetzt");
+		//console.log("präsentation war nicht gesetzt");
 		this.presentation = document.getElementById("praesentation");
 	}
 	//pages als ein-string-pro-page einlesen:
@@ -2485,7 +2485,7 @@ pagegenerator.prototype.finalizeHtml = function(){
 		if(this.themes[t].active)this.themes[t].insideFinalizeHtml(presentationtemplate);
 	}
 	this.presentation.innerHTML = presentationtemplate.innerHTML; //presentationtemplate.content.cloneNode(true);
-	console.log("präsentation ins div geschrieben:"+this.presentation.innerHTML);
+	//console.log("präsentation ins div geschrieben:"+this.presentation.innerHTML);
 	this.pagedivs = document.getElementsByClassName("ppage");
 	if(this.aktpage === undefined || this.aktpage>this.pagedivs.length)this.aktpage=0;
 	this.pagedivs[this.aktpage].classList.add("active");
@@ -2495,7 +2495,7 @@ pagegenerator.prototype.finalizeHtml = function(){
 		var image = slidenote.parser.map.insertedimages[i];
 		var pg = slidenote.parser.map.pageAtPosition(image.posinall);
 		var pagestartline = slidenote.parser.map.pagestart[pg].line;
-		console.log("image"+i+" line:"+image.line +"pgstart:"+pagestartline);
+		//console.log("image"+i+" line:"+image.line +"pgstart:"+pagestartline);
 		if(image.line === pagestartline){
 			allimages[i].classList.add("bgimg");
 		}
@@ -2528,7 +2528,7 @@ pagegenerator.prototype.resetStyler = function(){
 pagegenerator.prototype.stylePages = function(){
 	//alert(this.pagesperline[0].toString());
 	//grundpagestyles ausführen:
-	console.log("stylepages:");
+	//console.log("stylepages:");
 	for(var x=0;x<this.pagestyles.length;x++){
 		for(var pg=0;pg<this.pagesperline.length;pg++){
 			//console.log("stylePages pagestaglines:"+this.pagestaggedlines);
@@ -2539,8 +2539,8 @@ pagegenerator.prototype.stylePages = function(){
 	//jetzt theme-styles ausführen: (Hook)
 	for(var x=0;x<this.themes.length;x++){
 	if(this.themes[x].active){ //nur ausführen falls theme aktiv ist
-		console.log("theme-styles von theme "+this.themes[x].classname+": "+this.themes[x].styles.length);
-		console.log(this.themes[x]);
+		//console.log("theme-styles von theme "+this.themes[x].classname+": "+this.themes[x].styles.length);
+		//console.log(this.themes[x]);
 		for(var y=0;y<this.themes[x].styles.length;y++){
 			if(this.themes[x].styles[y]!=null)for(var pg=0;pg<this.pagesperline.length;pg++){
 				this.pagesperline[pg] = this.themes[x].styles[y].encapsuleHtml(this.pagesperline[pg],this.pagestaggedlines[pg]); //Hook-Funktion
@@ -2555,7 +2555,7 @@ pagegenerator.prototype.stylePages = function(){
 		if(this.themes[x].active)this.themes[x].afterFinalizeHtml();
 	}
 	//jetzt special theme-styles ausführen:
-	console.log(this.themes.length+" Themes");
+	//console.log(this.themes.length+" Themes");
 	//console.log(document.
 	for(var x=0;x<this.themes.length;x++){
 		if(this.themes[x].active){
@@ -2564,9 +2564,9 @@ pagegenerator.prototype.stylePages = function(){
 			var checkafter = slidenote.presentationdiv.innerHTML.length;
 			var checkdiff = checkafter - checkbefore;
 			if(checkdiff!=0){
-				console.log("checkresult of theme "+ this.themes[x].classname+":"+checkdiff+" added");
+				//console.log("checkresult of theme "+ this.themes[x].classname+":"+checkdiff+" added");
 			}else{
-				console.log("checkresult of theme "+this.themes[x].classname+": no change");
+				//console.log("checkresult of theme "+this.themes[x].classname+": no change");
 			}
 
 		}
@@ -2638,7 +2638,7 @@ pagegenerator.prototype.showPage = function(page){
 	var slidenr = page;
 	slidenr++;
 	document.location.hash = "slide"+slidenr;
-	console.log("aktpage:"+this.aktpage+" pagedivslength:"+this.pagedivs.length+" page:"+page);
+	//console.log("aktpage:"+this.aktpage+" pagedivslength:"+this.pagedivs.length+" page:"+page);
 	this.pagedivs[page].classList.add("active");
 	this.pagedivs[page].scrollTop = 0;
 }
@@ -2662,18 +2662,18 @@ pagegenerator.prototype.showInsertMenu = function(){
 
 	//check if we are on an object:
 	var onObject = slidenote.parser.CarretOnElement(slidenote.textarea.selectionEnd);
-	console.log("show insertMenu with "+onObject);
+	//console.log("show insertMenu with "+onObject);
 	if(onObject && onObject.dataobject){
-		console.log("insertmenu: dataobject found");
+		//console.log("insertmenu: dataobject found");
 		//get theme:
 		var theme = slidenote.datatypes.elementOfType(onObject.dataobject.type).theme;
 		var extrainsertmenuarea=null;
 		if(theme.hasInsertMenu)extrainsertmenuarea=theme.insertMenuArea(onObject.dataobject);
 
-		console.log(theme);
+		//console.log(theme);
 		if(theme.hasInsertMenu && extrainsertmenuarea!=null){
 
-				console.log("theme found");
+				//console.log("theme found");
 				insertmenu.classList.add("insertmenu-extra");
 				var extrainsertmenu = document.getElementById("extrainsertmenu");
 				extrainsertmenu.innerHTML = "";
@@ -2694,7 +2694,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 	}else if(onObject && (onObject.tag === "codestart" || onObject.tag === "codeende")
 		&& slidenote.datatypes.elementOfType("code").theme){
 		var codemenu = slidenote.datatypes.elementOfType("code").theme.insertMenuArea(onObject);
-		console.log(codemenu);
+		//console.log(codemenu);
 		insertmenu.classList.add("insertmenu-extra");
 		var xtram = document.getElementById("extrainsertmenu");
 		xtram.innerHTML = "";
@@ -2705,7 +2705,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 		xtram.innerHTML = "";
 		xtram.appendChild(constructButton("add background&shy;image", function(){
 			var pagenr = slidenote.parser.map.pageAtPosition(slidenote.textarea.selectionEnd)+1;
-			console.log("Add Backgroundimage to slide"+pagenr);
+			//console.log("Add Backgroundimage to slide"+pagenr);
 			var inserttext = "![](backgroundslide"+pagenr+")\n\n";
 			var pos = slidenote.parser.map.pagestart[pagenr].posinall;
 			slidenote.textarea.value = slidenote.textarea.value.substring(0,pos)+
@@ -2749,13 +2749,13 @@ pagegenerator.prototype.showInsertMenu = function(){
 			var liste = el.parentelement;
 			var start = 1;
 			var insert = this.insert;
-			console.log("listinsert:"+insert);
+			//console.log("listinsert:"+insert);
 			if(liste.olstart){
 				start = liste.olstart.split('"')[1];
 				var ostart=start;
-				console.log("listinsert:olstart="+start);
+				//console.log("listinsert:olstart="+start);
 				if(!(start*1>=0)){
-					console.log("listinsert:start="+start);
+					//console.log("listinsert:start="+start);
 					start=" abcdefghijklmnopqrstuvwxyz".indexOf(start);
 					if(start===-1){
 						for(var lnb=1;lnb<latinnumbers;lnb++)
@@ -2765,7 +2765,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 				}
 			}
 			start = start*1;
-			console.log("listinsert:start="+start);
+			//console.log("listinsert:start="+start);
 			var isnumber = (insert.substring(0,1)>0);
 			var newlisttype = insert.substring(0,1);
 			if(newlisttype==="*"||newlisttype==="-" || newlisttype==="+")newlisttype="ul";else newlisttype="ol";
@@ -2777,9 +2777,9 @@ pagegenerator.prototype.showInsertMenu = function(){
 				if(newlisttype==="ul")newtext=insert;
 				if(newlisttype==="ol"){
 					newtext = start + x;
-					console.log("listinsert:newtext start+x="+start+"+"+x);
+					//console.log("listinsert:newtext start+x="+start+"+"+x);
 					if(!isnumber){
-						console.log("listinsert is:"+insert+"<<<");
+						//console.log("listinsert is:"+insert+"<<<");
 						if(insert==="I) "){
 							if(newtext>10)newtext=newtext-(Math.floor(newtext/10)*10);
 							newtext = latinnumbers[newtext];
@@ -2795,7 +2795,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 										newtext+
 										resulttext.substring(actchild.posinall+actchild.mdcode.length);
 			}
-			console.log(resulttext);
+			//console.log(resulttext);
 			var selend = slidenote.textarea.selectionEnd;
 			slidenote.textarea.value = resulttext;
 			slidenote.textarea.selectionEnd = selend;
@@ -2814,7 +2814,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 	}else if(onObject){
 		//standard-Object:
 		insertmenu.classList.add("insertmenu-extra");
-		console.log(onObject);
+		//console.log(onObject);
 		xtram.innerHTML = "";
 		var b=constructButton("select element",function(){
 			var el = slidenote.parser.CarretOnElement();
@@ -2841,7 +2841,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 	//safari-hack:
 	//insertmenu.style.left = document.getElementById("sidebar").offsetLeft + "px";
 
-	console.log("show insertMenu");
+	//console.log("show insertMenu");
 	//insertmenu.style.visibility = "visible";
 	insertmenu.tabIndex = 0;
 	//position insertmenu after carretsymbol or above:
@@ -2851,7 +2851,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 
 	var top = symbol.offsetTop + (symbol.offsetHeight);
 	var topmax = slidenote.textarea.offsetHeight - insertmenu.offsetHeight;
-	console.log("top vs. topmax:"+top+"/"+topmax+"\ntextarea.offsetHeight:"+slidenote.textarea.offsetHeight+", symbol.offsetHeight:"+symbol.offsetHeight+", offsetTop:"+symbol.offsetTop);
+	//console.log("top vs. topmax:"+top+"/"+topmax+"\ntextarea.offsetHeight:"+slidenote.textarea.offsetHeight+", symbol.offsetHeight:"+symbol.offsetHeight+", offsetTop:"+symbol.offsetTop);
 	if(top>topmax && symbol.offsetTop>symbol.offsetHeight){
 		//top-=insertmenu.offsetHeight;
 		//top-=(symbol.offsetHeight/2);
@@ -2875,8 +2875,8 @@ pagegenerator.prototype.showInsertMenu = function(){
 	//symbol.style.visibility = "hidden";
 
 	this.closeMenu = function(e){
-		console.log("closed insertmenu");
-		console.log(e);
+		//console.log("closed insertmenu");
+		//console.log(e);
 		slidenote.textarea.removeEventListener("click",slidenote.presentation.closeMenu);
 		slidenote.textarea.removeEventListener("keydown",slidenote.presentation.closeMenu);
 		slidenote.textarea.removeEventListener("keyup",slidenote.presentation.closeMenu);
@@ -2899,7 +2899,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 
 	}
 	//how often will this be called? when do i have to focus?
-	console.log("insert menu ready to focus?" + xtram.firstChild.innerHTML);
+	//console.log("insert menu ready to focus?" + xtram.firstChild.innerHTML);
 	//setTimeout("console.log('focus on insertmenu-button:');document.getElementById('extrainsertmenu').firstChild.focus()",500);
 	//xtram.firstChild.focus();
 	//insertmenu.onclick = this.closeMenu;
@@ -2973,14 +2973,14 @@ pagegenerator.prototype.showpresentation = function(forExport){
 
 		//console.log("querycodeanfang:"+document.querySelectorAll(".presentation code")[0].innerHTML.substring(0,20));
 		//this.showPage(presentation.emdparsobjekt.pageAtPosition(quelle.selectionStart)[0]);
-		console.log("show page:"+this.emdparsobjekt.map.pageAtPosition(cursorpos) + " pos:"+cursorpos);
+		//console.log("show page:"+this.emdparsobjekt.map.pageAtPosition(cursorpos) + " pos:"+cursorpos);
 		//this.showPage(this.emdparsobjekt.map.pageAtPosition(cursorpos));
 		var showpagenr = this.emdparsobjekt.map.pageAtPosition(cursorpos);
 		if(this.generatedPages){
 			for(var gpx=this.generatedPages.length;gpx>=0;gpx--){
 				if(this.generatedPages[gpx]<showpagenr)showpagenr++;
 			}
-			console.log("changed pagenr to:"+showpagenr + " gp-length:"+this.generatedPages.length);
+			//console.log("changed pagenr to:"+showpagenr + " gp-length:"+this.generatedPages.length);
 
 		}
 		this.showPage(showpagenr);
@@ -3000,12 +3000,12 @@ pagegenerator.prototype.showpresentation = function(forExport){
 			for(var gpx=0;gpx<this.generatedPages.length;gpx++){
 				if(this.generatedPages[gpx]<this.aktpage)this.aktpage--;
 			}
-			console.log("changed aktpage to:"+this.aktpage);
+			//console.log("changed aktpage to:"+this.aktpage);
 		}
 		//presentation.ausgabediv.classList.remove("active");
 		//console.log("map.linestart"+this.aktpage+":"+slidenote.parser.map.linestart[slidenote.parser.map.pagestart[this.aktpage].line]);
 		var oldPage = slidenote.parser.map.pageAtPosition(quelle.selectionEnd);//slidenote.parser.pageAtPosition(quelle.selectionEnd, "pagenr");
-		console.log("oldpage:"+oldPage+"aktpage:"+this.aktpage);
+		//console.log("oldpage:"+oldPage+"aktpage:"+this.aktpage);
 		if(oldPage != this.aktpage){
 			quelle.selectionEnd = slidenote.parser.map.linestart[slidenote.parser.map.pagestart[this.aktpage].line];//presentation.emdparsobjekt.positionAtPage(presentation.aktpage);
 			quelle.selectionStart = quelle.selectionEnd;
@@ -3014,7 +3014,7 @@ pagegenerator.prototype.showpresentation = function(forExport){
 		} else{
 			quelle.focus();
 		}
-		console.log("parse neu ein");
+		//console.log("parse neu ein");
 		slidenote.parseneu();
 		praesesrahmen.classList.remove("fullscreen");
 		document.body.style.height = "unset";
@@ -3137,7 +3137,7 @@ Theme.prototype.cycleThroughHtmlElements = function(htmlelement){
 	var elements;
 	if(htmlelement!=null)elements = document.querySelectorAll(querycode);
 	if(elements != null){
-	console.log("cycle through "+elements.length+" elements of type "+htmlelement);
+	//console.log("cycle through "+elements.length+" elements of type "+htmlelement);
 		for(var x=0;x<elements.length;x++){
 			var styledtext = this.specialStylePerElement(elements[x].innerHTML);
 			elements[x].innerHTML = styledtext;
@@ -3278,7 +3278,7 @@ ExtensionManager.prototype.loadTheme = function(themename, nocss){
 		}
 		this.themeObjektString +=themename+";";
 	}
-	console.log(this.themeObjektString);
+	//console.log(this.themeObjektString);
 }
 /* ExtensionManager.addTheme(theme)
  * fügt ein Theme dem ExtensionManager hinzu
@@ -3297,12 +3297,12 @@ ExtensionManager.prototype.addTheme = function (theme){
 			file.onerror = function(){slidenote.extensions.failTheme(this.id.substring(5));};
 			file.onload = function(){
 				slidenote.extensions.removeFromLoadingList(this.id.substring(5));
-				console.log("file "+file.id+" loaded");
+				//console.log("file "+file.id+" loaded");
 			};
 		}
 	}
 	this.removeFromLoadingList(theme.classname);
-	console.log("neues Theme geladen: "+theme.classname);
+	//console.log("neues Theme geladen: "+theme.classname);
 	//css-mixup vermeiden:
 	this.changeThemeStatus(this.themes.length-1, theme.active);
 	//this.stylePages();
@@ -3543,7 +3543,7 @@ ExtensionManager.prototype.showThemes = function(tabnr){
 			for(var deso=0;deso<acttheme.designoptions.length;deso++){
 				actoption = acttheme.designoptions[deso];
 				designoptions+='<div class="designoption">';
-				console.log(actoption);
+				//console.log(actoption);
 				if(actoption.type=="select"){
 					designoptions+="<label>"+actoption.description+"</label>";
 					designoptions+='<select onchange="slidenote.extensions.changeDesignOption('+x+','+deso+',this.value)">';
@@ -3567,7 +3567,7 @@ ExtensionManager.prototype.showThemes = function(tabnr){
 				globaloptionstext+='<div class="globaloption">';
 				if(actoption.type=="checkbox"){
 					var acttext = '<input type="checkbox" onchange="slidenote.extensions.changeGlobalOption('+x+','+glop+',this.checked)"';
-					console.log(actoption);
+					//console.log(actoption);
 					if(actoption.values)acttext +=' checked>'; else acttext+='>';
 					acttext += '<label>';
 					if(actoption.description==null)acttext += actoption.classname; else acttext+= actoption.description;
@@ -3596,7 +3596,7 @@ ExtensionManager.prototype.showThemes = function(tabnr){
 	options.classList.add("visible");
 	var optiontabbar = options.getElementsByClassName("tabbar")[0].getElementsByTagName("h2");
 	var tabbs = options.getElementsByClassName("optiontab");
-	console.log(optiontabbar);
+	//console.log(optiontabbar);
 	for(var otb=0;otb<optiontabbar.length;otb++){
 		optiontabbar[otb].classList.remove("active");
 		tabbs[otb].classList.remove("active");
@@ -3690,16 +3690,16 @@ ExtensionManager.prototype.changeThemeStatus = function(themenr, status){
 			for(var x=oldbuttons.length-1;x>=0;x--)oldbuttons[x].parentNode.removeChild(oldbuttons[x]);
 		}
 	}
-	console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+status);
+	//console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+status);
 }
 
 ExtensionManager.prototype.changeDesignOption = function(themenr,optionnr, value){
 	this.themes[themenr].changeDesignOption(optionnr, value);
-	console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+status);
+	//console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+status);
 }
 ExtensionManager.prototype.changeGlobalOption = function(themenr,optionnr, value){
 	this.themes[themenr].changeGlobalOption(optionnr, value);
-	console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+value);
+	//console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+value);
 }
 
 ExtensionManager.prototype.CssThemes = function(){
@@ -3872,7 +3872,7 @@ slidenotes.prototype.choseEditor = function(editor){
 	}
 
 	document.getElementById("editorchoice").value = editor;
-	console.log("choseEditor parse:");
+	//console.log("choseEditor parse:");
 	this.parseneu();
 	this.textarea.focus();
 	//save config imediately:
@@ -4041,9 +4041,9 @@ slidenotes.prototype.parseneu = function(){
 
 slidenotes.prototype.parseAfterPause = function(){
 	this.keypressstack--;
-	console.log("keypressstack:"+this.keypressstack);
+	//console.log("keypressstack:"+this.keypressstack);
 	if(this.keypressstack>0)return;
-	console.log("keypresstack = 0, check if you have to parse:");
+	//console.log("keypresstack = 0, check if you have to parse:");
 	var carrettext = document.getElementById("carret").innerHTML;
 	//console.log("carret:"+carrettext+" charnumberat0:"+ carrettext.charCodeAt(0))
 	if(carrettext.length>1 || carrettext.charCodeAt(0)!=8205)slidenote.parseneu();
@@ -4051,12 +4051,12 @@ slidenotes.prototype.parseAfterPause = function(){
 
 slidenotes.prototype.keypressdown = function(event, inputobject){
 	var key = ""+event.key;
-	console.log(event);
+	//console.log(event);
 	if(key=="undefined"){
 			webkit = true;
-			console.log("keycode:"+event.keyCode)
-			console.log("webkit-test:"+event.keyIdentifier);
-			console.log("webkit-test2:"+event.which);
+			//console.log("keycode:"+event.keyCode)
+			//console.log("webkit-test:"+event.keyIdentifier);
+			//console.log("webkit-test2:"+event.which);
 			//if(event.keyCode=="16")key="Shift";else
 			//key=String.fromCharCode(event.keyCode);
 			//key=event.keyCode;
@@ -4153,7 +4153,7 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 					if(this.keypressstack===undefined)this.keypressstack=0;
 					this.keypressstack++;
 					setTimeout("slidenote.parseAfterPause()", 500);
-					console.log("actkey:"+key+"last key:"+this.lastpressedkey);
+					//console.log("actkey:"+key+"last key:"+this.lastpressedkey);
 				}
 			}
 		}
@@ -4181,20 +4181,20 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 			this.scroll();
 			this.lasttyping = new Date().getTime();
 		}
-		console.log("Key pressed:"+key);
+		//console.log("Key pressed:"+key);
 		if(key.indexOf("Arrow")>-1 || key==="Home" || key==="End"){
-			console.log("home, end or arrow pressed");
+			//console.log("home, end or arrow pressed");
 			var actcursor=document.getElementById("carret");
 			if(actcursor==null || (actcursor && actcursor.innerHTML.length>1 && actcursor.innerHTML !="&zwj;")){
 				console.log("parseneu forced after arrowkey");
-				console.log(actcursor)
+				//console.log(actcursor)
 				this.parseneu();
 				this.scroll();
 			}else{
 				console.log("parse only new cursor after arrowkey");
 				var cursorparent = actcursor.parentElement;
 				cursorparent.removeChild(actcursor);
-				console.log(">>>"+cursorparent.innerHTML+"<<<"+cursorparent.innerHTML.length);
+				//console.log(">>>"+cursorparent.innerHTML+"<<<"+cursorparent.innerHTML.length);
 				if(cursorparent.innerHTML.length===0)cursorparent.innerHTML="&zwj;";
 				this.parser.renderNewCursorInCodeeditor();
 			}
@@ -4225,7 +4225,7 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 											this.parser.map.linestart[pageel.line]<currentpos && gotoline==null){
 							gotoline=pageel.line;
 							gotopage=gtl;
-							console.log("from:"+selstart+"to:"+this.parser.map.linestart[pageel.line]+"line"+gtl);
+							//console.log("from:"+selstart+"to:"+this.parser.map.linestart[pageel.line]+"line"+gtl);
 						}
 					}
 					if(gotoline==null)gotoline=0;
@@ -4252,7 +4252,7 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 					if(this.textarea.selectionDirection==="forward")this.textarea.selectionEnd = this.parser.map.linestart[gotoline];
 					if(this.textarea.selectionDirection==="forward" && gotoline===currentline)this.textarea.selectionEnd = this.parser.map.lineend[gotoline];
 					if(this.textarea.selectionDirection==="backward"){
-						console.log("from:"+currentline+"to:"+gotoline+"selection:"+selstart+"/"+selend);
+						//console.log("from:"+currentline+"to:"+gotoline+"selection:"+selstart+"/"+selend);
 						if(this.parser.map.linestart[gotoline]<=selend)this.textarea.setSelectionRange(this.parser.map.linestart[gotoline],this.textarea.selectionEnd,"backward");
 						if(this.parser.map.linestart[gotoline]>selend)this.textarea.setSelectionRange(this.textarea.selectionEnd, this.parser.map.linestart[gotoline],"forward");
 					}
@@ -4269,7 +4269,7 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 				if(gotoline>0)oftop=htmllines[gotoline-1].offsetTop;
 				if(oftop==undefined)oftop=0;
 				this.textarea.scrollTop = oftop;
-				console.log("scroll to:"+oftop);
+				//console.log("scroll to:"+oftop);
 				this.scroll();
 			}
 			//console.log("from "+currentline+"go to line:"+gotoline +" page:"+gotopage + "from"+this.parser.map.pagestart.length);
@@ -4394,7 +4394,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 	}else if(emdzeichen=="%nrlist" || emdzeichen=="%list" || emdzeichen=="%quote"){
 			var selectedtext = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
 			//if(selectedtext.substring(1,2)=="\n")selectedtext = selectedtext.substring(1);
-			console.log("füge "+emdzeichen+" ein. markierter text"+selectedtext );
+			//console.log("füge "+emdzeichen+" ein. markierter text"+selectedtext );
 			var selectedlines = new Array();
 			while(selectedtext.indexOf("\n")>-1){
 				selectedlines.push(selectedtext.substring(0,selectedtext.indexOf("\n")));
@@ -4405,7 +4405,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 			for(var x=1;x<=selectedlines.length;x++){
 				if(x==1 && selectedlines[x-1].length==0){
 					selectedtext+="\n"; //wenn in der ersten zeile nix steht bedeutet das in der regel, dass bis zur zeile davor markiert wurde
-					console.log("zeile scheint leer zu sein:"+selectedlines[x-1]+"eol");
+					//console.log("zeile scheint leer zu sein:"+selectedlines[x-1]+"eol");
 				}else{
 					//alert("selectedline:"+selectedlines[x-1]+"endofline");
 					if(emdzeichen=="%nrlist")selectedtext+=x+". "+selectedlines[x-1]+"\n";
@@ -4563,8 +4563,8 @@ slidenotes.prototype.scroll = function(editor){
 			document.getElementById("insertarea").style.top = nssym.style.top;
 			//console.log("scroll dropdown?" +nssym.style.top )
 		}else {
-			console.log("scroll");
-			console.log(nssym);
+			//console.log("scroll");
+			//console.log(nssym);
 		}
 		//console.log("scroll");
 
@@ -4670,8 +4670,8 @@ function renderMinimizedSwitchOfInnerHtml(oldnode, newnode){
 		}
 		console.log("Timecheck: renderedMinimized: replacedchilds:"+replacedchilds+"addedchilds:"+addedchilds + "removedchilds:"+removedchilds);
 
-		console.log("which were replaced:");console.log(whichwerereplaced);
-		console.log("which were removed:");console.log(whichwereremoved);
+		//console.log("which were replaced:");console.log(whichwerereplaced);
+		//console.log("which were removed:");console.log(whichwereremoved);
 }
 
 emdparser.prototype.insertChangedLines = function(oldnode,newerrorlines,olderrorlines){
@@ -4773,7 +4773,7 @@ emdparser.prototype.insertChangedLines = function(oldnode,newerrorlines,olderror
 
 
     console.log("Timecheck: insertChangedLines: \n replacedchilds:"+replacedchilds+" added:"+addedchilds + " removed:"+removedchilds + "deleted:"+deletedlinecount);
-		console.log(changedlines);console.log(whichwerereplaced); console.log(whichwereremoved);
+		//console.log(changedlines);//console.log(whichwerereplaced); //console.log(whichwereremoved);
 		return changedlines;
 }
 //testinit();

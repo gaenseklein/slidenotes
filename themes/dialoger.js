@@ -127,7 +127,7 @@ dialoger.buildDialog = function(options, followfunction){
   container.appendChild(dialogbox);
   //append keyboard-shortcuts:
   dialogbox.addEventListener("keydown",function(e){
-    console.log("key on dialog:"+e.key);
+   //console.log("key on dialog:"+e.key);
     slidenote.keyboardshortcuts.reactOn(e,"dialog");
   });
   if(type==="confirm" || options.arrownavleftright){
