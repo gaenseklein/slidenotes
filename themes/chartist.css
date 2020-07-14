@@ -39,7 +39,14 @@
   -ms-flex-pack: flex-start;
   justify-content: flex-start;
   text-align: left;
-  text-anchor: start; }
+  text-anchor: start; 
+
+  /*shorten label with a period*/
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ". ";
+}
 
 .ct-label.ct-vertical.ct-start {
   -webkit-box-align: flex-end;
