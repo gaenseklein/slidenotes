@@ -3662,6 +3662,7 @@ ExtensionManager.prototype.changeThemeStatus = function(themenr, status){
 				var newhtmlbutton = document.createElement("button");
 				newhtmlbutton.type = "button";
 				newhtmlbutton.classList.add(this.themes[themenr].classname+"button");
+				newhtmlbutton.classList.add("menuitem");
 				newhtmlbutton.innerHTML = actbutton.innerhtml;
 
 				//var actbuttonfunction = "insertbutton('null','"+actbutton.mdstartcode+"','"+actbutton.mdendcode+"');";
