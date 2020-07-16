@@ -83,7 +83,13 @@ div > img.bgimg {
 }
 
 /*codeblock*/
-code.codeblock{
+.blocks code.codeblock{
   margin-bottom: 0.5em;
   max-width: 85vw;
+}
+
+/*sections: */
+.blocks section.section.left,
+.blocks section.section.right{
+  display:grid;
 }
