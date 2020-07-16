@@ -11,7 +11,13 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex; }
+  display: flex; 
+
+/*shorten label with a period*/
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ". ";}
 
 .ct-chart-pie .ct-label,
 .ct-chart-donut .ct-label {
@@ -40,12 +46,6 @@
   justify-content: flex-start;
   text-align: left;
   text-anchor: start; 
-
-  /*shorten label with a period*/
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ". ";
 }
 
 .ct-label.ct-vertical.ct-start {
@@ -623,9 +623,9 @@
 
 /*/my additions*/
 
-section.left {
+/*section.left {
   max-width:33vw;
-}
+}*/
 
 section.left .chart{
 

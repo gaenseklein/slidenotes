@@ -220,6 +220,14 @@
   /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
   justify-self: center;
 }
+
+/*extra thin to 1:1*/
+@media only screen and (max-width: 100vh){
+  div.blocks .ppage.active, div.blocks .ppage{
+    display: block;
+  }
+}
+
 /*4:3 to 2:1*/
 @media only screen and (max-height: 75vw){
   .ppage section.chart{
@@ -227,19 +235,17 @@
   }
 }
 
-/* 2:1*/
+/* 2:1 extra wide*/
 @media only screen and (max-height:50vw){
   .ppage section.chart{
     max-width: calc(170.4vh); /*85.2vw; 1vw=2vh; 85.2vw = 42,6vh*/
   }
-}
-
-/*extra wide*/
-@media only screen and (max-height:50vw){
   .ppage{
     padding:var(--paddingPpageWide);
   }
 }
+
+
 
 
 /* presentation interface */
