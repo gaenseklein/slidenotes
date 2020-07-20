@@ -37,7 +37,12 @@
  */
 ?>
 <div id="comments" class="dialogbox <?php print $classes; ?>"<?php print $attributes; ?>>
-    <h2 class="dialogtitle"><?php print t('comments'); ?>
+    <h2 class="dialogtitle">
+        <button class="commentnav" id="previousCommentSlide">&lt;</button>
+        <span id="commentblocktitle">
+        <?php print t('comments'); ?>
+        </span>
+        <button class="commentnav" id="nextCommentSlide">&gt;</button>
         <button class="dialogclosebutton" id="commentCloseButton"><img src="/sites/all/libraries/slidenotes/images/buttons/x.png"></button>
     </h2>
   <div class="dialogcontent">

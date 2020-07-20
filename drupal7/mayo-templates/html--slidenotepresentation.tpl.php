@@ -51,6 +51,17 @@
   <!--added css and js-bibs from script:-->
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
+<!--<div id="slidenoteLoadingScreen"><h1>Please wait, loading missing libraries</h1><img src="/sites/all/libraries/slidenotes/images/wait-charlie-chaplin.gif"></div>-->
+<div id="slidenoteloadingscreenwrapper">
+        <div id="slidenoteeditorloadingscreen">
+          <div id="slidenoteeditorloadingscreenbackground"></div>
+          <div id="circle-colorful"></div>
+          <div id="slidenoteeditorhidetexteditor"></div>
+          <img id="loadingcircle" src="/sites/all/libraries/slidenotes/images/loadingscreen.gif">
+          <div id="initialLoadingProgress"></div>
+        </div>
+</div>
   <?php print $page; ?>
 </body>
+
 </html>

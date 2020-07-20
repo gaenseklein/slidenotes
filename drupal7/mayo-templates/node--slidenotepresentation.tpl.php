@@ -81,7 +81,7 @@
 <script language="javascript" src="/sites/all/libraries/slidenotes/slidenotes.js"></script>
 <script language="javascript">
 var slidenoteguardian = {
-	actthemesstring: "extraoptions;hiddenobjects;blocks;stickytitles;azul;redalert;tufte;prototyp;highlight;transition;chartist;table;imgtourl;klatex;switchparseelements;sections;",	
+	actthemesstring: "extraoptions;hiddenobjects;blocks;progressbar;stickytitles;azul;redalert;tufte;prototyp;highlight;transition;chartist;table;imgtourl;klatex;switchparseelements;sections;",	
 	ivlength: 12,
 	decText: null,
 	crypto: window.crypto,
@@ -95,6 +95,7 @@ slidenoteguardian.extensionoptions = {
 	basicThemes: [
 		{name:"hiddenobjects"},
 		{name:"blocks"},
+        {name:"progressbar"},
 		{name:"stickytitles", css:true},
 		{name:"azul"},
 		{name:"redalert"},
@@ -121,6 +122,8 @@ slidenoteguardian.init = function(){
     document.body.appendChild(textedlayer);
     var slideshow = document.getElementById("slidenotepresentation");
     slidenote = new slidenotes(texted,textedlayer,textedlayer,slideshow,"/sites/all/libraries/slidenotes/");
+    var loadscreen = document.getElementById("slidenoteloadingscreenwrapper");
+    loadscreen.classList.add("midstate");
 	this.decryptPresentation();
 };
 slidenoteguardian.autoSaveToLocal = function(){};
@@ -171,6 +174,9 @@ slidenoteguardian.decryptPresentation = async function(){
 		this.password=null;
 		this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
 	}
+    if(this.decText==="decryption has failed")return;
+    //decryption was successfull
+    
 	var imgblockpos = this.decText.indexOf("§§§€€€€€IMAGEBLOCK€€€€€§§§");
 	this.imageblockstring = this.decText.substring(imgblockpos+26);
 	this.decText = this.decText.substring(0,imgblockpos);
@@ -181,6 +187,10 @@ slidenoteguardian.decryptPresentation = async function(){
 		slidenote.parseneu();
 		slidenote.presentation.showpresentation();
 		slidenoteplayer.init();
+        //loadingscreen:
+        let loadingscreen = document.getElementById("slidenoteloadingscreenwrapper");
+        loadingscreen.classList.remove("midstate");
+        loadingscreen.classList.add("endstate");
 	});
 }
 
@@ -431,7 +441,7 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
 
 </script>
 <script language="javascript" src="/sites/all/libraries/slidenotes/slidenoteplayer.js"></script>
-<div id="slidenoteLoadingScreen"><h1>Please wait, loading missing libraries</h1><img src="/sites/all/libraries/slidenotes/images/wait-charlie-chaplin.gif"></div>
+
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <div class="content"<?php print $content_attributes; ?>>
@@ -756,7 +766,7 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
         <!-- additional interaction -->
         <!-- ---------------------- -->
 
-		<button class="controlbutton" id="controlcomment"><img src="/sites/all/libraries/slidenotes/images/buttons/cmscomment.png"><span id="controlcommentcount"></span>/<span id="controlcommenttotal"></span></button>
+		<button class="controlbutton" id="controlcomment"><img src="/sites/all/libraries/slidenotes/images/buttons/cmscomment.png"><span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span></button>
 
 <!-- old interface
 		<button class="controlbutton">backward</button>
