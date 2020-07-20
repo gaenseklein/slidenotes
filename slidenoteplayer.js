@@ -45,6 +45,7 @@ slidenoteplayer.init = async function(){
   this.initKeystrokes();
   //this.initComments();
   this.gotoPage(this.actpage);
+  if(ws && ws.server===null && location.hash==="#join")ws.joinSession();
   this.hideLoadScreen();
   this.commentform = document.getElementById("comment-form");
   //this.commentform.onsubmit = function(){return confirm("wirklich absenden?")};//slidenoteguardian.encryptComment()};
@@ -166,7 +167,7 @@ slidenoteplayer.initKeystrokes = function(){
   this.controlbuttons.area.focus();
 }
 
-slidenoteplayer.gotoPage = function (pagenumber){
+slidenoteplayer.gotoPage = function (pagenumber, dontsend){
   var pn = pagenumber*1;
   var activepages = this.presentation.querySelectorAll(".ppage.active");
   for(var x=activepages.length-1;x>=0;x--)activepages[x].classList.remove("active");
@@ -186,6 +187,7 @@ slidenoteplayer.gotoPage = function (pagenumber){
     else this.controlbuttons.commentbutton.classList.remove("hasComments");
   this.setCommentFormPagenr();
   window.location.hash="#slide"+(this.actpage+1);
+  if(ws && ws.server!=null && dontsend!=true)ws.sendSlideNr();
 }
 
 slidenoteplayer.nextPage = function(){
