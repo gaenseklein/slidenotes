@@ -16,9 +16,9 @@
   --piw2: 464.4;
 
   /*for padding*/
-  --paddingPpage: 6.5vh 7.5vw 6vh 7.3vw;
-  --paddingPpageWide: 6.5vh 20vw 6vh 20vw;
-  --paddingPpageNeg: -6.5vh -7.5vw -6vh -7.3vw;
+  --paddingPpage: 6.5vh 7.5vw 0vh 7.3vw;
+  --paddingPpageWide: 6.5vh 20vw 0vh 20vw;
+  --paddingPpageNeg: -6.5vh -7.5vw -0vh -7.3vw;
 }
 
 /* presentation main rules */
