@@ -11,13 +11,17 @@
   display: -moz-box;
   display: -ms-flexbox;
   display: -webkit-flex;
-  display: flex; 
-
+  display: flex;
+}
+.ct-chart-line .ct-label.horizontal,
+.ct-chart-bar .ct-label.horizontal {
 /*shorten label with a period*/
   display: block;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ". ";}
+  text-overflow: ". "; /*does not work in chrome nor firefox*/
+  text-overflow: ellipsis;
+}
 
 .ct-chart-pie .ct-label,
 .ct-chart-donut .ct-label {
@@ -45,7 +49,7 @@
   -ms-flex-pack: flex-start;
   justify-content: flex-start;
   text-align: left;
-  text-anchor: start; 
+  text-anchor: start;
 }
 
 .ct-label.ct-vertical.ct-start {

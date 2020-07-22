@@ -667,7 +667,7 @@ newtheme.getChartOptions = function(data){
       lastLabelLength = firstwordlength;
       if(secondwordlength>firstwordlength)lastLabelLength=secondwordlength;
     }
-    lastLabelLength = lastLabelLength*9;
+    lastLabelLength = lastLabelLength*10; //put some space: 10px per ch
     options.chartPadding={
       right:lastLabelLength,
       top:30,left:15,bottom:15
