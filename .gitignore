@@ -9,3 +9,4 @@ themes/filesaver
 testnotes/*.slidenote
 themes/unused
 *.DS_Store
+nodejs/node_modules
