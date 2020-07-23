@@ -81,14 +81,14 @@
 <script language="javascript" src="/sites/all/libraries/slidenotes/slidenotes.js"></script>
 <script language="javascript">
 var slidenoteguardian = {
-	actthemesstring: "extraoptions;hiddenobjects;blocks;progressbar;stickytitles;azul;redalert;tufte;prototyp;highlight;transition;chartist;table;imgtourl;klatex;switchparseelements;sections;",	
+	actthemesstring: "extraoptions;hiddenobjects;blocks;progressbar;stickytitles;azul;redalert;tufte;prototyp;highlight;transition;chartist;table;imgtourl;klatex;switchparseelements;sections;",
 	ivlength: 12,
 	decText: null,
 	crypto: window.crypto,
     options:'<?php print($field_optionstring[0]["value"]);?>',
 	iv:null,
 	encBufferString : "<?php print($field_encryptednote[0]['value']);?>",
-	notetitle: "<?php print($title);?>"			
+	notetitle: "<?php print($title);?>"
 }
 
 slidenoteguardian.extensionoptions = {
@@ -115,7 +115,7 @@ slidenoteguardian.extensionoptions = {
 var slidenote;
 
 slidenoteguardian.init = function(){
-	var texted = {value:"", selectionEnd:0, selectionStart:0, focus:function(){}}; //emulate textarea 
+	var texted = {value:"", selectionEnd:0, selectionStart:0, focus:function(){}}; //emulate textarea
     var textedlayer = document.createElement("div");
     //textedlayer.id="texteditorbuttons"; //avoid failure of loading themes by simply adding buttons there
     textedlayer.style.display = "none";
@@ -151,7 +151,7 @@ slidenoteguardian.loadConfigString = function(){
           act.changeThemeStatus(false);
       }
   }
-  
+
   //load themes-config:
   for(var x=0;x<saveobject.themeConfigs.length;x++){
       var theme = slidenote.extensions.getThemeByName(saveobject.activethemes[x]);
@@ -176,7 +176,7 @@ slidenoteguardian.decryptPresentation = async function(){
 	}
     if(this.decText==="decryption has failed")return;
     //decryption was successfull
-    
+
 	var imgblockpos = this.decText.indexOf("§§§€€€€€IMAGEBLOCK€€€€€§§§");
 	this.imageblockstring = this.decText.substring(imgblockpos+26);
 	this.decText = this.decText.substring(0,imgblockpos);
@@ -237,7 +237,7 @@ slidenoteguardian.encryptComment = async function(){
    var enctext = this.encBufferToString(encresult);
    bodyfield.value = enctext;
    document.getElementById("edit-submit").click();
-   return true;	   
+   return true;
 }
 
 slidenoteguardian.encBufferToString = function(encResult){
@@ -766,8 +766,14 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
         <!-- additional interaction -->
         <!-- ---------------------- -->
 
-		<button class="controlbutton" id="controlcomment"><img src="/sites/all/libraries/slidenotes/images/buttons/cmscomment.png"><span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span></button>
-
+		<button class="controlbutton" id="controlcomment">
+			<img src="/sites/all/libraries/slidenotes/images/buttons/cmscomment.png">
+			<span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span>
+		</button>
+		<button id="controlarea_multiuserdialog" class="controlbutton controlbuttonleft" onclick="ws.showDialog()" title="hide presentation">
+			<span class="screenreader-only">hide presentation</span>
+			<img src="/sites/all/libraries/slidenotes/images/buttons/cmsmultisession.png">
+		</button>
 <!-- old interface
 		<button class="controlbutton">backward</button>
 		<button class="controlbutton">forward</button>
@@ -776,13 +782,13 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
 		<select id="controlgotobutton" class="controlbutton"></select>
 		<span class="controlbutton"><span id="controlpagenumber"></span> / <span id="controlpagenumbertotal"></span></span>
 		<button class="controlbutton" id="controlcomment"><img src="/sites/all/libraries/slidenotes/images/buttons/presentationcomment.png"><span id="controlcommentcount"></span>/<span id="controlcommenttotal"></span></button>
-	-->	
+	-->
 	</div>
 
 	</div>
   </div>
 
-  
+
 </div>
 <div id="slidenoteGuardianPasswordPromptStore">
 <div id="slidenoteGuardianPasswordPromptTemplate">
@@ -804,4 +810,3 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
 <img src="/sites/all/libraries/slidenotes/images/buttons/bold.png" width="1" onload="slidenoteguardian.init()">
 
 <?php print render($content['comments']); ?> <!-- added -->
-

@@ -1,3 +1,4 @@
+var websocketurl = "wss://presentations.slidenotes.io/ws/";
 var ws = {server:null};
 
 ws.joinSession = function(){
@@ -15,7 +16,7 @@ ws.createSession = function(){
 
 ws.init = async function(){
     if(this.server===null){
-        this.server = await new WebSocket("ws://localhost:3000");
+        this.server = await new WebSocket(websocketurl);
      }
     this.server.onopen = function(){ws.init2();};
 }
@@ -34,9 +35,9 @@ ws.init2 = async function(){
             };
             if(data.action==="syncToSlideNr"){
                 slidenoteplayer.gotoPage(data.msg,true);
-            } 
+            }
             if(data.action==="init"){
-                ws.id = data.id; 
+                ws.id = data.id;
                 //peerworker.id = data.id;
             }
             if(data.action==="initCreator"){
@@ -45,7 +46,9 @@ ws.init2 = async function(){
             if(data.action==="userlist"){
                 //gets a list with user-ids, including own:
                 //for now we only use the length - minus self to show spectators length:
-                this.userlist=data.msg;
+                ws.userlist=data.data;
+                let speclist = document.getElementById("spectatorcount");
+                if(speclist)speclist.innerText = ws.userlist.length-1;
             }
             /*
             if(data.action==="getUserNames"){
@@ -55,7 +58,7 @@ ws.init2 = async function(){
             */
         }; //end of onmessage
         if(this.userName != undefined && this.userName != null)this.sendMessage(this.userName, "setUserName");
-    
+
 }
 
 ws.sendMessage = function(msg, action, options){
@@ -65,7 +68,7 @@ ws.sendMessage = function(msg, action, options){
 
 ws.sendSlideNr = function(){
         if(this.creator===false)return;
-        this.sendMessage(slidenoteplayer.actpage, "syncToSlideNr"); 
+        this.sendMessage(slidenoteplayer.actpage, "syncToSlideNr");
 }
 
 //helper functions:
@@ -92,8 +95,8 @@ copylink = function(link, source){
                 var linkcopied = document.createElement("div");
                 var linktext = document.createElement("span");
                 linktext.innerText = "link copied";
-                var svgcheck = document.getElementById("cloud-ok");
-                linkcopied.innerHTML = svgcheck.innerHTML;
+                //var svgcheck = document.getElementById("cloud-ok");
+                linkcopied.innerHTML = '';//svgcheck.innerHTML;
                 linkcopied.appendChild(linktext);
                 linkcopied.id = "linkcopyalert";
                 source.appendChild(linkcopied);
@@ -117,6 +120,10 @@ ws.showDialog = function(){
     invitebutton.innerHTML = ivlink;
     content.appendChild(invitebutton);
     content.appendChild( document.createElement("hr"));
+    if(ws.server===null){
+      //if no websocket-connection yet - start one:
+      ws.createSession();
+    }
     let spectators = document.createElement("div");
     spectators.id="spectatorcountwrapper";
     let speccount = 0;
@@ -129,9 +136,9 @@ ws.showDialog = function(){
         type:"dialog",
         content:content,
         closebutton:true,
-        focuson:invitebutton        
+        focuson:invitebutton
     }
-    dialoger.buildDialog(dialogoptions); 
+    dialoger.buildDialog(dialogoptions);
 }
 
 /*
@@ -141,7 +148,7 @@ for future use: the peerworker, establishes and controls audio and video per web
 var peerworker = {
     peerconnections:{},
     iceservers: null,
-    id:null    
+    id:null
 };
 
 peerworker.init = function(){
@@ -193,7 +200,7 @@ peerworker.updatePeerConnectionList = function(usernames){
     }
 
 }
-// direct functions to handle events: 
+// direct functions to handle events:
 //start negotiation:
 function handleNegotiationNeededEvent() {
   var PeerConnection = this;
@@ -201,7 +208,7 @@ function handleNegotiationNeededEvent() {
     return PeerConnection.setLocalDescription(offer);
   })
   .then(function() {
-    ws.sendMessage(msg:{
+    ws.sendMessage({
       name: ws.username,
       senderId:ws.id,
       target: PeerConnection.targetUUID,
@@ -269,18 +276,18 @@ function handleICECandidateEvent(event){
 //recieve ice-candidate:
 function handleNewICECandidateMsg(msg){
     var candidate = new RTCIceCandidate(msg.candidate);
-    this.addIceCandidate(candidate).catch(reportError);    
+    this.addIceCandidate(candidate).catch(reportError);
 }
 
 //recieve video and audio-streams:
 function handleTrackEvent(event){
     //add event.streams[0] as srcObject to audio/video object on page
-    //adds hangup-button to user-gui 
+    //adds hangup-button to user-gui
 }
 
 //recieve stream-end signal:
 function handleRemoveTrackEvent(event){
-    //look out for end of tracks: 
+    //look out for end of tracks:
     //var stream = recievedVideoTag.srcObject;
     //var tracklist = stream.getTracks();
     //if(trackList.length==0)closeVideoCall();
@@ -323,4 +330,3 @@ function handleGetUserMediaError(e) {
 
   closeVideoCall();
 }
-

@@ -1,0 +1,147 @@
+/*dialogbox*/
+:root{
+--dialogbox-overlay: #ffffff50;
+--dialogbox-bg-color: #fcfcfc;
+--dialogbox-headline-color: #626262;
+--dialogbox-font-color: #313131;
+--dialogbox-content-bg-color: #f4f4f4;
+--dialogbox-button-bg-color: #f4f4f4;
+--dialogbox-button2-bg-color: #777777;
+--dialogbox-button2-focus-bg-color: #505050;
+--dialogbox-button2-font-color: #f4f4f4;
+--dialogbox-button3-bg-color: #fff;
+--dialogbox-button3-focus-bg-color: #9c9c9c;
+--dialogbox-button3-font-color: #313131;
+--dialogbox-button3-font2-color: #626262;
+--dialogbox-focus-border-color: #90c1c8;
+--dialogbox-border-color: #CCCCCC;
+
+--dialogbox-shadow: 7px 7px 25px 5px var(--shadow-dark);
+--dialogbox-round-corner: calc(23/10.8*1vh);
+
+}
+
+/* dialog box */
+/* ========== */
+
+  /*Dialog box*/
+  .dialogboxparent{
+    position:fixed;
+    z-index: 10000;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    overflow:hidden;
+    background: var(--dialogbox-overlay);
+    display:grid;
+    justify-content: center;
+    align-content: center;
+  }
+  .dialogbox{
+  /*  width:95vh; /*1020px on 1920x1080;*/
+  /*  height:60vh;/*650px */
+    background: var(--dialogbox-bg-color);
+    border-radius: calc(30/10.8*1vh);
+    box-shadow:var(--dialogbox-shadow);
+    display:grid;
+    grid-template-rows:3em 1fr auto;
+  /*  grid-template-columns: 95vh;*/
+    overflow:hidden;
+  }
+  .dialogtitle{
+    text-align:center;
+    height: calc(39/16*1em);
+    display:grid;
+    grid-template-columns: 15ch 1fr 15ch;
+    /*align-items:end;
+    align-content:center;*/
+    justify-content: center;
+    grid-template-areas:". title close";
+    margin:0;
+    font-size: calc(20/20*1em);
+    color: var(--dialogbox-headline-color);
+    padding-right: calc(25/10.8*1vh);
+    padding-left: calc(25/10.8*1vh);
+    padding-top: calc(18/10.8*1vh);
+    padding-bottom: calc(21/10.8*1vh);
+  }
+  .dialogtitle span{
+    grid-area: title;
+    line-height: 1.2em;
+    align-self: end;
+  }
+  .dialogbox .dialogtitle .dialogclosebutton{
+    align-self:start;
+    justify-self:end;
+    border:none;
+    background:none;
+    grid-area:close;
+    /*margin-right:1vh;
+    margin-top:1vh;*/
+    color: var(--dialogbox-headline-color);
+    font-size: calc(18/20*1em);
+    display: flex;
+    align-items: center;
+    justify-content: right;
+  }
+  .dialogbox .dialogtitle .dialogclosebutton img {
+    height: 1.4em;
+    margin-left: 0.5em;
+  }
+  .dialogclosebutton:hover{
+    filter:brightness(0.7);
+  }
+  .dialogcontent{
+    background:var(--dialogbox-content-bg-color);
+    border-radius: var(--dialogbox-round-corner) var(--dialogbox-round-corner) 0 0;
+    min-height: 5em;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    max-width:80vw;
+    max-height:82vh;
+    overflow-y:auto;
+  }
+  .dialogbox .buttonarea {
+    width: 100%;
+    height: 4em;
+    display: grid;
+    grid-template-columns: auto;
+    justify-items: center;
+    align-items: center;
+    background: var(--dialogbox-content-bg-color);
+  }
+
+  .dialogbox .buttonarea button {
+    grid-row: 1;
+    min-width: 14vh;
+    height: 4.2vh;
+    border-radius: 0.5vh;
+    border: none;
+    color: var(--dialogbox-button2-font-color);
+  }
+
+  button#dialogconfirmbutton {
+    background: var(--dialogbox-button2-focus-bg-color);
+  }
+
+  button#dialogcancelbutton {
+    background: var(--dialogbox-button2-bg-color);
+  }
+
+  /* trash?*/
+  .dontbotherarea{
+    background:var(--dialogbox-content-bg-color);
+  }
+
+  /*hide imagesblock as fast as possible:*/
+  #imagesuploadblock{
+    display:none;
+  }
+  #slidenotediv #imagesblock{
+    display:none;
+  }
+
+/* dialogcontainer */
+/* --------------- */

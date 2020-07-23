@@ -48,6 +48,9 @@
   <title><?php print $head_title; ?></title>
   <link rel="stylesheet" href="/sites/all/libraries/slidenotes/slidenoteplayer.css">
   <link rel="stylesheet" href="/sites/all/libraries/slidenotes/drupal7/presentations.css">
+  <link rel="stylesheet" href="/sites/all/libraries/slidenotes/themes/dialoger.css">
+  <script src="/sites/all/libraries/slidenotes/drupal7/multiuserpresentation.js"></script>
+  <script src="/sites/all/libraries/slidenotes/themes/dialoger.js"></script>
   <!--added css and js-bibs from script:-->
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>

@@ -30,6 +30,7 @@ function slidenotePlayer(){
 }
 
 var slidenoteplayer = new slidenotePlayer();
+slidenoteplayer.hashOnLoad = location.hash;
 
 slidenoteplayer.init = async function(){
   this.actpage = 0;
@@ -45,7 +46,7 @@ slidenoteplayer.init = async function(){
   this.initKeystrokes();
   //this.initComments();
   this.gotoPage(this.actpage);
-  if(ws && ws.server===null && location.hash==="#join")ws.joinSession();
+  if(ws && ws.server===null && (location.hash==="#join" || this.hashOnLoad==="#join"))ws.joinSession();
   this.hideLoadScreen();
   this.commentform = document.getElementById("comment-form");
   //this.commentform.onsubmit = function(){return confirm("wirklich absenden?")};//slidenoteguardian.encryptComment()};
