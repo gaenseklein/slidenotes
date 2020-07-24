@@ -225,10 +225,10 @@ newtheme.buildgrid = function(gridcontainer){
   for(var y=0;y<colums;y++)area+=gridarea[x][y]+' ';
   area+='" ';
   }
-  //delete nav in the future if nothing goes wrong:
-  //area+='" ';
-  //for(var y=0;y<colums;y++)area+="nav "
-  //area+='"';
+  //add nav-area to grid-template:
+  area+='" ';
+  for(var y=0;y<colums;y++)area+="nav "
+  area+='"';
   console.log("area to use:"+area);
   gridcontainer.style.gridTemplateAreas = area;
   //gridcontainer.style.gridTemplateRows = "repeat("+gridarray.length+", 1fr )";
@@ -255,9 +255,12 @@ newtheme.buildgrid = function(gridcontainer){
   }
   if(hasleftorrightsection)rowheights+="1fr ";
   if(footerline)rowheights+="auto ";
-  //delete nav in the future if nothing goes wrong:
   //add line for having space for nav-menu:
-  //rowheights+=0;//"20px ";
+  rowheights+="auto ";//"20px ";
+  //add nav-menu placeholder
+  let plholder = document.createElement("div");
+  plholder.className = "navigationPlaceholder";
+  gridcontainer.appendChild(plholder);
   console.log("gridTemplateRows:"+rowheights);
   gridcontainer.style.gridTemplateRows=rowheights;
   gridcontainer.classList.add("gridy"+(rows+1));

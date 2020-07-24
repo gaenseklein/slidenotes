@@ -17,11 +17,12 @@ var owners = {};
 
 wss.on('connection', function connection(ws, req){
         //new connection:
+
     ws.id = Math.floor(Math.random()*10000);
     if(allids.indexOf(ws.id)>-1)ws.id = Math.floor(Math.random()*10000);
     if(allids.indexOf(ws.id)>-1)ws.id = Math.floor(Math.random()*10000);
     if(allids.indexOf(ws.id)>-1)ws.id = Math.floor(Math.random()*10000);
-
+    console.log("new connection with id:"+ws.id);
     ws.sendToRoom = function(message,excludeSelf){
         console.log("sending to room:",message);
             for(var x=0;x<rooms[this.room].length;x++){
@@ -55,11 +56,13 @@ wss.on('connection', function connection(ws, req){
           rooms[this.room]=new Array();
           owners[this.room]=ws.id; //TODO: better handle second creator
           }
+          rooms[this.room].push(this);
           let creatorResponse = JSON.stringify({
             action:"initCreator",
             roomid:this.room
           });
           ws.send(creatorResponse);
+          console.log("new room created");
         }
         if(data.action==="joinRoom"){
            this.room = data.msg;
@@ -113,9 +116,9 @@ wss.on('connection', function connection(ws, req){
           }else{
             let data = new Array();
             for(var x=0;x<rooms[this.room].length;x++)data[x]={
-                username: rooms[this.room][x].userName,
+                //username: rooms[this.room][x].userName,
                 id: rooms[this.room][x].id};
-            ws.sendToRoom(JSON.stringify({data:data, action:"getUserNames"}),true);
+            ws.sendToRoom(JSON.stringify({data:data, action:"userlist"}),true);
             ws.sendToRoom({data:this.id,action:"userHasLeft"});
             console.log("sending new userlist",data);
           }

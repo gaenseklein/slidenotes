@@ -93,3 +93,12 @@ div > img.bgimg {
 .blocks section.section.right{
   display:grid;
 }
+
+/*placeholder for navigation
+  use this to make space for navigation which is
+  positioned absolute
+*/
+.blocks .navigationPlaceholder{
+  grid-area: nav;
+  height:6vh;
+}

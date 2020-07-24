@@ -16,9 +16,9 @@
   --piw2: 464.4;
 
   /*for padding*/
-  --paddingPpage: 6.5vh 7.5vw 6vh 7.3vw;
-  --paddingPpageWide: 6.5vh 20vw 6vh 20vw;
-  --paddingPpageNeg: -6.5vh -7.5vw -6vh -7.3vw;
+  --paddingPpage: 6.5vh 7.5vw 0vh 7.3vw;
+  --paddingPpageWide: 6.5vh 20vw 0vh 20vw;
+  --paddingPpageNeg: -6.5vh -7.5vw -0vh -7.3vw;
 }
 
 /* presentation main rules */
@@ -396,8 +396,9 @@
   /*transition-delay: 1s;*/
 
 }
-/*back-to-editor*/
-#controlarea #controlarea_back-to-editor{
+/*top-button: back-to-editor/controlarea_multiuserdialog*/
+#controlarea #controlarea_back-to-editor,
+#controlarea #controlarea_multiuserdialog{
   left: calc(6.2/var(--piw)*100%);
   bottom: calc(153.6/var(--piw)*100/5.84*33%);
   width: calc(55.7/var(--piw)*100%);

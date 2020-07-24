@@ -318,3 +318,7 @@ span#controlcommentcount {
   80%{opacity:0;height:100vh;}
   100%{display:none;height:0;}
 }
+
+.spectator #controlarea {
+    display: none;
+}
