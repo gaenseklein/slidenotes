@@ -116,7 +116,7 @@ ws.showDialog = function(){
     invitebutton.onclick = function(){copylink(this.innerHTML,this);};
     let ivlink = location.href;
     if(ivlink.indexOf("#")>-1)ivlink = ivlink.substring(0,ivlink.indexOf("#"));
-    ivlink+="#join";
+    ivlink+="?join";
     invitebutton.innerHTML = ivlink;
     content.appendChild(invitebutton);
     content.appendChild( document.createElement("hr"));
