@@ -846,4 +846,5 @@ ul.chartist-chartbuttonarea {
 /*giving min-height to charts:*/
 section.chart{
   min-height:20vh;
+  padding-top: 1em;
 }

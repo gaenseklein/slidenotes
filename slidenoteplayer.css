@@ -226,6 +226,7 @@
   div.blocks .ppage.active, div.blocks .ppage{
     display: block;
   }
+  
 }
 
 /*4:3 to 2:1*/
@@ -273,22 +274,12 @@
     width: 40vw;
     height: 7.07vw;
   }
-
-  .ppage {
-    font-size: calc(1.5em + 1vw);
-    line-height: calc(1.1em + 1vw);
-  }
 }
 /*smartphone portrait*/
 @media only screen and (max-width: 60vh){
   #controlarea{
     width: 95vw;
     height: 16.8vw;
-  }
-
-  .ppage {
-    font-size: calc(1em + 1vw);
-    line-height: calc(1.1em + 1vw);
   }
 }
 
