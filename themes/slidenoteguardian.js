@@ -367,8 +367,16 @@ function slidenoteGuardian(slidenote){
 
 /*initLoad completes initial load from cms*/
 slidenoteGuardian.prototype.initLoad = async function(){
-  this.getRestToken(); //always get a RestToken we can use later on
   var searchurl = location.search;
+  //check if we have to create a new slidenote:
+  if(searchurl==="?newslidenote"){
+    this.afterToken = function(){
+      this.createNewSlidenote();
+    }
+    this.getRestToken("createNewSlidenote");
+    return;
+  }
+  this.getRestToken(); //always get a RestToken we can use later on
   var nid = searchurl.substring(searchurl.lastIndexOf("=")+1);
   if(!nid*1>0){
     //this.init();
@@ -757,12 +765,18 @@ slidenoteGuardian.prototype.initTutorial = function(){
   //overwriting savefunctions:
   this.autoSaveToLocal = function(){};
   this.autoSaveToCMS = async function(){};
-
+  this.createNewSlidenote = function(){alert('here you could create a new slidenote. go back to editor to use')};
+  this.deleteFromRest = function(path,response){alert('this would have deleted your slidenote')};
+  this.saveConfig = function(){};
+  this.saveNote = function(){};
+  this.saveToRest=function(){};
+  //document.getElementById("renamebutton").onclick=function(){alert('here you could rename your slidenote')};
+  //document.getElementById("changepasswordbutton").onclick=function(){alert('here you would change your password for your slidenote')};
   //overwriting cloud-button:
   var cloudbutton = document.getElementById("cloud");
   var backlink = document.createElement("a");
   backlink.href = window.location.pathname;
-  backlink.innerText = "back to editor";
+  backlink.innerHTML = "&larr; back to editor"; //←
   //cloudbutton.replaceWith(backlink);
   cloudbutton.style.display = "none";
   cloudbutton.parentElement.insertBefore(backlink,cloudbutton);
@@ -1025,10 +1039,19 @@ slidenoteGuardian.prototype.getRestToken = async function(afterwards){
         slidenoteguardian.restToken = undefined;
       }else slidenoteguardian.restToken = undefined;
     console.log("Token loaded:"+this.statusText);
+    slidenoteguardian.afterToken();
+    //if(afterwards && slidenoteguardian[afterwards])slidenoteguardian[afterwards]();
   });
+
   tokenquest.open("GET","/restws/session/token");
   tokenquest.send(null);
   //should return promise to let saveToRest await
+}
+
+/*
+*/
+slidenoteGuardian.prototype.afterToken = function(){
+  //placeholder to be overwritten in case needed
 }
 /*
 saveToRest: saves content to cms via Rest:
