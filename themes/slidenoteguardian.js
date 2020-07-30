@@ -33,13 +33,17 @@ var SlidenoteCache = function(){
     this.lastSavedTime;
     */
     //what IS usefull is an Array with localstorage-object-names, so:
-    this.cacheItems = ["url","config","cryptnote","slidenotehash","cryptimagestring","imghash","saved","title","lastActiveTime"];
+    this.cacheItems = ["url","config","cryptnote","slidenotehash",
+    "cryptimagestring","imghash","saved","title","lastActiveTime",
+    "nid", "dontBotherOnEmptyPassword"];
     this.activeTimeAccuracy = 60000; //How accurant has the lastActiveTime to be? Minute: 60.000 Hh: 3600.000
+    this.timeToLife = 24*60*60*1000/this.activeTimeAccuracy; //How long should stuff be cached before deleted normaly
+    this.timeToLifeMax = 7*24*60*60*1000/this.activeTimeAccuracy;
     //meta-infos:
     this.id; //an id put in front of item-name in localstorage
     this.allIds; //a string in localstorage, containing all ids seperated by ","
     this.maxSpace; //a number with maximum number of chars possible in browser
-    this.version = 1; //a version number to check if we have to rebuild cache. Increase if you want to force rebuild of usercache
+    this.version = 2; //a version number to check if we have to rebuild cache. Increase if you want to force rebuild of usercache
 }
 
 SlidenoteCache.prototype.init = function(){
@@ -78,7 +82,26 @@ SlidenoteCache.prototype.init = function(){
             //not necesary anymore as we load it later on with the id
         }else{
             //we did not find a cache for current note so open one, which can be loaded afterwards
-            this.id = "sl"+(ids.length+1);
+            this.id = "sl"+(ids.length+1); //easy try: just put it ongoing
+            if(this.allIds.indexOf(this.id)>-1){
+              //if easy try fails, put on another id:
+              for(var newid=1;newid<=ids.length+20;newid++){
+                if(this.allIds.indexOf("sl"+newid)===-1){
+                  this.id="sl"+newid;
+                  break;
+                }
+              }
+              //hopefully we filled some empty space inside.
+              //if not we are in kind of a strange situation
+              //where something could have been very wrong with cache-management
+              //as there should never be so much id's open at the same time
+              if(this.allIds.indexOf("sl"+this.id)>-1){
+                //lets clear the cache and start a new:
+                this.localstorage.clear();
+                this.init();
+                return;
+              }
+            }
             this.allIds +=  ","+this.id;
             this.localstorage.setItem("allIds",this.allIds);
             if(nid)this.localstorage.setItem(this.id+"nid", nid);
@@ -93,6 +116,35 @@ SlidenoteCache.prototype.init = function(){
 }
 
 SlidenoteCache.prototype.calculateMaxSpace = function(){
+  /*new way
+  var maxString = "a";
+for(var x=0;x<26;x++)maxString+=maxString;
+//console.log(maxString.length);
+//maxString should be around 64mio signs, from 5mio max for firefox n chromium
+var usedSpace = 0;
+for(var x=0;x<localStorage.length;x++){
+        usedSpace+=localStorage.key(x).length;
+        usedSpace+=localStorage.getItem(localStorage.key(x)).length;
+}
+var Intervall = 102400; //eg. 100kb
+var start = 0 //2048000-usedSpace; //lets start with 2mb and go upward from there
+var maxSpace = start;
+for(var x=0;x<500;x++){ //500 would be 50.000 kb, more than enough
+    let teststring = maxString.substring(0,maxSpace);
+    try{
+        localStorage.setItem("spaceTest",teststring);
+    }catch(e){
+        console.log("setItem got wrong at:"+maxSpace);
+        maxSpace -= Intervall;
+        break;
+    }
+    maxSpace += Intervall;
+    console.log("maxSpace is:"+maxSpace)
+}
+localStorage.removeItem("spaceTest");
+return maxSpace + usedSpace;
+
+  */
     return 5200000; //hardcoded maxspace for now, maybe calculating later?
 }
 
@@ -103,7 +155,6 @@ SlidenoteCache.prototype.calculateFreeSpace = function(){
             total-=this.localstorage.getItem(this.localstorage.key(x)).length;
     }
     return total;
-    //return 5000000; //Todo: calculate real free space
 }
 
 SlidenoteCache.prototype.fitsIntoSpace = function(key,value){
@@ -111,8 +162,9 @@ SlidenoteCache.prototype.fitsIntoSpace = function(key,value){
     if(oldlength)oldlength=oldlength.length;else oldlength=0;
     valuelength = 0;
     if(value!=undefined){valuelength=""+value;valuelength=valuelength.length};
-    if(this.calculateFreeSpace() > valuelength - oldlength);
-    return true;//Todo: calculate if it fits inside
+    if(this.calculateFreeSpace() > valuelength - oldlength){
+      return true;//Todo: calculate if it fits inside
+    }
 }
 
 SlidenoteCache.prototype.setItem = function(key, value){
@@ -120,14 +172,53 @@ SlidenoteCache.prototype.setItem = function(key, value){
     if(key==="config")rkey="config"; //only one config for all notes
     //test if freeSpace is ok:
     if(this.fitsIntoSpace(rkey,value)){
-        this.localstorage.setItem(rkey,value);
+        try{
+          this.localstorage.setItem(rkey,value);
+        }catch(e){
+          alert("your cache is full\n" + e.message);
+        }
         //should i here set the time or let it the program do by itself? if here it happens often but is it bad?
         this.localstorage.setItem(this.id+"lastActiveTime",Math.floor(new Date()/this.activeTimeAccuracy)); //only by minute, we dont care the second here
     }else{
         //there is not enough space - help!!!
+        let tryToEmptySpace=this.deleteSavedImages(true,false);
+        if(tryToEmptySpace===false){
+          //we could not get enough space free - be more aggressive
+          tryToEmptySpace=this.deleteSavedImages(true,true);
+          if(tryToEmptySpace===false){
+          //this means also that user has in ONE slidenote nearly 24mb of images
+          //warn the user and tell em to delete or scale down images:
+          //alert for now, maybe changing it to propper dialog with
+          //posibility to change size of images
+            alert("your slidenote has too much or too big images. please try to restrain to less than 5MB total. otherwise images can not be hold in cache for you");
+            try{
+              this.localstorage.setItem(rkey,value);
+            }catch(e){
+              alert("your cache is full\n" + e.message);
+            }
+            return;
+          }
+        }
+        //try anew:
+        this.setItem(key,value);
     }
 }
-
+SlidenoteCache.prototype.deleteSavedImages = function(excludeActualNote, includeNotSaved){
+  var ids = this.allIds.split(",");
+  var deletedimages = false;
+    for(var x=0;x<ids.length;x++){
+      var id=ids[x];
+      var saved = this.localstorage.getItem(id+"saved");
+      var imagestring = this.localstorage.getItem(id+"cryptimagestring");
+      if((saved==="true"|| includeNotSaved) &&
+      (id!=this.id || excludeActualNote!=true) &&
+      imagestring!=null && imagestring!="cmsonly"){
+        this.localstorage.setItem(id+"cryptimagestring","cmsonly");
+        deletedimages = true;
+      }
+    }
+    return deletedimages;
+}
 SlidenoteCache.prototype.getItem = function(key){
     if(key==="config") return this.localstorage.getItem(key); //config is stored globaly
     return this.localstorage.getItem(this.id+key);
@@ -135,12 +226,12 @@ SlidenoteCache.prototype.getItem = function(key){
 
 SlidenoteCache.prototype.deleteCache = function(id){
     for(var x=0;x<this.cacheItems.length;x++){
-        this.localstorage.removeItem(this.id+this.cacheItems[x]);
+        this.localstorage.removeItem(id+this.cacheItems[x]);
     }
     var allids = this.allIds.split(",");
     for(var x=0;x<allids.length;x++)if(allids[x]===id)allids.splice(x,1);
     this.allIds = allids.join(",");
-    this.localstorage.setItem(allIds,this.allIds);
+    this.localstorage.setItem("allIds",this.allIds);
 }
 
 SlidenoteCache.prototype.cleanGarbage = function(){
@@ -149,9 +240,14 @@ SlidenoteCache.prototype.cleanGarbage = function(){
         var id=ids[x];
         var saved = this.localstorage.getItem(id+"saved");
         var isempty = (this.localstorage.getItem(id+"cryptnote")===null);
-        var timesincelastactive = Math.floor(new Date()/this.activeTimeAccurancy) - this.localstorage.getItem(id+"lastActiveTime");
-        if((saved==="true"||isempty) && timesincelastactive> (90000000/this.activeTimeAccurancy))this.deleteCache(id);
+        var timesincelastactive = Math.floor(new Date()/this.activeTimeAccuracy) - this.localstorage.getItem(id+"lastActiveTime");
+        if(((saved==="true"||isempty)
+          && timesincelastactive> this.timeToLife)||
+        timesincelastactive> this.timeToLifeMax){
+            this.deleteCache(id);
+          }
     }
+    this.allIds=this.localstorage.getItem("allIds");
 }
 
 
@@ -1756,8 +1852,8 @@ slidenoteGuardian.prototype.saveNote = async function(destination){
     //if(titles.indexOf(this.notetitle)===-1)titles+="#|#"+this.notetitle;
 
     if(imghash!=null){
-      this.localstorage.setItem('cryptimagestring',encimgstring); //TODO: new aproach with multiple notes
-      this.localstorage.setItem('imghash',imghash); //TODO: new approach with multiple notes
+      this.localstorage.setItem('cryptimagestring',encimgstring); //TODO: posibility to store images separately
+      this.localstorage.setItem('imghash',imghash); //TODO: posibility to store images separately
     }
     let notehash = await this.hash(slidenotetext);
     this.localstorage.setItem("slidenotehash", notehash);
