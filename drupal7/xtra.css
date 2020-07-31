@@ -1,35 +1,113 @@
-.page-node-add-slidenote .field-type-text-long, 
-.page-node-add-slidenote .field-type-text, 
-.page-node-add-slidenote .field-type-entityreference {
+/*feedback: alternative url: givefeedback (/node/add/feedback) */
+/*hide all not-needed*/
+.page-node-add-feedback #navigation,
+.page-node-add-feedback #breadcrumb,
+.page-node-add-feedback #header,
+.page-node-add-feedback #page-title,
+.page-node-add-feedback #footer-wrapper {
     display: none;
 }
 
-
-.view-my-slidenotes img, .view-my-presentations img {
-    height: 4em;
+.page-node-add-feedback .region.region-content {
+    width:500px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
-
-.view-my-slidenotes .views-field-title, 
-.view-my-presentations .views-field-title {
-    float: left;
-    margin-right: 5px;
-    border-right: 1px solid;
-    padding: 10px;
-}
-.view-my-slidenotes .views-row,
-.view-my-presentations .views-row{
-    clear: both;
-	border:1px solid;
-	padding:10px;
-	border-radius:4px;
-	margin-bottom:4px;
-	min-height:8em;
+.page-node-add-feedback .content a {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: xxx-large;
 }
 
-.node-type-slidenote .tabs.clearfix, 
-.node-type-slidenote #page-title, 
-.node-type-slidenote #navigation, 
-.node-type-slidenote #header {
+.page-node-add-feedback input#edit-submit {
+    background:#4e4e4e;
+    color:white;
+    padding:15px;
+    border-radius:5px;
+}
+
+body.page-node-add-feedback{
+    background: #fcfcfc;
+}
+
+/*welcome-screen: alternative url: /welcome (node-id 186)*/
+
+.page-node-186 #header, 
+.page-node-186 #navigation, 
+.page-node-186 #footer-wrapper {
     display: none;
+}
+
+.page-node-186 .view-header a {
+    background: #9c9c9c;
+    padding: 5px;
+    margin: 5px;
+    display: block;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin-left: 1ch;
+    /* font-size: large; */
+}
+
+.page-node-186 .views-field a {
+    display: block;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+}
+
+.page-node-186 .views-field.views-field-title {margin-top: 10px;}
+
+.page-node-186 .views-field-field-slidenotenode span.field-content a {
+    display: unset;
+}
+
+.page-node-186 .views-row {
+    background: #f3f3f3;
+    border-radius: 1ch;
+    padding: 5px;
+    margin: 5px;
+}
+
+.page-node-186 div.column-block {
+    background: none;
+    border: none;
+}
+
+.page-node-186 .submitted {
+    display: none;
+}
+
+.page-node-186 .node {
+    border: none;
+}
+
+.page-node-186 .view-header a img {
+    margin-right: 2ch;
+    height: 1em;
+}
+
+.page-node-186 .column-block h2 {
+    border-bottom: none;
+}
+
+.page-node-186 h1#page-title {
+    background: none;
+    color: #626262;
+    text-align: center;
+    font-size: xxx-large;
+}
+
+.page-node-186 div#node-186 {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.page-node-186 div#main {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 }
