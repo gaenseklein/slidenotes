@@ -2840,6 +2840,10 @@
   }
   .raw-text #slidenoteeditor #quelltext{
     color:unset;
+    caret-color: unset;
+  }
+  .raw-text #cursorlinearrow{
+    visibility: hidden;
   }
 
 /* big-mode */
@@ -3228,6 +3232,11 @@
     overflow-x: auto;
     overflow-y: auto;
     white-space: pre;
+    color: unset;
+    caret-color: unset;
+  }
+  .audio-mode #cursorlinearrow{
+    visibility: hidden;
   }
 
 
