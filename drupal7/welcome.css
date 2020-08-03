@@ -1,0 +1,79 @@
+/*welcome-screen: alternative url: /welcome (node-id on beta: 186)*/
+
+.page-node-186 #header, 
+.page-node-186 #navigation, 
+.page-node-186 #footer-wrapper {
+    display: none;
+}
+
+.page-node-186 .view-header a {
+    background: #9c9c9c;
+    padding: 5px;
+    margin: 5px;
+    display: block;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    margin-left: 1ch;
+    /* font-size: large; */
+}
+
+.page-node-186 .views-field a {
+    display: block;
+    width: 100%;
+    color: black;
+    font-weight: bold;
+}
+
+.page-node-186 .views-field.views-field-title {margin-top: 10px;}
+
+.page-node-186 .views-field-field-slidenotenode span.field-content a {
+    display: unset;
+}
+
+.page-node-186 .views-row {
+    background: #f3f3f3;
+    border-radius: 1ch;
+    padding: 5px;
+    margin: 5px;
+}
+
+.page-node-186 div.column-block {
+    background: none;
+    border: none;
+}
+
+.page-node-186 .submitted {
+    display: none;
+}
+
+.page-node-186 .node {
+    border: none;
+}
+
+.page-node-186 .view-header a img {
+    margin-right: 2ch;
+    height: 1em;
+}
+
+.page-node-186 .column-block h2 {
+    border-bottom: none;
+}
+
+.page-node-186 h1#page-title {
+    background: none;
+    color: #626262;
+    text-align: center;
+    font-size: xxx-large;
+}
+
+.page-node-186 div#node-186 {
+    text-align: center;
+    font-size: xx-large;
+}
+
+.page-node-186 div#main {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+}
