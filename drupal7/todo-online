@@ -1,0 +1,8 @@
+to make all templates work you have to copy them to your themes-templates-directory
+and look out to get them active inside the template.php of your actual theme. 
+for mayo i had to put 
+if ($node = menu_get_object()){
+        $variables['theme_hook_suggestions'][] = 'html__'. $node->type;
+}
+on begining of function mayo_preprocess_html
+
