@@ -21,7 +21,7 @@
     /*sidebar*/
     --nicesidebarsymbol-bg-color: #125E69; /*emphazing-font-color*/
     --nicesidebarsymbol-font-color: #fff; /*lvl2-color*/
-    --insertarea-bg-color: #125E69BF; /*emphazing-backg-color*/   
+    --insertarea-bg-color: #125E69BF; /*emphazing-backg-color*/
     --insertarea-button-bg-color: #fff; /*lvl2-color*/
     --insertarea-button-font-color: #125E69; /*emphazing-font-color*/
     /*arrow-box*/
@@ -59,7 +59,7 @@
     --dialogbox-overlay: #ffffff50;
     --dialogbox-bg-color: #fcfcfc;
     --dialogbox-headline-color: #626262;
-    --dialogbox-font-color: #313131; 
+    --dialogbox-font-color: #313131;
     --dialogbox-content-bg-color: #f4f4f4;
     --dialogbox-button-bg-color: #f4f4f4;
     --dialogbox-button2-bg-color: #777777;
@@ -1056,7 +1056,7 @@
     margin-left: 100%;
   }
 
-    
+
 
 
   /*insert-menu*/
@@ -1433,21 +1433,21 @@
   }*/
 
   /*hide all menus by default*/
-  #menuload, 
-  #menucloud, 
-  #menupublish, 
-  #menuimportexport, 
-  #menuoptionseditor, 
-  #menuoptionspresentation, 
+  #menuload,
+  #menucloud,
+  #menupublish,
+  #menuimportexport,
+  #menuoptionseditor,
+  #menuoptionspresentation,
   #toolbar {
       /*display: none;*/
       visibility: hidden;
   }
-  #menuload.active, 
-  #menucloud.active, 
-  #menupublish.active, 
-  #menuimportexport.active, 
-  #menuoptionseditor.active, 
+  #menuload.active,
+  #menucloud.active,
+  #menupublish.active,
+  #menuimportexport.active,
+  #menuoptionseditor.active,
   #toolbar.active {
       /*display: unset;*/
       visibility: unset;
@@ -1511,8 +1511,8 @@
   }
 
   /*medium buttons*/
-  #menuoptionseditor button, 
-  #menuoptionseditor a, 
+  #menuoptionseditor button,
+  #menuoptionseditor a,
   #menuoptionseditor #nightmodetoggle div,
   #menucloud button,
   select{
@@ -1522,8 +1522,8 @@
   }
 
   /*small dark buttons*/
-  #imagegallerybox button.imagegallery-delbutton, 
-  #menupublish button.circle, 
+  #imagegallerybox button.imagegallery-delbutton,
+  #menupublish button.circle,
   #menupublish button.copylink, button.minibutton{
     border-radius: calc(2.5/11*1em);
     height: calc(20/11*1em);
@@ -1834,7 +1834,7 @@
   #menuoptionseditor {
     grid-column: 2;
     grid-row: 4;
-    margin-right: calc(var(--grid-margin)*var(--emToVh)*-1vh); 
+    margin-right: calc(var(--grid-margin)*var(--emToVh)*-1vh);
   }
 
   /*texteditor modi*/
@@ -2661,7 +2661,7 @@
     /*sidebar*/
     --nicesidebarsymbol-bg-color: #5D3730; /*emphazing-font-color*/
     --nicesidebarsymbol-font-color: #fff; /*lvl2-color*/
-    --insertarea-bg-color: #5D3730BF; /*emphazing-backg-color*/   
+    --insertarea-bg-color: #5D3730BF; /*emphazing-backg-color*/
     --insertarea-button-bg-color: #fff; /*lvl2-color*/
     --insertarea-button-font-color: #5D3730; /*emphazing-font-color*/
     /*arrow-box*/
@@ -2699,7 +2699,7 @@
     --dialogbox-overlay: #1B1917CC;
     --dialogbox-bg-color: #212121;
     --dialogbox-headline-color: #fff;
-    --dialogbox-font-color: #fff; 
+    --dialogbox-font-color: #fff;
     --dialogbox-content-bg-color: #373737;
     --dialogbox-button-bg-color: #010101;
     --dialogbox-button2-bg-color: #777777;
@@ -2732,9 +2732,9 @@
     fill: var(--text-color);
   }
 
-  .nightmode .big-mode #menuimportexport button img, 
-  .nightmode .big-mode #menuoptionseditor .menuitem img, 
-  .nightmode .big-mode .basicbutton img, 
+  .nightmode .big-mode #menuimportexport button img,
+  .nightmode .big-mode #menuoptionseditor .menuitem img,
+  .nightmode .big-mode .basicbutton img,
   .nightmode .big-mode #toolbar button img{
     filter: invert(1) hue-rotate(180deg);
   }
@@ -2851,6 +2851,10 @@
   }
   .raw-text #slidenoteeditor #quelltext{
     color:unset;
+    caret-color: unset;
+  }
+  .raw-text #cursorlinearrow{
+    visibility: hidden;
   }
 
 /* big-mode */
@@ -3239,6 +3243,11 @@
     overflow-x: auto;
     overflow-y: auto;
     white-space: pre;
+    color: unset;
+    caret-color: unset;
+  }
+  .audio-mode #cursorlinearrow{
+    visibility: hidden;
   }
 
 
@@ -3281,7 +3290,7 @@
     }
 
     #nicesidebarsymbol.active #nicesidebarsymbolcontainer{
-      padding-left: calc(18.5/16*1em);      
+      padding-left: calc(18.5/16*1em);
     }
 
     #nicesidebarsymbol #nicesidebarsymbollabel, #nicesidebarsymbol #insertarea{
@@ -3316,8 +3325,8 @@
       opacity: 1;
     }
 
-    
-    
+
+
 
 }
 

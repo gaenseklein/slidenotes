@@ -944,7 +944,7 @@ emdparser.prototype.setDropDownMenu = function (){
 	//	}else{
 	//		return;
 	//	}
-	if(slidenote.editormodus==="raw-text"){
+	if(slidenote.editormodus==="raw-text" || slidenote.editormodus==="audio-mode"){
 		nicesymbol.style.top="10px";
 		nicesymbol.classList.remove("top");
 	} else {
@@ -4005,7 +4005,7 @@ slidenotes.prototype.parseneu = function(){
 				if(usedzeit>0)console.log("Timecheck: stylemdeditor:"+this.extensions.themes[x].classname + ":"+usedzeit+"Ms");
 			}
 		}
-	}else if(slidenote.editormodus==="raw-text"){
+	}else if(slidenote.editormodus==="raw-text" || slidenote.editormodus==="audio-mode"){
 		this.parser.setDropDownMenu();
 	}
 
