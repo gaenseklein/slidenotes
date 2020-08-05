@@ -1585,7 +1585,7 @@
     margin: unset;
     max-height: calc(98vh - var(--grid-s)*var(--emToVh)*0.32vh - 15.4em);
     overflow-y: auto;
-    border-radius: calc(var(--emToVh)*2vh);
+    /*border-radius: calc(var(--emToVh)*2vh);*/
     margin-right: calc(var(--emToVh)*1.1vh);
     padding-right: 0;
     padding-left: calc(var(--emToVh)*1.1vh);
@@ -2248,7 +2248,8 @@
   .dialogtitle span{
     grid-area: title;
     line-height: 1.2em;
-    align-self: end;
+    align-self: center;
+    font-weight: normal;
   }
   .dialogbox .dialogtitle .dialogclosebutton{
     align-self:start;
@@ -2281,6 +2282,15 @@
     max-width:80vw;
     max-height:82vh;
     overflow-y:auto;
+    padding-top: calc(28/10.8*1vh);
+    padding-bottom: calc(32/10.8*1vh);
+  }
+  .dialogcontent button {
+    background-color: var(--dialogbox-button2-bg-color);
+    color: var(--dialogbox-button2-font-color);
+    padding-top: calc(16/10.8*1vh);
+    padding-bottom: calc(16/10.8*1vh);
+    width: calc(315/16*1em);
   }
   .dialogbox .buttonarea {
     width: 100%;
@@ -2377,6 +2387,7 @@
     display:grid;
     justify-content: center;
     align-content: center;
+    color: var(--dialogbox-font-color);
   }
 
 /* options */
