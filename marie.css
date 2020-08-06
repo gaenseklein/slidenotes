@@ -1503,8 +1503,8 @@
   .arrow_box button, #nightmodetoggle div, #notelist li, #actnotetitle {
     display: block;
     line-height: 1.2em;
-    padding-top: calc(18.35/10.8*1vh);
-    padding-bottom: calc(18.35/10.8*1vh);
+    padding-top: 0.4em;
+    padding-bottom: 0.1em;
     margin-top: calc(12/10.8*1vh);
     color: var(--arrow-box-button-font-color);
     background-color: var(--arrow-box-button-bg-color);
@@ -1517,7 +1517,7 @@
   #menucloud button,
   select{
     padding-top: calc(11.85/10.8*1vh);
-    padding-bottom: calc(11.85/10.8*1vh);
+    padding-bottom: 0.2em;
     margin-top: calc(11/10.8*1vh);
   }
 

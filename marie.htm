@@ -1030,45 +1030,36 @@
       </div></div></div>
       <div id="menuimportexport"><div class="arrow_box"><div class="arrow_box_content">
         <button id="importbutton" title="import slidenote or MD-file">
-          <img src="images/buttons/noteblock.png">
-          <img src="images/buttons/export.png" class="importpng">
+          <img src="images/buttons/bigmode_upload-text.svg">
           <span>import slidenote or MD-file</span>
           <input type="file" id="importfile" accept=".slidenote,.txt,.md,.csv">
         </button>
         <div class="separator">download slidenote as</div>
         <button id="exportasslidenotebutton" onclick="slidenoteguardian.saveNote('filesystem')" title="download as encrypted .slidenote file">
-          <img src="images/buttons/noteblock.png">
-          <img src="images/buttons/encrypted.png">
-          <img src="images/buttons/export.png">
+          <img src="images/buttons/bigmode_download-encrypted.svg">
           <span class="screenreader-only">download slidenote as</span>
           <span>encrypted .slidenote file</span>
         </button>
         <button id="exportasmdfilebutton" onclick="slidenoteguardian.exportToFilesystem(slidenote.textarea.value, slidenoteguardian.notetitle+'.md')" title="download as unencrypted text file">
-          <img src="images/buttons/noteblock.png">
-          <img src="images/buttons/notencrypted.png">
-          <img src="images/buttons/export.png">
+          <img src="images/buttons/bigmode_download-unencrypted.svg">
           <span class="screenreader-only">download code as</span>
           <span>unencrypted .md/.txt file</span>
         </button>
         <div class="separator">download presentation as</div>
         <button id="exportasenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(true);" title="download presentation as encrypted .html file">
-          <img src="images/buttons/presentationnice.png">
-          <img src="images/buttons/encrypted.png">
-          <img src="images/buttons/export.png">
+          <img src="images/buttons/bigmode_download-presentation-unencrypted.svg">
           <span class="screenreader-only">download presentation as</span>
           <span>encrypted .html file</span>
         </button>
         <button id="exportasunenchtmlbutton" onclick="slidenoteguardian.exportPresentationLocal(false);" title="download presentation as unencrypted .html file">
-          <img src="images/buttons/presentationnice.png">
-          <img src="images/buttons/notencrypted.png">
-          <img src="images/buttons/export.png">
+          <img src="images/buttons/bigmode_download-presentation.svg">
           <span class="screenreader-only">download presentation as</span>
           <span>unencrypted .html file</span>
         </button>
       </div></div></div>
       <div id="menuoptionseditor"><div class="arrow_box"><div class="arrow_box_content">
-        <a href="/user/edit" class="menuitem"><img src="images/buttons/account.png"><span>Account</span></a>
-        <a href='/user/logout' class="menuitem"><img src="images/buttons/logout.png"><span>log out</span></a>
+        <a href="/user/edit" class="menuitem"><img src="images/buttons/bigmode_account.svg"><span>Account</span></a>
+        <a href='/user/logout' class="menuitem"><img src="images/buttons/bigmode_logout.svg"><span>log out</span></a>
         <div class="separator"><span>night shift</span></div>
         <button id="nightmodetoggle" class="menuitem"><div>on</div><div>off</div></button>
         <div class="separator">view mode</div>
@@ -1086,7 +1077,7 @@
           <!--</button>-->
 		    </div>
         <div class="separator">---</div>
-        <button class="menuitem" onclick="slidenote.extensions.showAdvancedMenu()"><img src="images/buttons/options.png"><span class="screenreader-only">Open </span><span>Advanced Options</span></button>
+        <button class="menuitem" onclick="slidenote.extensions.showAdvancedMenu()"><img src="images/buttons/bigmode_options.svg"><span class="screenreader-only">Open </span><span>Advanced Options</span></button>
         <div class="separator">slidenotes.io service</div>
         <ul>
   				<li><a href="?id=158" class="menuitem">tutorials</a></li>
