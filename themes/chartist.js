@@ -47,7 +47,7 @@ document.getElementsByTagName("head")[0].appendChild(jsfile);*/
 //newtheme.loadingFiles = new Array();
 slidenote.extensions.loadingThemes.push({name:"chartist-placeholder"});
 slidenote.appendFile("script","chartist/chartist.js").onload = loadChartistPlugins;
-var buttonhtml = '<img src="'+slidenote.basepath+'themes/chartist/chartbutton.png" alt="Chart" title="Chart">';
+var buttonhtml = '<img src="'+slidenote.basepath+'images/buttons/bigmode_chart.svg" alt="Chart" title="Chart">';
 buttonhtml += '<span class="buttonmdcode">+++</span>';
 buttonhtml += '<span class="buttonmdtext">chart</span>';
 buttonhtml += '<span class="buttonmdcode">+++</span>';

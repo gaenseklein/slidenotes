@@ -503,6 +503,17 @@
     color: var(--interface-font-color);
   }
 
+  /*trash?*/
+  #noteinfoarea a {
+    background-color: var(--insertarea-bg-color);
+    box-shadow: 0 0 0.1em var(--insertarea-bg-color);
+    color: white;
+    text-decoration: none;
+    padding: 0.1em 0.1em 0.1em 0.3em;
+    margin-bottom: 0.2em;
+    font-size: 0.8em;
+  }
+
   #noteinfoarea button{
     padding: 0;
     font-size: 1em;
@@ -877,6 +888,8 @@
     color: var(--interface-font-color);
     font-size: 0.76em;
     padding: 0;
+    text-overflow: ellipsis;
+overflow: hidden;
   }
 
   #optionarea button img{
@@ -1347,7 +1360,7 @@
   .arrow_box {
     position: relative;
     background: var(--arrow-box-bg-color);
-    border: 1px solid transparent;
+    border: none;
     border-radius: calc(14/10.8*1vh);
     filter: drop-shadow(10px 3px 0.75rem var(--shadow-dark));
     z-index: 100;
@@ -1387,10 +1400,10 @@
   .arrow_box_content {
     max-height: 58vh;
     overflow-y: auto;
-    margin-top: calc(6/10.8*1vh);
+    padding-top: calc(6/10.8*1vh);
     margin-left: calc(10/10.8*1vh);
     margin-right: calc(10/10.8*1vh);
-    margin-bottom: calc(18/10.8*1vh);
+    padding-bottom: calc(18/10.8*1vh);
   }
 
   /*@keyframes appearbox{
@@ -1503,8 +1516,8 @@
   .arrow_box button, #nightmodetoggle div, #notelist li, #actnotetitle {
     display: block;
     line-height: 1.2em;
-    padding-top: 0.4em;
-    padding-bottom: 0.1em;
+    padding-top: calc(6.4/10.8*1vh);/*0.4em;*/
+    padding-bottom: calc(5.6/10.8*1vh);/*0.1em;*/
     margin-top: calc(12/10.8*1vh);
     color: var(--arrow-box-button-font-color);
     background-color: var(--arrow-box-button-bg-color);
@@ -1616,6 +1629,7 @@
     padding-left: 0.5em;
     padding-top: calc(var(--emToVh)*0.4vh);
     padding-bottom: calc(var(--emToVh)*0.4vh);
+    word-break: break-word;
   }
 
   div#toolbar {
@@ -1761,7 +1775,7 @@
 
   #menuload #newnote{
     box-sizing: content-box;
-    height:1.2em;
+    /*height:1.2em;*/
   }
 
   #menuload #newnote img{
@@ -2032,6 +2046,9 @@
     border: none;
     text-align: left;
     padding: 0;
+    display: flex;
+    align-content: center;
+    justify-content: left;
   }
 
   #menuoptionseditor button#nightmodetoggle div {
@@ -2044,6 +2061,9 @@
     width: calc(20.03/16*1em);
     margin-right: calc(9.5/10.8*1vh);
     margin-top: 0;
+    display: flex;
+    align-content: center;
+    justify-content: center;
   }
 
   #menuoptionseditor button#nightmodetoggle div:first-child {
@@ -2752,11 +2772,11 @@
   /*menus*/
   /*-----*/
 
-  .nightmode button#nightmodetoggle div:first-child{
+  .nightmode #menuoptionseditor button#nightmodetoggle div:first-child{
     background: var(--arrow-box-button4-bg-color);
   }
 
-  .nightmode button#nightmodetoggle div{
+  .nightmode #menuoptionseditor button#nightmodetoggle div{
     background: var(--arrow-box-button-bg-color);
   }
 
@@ -2778,15 +2798,18 @@
   }
   .focus #slidenoteeditor #optionarea{
     grid-column-start:1;
-    background:url("images/borderfocusmode.png");
+    background:url("images/borderfocusmode.svg");
     background-repeat: no-repeat;
     background-size: cover;
     width:6.38vh;
-    height:17vh;
+    height:15.9vh; /*17vh*/
     display:grid;
     align-content:center;
     justify-content: start;
     grid-template-columns:auto;
+  }
+  .nightmode .focus #slidenoteeditor #optionarea{
+    background:url("images/borderfocusmode_night.svg");
   }
   .focus #slidenoteeditor #optionsbutton{
     margin-left: calc(10/10.8*1vh);
@@ -2860,6 +2883,20 @@
 /* big-mode */
 /* -------- */
 
+  /*Objects that are only visible on big-mode are hidden normally*/
+  .big-mode-only{
+    display: none;
+  }
+
+  .big-mode .big-mode-only{
+    display: unset;
+  }
+
+  /*Objects that are not visible on big-mode*/
+  .big-mode .big-mode-hidden{
+    display: none;
+  }
+
   .big-mode #slidenoteeditor {
     display:grid;
     /*grid-template-rows: 3.5vh 3em 3em 3em 1fr 42vh 22vh;
@@ -2905,15 +2942,6 @@
   }*/
 
   /*noteinfoarea*/
-  #noteinfoarea a {
-    background-color: var(--insertarea-bg-color);
-    box-shadow: 0 0 0.1em var(--insertarea-bg-color);
-    color: white;
-    text-decoration: none;
-    padding: 0.1em 0.1em 0.1em 0.3em;
-    margin-bottom: 0.2em;
-    font-size: 0.8em;
-  }
   /*------------*/
 
     /*.big-mode #loadnote div{
@@ -3028,8 +3056,12 @@
     }
 
     .big-mode #optionarea button svg {
-        height: 100%;
+      height: 100%;
     }
+
+    button#nightmodetoggle.menuitem div:last-child img{
+      filter: none;
+    } 
 
   /*sidebarcontainer*/
   /*---------------*/
@@ -3108,11 +3140,6 @@
       margin-top: calc(var(--emToVh)*1vh);
     }
 
-    .big-mode #menupublish button {
-      /*padding: 0;*/
-      overflow: hidden;
-    }
-
     .big-mode #menuoptionseditor .arrow_box:after,
     .big-mode #menuoptionseditor .arrow_box:before,
     .big-mode #menuimportexport .arrow_box:after,
@@ -3161,13 +3188,31 @@
     .big-mode #menuimportexport button img,
     .big-mode #menuoptionseditor .menuitem img,
     .big-mode #optionarea button img {
-        display: inline-block;
-        width: 3ch;
-        height: unset;
+      display: inline-block;
+      width: 3ch;
+      height: unset;
     }
 
+  /*menuimportexport*/
+  /*----------------*/
+
     .big-mode #menuimportexport .separator {
-        display: none;
+      display: none;
+    }
+
+  /*menupublish*/
+  /*-----------*/
+
+    .big-mode #menupublish button {
+      /*padding: 0;*/
+      overflow: hidden;
+    }
+
+  /*menuoptions*/
+  /*-----------*/
+
+    .big-mode #menuoptionseditor button#nightmodetoggle.menuitem div img{
+      width: 1.4em;
     }
 
   /*menusearchbox*/
@@ -3342,7 +3387,7 @@
 /* -------- */
 
 /*Objects that are only visible on portrait are hidden in landscape*/
-#buttonarearightbutton, #optionareabutton, .closebutton/*#buttonarearightclose, #toolbarclose, #optionareaclose*/{
+#buttonarearightbutton, #optionareabutton, .closebutton, .arrow_box button.closebutton/*#buttonarearightclose, #toolbarclose, #optionareaclose*/{
   display: none
 }
 #cursorlinearrow-mobile, #cursorlinearrow-mobile-active{
