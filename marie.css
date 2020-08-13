@@ -889,7 +889,7 @@
     font-size: 0.76em;
     padding: 0;
     text-overflow: ellipsis;
-overflow: hidden;
+    overflow: hidden;
   }
 
   #optionarea button img{
@@ -2238,19 +2238,20 @@ overflow: hidden;
     align-content: center;
   }
   .dialogbox{
-  /*  width:95vh; /*1020px on 1920x1080;*/
-  /*  height:60vh;/*650px */
+    /*  width:95vh; /*1020px on 1920x1080;*/
+    /*  height:60vh;/*650px */
     background: var(--dialogbox-bg-color);
     border-radius: calc(30/10.8*1vh);
     box-shadow:var(--dialogbox-shadow);
     display:grid;
-    grid-template-rows:3em 1fr auto;
-  /*  grid-template-columns: 95vh;*/
+    /*grid-template-rows:3em 1fr auto;*/
+    grid-template-rows:auto 1fr auto;
+    /*  grid-template-columns: 95vh;*/
     overflow:hidden;
   }
   .dialogtitle{
     text-align:center;
-    height: calc(39/16*1em);
+    /*height: calc(39/16*1em);*/
     display:grid;
     grid-template-columns: 15ch 1fr 15ch;
     /*align-items:end;
@@ -2262,8 +2263,10 @@ overflow: hidden;
     color: var(--dialogbox-headline-color);
     padding-right: calc(25/10.8*1vh);
     padding-left: calc(25/10.8*1vh);
-    padding-top: calc(18/10.8*1vh);
-    padding-bottom: calc(21/10.8*1vh);
+    /*padding-top: calc(18/10.8*1vh);
+    padding-bottom: calc(21/10.8*1vh);*/
+    padding-top: calc(37/10.8*1vh);
+    padding-bottom: calc(22/10.8*1vh);
   }
   .dialogtitle span{
     grid-area: title;
@@ -2304,6 +2307,11 @@ overflow: hidden;
     overflow-y:auto;
     padding-top: calc(28/10.8*1vh);
     padding-bottom: calc(32/10.8*1vh);
+    padding-left: calc(70/10.8*1vh);
+    padding-right: calc(78/10.8*1vh);
+  }
+  .dialogcontent button:first-child{
+    margin-top: 0;
   }
   .dialogcontent button {
     background-color: var(--dialogbox-button2-bg-color);
@@ -2311,20 +2319,29 @@ overflow: hidden;
     padding-top: calc(16/10.8*1vh);
     padding-bottom: calc(16/10.8*1vh);
     width: calc(315/16*1em);
+    margin-top: calc(11/10.8*1vh);
+  }
+  .dialogcontent button:hover, .dialogcontent button:focus{
+    background-color: var(--dialogbox-button2-focus-bg-color);
   }
   .dialogbox .buttonarea {
-    width: 100%;
+    /*width: 100%;*/
     height: 4em;
     display: grid;
     grid-template-columns: auto;
+    grid-column-gap: calc(70/10.8*1vh);
     justify-items: center;
     align-items: center;
     background: var(--dialogbox-content-bg-color);
+    padding-left: calc(70/10.8*1vh);
+    padding-right: calc(78/10.8*1vh);
+    padding-bottom: calc(37/10.8*1vh);
   }
 
   .dialogbox .buttonarea button {
     grid-row: 1;
-    min-width: 14vh;
+    /*min-width: 14vh;*/
+    min-width: calc(144/10.8*1vh);
     height: 4.2vh;
     border-radius: 0.5vh;
     border: none;
@@ -2339,9 +2356,11 @@ overflow: hidden;
     background: var(--dialogbox-button2-bg-color);
   }
 
-  /* trash?*/
   .dontbotherarea{
     background:var(--dialogbox-content-bg-color);
+    padding-left: calc(38/10.8*1vh);
+    padding-top: calc(7/10.8*1vh);
+    padding-bottom: calc(20/10.8*1vh);
   }
 
   /*hide imagesblock as fast as possible:*/

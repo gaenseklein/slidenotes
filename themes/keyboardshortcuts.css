@@ -37,7 +37,9 @@ ul.keyboardshortcuts li {
     max-width: 15ch;
     justify-self: end;
     margin-top: unset;
-    border: 1px solid rgba(0,0,0,0.5);
+    /*border: 1px solid rgba(0,0,0,0.5);*/
+    padding: calc(4/10.8*1vh);
+    width: unset;
 }
 
 .keyboardshortcuts input.menuitem {
