@@ -53,6 +53,7 @@
   border-radius: calc(13/10.8*1vh) calc(13/10.8*1vh) 0 0;
   max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1rem);
   color: var(--text-color);
+  padding-top: calc(1/10.8*1vh);
 }
 
 #imagegallerybox > div {
@@ -192,6 +193,8 @@ button.imagegallery-image {
   margin-top: calc(97/2/10.8*1vh);
 }
 
+
+
 /*imageupload*/
 .dialogbox.imgtourlresizedialog .dialogcontent{
   display:grid;
@@ -233,11 +236,11 @@ button.imagegallery-image {
   margin-bottom:1vh;
   margin-top:1vh;
 }
-.resizebutton{
+button.resizebutton{
   height:8.3vh;
   border:none;
   box-shadow:0 0 calc(14/10.8*1vh) 0px var(--dialogbox-focus-border-color);
-  border-radius:1vh;
+  border-radius: calc(16/10.8*1vh);
   background: var(--dialogbox-button3-bg-color);
   color: var(--dialogbox-button3-font-color);
   text-align: left;
@@ -245,8 +248,9 @@ button.imagegallery-image {
   padding-left: calc(26/10.8*1vh);
   line-height: calc(26/20*1em);
   min-height: calc(56/16*1em);
+  width:unset;
 }
-.resizebutton:hover{
+button.resizebutton:hover, button.resizebutton:focus{
   background:var(--dialogbox-button3-focus-bg-color);
 }
 .resizebuttonsmall{
@@ -304,6 +308,7 @@ button.imagegallery-image {
   width: 100%;
   transform: translateY(-50%);
   margin-top: calc(97/2/10.8*1vh);
+  border-radius: calc(5/10.8*1vh);
 }
 button#imageselectionuploadbutton {
   border: none;
@@ -314,7 +319,8 @@ button#imageselectionuploadbutton {
   padding-right: calc(75/10.8*1vh);
   padding-top: calc(16/10.8*1vh);
   padding-bottom: calc(15/10.8*1vh);
-  margin-right: calc(9/16*1em);
+  margin-right: calc(18/16*1em);
+  width: unset;
 }
 
 #imagesreuseblock h1.dialogtitle {
@@ -335,9 +341,24 @@ div#imageselectiondialogbuttons {
   margin-top: calc(34/10.8*1vh);
   margin-bottom: calc(34/10.8*1vh);
   color: var(--dialogbox-headline-color);
+  display: flex;
+  align-items: center;
 }
 
 div#imagesreuseblock {
   grid-template-rows: auto 37vh 1fr;
   width:95vh;
+}
+
+/*imagegallery-empty*/
+.imagegallery-empty {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.imagegallery-empty p {
+  width: calc(313/16*1em);
 }

@@ -2251,7 +2251,7 @@
   }
   .dialogtitle{
     text-align:center;
-    /*height: calc(39/16*1em);*/
+    height: calc(39/16*1em);
     display:grid;
     grid-template-columns: 15ch 1fr 15ch;
     /*align-items:end;
@@ -2263,15 +2263,14 @@
     color: var(--dialogbox-headline-color);
     padding-right: calc(25/10.8*1vh);
     padding-left: calc(25/10.8*1vh);
-    /*padding-top: calc(18/10.8*1vh);
-    padding-bottom: calc(21/10.8*1vh);*/
-    padding-top: calc(37/10.8*1vh);
-    padding-bottom: calc(22/10.8*1vh);
+    padding-top: calc(18/10.8*1vh);
+    padding-bottom: calc(21/10.8*1vh);
+    /*padding-top: calc(37/10.8*1vh);*/
   }
   .dialogtitle span{
     grid-area: title;
     line-height: 1.2em;
-    align-self: center;
+    align-self: end;
     font-weight: normal;
   }
   .dialogbox .dialogtitle .dialogclosebutton{
@@ -2309,6 +2308,12 @@
     padding-bottom: calc(32/10.8*1vh);
     padding-left: calc(70/10.8*1vh);
     padding-right: calc(78/10.8*1vh);
+  }
+  .dialogcontent div {
+    margin-top: calc(11/10.8*1vh);
+  }
+  .dialogcontent div:first-child {
+    margin-top: unset;
   }
   .dialogcontent button:first-child{
     margin-top: 0;

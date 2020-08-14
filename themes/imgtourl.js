@@ -265,7 +265,8 @@ slidenote.base64images = {
     }else{
       var emptydiv = document.createElement("div");
       emptydiv.classList.add("imagegallery-empty");
-      emptydiv.innerHTML = "<p>Your image gallery is empty. </p> <p>Press the button above to upload an image into the image gallery.</p> <p>Or type in an image tag in the text input field.</p>";
+      // emptydiv.innerHTML = "<p>Your image gallery is empty. </p> <p>Press the button above to upload an image into the image gallery.</p> <p>Or type in an image tag in the text input field.</p>";
+      emptydiv.innerHTML = "<p>Your image gallery is empty. </p> <p>Press the “add image” button to upload an image into the image gallery</p>";
       return emptydiv;
     }
   },
