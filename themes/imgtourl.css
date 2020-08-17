@@ -351,7 +351,7 @@ div#imagesreuseblock {
 }
 
 /*imagegallery-empty*/
-.imagegallery-empty {
+#imageselectionlist .imagegallery-empty {
   text-align: center;
   height: 100%;
   display: flex;
@@ -359,6 +359,6 @@ div#imagesreuseblock {
   align-items: center;
   flex-direction: column;
 }
-.imagegallery-empty p {
+#imageselectionlist .imagegallery-empty p {
   width: calc(313/16*1em);
 }

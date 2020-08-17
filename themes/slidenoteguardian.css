@@ -58,10 +58,19 @@
 }
 
 #slidenoteGuardianPasswortPrompt input {
-    display: block;
-    margin-bottom:20px;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-bottom:20px;
+  margin-left: auto;
+  margin-right: auto;
+  width: unset;
+  border-radius: calc(12/10.8*1vh);
+  font-size: calc(20/16*1em);
+  padding: calc(3/10.8*1vh);
+  border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
+  box-shadow: inset 0 0 calc(2/10.8*1vh) calc(2/10.8*1vh) var(--shadow-lighter);
+  height: calc(40/20*1em);
+  box-sizing: border-box;
+  margin-top: calc(5/10.8*1vh);
 }
 
 #slidenoteGuardianPasswordPromptStore{
@@ -83,14 +92,14 @@ label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
 
 
 #slidenoteGuardianImportPromptWrapper {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(0,0,0,0.7);
-    z-index: 9999;
-    padding:10%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 9999;
+  padding:10%;
 }
 #slidenoteGuardianImportPrompt{
   background:white;

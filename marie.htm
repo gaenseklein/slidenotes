@@ -1550,21 +1550,21 @@
 
   </div><!-- end of slidenotediv-->
   <div id="slidenoteGuardianPasswordPromptStore">
-    <div id="slidenoteGuardianPasswordPromptTemplate" class="initial dialogbox">
+    <div id="slidenoteGuardianPasswordPromptTemplate" class="initial dialogbox small">
     	<h1 class="dialogtitle" id="slidenoteGuardianPasswordPromptNotetitle">TITLE</h1>
       <div class="dialogcontent">
       	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
       	<form onsubmit="event.preventDefault();" action="#" method="POST">
-      		<label id="slidenoteGuardianPasswordPromptUsernameLabel">FILENAME FOR EXPORT</label>
+      		<label id="slidenoteGuardianPasswordPromptUsernameLabel">filename for export</label>
       		<input type="text" id="username">
-      		<label>PASSWORD</label>
+      		<label>password</label>
       		<input type="password" id="password">
-      		<label id="slidenoteGuardianPasswordPromptRetypeLabel">RE-TYPE PASSWORD</label>
+      		<label id="slidenoteGuardianPasswordPromptRetypeLabel">re-type password</label>
       		<input type="password" id="pwcheckfield">
           <div class="buttonarea">
-        		<button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">ENCRYPT</button>
+        		<button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">encrypt</button>
             <button id="skippassword" onclick="slidenoteguardian.skipPassword()">skip</button>
-            <button id="passwordgen" onclick="slidenoteguardian.passwordGenerator()">Generate a Password for me</butt>
+            <button id="passwordgen" onclick="slidenoteguardian.passwordGenerator()">generate a password for me</butt>
           </div>
       		<div id="slidenoteGuardianPasswortPromptAfterText">we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.</div>
       	</form>

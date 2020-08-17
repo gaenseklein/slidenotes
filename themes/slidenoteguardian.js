@@ -473,7 +473,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
           var ul = Math.floor(evt.loaded / 1024);
           var tt = Math.floor(evt.total / 1024);
           if(tt>0)tt=" / "+tt; else tt="";
-          cs.innerHTML = "It seems your Download is kind of slow<br> or your Slidenote kind of big:<br>"+ul+tt+" kB downloaded";
+          cs.innerHTML = "it seems your download is kind of slow<br> or your slidenote kind of big:<br>"+ul+tt+" kB downloaded";
 
 
   });
@@ -525,7 +525,7 @@ slidenoteGuardian.prototype.init = function(){
     var dialogoptions = {
       type:"prompt",
       title: "welcome back!",
-      content: "Please give your Slidenote a name",
+      content: "please give your slidenote a name",
       inputlabel:"slidenote file name",
       confirmbutton:"save",
       //nocancelbutton:true,
@@ -541,7 +541,7 @@ slidenoteGuardian.prototype.init = function(){
     dialogoptions.content = document.createElement("div");
     dialogoptions.content.id = "placeholder";
     var subtitle = document.createElement("h2");
-    subtitle.innerText = "Please give your Slidenote a name";
+    subtitle.innerText = "please give your slidenote a name";
     //check if first note:
     if(this.notetitle==="€€€FIRST SLIDENOTE€€€"){
       subtitle.innerText = "let's start with giving it a name:"
@@ -601,8 +601,8 @@ slidenoteGuardian.prototype.init = function(){
       //else setTimeout("slidenoteguardian.loadNote('cms')",1);
       setTimeout("slidenoteguardian.loadDiff()",1);
     }else if(cachednote.url != undefined){
-      var confirmtext = "You have an unsaved Version in Cache from another Slidenote "+this.localstorage.getItem("title");
-      confirmtext +="\n Open unsaved Slidenote? ("+cachednote.url+") \n\n Warning - unsaved Cache will be lost if not saved to Cloud";
+      var confirmtext = "you have an unsaved version in cache from another slidenote "+this.localstorage.getItem("title");
+      confirmtext +="\n open unsaved slidenote? ("+cachednote.url+") \n\n warning - unsaved cache will be lost if not saved to cloud";
       if(confirm(confirmtext)){
         window.location = cachednote.url;
       }else{
@@ -1081,7 +1081,7 @@ slidenoteGuardian.prototype.saveToRest = async function(path, payload){
         var cs = document.getElementById("cloudstatus");
         var ul = Math.floor(evt.loaded / 1024);
         var tt = Math.floor(evt.total / 1024);
-        cs.innerText = "Uploading in Progress: "+ul+"/"+tt+" kB uploaded";
+        cs.innerText = "uploading in progress: "+ul+"/"+tt+" kB uploaded";
       }
     }, false);
   putReq.setRequestHeader("CONTENT-TYPE","application/json");
@@ -1094,7 +1094,7 @@ slidenoteGuardian.prototype.saveToRest = async function(path, payload){
     var cloudbutton = document.getElementById("cloud");
     cloudbutton.classList.add("cloud-error");
     var statustext = document.getElementById("cloudstatus");
-    statustext.innerText = "an error occured - network seems unreachable. Please try again later or check your internet connection.";
+    statustext.innerText = "an error occured - network seems unreachable. please try again later or check your internet connection.";
   });
   putReq.send(payload);
   console.log("sending payload");
@@ -1205,7 +1205,7 @@ prepares the presentation to be exported to destination
 @param destination: where to save (filesystem, cms)
 */
 slidenoteGuardian.prototype.exportPresentation = async function(destination, presentationdiv){
-  var password = await this.passwordPrompt("Choose a Password for the Presentation", "exportCMS", true);
+  var password = await this.passwordPrompt("Choose a password for the presentation", "exportCMS", true);
   if(destination==="filesystem")this.preparePresentationForFilesystem(presentationdiv);
   var presentationstring = '<div class="'+presentationdiv.classList.toString()+'">'+
                             presentationdiv.innerHTML + "</div>";
@@ -1613,13 +1613,13 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
         var dialogoptions = {
           type:"confirm",
           title:"missing password",
-          content:"Your slidenote is not protected with a password. Do you want to set a password now?",
+          content:"your slidenote is not protected with a password. \ndo you want to set a password now?",
           confirmbutton:"yes",
           cancelbutton:"no"
         };
         var dontarea = document.createElement("div");
         var dontl = document.createElement("label");
-        dontl.innerText = "Don't remind me again";
+        dontl.innerText = "don't remind me again";
         var dontbother = document.createElement("input");
         dontbother.type = "checkbox";
         dontbother.onchange = function(){
@@ -2511,7 +2511,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
   //if(this.notetitle==="undefined")this.notetitle=this.localstorage.getItem("title");
   pwinput.value="";
   usernamefield.value = this.notetitle; //+"@slidenotes.io";
-  if(pwnotetitle!=null)pwnotetitle.innerText = "Decrypting Slidenote \""+this.notetitle+"\"";
+  if(pwnotetitle!=null)pwnotetitle.innerText = "decrypting slidenote \""+this.notetitle+"\"";
   //standard: skipbutton is hidden
   pwskipbutton.classList.add("hidden");
   if(method==="encrypt" && document.getElementById("slidenotediv").classList.contains("midstate")){
@@ -2520,7 +2520,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
 
   if(method==="decrypt"){
     pwinput.classList.remove("hidden");
-    pwokbutton.innerText="DECRYPT";
+    pwokbutton.innerText="decrypt";
     pwchecklabel.classList.add("hidden");
     pwcheck.classList.add("hidden");//style.display="none";
     pwcheck.value="";
@@ -2528,7 +2528,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     usernamelabel.classList.add("hidden");
     pwgenbutton.classList.add("hidden");
   }else if(method==="export") {
-    pwokbutton.innerText="ENCRYPT";
+    pwokbutton.innerText="encrypt";
     usernamefield.value=this.notetitle+".slidenote";
     usernamefield.classList.remove("hidden");
     usernamelabel.classList.remove("hidden");
@@ -2538,11 +2538,11 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     pwinput.classList.remove("hidden");
     pwcheck.classList.remove("hidden");
     pwchecklabel.classList.remove("hidden");
-    pwnotetitle.innerText = "Exporting to Filesystem";
+    pwnotetitle.innerText = "exporting to filesystem";
     pwgenbutton.classList.remove("hidden");
   }else if(method==="exportCMS"){
-    pwnotetitle.innerText="Exporting to Filesystem";
-    pwokbutton.innerText="ENCRYPT";
+    pwnotetitle.innerText="exporting to filesystem";
+    pwokbutton.innerText="encrypt";
     usernamefield.value=this.notetitle;
     usernamefield.classList.remove("hidden");
     usernamelabel.classList.remove("hidden");
@@ -2557,7 +2557,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     pwokbutton.innerText = "save";
     usernamefield.value = this.notetitle;
     usernamefield.classList.remove("hidden");
-    usernamelabel.innerText = "Enter new name";
+    usernamelabel.innerText = "enter new name";
     pwnotetitle.innerText = "rename";
     //usernamelabel.classList.remove("hidden");
     usernamelabel.classList.add("hidden");
@@ -2585,10 +2585,10 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
       usernamefield.classList.add("hidden");
       usernamelabel.classList.add("hidden");
     }
-    pwokbutton.innerText="ENCRYPT";
+    pwokbutton.innerText="encrypt";
     pwchecklabel.style.display="block";
     pwcheck.style.display="block";
-    pwnotetitle.innerText="Set Password for Slidenote";
+    pwnotetitle.innerText="set password for slidenote";
   }
 
   pwprompt.appendChild(pwpromptbox);
@@ -2684,7 +2684,7 @@ slidenoteGuardian.prototype.importPrompt = function(mdcode, imagestring){
 */
   var dialogoptions = {
     type:"dialog",
-    title:"Import MD-Code from File:",
+    title:"import MD-code from file:",
     closebutton:true,
     arrownavleftright:true
   }
@@ -2703,7 +2703,7 @@ slidenoteGuardian.prototype.importPrompt = function(mdcode, imagestring){
   var importbutton = document.createElement("button");
   var cancelbutton = document.createElement("button");
   var replacebutton = document.createElement("button");
-  importbutton.innerText = "add to existing Code";
+  importbutton.innerText = "add to existing code";
   cancelbutton.innerText = "cancel";
   replacebutton.innerText = "replace existing code";
   var buttonwrapper = document.createElement("div");
@@ -2730,7 +2730,7 @@ slidenoteGuardian.prototype.importPrompt = function(mdcode, imagestring){
     //var imagepuffer = imagestring.split("<<<");
     //imagepuffer.pop(); //delete last element as it has no meaning
     var imagepuffer = JSON.parse(imagestring);
-    imageblocktitle.innerText = "Images from slidenote to import: (Total "+imagepuffer.length+" images)";
+    imageblocktitle.innerText = "images from slidenote to import: (Total "+imagepuffer.length+" images)";
     var imgul = document.createElement("ul");
     for(let i=0;i<imagepuffer.length;i++){
       let imgdata = imagepuffer[i].base64url;//imagepuffer[i].split(">>>");
@@ -2792,7 +2792,7 @@ slidenoteGuardian.prototype.importPrompt = function(mdcode, imagestring){
     buttonwrapper.appendChild(tablebutton);
     buttonwrapper.removeChild(replacebutton);
     //mdcodeblocktitle.innerHTML="Import Data from CSV-File";
-    dialogoptions.title = "Import Data from CSV-File";
+    dialogoptions.title = "import data from CSV-file";
     importbutton.innerText = "insert at current carret position";
   }
 
@@ -2845,8 +2845,8 @@ slidenoteGuardian.prototype.loadDiff = async function(){
     var confirmp = document.getElementById("dialogcontainer");
     confirmp.parentNode.removeChild(confirmp);
   };
-  cachedButton.innerText = "Load Cached Version";
-  cmsButton.innerText = "Load Version of Cloud";
+  cachedButton.innerText = "load cached version";
+  cmsButton.innerText = "load version of cloud";
   //var title = document.createElement("h1");
   //title.innerText = "Cached Version differs from Cloud-Status";
   //confirmpage.appendChild(title);
@@ -2854,7 +2854,7 @@ slidenoteGuardian.prototype.loadDiff = async function(){
   //dialogcontent.classList.add("dialogcontent");
   dialogcontent.id = "placeholder";
   var pretext = document.createElement("div");
-  pretext.innerText = "We found an unsaved Version of this Note in your local Cache. Load local Cache or Cloud?";
+  pretext.innerText = "we found an unsaved version of this note in your local cache. load local cache or cloud?";
   pretext.classList.add("pretext");
   function createList(text){
     var ul = document.createElement("ol");
@@ -2888,7 +2888,7 @@ slidenoteGuardian.prototype.loadDiff = async function(){
   //call dialog:
   var dialogoptions = {
     type:"dialog",
-    title: "Cached Version differs from Cloud-Status",
+    title: "cached version differs from cloud-status",
     content:dialogcontent,
     cssclass:"slidenoteguardiandiffdialog",
     closebutton:true,
