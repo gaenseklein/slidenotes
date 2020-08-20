@@ -44,7 +44,8 @@
 }
 
 #slidenoteGuardianPasswordPromptNotetitle{
-  display:unset;
+  display: flex;
+  align-items: end;
 }
 
 /*

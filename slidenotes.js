@@ -2946,7 +2946,7 @@ pagegenerator.prototype.showpresentation = function(forExport){
 	if(loadingscreen ===undefined || loadingscreen ===null){
 		loadingscreen = document.createElement("div");
 		loadingscreen.id="slidenoteLoadingScreen";
-		loadingscreen.innerText="Please wait while Presentation is generated";
+		loadingscreen.innerText="Please wait while presentation is generated";
 		document.getElementsByTagName("body")[0].appendChild(loadingscreen);
 	}
 
@@ -3365,19 +3365,19 @@ ExtensionManager.prototype.showAdvancedMenu = function(){
 	var editoroptions = document.createElement("button");
 	editoroptions.classList.add("menuitem");
 	editoroptions.title = "Open Editor Options";
-	editoroptions.innerText = "Advanced Editor Options";
+	editoroptions.innerText = "advanced editor options";
 	editoroptions.onclick = function(){slidenote.extensions.showEditorMenu()};
 	dialognode.appendChild(editoroptions);
 	var keyboardoptions = document.createElement("button");
 	keyboardoptions.classList.add("menuitem");
 	keyboardoptions.title = "Open Keyboard Configuration";
-	keyboardoptions.innerText = "Keyboard Configuration";
+	keyboardoptions.innerText = "keyboard configuration";
 	keyboardoptions.onclick = function(){slidenote.extensions.showKeyboardConfig()};
 	dialognode.appendChild(keyboardoptions);
 	var extensionsbutton = document.createElement("button");
 	extensionsbutton.classList.add("menuitem");
 	extensionsbutton.title = "Open Extensions Option";
-	extensionsbutton.innerText = "Extensions";
+	extensionsbutton.innerText = "extensions";
 	extensionsbutton.onclick = function(){slidenote.extensions.showExtensionMenu()};
 	dialognode.appendChild(extensionsbutton);
 	var speakerbutton = document.createElement("button");
@@ -3388,7 +3388,7 @@ ExtensionManager.prototype.showAdvancedMenu = function(){
 	dialognode.appendChild(speakerbutton);
 	var dialogoptions = {
 		type:"dialog",
-		title: "Advanced Options",
+		title: "advanced options",
 		content: dialognode,
 		closebutton: true,
 		focusOnFirst:true
@@ -3436,7 +3436,7 @@ ExtensionManager.prototype.showEditorMenu = function(){
 	}
 	var dialogoptions = {
 		type:"dialog",
-		title:"Advanced Editor Configuration",
+		title:"advanced editor configuration",
 		content:parent,
 		closebutton:true,
 		focusOnFirst:true
@@ -3502,7 +3502,7 @@ ExtensionManager.prototype.showExtensionMenu = function(){
 	parent.appendChild(plist);
 	var dialogoptions = {
 		type:"dialog",
-		title:"Extensions",
+		title:"extensions",
 		closebutton:true,
 		content:parent
 	}

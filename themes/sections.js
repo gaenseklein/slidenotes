@@ -4,9 +4,9 @@ newtheme.description = "Let you organize content inside sections";
 newtheme.helpText = function(dataobject){
   var result = "<h2>Section-block</h2>"+
           "Content inside +++layout +++ Block are considered a section.<br>"+
-          "With sections you can organize your content more specific. "+
+          "With sections you can organize your content more specificly. "+
           "You can use every MD-Code inside a section except new page."+
-          "If the first Line of a section is an image it serves as the "+
+          "If the first line of a section is an image it serves as the "+
           "background";
   return result;
 }
@@ -81,7 +81,7 @@ newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/layout.svg" 
 slidenote.datatypes.push({type:"layout", mdcode:true, theme:newtheme});
 slidenote.standarddatablocktype = {type:"layout",mdcode:true,theme:newtheme};
 
-newtheme.addGlobalOption("checkbox","Use Github-Default (``` is codeblock, not section)","githubcodeblock",false);
+newtheme.addGlobalOption("checkbox","use github-default (``` is codeblock, not section)","githubcodeblock",false);
 
 newtheme.changeGlobalOption = function(optionnr, value){
   if(slidenote.standarddatablocktype && slidenote.standarddatablocktype.type ==="layout"){

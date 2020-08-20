@@ -124,6 +124,11 @@
     height: 0.75em;
   }
 
+  /*give extra space between checkboxes and labels*/
+  input[type='checkbox'] + label {
+    margin-left: 0.4em;
+  }
+
   /*show special border on all focus elements*/
   :focus {
     outline-style: dashed !important;
@@ -2288,13 +2293,19 @@
     align-items: center;
     justify-content: right;
   }
+  .dialogbox .dialogtitle .dialogclosebutton:hover{
+    color: var(--dialogbox-font-color);
+  }
+
   .dialogbox .dialogtitle .dialogclosebutton img {
     height: 1.4em;
     margin-left: 0.5em;
+    opacity: 0.7;
   }
-  .dialogclosebutton:hover{
-    filter:brightness(0.7);
+  .dialogbox .dialogtitle .dialogclosebutton:hover img {
+    opacity: 1;
   }
+
   .dialogcontent{
     background:var(--dialogbox-content-bg-color);
     border-radius: var(--dialogbox-round-corner) var(--dialogbox-round-corner) 0 0;
@@ -2309,13 +2320,14 @@
     padding-bottom: calc(32/10.8*1vh);
     padding-left: calc(70/10.8*1vh);
     padding-right: calc(78/10.8*1vh);
-    text-align: center;
+    /*text-align: center;*/
   }
   .small .dialogcontent{
     max-width: calc(360/10.8*1vw);
   }
   .small>.dialogcontent{
     max-width: calc(360/10.8*1vw);
+    text-align: center;
   }
   .dialogcontent div {
     margin-top: calc(11/10.8*1vh);
@@ -2358,11 +2370,15 @@
   }
   .dialogbox .dialogcontent .buttonarea button{
     width: unset;
-  }
-
-  .buttonarea button{
     margin-top: 0;
   }
+  .dialogbox .dialogcontent li label {
+    text-transform: lowercase;
+  }
+
+  /*.buttonarea button{
+    margin-top: 0;
+  }*/
 
   .dialogbox .buttonarea button {
     grid-row: 1;

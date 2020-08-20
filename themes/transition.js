@@ -1,5 +1,5 @@
 var newtheme = new Theme("transition");
-newtheme.description = "Transition: Adds CSS-based Transition-Effekts to Slideshow";
+newtheme.description = "Transition: Adds CSS-based transition-effects to slideshow";
 /*Define Options*/
 newtheme.options = new Array(
                   {name:"Opacity", transition:"transitionopacity", value:false},
@@ -7,8 +7,8 @@ newtheme.options = new Array(
                 );
 
 //Add to global Options:
-newtheme.addGlobalOption("checkbox","Opacity", "Opacity", false);
-newtheme.addGlobalOption("checkbox","Scroll to Left", "Scroll to Left", false);
+newtheme.addGlobalOption("checkbox","opacity", "Opacity", false);
+newtheme.addGlobalOption("checkbox","scroll to left", "Scroll to Left", false);
 
 newtheme.changeGlobalOption = function(optionnr, value){
   this.options[optionnr].value = value;

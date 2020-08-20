@@ -23,13 +23,14 @@ ul.keyboardshortcuts li {
         "check label button";
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    grid-gap: 0.5em;
+    grid-gap: 1em;
     margin-top: 0.5em;
     margin-right:1ch;
 }
 
 .keyboardshortcuts label {
     grid-area: label;
+    text-transform: lowercase;
 }
 
 .keyboardshortcuts button.menuitem {
@@ -38,8 +39,12 @@ ul.keyboardshortcuts li {
     justify-self: end;
     margin-top: unset;
     /*border: 1px solid rgba(0,0,0,0.5);*/
-    padding: calc(4/10.8*1vh);
+    padding-top: calc(4/10.8*1vh);
+    padding-bottom: calc(4/10.8*1vh);
+    padding-left: calc(8/10.8*1vh);
+    padding-right: calc(8/10.8*1vh);
     width: unset;
+    text-transform: lowercase;
 }
 
 .keyboardshortcuts input.menuitem {

@@ -9,8 +9,8 @@ newtheme.options[1].onchange = function(){
 }
 
 
-newtheme.addGlobalOption("checkbox","Sidebar","Sidebar",true);
-newtheme.addGlobalOption("checkbox","Editorbuttons","Show Editorbuttons",true);
+newtheme.addGlobalOption("checkbox","sidebar","Sidebar",true);
+newtheme.addGlobalOption("checkbox","editorbuttons","Show Editorbuttons",true);
 
 newtheme.changeGlobalOption = function(optionnr, value){
   this.options[optionnr].value = value;

@@ -22,7 +22,7 @@ newtheme.charBlock; //html-element to put char-count inside
 newtheme.speakTimeBlock; //html-element to put speaktime inside
 newtheme.speakTimeActivated = true; //generate Speaktime or not
 
-newtheme.addGlobalOption("checkbox", "Calculate Speak Time", "Calculate Speak Time", this.speakTimeActivated);
+newtheme.addGlobalOption("checkbox", "calculate speak time", "Calculate Speak Time", this.speakTimeActivated);
 newtheme.changeGlobalOption = function(optionnr, value){
   this.speakTimeActivated = value; //!this.speakTimeActivated;
   var outlineblock = document.getElementById("outlineblock");
