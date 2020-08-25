@@ -3602,6 +3602,7 @@
     div#outlineblock{
       grid-template-rows: auto;
       grid-template-columns: auto auto 1fr;
+      cursor: default;
     }
     #outlineblock div{
       margin-right: 0.5em;

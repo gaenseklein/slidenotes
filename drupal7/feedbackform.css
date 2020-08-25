@@ -8,6 +8,15 @@
     display: none;
 }
 
+@font-face {
+    font-family: "rubikReg";
+    src: url("../fonts/Rubik-Regular.ttf");
+  }
+
+body{
+    font-family: "rubikReg";
+}
+
 .page-node-add-feedback .region.region-content {
     width:500px;
     margin-left:auto;
@@ -30,5 +39,16 @@
 
 body.page-node-add-feedback{
     background: #fcfcfc;
+}
+
+.marker, 
+.form-required{
+display: none;
+}
+
+h1{
+    text-align: center;
+    font-weight:normal;
+    font-size:180%;
 }
 
