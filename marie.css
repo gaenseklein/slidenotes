@@ -790,6 +790,9 @@
     height:100%;
     line-height:1.5em;
     outline:none;
+    padding-top: calc(81/10.8*1vh);
+    /*padding-bottom: calc(81/10.8*1vh);*/ /* gibt Fehler in der Positionierung*/
+    box-sizing: border-box;
   }
   #quelltext{
     z-Index:2;
@@ -1883,6 +1886,12 @@
     background: var(--arrow-box-button2-bg-color);
     color: var(--arrow-box-button2-font-color);
     font-size: calc(15/20*1em);
+    padding-top: calc(6.4/10.8*1vh);
+    padding-bottom: calc(5.6/10.8*1vh);
+    padding-left: calc(5.6/10.8*1vh);
+    padding-right: calc(5.6/10.8*1vh);
+    box-sizing: border-box;
+}
   }
 
   #menupublish .arrow_box:before{
@@ -1927,7 +1936,9 @@
   #publishedlist .loadnotebutton{
     grid-area: loadnotebutton;
   }
-
+  #menupublish .loadnotebutton div{
+    text-align: center;
+  }
 
   /*#menupublish button.circle, #menupublish button.copylink {
     font-size: calc(14/20*1em);
@@ -1942,8 +1953,8 @@
 
   /*trash?*/
   #menupublish .copylink div,#menupublish .circle div{
-    display: inline-block;
-    margin-left:1ch;
+    display: inline;
+    /*margin-left:1ch;*/
   }
 
   div#linkcopyalert {
