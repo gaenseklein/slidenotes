@@ -2889,7 +2889,7 @@
   }
   .focus #slidenoteeditor #optionsbutton{
     margin-left: calc(10/14*1vh);
-    margin-right: calc(10/5*1vh);
+    margin-top: calc(10/5*1vh);
   }
   .focus #slidenoteeditor #optionsbutton span{
     display: none;
