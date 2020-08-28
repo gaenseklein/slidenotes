@@ -41,7 +41,12 @@ body{
     color: white;
     font-weight: normal;
     margin-left: 0;
-    /* font-size: large; */
+    transition: 0.3s;
+}
+
+.page-node-186 .view-header a:hover{
+    background-color: #505050;
+    text-decoration: none;
 }
 
 .page-node-186 .views-field a {
@@ -70,6 +75,15 @@ body{
     padding-right: 0.6em;
     margin-bottom: 1em;
     margin-left:0;
+    transition: 0.3s;
+}
+
+.page-node-186 .views-row:hover{
+    text-decoration: none;
+    background-color: #DEECEE;
+}
+.field-content:a{
+    text-decoration: none;
 }
 
 .page-node-186 div.column-block {
