@@ -46,7 +46,7 @@ p{
     background:#4e4e4e;
     color:white;
     padding:0.8em 1em;
-    border-radius:6px;
+    border-radius:0.5em;
     border: none;
     font-family: 'rubikReg';
     transition:background 0.2s;

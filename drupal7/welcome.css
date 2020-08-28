@@ -6,15 +6,41 @@
     display: none;
 }
 
+@font-face {
+    font-family: "rubikReg";
+    src: url("../fonts/Rubik-Regular.ttf");
+  }
+
+@font-face {
+    font-family: "rubikMed";
+    src: url("../fonts/Rubik-Medium.ttf");
+  }
+
+body{
+    font-family: "rubikReg";
+    font-size: 1em;
+    overflow: hidden;
+    height: 100%;
+}
+
+#block-views-my-presentations-block .content, #block-views-my-slidenotes-block .content {
+    height: calc(100vh - 21em); /* die 21em sind willkürlich*/
+    position: relative;
+    overflow: auto;
+}
+
 .page-node-186 .view-header a {
     background: #9c9c9c;
-    padding: 5px;
-    margin: 5px;
+    padding-left: 0.8em;
+    padding-top: 0.7em;
+    padding-bottom: 0.7em;
+    padding-right: 0.6em;
+    margin-bottom: 1em;
     display: block;
-    border-radius: 5px;
+    border-radius: 0.5em;
     color: white;
-    font-weight: bold;
-    margin-left: 1ch;
+    font-weight: normal;
+    margin-left: 0;
     /* font-size: large; */
 }
 
@@ -22,10 +48,14 @@
     display: block;
     width: 100%;
     color: black;
-    font-weight: bold;
+    font-weight: normal;
+    font-family: 'rubikMed';
+    overflow: ellipsis;
 }
 
-.page-node-186 .views-field.views-field-title {margin-top: 10px;}
+.page-node-186 .views-field.views-field-title {
+    margin-top: 10px;
+}
 
 .page-node-186 .views-field-field-slidenotenode span.field-content a {
     display: unset;
@@ -33,9 +63,13 @@
 
 .page-node-186 .views-row {
     background: #f3f3f3;
-    border-radius: 1ch;
-    padding: 5px;
-    margin: 5px;
+    border-radius: 0.5em;
+    padding-left: 0.8em;
+    padding-top: 0.1em;
+    padding-bottom: 0.7em;
+    padding-right: 0.6em;
+    margin-bottom: 1em;
+    margin-left:0;
 }
 
 .page-node-186 div.column-block {
@@ -51,6 +85,18 @@
     border: none;
 }
 
+.column-block .content{
+    padding:0;
+}
+
+.node {
+    margin-bottom: 1.5em;
+    padding:0;
+    border:none;
+    background-color: #fcfcfc;
+
+}
+
 .page-node-186 .view-header a img {
     margin-right: 2ch;
     height: 1em;
@@ -58,22 +104,60 @@
 
 .page-node-186 .column-block h2 {
     border-bottom: none;
+    font-weight: normal;
+    font-family: 'rubikReg';
+    font-size: 1.25;
+    margin-bottom: 1.5em;
 }
 
 .page-node-186 h1#page-title {
     background: none;
     color: #626262;
     text-align: center;
-    font-size: xxx-large;
+    font-weight:normal;
+    font-family: 'rubikReg';
+    font-size: 2em;
 }
 
 .page-node-186 div#node-186 {
     text-align: center;
-    font-size: xx-large;
+    font-weight:normal;
+    font-size: 2em;
 }
 
 .page-node-186 div#main {
-    max-width: 1000px;
+    max-width: 70em;
     margin-left: auto;
     margin-right: auto;
+}
+
+@media only screen and (max-width: 768px) and (min-width: 375px){
+    #block-views-my-presentations-block .content, 
+    #block-views-my-slidenotes-block .content {
+        height: calc(50vh - 12em);
+        border-bottom: 0.15em solid #626262;
+    }
+    div#node-186{
+        margin-bottom: 0.3em;
+    }
+}
+@media only screen and (max-width: 374px) and (min-width: 287px){
+    #block-views-my-presentations-block .content, 
+    #block-views-my-slidenotes-block .content {
+        height: calc(50vh - 14em);
+        border-bottom: 0.15em solid #626262;
+    }
+    div#node-186{
+        margin-bottom: 0.3em;
+    }
+}
+@media only screen and (max-width: 287px){
+    #block-views-my-presentations-block .content, 
+    #block-views-my-slidenotes-block .content {
+        height: calc(50vh - 15em);
+        border-bottom: 0.15em solid #626262;
+    }
+    div#node-186{
+        margin-bottom: 0.3em;
+    }
 }
