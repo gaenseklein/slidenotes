@@ -2826,8 +2826,7 @@
   .nightmode #slidenoteeditor,
   .nightmode #slidenoteloadingscreenwrapper,
   .nightmode #slidenoteGuardianPasswordPromptTemplate{
-    /*filter:invert(1) brightness(2);
-    background:white;*/
+    background:#1f1000;
   }
   .nightmode #imagesblock img,
   .nightmode #contextfieldimage,
