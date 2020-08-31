@@ -11,6 +11,7 @@
   display:grid;
   justify-content: center;
   align-content: center;
+  background-color: var(--dialogbox-overlay);
 }
 
 /*div#slidenoteGuardianPasswordPromptTemplate*/
@@ -43,10 +44,10 @@
   padding-right:10vh;
 }
 
-#slidenoteGuardianPasswordPromptNotetitle{
+/*#slidenoteGuardianPasswordPromptNotetitle{
   display: flex;
   align-items: end;
-}
+}*/
 
 /*
 #slidenoteGuardianPasswortPrompt > div div{
@@ -82,12 +83,14 @@ input#username.hidden, input#password.hidden {
     position: absolute;
     top: -100%;
 }
-input#pwcheckfield.hidden, #slidenoteGuardianPasswordPromptRetypeLabel.hidden {
-    display: none;
-}
-
+input#pwcheckfield.hidden, 
+#slidenoteGuardianPasswordPromptRetypeLabel.hidden, 
+#slidenoteGuardianPasswortPromptAfterText.hidden,
+#slidenoteGuardianPasswordPromptPasswordLabel.hidden,
+#slidenoteGuardianPasswordPromptTemplatePreText.hidden,
 label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
-#skippassword.hidden, #passwordgen.hidden {
+#skippassword.hidden, 
+#passwordgen.hidden {
     display: none;
 }
 

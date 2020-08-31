@@ -68,7 +68,8 @@
         }, function(error){});
       };
       chpwbutton.onclick = function(){
-        slidenoteguardian.passwordPrompt("password","changepassword").then(function(value){
+        // slidenoteguardian.passwordPrompt("password","changepassword").then(function(value){
+        slidenoteguardian.passwordPrompt("","changepassword").then(function(value){
           //change the slidenoteguardian-password:
           slidenoteguardian.password = value;
           //reset images enc-status so they encrypt with new password:
@@ -1551,13 +1552,14 @@
   </div><!-- end of slidenotediv-->
   <div id="slidenoteGuardianPasswordPromptStore">
     <div id="slidenoteGuardianPasswordPromptTemplate" class="initial dialogbox small">
-    	<h1 class="dialogtitle" id="slidenoteGuardianPasswordPromptNotetitle">TITLE</h1>
+    	<h1 class="dialogtitle"><span id="slidenoteGuardianPasswordPromptNotetitle">TITLE</span>
+      <button class="dialogclosebutton" id="dialogclosebutton"><span>cancel</span><img src="images/buttons/x.svg"></button></h1>
       <div class="dialogcontent">
       	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
       	<form onsubmit="event.preventDefault();" action="#" method="POST">
       		<label id="slidenoteGuardianPasswordPromptUsernameLabel">filename for export</label>
       		<input type="text" id="username">
-      		<label>password</label>
+      		<label id="slidenoteGuardianPasswordPromptPasswordLabel">password</label>
       		<input type="password" id="password">
       		<label id="slidenoteGuardianPasswordPromptRetypeLabel">re-type password</label>
       		<input type="password" id="pwcheckfield">

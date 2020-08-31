@@ -62,8 +62,9 @@
     --dialogbox-font-color: #313131;
     --dialogbox-content-bg-color: #f4f4f4;
     --dialogbox-button-bg-color: #f4f4f4;
-    --dialogbox-button2-bg-color: #777777;
-    --dialogbox-button2-focus-bg-color: #505050;
+    --dialogbox-button2-bg-color: #505050;
+    --dialogbox-button2-unfocus-bg-color: #777777;
+    --dialogbox-button2-focus-bg-color: #313131;
     --dialogbox-button2-font-color: #f4f4f4;
     --dialogbox-button3-bg-color: #fff;
     --dialogbox-button3-focus-bg-color: #9c9c9c;
@@ -2073,7 +2074,7 @@
     padding: 0;
     display: flex;
     align-content: center;
-    justify-content: left;
+    justify-content: flex-start;
   }
 
   #menuoptionseditor button#nightmodetoggle div {
@@ -2312,7 +2313,7 @@
     font-size: calc(18/20*1em);
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: flex-end;
   }
   .dialogbox .dialogtitle .dialogclosebutton:hover{
     color: var(--dialogbox-font-color);
@@ -2362,8 +2363,8 @@
   .dialogcontent button {
     background-color: var(--dialogbox-button2-bg-color);
     color: var(--dialogbox-button2-font-color);
-    padding-top: calc(16/10.8*1vh);
-    padding-bottom: calc(16/10.8*1vh);
+    padding-top: calc(13/10.8*1vh);
+    padding-bottom: calc(13/10.8*1vh);
     /*width: calc(315/16*1em);*/
     margin-top: calc(11/10.8*1vh);
     padding-left: calc(10/10.8*1vh);
@@ -2410,13 +2411,16 @@
     border: none;
     color: var(--dialogbox-button2-font-color);
   }
+  button#dialogconfirmbutton:hover, button#dialogcancelbutton:hover{
+    background-color: var(--dialogbox-button2-focus-bg-color);
+  }
 
   button#dialogconfirmbutton {
-    background: var(--dialogbox-button2-focus-bg-color);
+    background: var(--dialogbox-button2-bg-color);
   }
 
   button#dialogcancelbutton {
-    background: var(--dialogbox-button2-bg-color);
+    background: var(--dialogbox-button2-unfocus-bg-color);
   }
 
   .dontbotherarea{
@@ -2808,8 +2812,9 @@
     --dialogbox-font-color: #fff;
     --dialogbox-content-bg-color: #373737;
     --dialogbox-button-bg-color: #010101;
-    --dialogbox-button2-bg-color: #777777;
-    --dialogbox-button2-focus-bg-color: #505050;
+    --dialogbox-button2-bg-color: #505050;
+    --dialogbox-button2-unfocus-bg-color: #777777;
+    --dialogbox-button2-focus-bg-color: #313131;
     --dialogbox-button2-font-color: #f4f4f4;
     --dialogbox-button3-bg-color: #373737;
     --dialogbox-button3-font-color: #fff;
@@ -3040,7 +3045,7 @@
       font-size:x-large;
     }*/
     .big-mode #menuload #actnotearea button.minibutton{
-      font-size: calc(13/20*1em);
+      font-size: calc(11/20*1em);
     }
     .big-mode #cloud{
       font-size: large;
@@ -3220,11 +3225,11 @@
       grid-row: 2 / last;
     }
 
-    .big-mode #menuload #actnotearea button.minibutton#changepasswordbutton {
+    /*.big-mode #menuload #actnotearea button.minibutton#changepasswordbutton {
       display: flex;
       justify-content: right;
       align-items: center;
-    }
+    }*/
 
   /*menuimportexport, menupublish, menuoptions*/
   /*------------------------------------------*/

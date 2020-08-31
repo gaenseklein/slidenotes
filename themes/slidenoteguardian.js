@@ -2500,6 +2500,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
   var usernamefield = document.getElementById("username");
   var usernamelabel = document.getElementById("slidenoteGuardianPasswordPromptUsernameLabel");
   var pwinput = document.getElementById("password");
+  var pwlabel = document.getElementById("slidenoteGuardianPasswordPromptPasswordLabel");
   var pwcheck = document.getElementById("pwcheckfield");
   var pwchecklabel = document.getElementById("slidenoteGuardianPasswordPromptRetypeLabel");
   var pwtext = document.getElementById("slidenoteGuardianPasswordPromptTemplatePreText");
@@ -2507,6 +2508,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
   var pwnotetitle = document.getElementById("slidenoteGuardianPasswordPromptNotetitle");
   var pwskipbutton = document.getElementById("skippassword");
   var pwgenbutton = document.getElementById("passwordgen");
+  var pwaftertext = document.getElementById("slidenoteGuardianPasswortPromptAfterText");
   pwtext.innerText = text;
   //if(this.notetitle==="undefined")this.notetitle=this.localstorage.getItem("title");
   pwinput.value="";
@@ -2520,6 +2522,8 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
 
   if(method==="decrypt"){
     pwinput.classList.remove("hidden");
+    pwlabel.classList.remove("hidden");
+    pwaftertext.classList.remove("hidden");
     pwokbutton.innerText="decrypt";
     pwchecklabel.classList.add("hidden");
     pwcheck.classList.add("hidden");//style.display="none";
@@ -2536,6 +2540,8 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     //pwchecklabel.style.display="block";
     //pwcheck.style.display="block";
     pwinput.classList.remove("hidden");
+    pwaftertext.classList.remove("hidden");
+    pwlabel.classList.remove("hidden");
     pwcheck.classList.remove("hidden");
     pwchecklabel.classList.remove("hidden");
     pwnotetitle.innerText = "exporting to filesystem";
@@ -2550,6 +2556,8 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     //pwchecklabel.style.display="block";
     //pwcheck.style.display="block";
     pwinput.classList.remove("hidden");
+    pwaftertext.classList.remove("hidden");
+    pwlabel.classList.remove("hidden");
     pwcheck.classList.remove("hidden");
     pwchecklabel.classList.remove("hidden");
     pwgenbutton.classList.remove("hidden");
@@ -2562,6 +2570,8 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     //usernamelabel.classList.remove("hidden");
     usernamelabel.classList.add("hidden");
     pwinput.classList.add("hidden");
+    pwaftertext.classList.add("hidden");
+    pwlabel.classList.add("hidden");
     pwinput.value = this.password;
     pwcheck.classList.add("hidden");
     pwchecklabel.classList.add("hidden");
@@ -2572,6 +2582,8 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     usernamefield.value = this.notetitle;
     usernamefield.classList.add("hidden");
     pwinput.classList.remove("hidden");
+    pwaftertext.classList.remove("hidden");
+    pwlabel.classList.remove("hidden");
     pwcheck.classList.remove("hidden");
     pwchecklabel.classList.remove("hidden");
     pwgenbutton.classList.remove("hidden");
