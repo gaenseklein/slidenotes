@@ -22,15 +22,21 @@ body{
     overflow: hidden;
     height: 100%;
 }
+a{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: none;
+}
 
 #block-views-my-presentations-block .content, #block-views-my-slidenotes-block .content {
-    height: calc(100vh - 21em); /* die 21em sind willkürlich*/
+    height: calc(100vh - 20em); /* die 20em sind willkürlich*/
     position: relative;
     overflow: auto;
 }
 
 .page-node-186 .view-header a {
-    background: #9c9c9c;
+    background: #505050;
     padding-left: 0.8em;
     padding-top: 0.7em;
     padding-bottom: 0.7em;
@@ -45,7 +51,7 @@ body{
 }
 
 .page-node-186 .view-header a:hover{
-    background-color: #505050;
+    background-color: #313131;
     text-decoration: none;
 }
 
@@ -55,7 +61,7 @@ body{
     color: black;
     font-weight: normal;
     font-family: 'rubikMed';
-    overflow: ellipsis;
+    text-overflow: ellipsis;
 }
 
 .page-node-186 .views-field.views-field-title {

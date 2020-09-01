@@ -78,6 +78,9 @@
   content: initial;
 }*/
 
+.griditem{
+  margin:0;
+}
 .ppage b{
   font-weight: normal;
 }
@@ -86,8 +89,8 @@
 }
 
 .ppage p{
-  max-width: 40em;
-  /*margin-top: 0;*/
+  margin: 0;
+  
 }
 
 .ppage p + p{
@@ -98,6 +101,7 @@
 .ppage h2,
 .ppage h3{
   text-align: center;
+  margin: 0;
   /*line-height: 1.2em;*/
 }
 .ppage h2,
@@ -176,8 +180,10 @@
   */
 
 }
-.ppage code.codeblock li{
-  /*line-height: 1em;*/
+.ppage code.codeblock ol,
+.ppage code.codeblock ul,
+{
+  margin: 0;
 }
 
 .hljs-keyword,
