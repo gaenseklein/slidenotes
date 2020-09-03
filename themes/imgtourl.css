@@ -351,6 +351,11 @@ div#imagesreuseblock {
 }
 
 /*imagegallery-empty*/
+.arrow_box .imagegallery-empty {
+    background-color: var(--arrow-box-button-bg-color);
+    border-radius: calc(13/10.8*1vh);
+    padding: calc(13/10.8*1vh);
+}
 #imageselectionlist .imagegallery-empty {
   text-align: center;
   height: 100%;
