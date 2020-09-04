@@ -57,30 +57,24 @@
   height:100%;
   overflow: auto;
   left:0;
+  font-size: calc(11.55/10*(0.5em + 1vh));
 }
 
 
-/*.ppage p:last-child,
-.ppage div:last-child,
-.ppage section:last-child,
-.ppage img:last-child,
-.ppage h1:last-child,
-.ppage h2:last-child,
-.ppage h3:last-child{
-  padding-bottom: 3em;
-}*/
-
-/*.ppage section:last-child:after{
-  content: "\00a0";
-}*/
- /*exceptions*/
-/*.ppage section.inline:last-child:after{
-  content: initial;
-}*/
 
 .griditem{
   margin:0;
 }
+.blocks .griditem{
+  z-index: 1;
+  position: relative;
+}
+
+div > img.bgimg{
+  top: 0;
+  left: 0;
+}
+
 .ppage b{
   font-weight: normal;
 }
@@ -93,27 +87,18 @@
   
 }
 
-.ppage p + p{
-  /*margin-top:-0.5em;*/
-}
-
 .ppage h1,
 .ppage h2,
 .ppage h3{
   text-align: center;
   margin: 0;
-  /*line-height: 1.2em;*/
 }
 .ppage h2,
 .ppage h3{
   margin-top: 0;
 }
 
-.ppage h1{
-  /*font-size: 3em;
-  margin-bottom: 1em;
-  line-height: 1em;*/
-}
+
 
 .ppage section h1,
 .ppage section h2,
@@ -125,65 +110,36 @@
 .gridx1 p,
 .gridx2 div,
 .gridx2 p{
-  /*align-self:center;*/
   justify-self:center;
 }
 
 
-.ppage h1+p,
-.ppage h2+p {
-    text-align: center;
-}
-
-
-
-.ppage li+li{
-  /*margin-top: 0.5em;*/
-}
-
-.ppage ol{
-  /*margin-inline-start: 1em;
-  margin-block-start: 0;
-  margin-block-end: 0;*/
-}
-.ppage ul{
-  /*margin-inline-start: 0.3em;
-  margin-block-start: 0;
-  margin-block-end: 0;*/
-}
-
-.ppage h2 + code,
-.ppage h3 + code{
-  /*margin-top: -1em;*/
-}
-
 .ppage quote{
-  background: lightcoral;
-  /*padding: 0.3em 0.3em 0.3em 0.5em;*/
+  padding: 0.3em 0.3em 0.3em 0.5em;
 }
+
 
 
 /*code inline*/
 .ppage p code{
   background-color: hotpink;
-  /*padding: 0 0.1em 0.05em 0.1em;*/
+  padding: 0 0.1em 0.05em 0.1em;
 }
 /*codeblock*/
 .ppage code.codeblock{
   overflow-wrap: break-word;
   height: fit-content;
   height: -moz-fit-content;
-  /*font-size: 0.75em;
-  padding: 0.5em 1em 0.5em 0;
+
   max-width: 45em;
-  justify-self: center;
-  */
 
 }
 .ppage code.codeblock ol,
-.ppage code.codeblock ul,
+.ppage code.codeblock ul
 {
   margin: 0;
+  /*padding: 0.5em 1em 0.5em 0;*/
+  padding: 0;
 }
 
 .hljs-keyword,
@@ -221,9 +177,6 @@
 
 /*chart*/
 .ppage section.chart{
- /* font-size: 0.5em;*/
-  /*Portrait to 4:3*/
-  /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
   justify-self: center;
 }
 
@@ -232,7 +185,9 @@
   div.blocks .ppage.active, div.blocks .ppage{
     display: block;
   }
-  
+  #praesentation{
+    font-size: calc(11.55/10*(0.5em + 1vw));
+  }
 }
 
 /*4:3 to 2:1*/
