@@ -83,7 +83,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .luminoso h3{
- 
+ margin-bottom: 0.2em;
 }
 
 
@@ -98,6 +98,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .luminoso .inline .pblock h2+p,
 .luminoso .inline .pblock h3+p{
   text-align: left;
+  margin-top: 1em;
 }
 
 .luminoso .pblock h2+p, 
@@ -186,7 +187,13 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 .luminoso quote{
-  
+  text-align: center;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0.02em;
+  text-underline-offset: 0.3em;
+  line-height: 1.5em;
+  font-family: "OpenSansItalic";
 }
 
 .luminoso p code{
@@ -200,7 +207,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /* alle charts sind in einer section mit klasse chart*/
 .luminoso section.chart{
-/* font-size: 0.5em;*/
+  font-size: 0.7em;
   /*Portrait to 4:3*/
   /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
 }
@@ -217,12 +224,16 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*line-charts*/
 .luminoso section.chart-line{
+  padding: 0 0 0 0.7em;
 
 }
 
 /*alle labels einer chart - wenn nur für bestimmte charts gewollt, muster von oben erweitern, also bspw. .luminoso .chart-bar .ct-label. hier die größen der schrift und farben für die labels generell anpassen */
 .luminoso .ct-label{
-
+  color: rgba(0, 0, 0, 0.7);
+}
+.luminoso .ct-chart-pie .ct-label{
+  fill: rgba(0, 0, 0, 1);
 }
 
 /*x-achsen-label*/
@@ -237,7 +248,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*dataset-label, was oben drüber steht und bspw. jahreszahl beinhaltet:*/
 .luminoso .chart-datasetlabel{
-
+  border: none;
+  padding: 0;
+  margin-left: 1em;
 }
 
 /*die box davon:*/
@@ -300,6 +313,15 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .luminoso th, td{
   
+}
+
+.luminoso thead{
+  font-family: "KhulaBold";
+}
+
+.luminoso table, th, td{
+  border: 0.02em solid #030303;
+  padding: 0 0.5em;
 }
 
 .luminoso thead{

@@ -70,9 +70,17 @@
   position: relative;
 }
 
+section.inline{
+  gap: 1em;
+}
+
 div > img.bgimg{
   top: 0;
   left: 0;
+}
+
+img.vertical.griditem{
+  width: 100%;
 }
 
 .ppage b{
@@ -114,9 +122,6 @@ div > img.bgimg{
 }
 
 
-.ppage quote{
-  padding: 0.3em 0.3em 0.3em 0.5em;
-}
 
 
 
