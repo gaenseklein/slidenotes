@@ -78,6 +78,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-top: 25vh;
 }
 
+.luminoso h2,
+.luminoso h3{
+	margin-bottom: 0.7em;
+}
 .luminoso h2{
   
 }
