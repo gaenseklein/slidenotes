@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, user-scalable=no">
   <title>Slidenote-Editor</title>
   <!--<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
   <link rel="icon" href="/favicon.ico" type="image/x-icon" />-->
@@ -890,7 +890,7 @@
 
           </ul>
           <button class="fluidbutton closebutton" id="toolbarclose" onclick="document.getElementById('toolbar').classList.remove('active');">
-            <img src="images/buttons/x.svg" alt="back">
+            <img src="images/buttons/mob_edit_close.svg" alt="back">
           </button>
         </div>
       </div>
@@ -969,12 +969,16 @@
       </div>
       <div id="playbuttonarea">
         <button class="fluidbutton" id="presentationoptionsbutton">
-          <img class="nightmode-hidden" src="images/buttons/advanced-options.svg">
-          <img class="nightmode-only" src="images/buttons/advanced-options_dark.svg">
+          <img class="nightmode-hidden portrait-hidden" src="images/buttons/advanced-options.svg">
+          <img class="nightmode-only portrait-hidden" src="images/buttons/advanced-options_dark.svg">
+          <img class="nightmode-hidden portrait-only" src="images/buttons/mob_advanced-option.svg">
+          <img class="nightmode-only portrait-only" src="images/buttons/mob_advanced-option_dark.svg">
         </button>
         <button class="fluidbutton" id="playbutton" onclick="slidenote.presentation.showpresentation()">
-          <img class="nightmode-hidden" src="images/buttons/playbutton.svg">
-          <img class="nightmode-only" src="images/buttons/playbutton_dark.svg">
+          <img class="nightmode-hidden portrait-hidden" src="images/buttons/playbutton.svg">
+          <img class="nightmode-only portrait-hidden" src="images/buttons/playbutton_dark.svg">
+          <img class="nightmode-hidden portrait-only" src="images/buttons/mob_playbutton.svg">
+          <img class="nightmode-only portrait-only" src="images/buttons/mob_playbutton_dark.svg">
           <!--
           insert svg here
           -->
@@ -1150,6 +1154,7 @@
   		</svg></div> -->
       <div id="frame-left"><div class="shadow-element"></div><div class="frame-top-element"></div></div>
       <div id="shadoweltop"></div>
+      <div id="shadowelbottom" class="portrait-only"></div>
       <div id="frame-right"><div class="shadow-element"></div><div class="frame-top-element"></div></div>
       <div id="slidenoteloadingscreenwrapper">
         <div id="slidenoteeditorloadingscreen">
