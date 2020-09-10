@@ -232,8 +232,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .luminoso .ct-label{
   color: rgba(0, 0, 0, 0.7);
 }
-.luminoso .ct-chart-pie .ct-label{
+.luminoso .ct-chart-pie .ct-label,
+.luminoso .ct-chart-donut .ct-label{
   fill: rgba(0, 0, 0, 1);
+  text-shadow: 0 0 3px white;
 }
 
 /*x-achsen-label*/
@@ -263,27 +265,27 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*farben: ich fasse die zusammen um einheitlichkeit herzustellen. jeder block umfasst immer äußere und innere farbe. das schema kann weiter erweitert werden, aber ich belasse es erstmal bei 5 farben. nicht deklarierte farben nimmt er die standard-farben die er schon hat. die ersten 5 farben sollten auf die präsentation zugeschnitten sein. jede farbe ist als "ct-series-a" bis "ct-series-z" paar.*/
 
 .luminoso .ct-series-a .ct-point, .luminoso .ct-series-a .ct-line, .luminoso .ct-series-a .ct-bar, .luminoso .ct-series-a .ct-slice-donut {
-  stroke: #d70206; 
+  stroke: #b4c1c5; 
 }
 
 .luminoso .ct-series-a .ct-slice-pie, .luminoso .ct-series-a .ct-slice-donut-solid, .luminoso .ct-series-a .ct-area {
-  fill: #d70206; 
+  fill: #b4c1c5; 
 }
 
 .luminoso .ct-series-b .ct-point, .luminoso .ct-series-b .ct-line, .luminoso .ct-series-b .ct-bar, .luminoso .ct-series-b .ct-slice-donut {
-  stroke: #f05b4f; 
+  stroke: #5f7782; 
 }
 
 .luminoso .ct-series-b .ct-slice-pie, .luminoso .ct-series-b .ct-slice-donut-solid, .luminoso .ct-series-b .ct-area {
-  fill: #f05b4f; 
+  fill: #5f7782; 
 }
 
 .luminoso .ct-series-c .ct-point, .luminoso .ct-series-c .ct-line, .luminoso .ct-series-c .ct-bar, .luminoso .ct-series-c .ct-slice-donut {
-  stroke: #f4c63d; 
+  stroke: #d8b26e; 
 }
 
 .luminoso .ct-series-c .ct-slice-pie, .luminoso .ct-series-c .ct-slice-donut-solid, .luminoso .ct-series-c .ct-area {
-  fill: #f4c63d; 
+  fill: #d8b26e; 
 }
 
 .luminoso .ct-series-d .ct-point, .luminoso .ct-series-d .ct-line, .luminoso .ct-series-d .ct-bar, .luminoso .ct-series-d .ct-slice-donut {
@@ -300,6 +302,22 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .luminoso .ct-series-e .ct-slice-pie, .luminoso .ct-series-e .ct-slice-donut-solid, .luminoso .ct-series-e .ct-area {
   fill: #453d3f; 
+}
+
+.luminoso .ct-series-f .ct-point, .luminoso .ct-series-f .ct-line, .luminoso .ct-series-f .ct-bar, .luminoso .ct-series-f .ct-slice-donut {
+  stroke: #1e9a9f; 
+}
+
+.luminoso .ct-series-f .ct-slice-pie, .luminoso .ct-series-f .ct-slice-donut-solid, .luminoso .ct-series-f .ct-area {
+  fill: #1e9a9f; 
+}
+
+.luminoso .ct-series-g .ct-point, .luminoso .ct-series-g .ct-line, .luminoso .ct-series-g .ct-bar, .luminoso .ct-series-g .ct-slice-donut {
+  stroke: #a1b9aa; 
+}
+
+.luminoso .ct-series-g .ct-slice-pie, .luminoso .ct-series-g .ct-slice-donut-solid, .luminoso .ct-series-g .ct-area {
+  fill: #a1b9aa; 
 }
 
 
