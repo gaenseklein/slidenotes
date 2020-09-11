@@ -175,7 +175,6 @@
     overflow:hidden;
   }
 
-
 /* loading screen */
 /* ============== */
 
@@ -1384,7 +1383,7 @@
     height: calc(142/3.77*1vw);
     z-index: 10;
     pointer-events: none;    
-    background-image: linear-gradient(to top, white, #fff0);
+    background-image: linear-gradient(to top, var(--shadow-white), var(--shadow-white-invisible));
   }
 
 
@@ -1874,6 +1873,9 @@
 /* ---------- */
 
   /* trash?*/
+  #menuoutlet{
+    position: fixed;
+  }
 
 /* menupublish, menuimportexport, menuoptionseditor */
 /* ------------------------------------------------ */
@@ -2236,12 +2238,12 @@
     display:none;
     margin-right: calc(var(--grid-margin)*var(--emToVh)*1vh);
     margin-left: calc(var(--grid-margin)*var(--emToVh)*1vh);
+    margin-top: 3rem;
+    margin-bottom: auto;
   }
 
   #menusearchbox.active{
     display:grid;
-    margin-top: 3rem;
-    margin-bottom: auto;
   }
   #menusearchbox input{
     box-sizing: border-box;
@@ -3572,23 +3574,18 @@
     grid-template-rows: calc(58/377*100vw) calc(74/377*100vw) auto;
     height: 100%;
     width: 100%;
+    overflow: unset;
   }
 
 
   /*general*/
   /*-------*/
 
-    div#toolbar, div#imagegallery, div#imagegallery.active, #menusearchbox, #searchbuttonarea{
-      grid-column-start: 1;
-      grid-column-end: 4;
-      grid-row-start: 1;
-      grid-row-end: 3;
-    }
     .portrait-only{
       display: unset;
     }
 
-    #frame-left, #frame-right, #searchbuttonarea, .portrait-hidden, .nightmode-only.portrait-hidden{
+    #frame-left, #frame-right, .portrait-hidden, .nightmode-only.portrait-hidden{
       display: none;
     }
 
@@ -3664,6 +3661,7 @@
 
     #editorblock{
       margin-left: calc(40/377*100vw);
+      position: relative;
     }
 
     #texteditorerrorlayer, #quelltext{
@@ -3789,7 +3787,15 @@
     }
 
     #optionarea button{
-      font-size: 2em;
+      font-size: calc(16/18*1em);
+    }
+    #optionarea button svg{
+      height: calc(23.2/3.77*1vw);
+    }
+
+    #optionarea button span{
+      margin-bottom: calc(3/3.77*1vw);
+      margin-top: calc(4/3.77*1vw);
     }
 
   /*sidebarcontainer*/
@@ -3837,10 +3843,25 @@
   /*menus*/
   /*-----*/
 
+    /* arrow-box */
+    /* --------- */
+
+      .arrow_box {
+
+      }
+
+      .arrow_box::before{
+        display: none;
+      }
+
     /* toolbar */
     /* ------- */
 
       div#toolbar{
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row-start: 1;
+        grid-row-end: 3;
         margin: 0;
         overflow: auto;
         box-shadow: 1vw 0vw 2vw var(--shadow-dark);
@@ -3879,11 +3900,21 @@
         display: unset;
       }
 
+    /* imagegallery */
+    /* ------------ */
 
+      div#imagegallery, #menusearchbox{
+        grid-column-start: 1;
+        grid-column-end: 4;
+        grid-row: 2 / 3;
+        margin: 0;
+      }
 
-    #menucloud, #menuimportexport, #menupublish{
-      grid-column: 1 /last;
-      grid-row: 1 / last;
+    div#menucloud, div#menuload, #menuimportexport, div#menupublish, #menuoptionseditor, #menuoptionspresentation{
+      grid-column-start: 1;
+      grid-column-end: 4;
+      grid-row: 2 / 4;
+      margin: 0;
     }
 
   /* frames */
