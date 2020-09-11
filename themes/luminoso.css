@@ -11,6 +11,14 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 :root{
   --minimalistBckgColor: #f4f4f4;
   --minimalistTextColor: #030303;
+
+  --minimalistDataColor0: #96a0a4;
+  --minimalistDataColor1: #5f7782;
+  --minimalistDataColor2: #d8b26e;
+  --minimalistDataColor3: #a8660f;
+  --minimalistDataColor4: #736367;
+  --minimalistDataColor5: #267e82;
+  --minimalistDataColor6: #a1b9aa;
 }
 
 @font-face{
@@ -67,10 +75,13 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 
-.luminoso h1,.luminoso h2,.luminoso h3{
+.luminoso h1,
+.luminoso h2,
+.luminoso h3{
   font-family: "ComfortaaLight", Sans-Serif;
   font-weight: normal;
   
+  text-shadow: 0.05em 0.03em var(--minimalistBckgColor);
 }
 
 .luminoso h1{
@@ -111,6 +122,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .luminoso p{
+	text-shadow: 0 0 0.5em var(--minimalistBckgColor);
   
 }
 .luminoso h1 img{
@@ -239,7 +251,12 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .luminoso .ct-chart-pie .ct-label,
 .luminoso .ct-chart-donut .ct-label{
   fill: rgba(0, 0, 0, 1);
-  text-shadow: 0 0 3px white;
+  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  font-family: "KhulaBold";
+}
+
+.luminoso .ct-grid{
+	stroke: var(--minimalistBckgColor);
 }
 
 /*x-achsen-label*/
@@ -263,65 +280,87 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .luminoso .chart-datasetlabel-box{
 
 }
+
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-0{
+	background: var(--minimalistDataColor0);
+}
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-1{
+	background: var(--minimalistDataColor1);
+}
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-2{
+	background: var(--minimalistDataColor2);
+}
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-3{
+	background: var(--minimalistDataColor3);
+}
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-4{
+	background: var(--minimalistDataColor4);
+}
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-5{
+	background: var(--minimalistDataColor5);
+}
+.luminoso .chart-datasetlabel-box.chart-datasetlabel-box-6{
+	background: var(--minimalistDataColor6);
+}
 /*datasetlabel und ihre boxen können auch einzeln angesprochen werden und sind von 0 an durchnummeriert. erstes datasetlabel heißt .chart-datasetlabel-0 */
 
 
 /*farben: ich fasse die zusammen um einheitlichkeit herzustellen. jeder block umfasst immer äußere und innere farbe. das schema kann weiter erweitert werden, aber ich belasse es erstmal bei 5 farben. nicht deklarierte farben nimmt er die standard-farben die er schon hat. die ersten 5 farben sollten auf die präsentation zugeschnitten sein. jede farbe ist als "ct-series-a" bis "ct-series-z" paar.*/
 
 .luminoso .ct-series-a .ct-point, .luminoso .ct-series-a .ct-line, .luminoso .ct-series-a .ct-bar, .luminoso .ct-series-a .ct-slice-donut {
-  stroke: #b4c1c5; 
+  stroke: var(--minimalistDataColor0); 
 }
 
 .luminoso .ct-series-a .ct-slice-pie, .luminoso .ct-series-a .ct-slice-donut-solid, .luminoso .ct-series-a .ct-area {
-  fill: #b4c1c5; 
+  fill: var(--minimalistDataColor0); 
 }
 
 .luminoso .ct-series-b .ct-point, .luminoso .ct-series-b .ct-line, .luminoso .ct-series-b .ct-bar, .luminoso .ct-series-b .ct-slice-donut {
-  stroke: #5f7782; 
+  stroke: var(--minimalistDataColor1); 
 }
 
 .luminoso .ct-series-b .ct-slice-pie, .luminoso .ct-series-b .ct-slice-donut-solid, .luminoso .ct-series-b .ct-area {
-  fill: #5f7782; 
+  fill: var(--minimalistDataColor1); 
 }
 
 .luminoso .ct-series-c .ct-point, .luminoso .ct-series-c .ct-line, .luminoso .ct-series-c .ct-bar, .luminoso .ct-series-c .ct-slice-donut {
-  stroke: #d8b26e; 
+  stroke: var(--minimalistDataColor2); 
 }
 
 .luminoso .ct-series-c .ct-slice-pie, .luminoso .ct-series-c .ct-slice-donut-solid, .luminoso .ct-series-c .ct-area {
-  fill: #d8b26e; 
+  fill: var(--minimalistDataColor2); 
 }
 
 .luminoso .ct-series-d .ct-point, .luminoso .ct-series-d .ct-line, .luminoso .ct-series-d .ct-bar, .luminoso .ct-series-d .ct-slice-donut {
-  stroke: #d17905; 
+  stroke: var(--minimalistDataColor3); 
 }
 
 .luminoso .ct-series-d .ct-slice-pie, .luminoso .ct-series-d .ct-slice-donut-solid, .luminoso .ct-series-d .ct-area {
-  fill: #d17905; 
+  fill: var(--minimalistDataColor3); 
 }
 
 .luminoso .ct-series-e .ct-point, .luminoso .ct-series-e .ct-line, .luminoso .ct-series-e .ct-bar, .luminoso .ct-series-e .ct-slice-donut {
-  stroke: #453d3f; 
+  stroke: var(--minimalistDataColor4); 
 }
 
 .luminoso .ct-series-e .ct-slice-pie, .luminoso .ct-series-e .ct-slice-donut-solid, .luminoso .ct-series-e .ct-area {
-  fill: #453d3f; 
+  fill: var(--minimalistDataColor4); 
 }
 
 .luminoso .ct-series-f .ct-point, .luminoso .ct-series-f .ct-line, .luminoso .ct-series-f .ct-bar, .luminoso .ct-series-f .ct-slice-donut {
-  stroke: #1e9a9f; 
+  stroke: var(--minimalistDataColor5); 
 }
 
 .luminoso .ct-series-f .ct-slice-pie, .luminoso .ct-series-f .ct-slice-donut-solid, .luminoso .ct-series-f .ct-area {
-  fill: #1e9a9f; 
+  fill: var(--minimalistDataColor5); 
 }
 
 .luminoso .ct-series-g .ct-point, .luminoso .ct-series-g .ct-line, .luminoso .ct-series-g .ct-bar, .luminoso .ct-series-g .ct-slice-donut {
-  stroke: #a1b9aa; 
+  stroke: var(--minimalistDataColor6); 
 }
 
 .luminoso .ct-series-g .ct-slice-pie, .luminoso .ct-series-g .ct-slice-donut-solid, .luminoso .ct-series-g .ct-area {
-  fill: #a1b9aa; 
+  fill: var(--minimalistDataColor6); 
 }
 
 

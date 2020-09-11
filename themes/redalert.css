@@ -11,6 +11,14 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 :root{
   --darkBckgColor: #030303;
   --darkTextColor: #f4f4f4;
+
+  --darkDataColor0: #E7DB74;
+  --darkDataColor1: #A87DF5;
+  --darkDataColor2: #67D8EF;
+  --darkDataColor3: #F92472;
+  --darkDataColor4: #68CA28;
+  --darkDataColor5: #aeaec8;
+  --darkDataColor6: #dd8e49;
 }
 
 @font-face{
@@ -67,10 +75,14 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 
-.redalert h1,.redalert h2,.redalert h3{
+.redalert h1,
+.redalert h2,
+.redalert h3{
   font-family: "Staatliches", Sans-Serif;
   font-weight: normal;
   line-height: 1em;
+
+  text-shadow: 0.05em 0.03em var(--darkBckgColor);
 }
 
 .redalert h1{
@@ -114,7 +126,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .redalert p{
-  
+  text-shadow: 0 0 0.5em var(--darkBckgColor);
 }
 .redalert h1 img{
   
@@ -215,6 +227,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /* alle charts sind in einer section mit klasse chart*/
 .redalert section.chart{
   font-size: 0.7em;
+  background: var(--darkBckgColor);
   /*Portrait to 4:3*/
   /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
 }
@@ -237,12 +250,17 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*alle labels einer chart - wenn nur für bestimmte charts gewollt, muster von oben erweitern, also bspw. .redalert .chart-bar .ct-label. hier die größen der schrift und farben für die labels generell anpassen */
 .redalert .ct-label{
-  color: rgba(0, 0, 0, 0.7);
+  color: var(--darkTextColor);
+  fill: var(--darkTextColor);
 }
 .redalert .ct-chart-pie .ct-label,
 .redalert .ct-chart-donut .ct-label{
   fill: rgba(0, 0, 0, 1);
   text-shadow: 0 0 3px white;
+}
+
+.redalert .ct-grid{
+	stroke: var(--darkTextColor);
 }
 
 /*x-achsen-label*/
@@ -266,65 +284,87 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .redalert .chart-datasetlabel-box{
 
 }
+
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-0{
+	background: var(--darkDataColor0);
+}
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-1{
+	background: var(--darkDataColor1);
+}
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-2{
+	background: var(--darkDataColor2);
+}
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-3{
+	background: var(--darkDataColor3);
+}
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-4{
+	background: var(--darkDataColor4);
+}
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-5{
+	background: var(--darkDataColor5);
+}
+.redalert .chart-datasetlabel-box.chart-datasetlabel-box-6{
+	background: var(--darkDataColor6);
+}
 /*datasetlabel und ihre boxen können auch einzeln angesprochen werden und sind von 0 an durchnummeriert. erstes datasetlabel heißt .chart-datasetlabel-0 */
 
 
 /*farben: ich fasse die zusammen um einheitlichkeit herzustellen. jeder block umfasst immer äußere und innere farbe. das schema kann weiter erweitert werden, aber ich belasse es erstmal bei 5 farben. nicht deklarierte farben nimmt er die standard-farben die er schon hat. die ersten 5 farben sollten auf die präsentation zugeschnitten sein. jede farbe ist als "ct-series-a" bis "ct-series-z" paar.*/
 
 .redalert .ct-series-a .ct-point, .redalert .ct-series-a .ct-line, .redalert .ct-series-a .ct-bar, .redalert .ct-series-a .ct-slice-donut {
-  stroke: #b4c1c5; 
+  stroke: var(--darkDataColor0); 
 }
 
 .redalert .ct-series-a .ct-slice-pie, .redalert .ct-series-a .ct-slice-donut-solid, .redalert .ct-series-a .ct-area {
-  fill: #b4c1c5; 
+  fill: var(--darkDataColor0); 
 }
 
 .redalert .ct-series-b .ct-point, .redalert .ct-series-b .ct-line, .redalert .ct-series-b .ct-bar, .redalert .ct-series-b .ct-slice-donut {
-  stroke: #5f7782; 
+  stroke: var(--darkDataColor1); 
 }
 
 .redalert .ct-series-b .ct-slice-pie, .redalert .ct-series-b .ct-slice-donut-solid, .redalert .ct-series-b .ct-area {
-  fill: #5f7782; 
+  fill: var(--darkDataColor1); 
 }
 
 .redalert .ct-series-c .ct-point, .redalert .ct-series-c .ct-line, .redalert .ct-series-c .ct-bar, .redalert .ct-series-c .ct-slice-donut {
-  stroke: #d8b26e; 
+  stroke: var(--darkDataColor2); 
 }
 
 .redalert .ct-series-c .ct-slice-pie, .redalert .ct-series-c .ct-slice-donut-solid, .redalert .ct-series-c .ct-area {
-  fill: #d8b26e; 
+  fill: var(--darkDataColor2); 
 }
 
 .redalert .ct-series-d .ct-point, .redalert .ct-series-d .ct-line, .redalert .ct-series-d .ct-bar, .redalert .ct-series-d .ct-slice-donut {
-  stroke: #d17905; 
+  stroke: var(--darkDataColor3); 
 }
 
 .redalert .ct-series-d .ct-slice-pie, .redalert .ct-series-d .ct-slice-donut-solid, .redalert .ct-series-d .ct-area {
-  fill: #d17905; 
+  fill: var(--darkDataColor3); 
 }
 
 .redalert .ct-series-e .ct-point, .redalert .ct-series-e .ct-line, .redalert .ct-series-e .ct-bar, .redalert .ct-series-e .ct-slice-donut {
-  stroke: #453d3f; 
+  stroke: var(--darkDataColor4); 
 }
 
 .redalert .ct-series-e .ct-slice-pie, .redalert .ct-series-e .ct-slice-donut-solid, .redalert .ct-series-e .ct-area {
-  fill: #453d3f; 
+  fill: var(--darkDataColor4); 
 }
 
 .redalert .ct-series-f .ct-point, .redalert .ct-series-f .ct-line, .redalert .ct-series-f .ct-bar, .redalert .ct-series-f .ct-slice-donut {
-  stroke: #1e9a9f; 
+  stroke: var(--darkDataColor5); 
 }
 
 .redalert .ct-series-f .ct-slice-pie, .redalert .ct-series-f .ct-slice-donut-solid, .redalert .ct-series-f .ct-area {
-  fill: #1e9a9f; 
+  fill: var(--darkDataColor5); 
 }
 
 .redalert .ct-series-g .ct-point, .redalert .ct-series-g .ct-line, .redalert .ct-series-g .ct-bar, .redalert .ct-series-g .ct-slice-donut {
-  stroke: #a1b9aa; 
+  stroke: var(--darkDataColor6); 
 }
 
 .redalert .ct-series-g .ct-slice-pie, .redalert .ct-series-g .ct-slice-donut-solid, .redalert .ct-series-g .ct-area {
-  fill: #a1b9aa; 
+  fill: var(--darkDataColor6); 
 }
 
 
