@@ -82,17 +82,19 @@ div > img.bgimg{
 img.vertical.griditem{
   width: 100%;
 }
-
+/*
+why?
 .ppage b{
   font-weight: normal;
 }
 .ppage i{
   font-style: normal;
 }
+*/
 
 .ppage p{
   margin: 0;
-  
+
 }
 
 .ppage h1,
