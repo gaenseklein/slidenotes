@@ -161,6 +161,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
       this.focus();
     }
     metabutton.onkeyup = function(e){
+      if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
       var key = e.key+"";
       if(key==="undefined")key=getKeyOfKeyCode(e.keyCode);
       if(key===" ")key="Space";
@@ -220,6 +221,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
           this.focus();
         }
         changebutton.onkeydown = function(e){
+          if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
           if(!this.changingactive)return;
           key = e.key;
           if(key===undefined)key=getKeyOfKeyCode(e.keyCode);
@@ -806,6 +808,7 @@ keyboardshortcuts.shortcutFound = function(event, shortcut){
 }
 
 keyboardshortcuts.reactOn = function(e, element){
+  if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
     let key = e.key;
     if(key==="undefined")key=getKeyOfKeyCode(e.keyCode); //webkit-bug
     if(e.code.indexOf("Numpad")>-1)key=e.code;
