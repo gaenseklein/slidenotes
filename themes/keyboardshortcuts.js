@@ -742,6 +742,7 @@ keyboardshortcuts.init = function(){
     if(slidenoteSpeaker!=undefined)slidenoteSpeaker.initShortcuts();
 }//end of init
 keyboardshortcuts.pressKey = function(e){
+  if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
     var key = e.key;
     if(key==="undefined")key=getKeyOfKeyCode(e.keyCode); //webkit-bug
     if(e.code.indexOf("Numpad")>-1)key=e.code;
@@ -762,6 +763,7 @@ keyboardshortcuts.pressKey = function(e){
     }
 }
 keyboardshortcuts.preventDefaultOnKeypress = function(e){
+  if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
   if(e.ctrlKey && e.srcElement===slidenote.textarea){
     //prevent default from the following, hardcoded for speed:
     //tn doesnt work,
@@ -779,6 +781,7 @@ keyboardshortcuts.preventDefaultOnKeypress = function(e){
   }
 }
 keyboardshortcuts.releaseKey = function(e){
+  if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
     let key = e.key;
     if(key==="undefined")key=getKeyOfKeyCode(e.keyCode); //webkit-bug
     if(e.code.indexOf("Numpad")>-1)key=e.code;
