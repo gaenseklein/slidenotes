@@ -3198,6 +3198,10 @@ Theme.prototype.init = function(){
 }
 Theme.prototype.changeThemeStatus = function(status){
 	this.active = status;
+	this.afterThemeStatusChange();
+}
+Theme.prototype.afterThemeStatusChange = function(){
+	//Hook-Funktion, zum Überschreiben im Theme
 }
 Theme.prototype.saveConfigString = function(){
 	//Hook-Funktion, gedacht zum Überschreiben in .js-Datei des Themes
@@ -3306,10 +3310,11 @@ ExtensionManager.prototype.addTheme = function (theme){
 	//css-mixup vermeiden:
 	this.changeThemeStatus(this.themes.length-1, theme.active);
 	//this.stylePages();
-	theme.init();
+	//theme.init(); should be called after all themes are initialized
 }
 
 ExtensionManager.prototype.failTheme = function(themename){
+	//instead we should retry at least once, better 3 times to make shure
 	this.failedThemes.push({name:themename});
 	this.removeFromLoadingList(themename);
 }
@@ -3327,6 +3332,9 @@ ExtensionManager.prototype.addAfterLoadingThemesHook = function(hookfunc){
 ExtensionManager.prototype.afterLoadingThemes = function(){
 	this.allThemesLoaded = true;
 	console.log("all themes loaded - ready to engage");
+	for(var x=0;x<this.themes.length;x++){
+		if(this.themes[x].active)this.themes[x].init();
+	}
 	var failedthemes = "\n";
 	for(var x=0;x<this.failedThemes.length;x++)failedthemes+=this.failedThemes[x].name+"\n";
 	if(this.failedThemes.length>0)console.log("Failed to load "+this.failedThemes.length+" Themes:"+failedthemes);
@@ -3706,7 +3714,12 @@ ExtensionManager.prototype.changeGlobalOption = function(themenr,optionnr, value
 ExtensionManager.prototype.CssThemes = function(){
 	var cssthemes = new Array();
 	for(var x=0;x<this.themes.length;x++){
-		if(this.themes[x].themetype==="css")cssthemes.push(this.themes[x]);
+		if(this.themes[x].themetype==="css"){
+			cssthemes.push(this.themes[x]);
+			if(this.themes[x].active){
+				this.activeCssTheme = this.themes[x];
+			}
+		}
 	}
 	this.cssthemes = cssthemes;
 	return cssthemes;

@@ -44,7 +44,8 @@ newtheme.saveConfigString = function(){
 }
 newtheme.loadConfigString = function(data){
 	var dataar = data.split("\t");
-	this.changeDesignOption(0,this.cssarray[dataar[0]]);
+	//dont save css-selection as long as user cant select himself
+	//this.changeDesignOption(0,this.cssarray[dataar[0]]);
 	if(dataar[1]==="true")this.highlightintexteditor=true;else this.highlightintexteditor=false;
 	this.changeGlobalOption(0,this.highlightintexteditor);
 }
