@@ -1,11 +1,425 @@
+/*basis-theme "colorful"*/
+/*jegliche css-deklaration muss mit klasse .azul starten */
+
+/* hintergrund wird pro ppage festgelegt, nicht nur einmal fürs theme. sollte in zukunft geändert werden, aber momentan ists noch so. 
+ppage ist der jeweilige presentation-slide. 
+generelle sachen, wie bspw. schriftfarben, schriften etc. in die hauptdeklaration, abweichungen dann in den weiteren. 
+ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt es einfach und semantisch, dann sollte nicht viel schief gehen.*/
+
+
+
+:root{
+  --colorfulBckgColor: #f4f4f4;
+  --colorfulTextColor: #030303;
+
+  --colorfulDataColor0: #96a0a4;
+  --colorfulDataColor1: #5f7782;
+  --colorfulDataColor2: #d8b26e;
+  --colorfulDataColor3: #a8660f;
+  --colorfulDataColor4: #736367;
+  --colorfulDataColor5: #267e82;
+  --colorfulDataColor6: #a1b9aa;
+}
+
+@font-face{
+  font-family: "FredokaOne";
+  src: url("../fonts/themes/colorful/FredokaOne-Regular.ttf");
+}
+@font-face{
+  font-family: "KhulaReg";
+  src: url("../fonts/themes/colorful/Khula-Regular.ttf");
+}
+@font-face{
+  font-family: "KhulaBold";
+  src: url("../fonts/themes/colorful/Khula-Bold.ttf");
+}
+@font-face{
+  font-family: "OpenSansItalic";
+  src: url("../fonts/themes/colorful/OpenSans-Italic.ttf");
+}
+@font-face{
+  font-family: "CutiveMono";
+  src: url("../fonts/themes/colorful/CutiveMono-Regular.ttf");
+}
+
+
 .azul, .azul .ppage {
-	background: darkblue;
-	color: white;
+	background: var(--colorfulBckgColor);
+	color: var(--colorfulTextColor);
+  font-weight: normal;
+  font-family: "KhulaReg", Sans-Serif;
+  font-size: 1.1em;
 }
 
-.azul code {
-	background: lightblue;
-	color: black;
 
-	padding: 2px;
+
+/*code affects both: inlinecode and codeblock*/
+.azul code { 
+  font-family: "CutiveMono", Monospace;
+  font-size: 0.9em;
 }
+/*inline*/
+.azul p code{
+  padding: 0.12em 0.2em 0.12em 0.2em;
+  color: white;
+  background-color: var(--code-backg); 
+}
+
+
+
+/*codeblock affects only codeblocks*/
+.azul code.codeblock{
+    
+}
+
+
+
+
+.azul h1,
+.azul h2,
+.azul h3{
+  font-family: "FredokaOne", Sans-Serif;
+  font-weight: normal;
+  
+  text-shadow: 0.05em 0.03em coral;
+}
+
+.azul h1{
+  font-size: 4em;
+  margin-top: 25vh;
+}
+
+.azul h2,
+.azul h3{
+	margin-bottom: 0.7em;
+}
+.azul h2{
+  
+}
+
+.azul h3{
+ margin-bottom: 0.2em;
+}
+
+
+.azul .pblock h1+p, 
+.azul .pblock h2+p, 
+.azul .pblock h3+p {
+  text-align: center;
+    
+}
+
+.azul .inline .pblock h1+p,
+.azul .inline .pblock h2+p,
+.azul .inline .pblock h3+p{
+  text-align: left;
+  margin-top: 1em;
+}
+
+.azul .pblock h2+p, 
+.azul .pblock h3+p {
+   
+}
+
+.azul p{
+	text-shadow: 0 0 0.5em var(--colorfulBckgColor);
+  
+}
+.azul h1 img{
+  
+}
+.azul h2 img{
+  
+}
+.azul h3 img{
+  
+}
+
+.azul .pblock h1+p img, 
+.azul .pblock h2+p img, 
+.azul .pblock h3+p img{
+  
+}
+
+.azul p img{
+  max-height: 1em;
+}
+
+.azul a{
+  text-decoration: underline;
+  font-family: "OpenSansItalic";
+  color: var(--colorfulTextColor);
+}
+
+.azul .imageblock{
+  font-size: 0.8em;
+}
+
+.azul b{
+  font-family: "KhulaBold";
+}
+
+.azul i{
+  font-family: "OpenSansItalic";
+  font-size: 0.95em;
+}
+
+.azul strike{
+
+}
+
+.azul ul, .azul ol{
+  padding: 0 0.8em;
+  
+}
+
+.azul ul{
+
+}
+
+.azul ol{
+
+}
+
+.azul li{
+
+}
+
+.azul code.codeblock li{
+  
+}
+
+
+
+/*sub-lists (unterpunkte/verschachtelung der listen)*/
+
+.azul ul ul, .azul ol ul{
+  
+}
+
+.azul ol ul, .azul ol ol{
+  
+}
+
+
+.azul quote{
+  text-align: center;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0.02em;
+  text-underline-offset: 0.3em;
+  line-height: 1.5em;
+  font-family: "OpenSansItalic";
+}
+
+.azul p code{
+  
+}
+.azul code.codeblock{
+
+}
+
+/* charts:*/
+
+/* alle charts sind in einer section mit klasse chart*/
+.azul section.chart{
+  font-size: 0.7em;
+  /*Portrait to 4:3*/
+  /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
+}
+
+/*pie-charts:*/
+.azul section.chart-pie{
+
+}
+
+/*bar-charts*/
+.azul section.chart-bar{
+
+}
+
+/*line-charts*/
+.azul section.chart-line{
+  padding: 0 0 0 0.7em;
+
+}
+
+/*alle labels einer chart - wenn nur für bestimmte charts gewollt, muster von oben erweitern, also bspw. .azul .chart-bar .ct-label. hier die größen der schrift und farben für die labels generell anpassen */
+.azul .ct-label{
+  color: rgba(0, 0, 0, 0.7);
+}
+.azul .ct-chart-pie .ct-label,
+.azul .ct-chart-donut .ct-label{
+  fill: rgba(0, 0, 0, 1);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  font-family: "KhulaBold";
+}
+
+.azul .ct-grid{
+	stroke: var(--colorfulBckgColor);
+}
+
+/*x-achsen-label*/
+.azul .chart-x-axis-label{
+
+}
+
+/*y-achsen-label*/
+.azul .chart-y-axis-label{
+
+}
+
+/*dataset-label, was oben drüber steht und bspw. jahreszahl beinhaltet:*/
+.azul .chart-datasetlabel{
+  border: none;
+  padding: 0;
+  margin-left: 1em;
+}
+
+/*die box davon:*/
+.azul .chart-datasetlabel-box{
+
+}
+
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-0{
+	background: var(--colorfulDataColor0);
+}
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-1{
+	background: var(--colorfulDataColor1);
+}
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-2{
+	background: var(--colorfulDataColor2);
+}
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-3{
+	background: var(--colorfulDataColor3);
+}
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-4{
+	background: var(--colorfulDataColor4);
+}
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-5{
+	background: var(--colorfulDataColor5);
+}
+.azul .chart-datasetlabel-box.chart-datasetlabel-box-6{
+	background: var(--colorfulDataColor6);
+}
+/*datasetlabel und ihre boxen können auch einzeln angesprochen werden und sind von 0 an durchnummeriert. erstes datasetlabel heißt .chart-datasetlabel-0 */
+
+
+/*farben: ich fasse die zusammen um einheitlichkeit herzustellen. jeder block umfasst immer äußere und innere farbe. das schema kann weiter erweitert werden, aber ich belasse es erstmal bei 5 farben. nicht deklarierte farben nimmt er die standard-farben die er schon hat. die ersten 5 farben sollten auf die präsentation zugeschnitten sein. jede farbe ist als "ct-series-a" bis "ct-series-z" paar.*/
+
+.azul .ct-series-a .ct-point, .azul .ct-series-a .ct-line, .azul .ct-series-a .ct-bar, .azul .ct-series-a .ct-slice-donut {
+  stroke: var(--colorfulDataColor0); 
+}
+
+.azul .ct-series-a .ct-slice-pie, .azul .ct-series-a .ct-slice-donut-solid, .azul .ct-series-a .ct-area {
+  fill: var(--colorfulDataColor0); 
+}
+
+.azul .ct-series-b .ct-point, .azul .ct-series-b .ct-line, .azul .ct-series-b .ct-bar, .azul .ct-series-b .ct-slice-donut {
+  stroke: var(--colorfulDataColor1); 
+}
+
+.azul .ct-series-b .ct-slice-pie, .azul .ct-series-b .ct-slice-donut-solid, .azul .ct-series-b .ct-area {
+  fill: var(--colorfulDataColor1); 
+}
+
+.azul .ct-series-c .ct-point, .azul .ct-series-c .ct-line, .azul .ct-series-c .ct-bar, .azul .ct-series-c .ct-slice-donut {
+  stroke: var(--colorfulDataColor2); 
+}
+
+.azul .ct-series-c .ct-slice-pie, .azul .ct-series-c .ct-slice-donut-solid, .azul .ct-series-c .ct-area {
+  fill: var(--colorfulDataColor2); 
+}
+
+.azul .ct-series-d .ct-point, .azul .ct-series-d .ct-line, .azul .ct-series-d .ct-bar, .azul .ct-series-d .ct-slice-donut {
+  stroke: var(--colorfulDataColor3); 
+}
+
+.azul .ct-series-d .ct-slice-pie, .azul .ct-series-d .ct-slice-donut-solid, .azul .ct-series-d .ct-area {
+  fill: var(--colorfulDataColor3); 
+}
+
+.azul .ct-series-e .ct-point, .azul .ct-series-e .ct-line, .azul .ct-series-e .ct-bar, .azul .ct-series-e .ct-slice-donut {
+  stroke: var(--colorfulDataColor4); 
+}
+
+.azul .ct-series-e .ct-slice-pie, .azul .ct-series-e .ct-slice-donut-solid, .azul .ct-series-e .ct-area {
+  fill: var(--colorfulDataColor4); 
+}
+
+.azul .ct-series-f .ct-point, .azul .ct-series-f .ct-line, .azul .ct-series-f .ct-bar, .azul .ct-series-f .ct-slice-donut {
+  stroke: var(--colorfulDataColor5); 
+}
+
+.azul .ct-series-f .ct-slice-pie, .azul .ct-series-f .ct-slice-donut-solid, .azul .ct-series-f .ct-area {
+  fill: var(--colorfulDataColor5); 
+}
+
+.azul .ct-series-g .ct-point, .azul .ct-series-g .ct-line, .azul .ct-series-g .ct-bar, .azul .ct-series-g .ct-slice-donut {
+  stroke: var(--colorfulDataColor6); 
+}
+
+.azul .ct-series-g .ct-slice-pie, .azul .ct-series-g .ct-slice-donut-solid, .azul .ct-series-g .ct-area {
+  fill: var(--colorfulDataColor6); 
+}
+
+
+/*ende von charts*/
+
+/*tables stehen in einer klassenlosen section. wenn du also .azul section bearbeitest hat das auch effekt auf deren container. ansonsten steuer tabellen direkt an über*/
+
+.azul table{
+  
+}
+
+.azul th, td{
+  
+}
+
+.azul thead{
+  font-family: "KhulaBold";
+}
+
+.azul table, th, td{
+  border: 0.02em solid #030303;
+  padding: 0 0.5em;
+}
+
+.azul thead{
+  
+}
+
+.azul tbody{
+
+}
+
+.azul tr{
+
+}
+
+.azul td{
+
+}
+
+/* latex - elemente sind in einer section mit klasse klatex*/
+.azul section.klatex{
+
+}
+
+/* layout-elemente sind sections mit section-klasse. sie beinhalten weitere elemente*/
+
+.azul section.section{
+
+}
+
+/*layout-element auf linker seite, nimmt ca. ein drittel der linken seite ein*/
+.azul section.section.left{
+    
+}
+
+/*layout-element auf rechter seite, nimmt die hälfte des platzes ein, wenn nicht zwei weitere layout-sections "in reihe" stehen, dann nimmt er ein drittel*/
+.azul section.section.right{
+
+}
+
+
