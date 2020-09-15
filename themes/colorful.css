@@ -1,0 +1,425 @@
+/*basis-theme "colorful"*/
+/*jegliche css-deklaration muss mit klasse .colorful starten */
+
+/* hintergrund wird pro ppage festgelegt, nicht nur einmal fürs theme. sollte in zukunft geändert werden, aber momentan ists noch so. 
+ppage ist der jeweilige presentation-slide. 
+generelle sachen, wie bspw. schriftfarben, schriften etc. in die hauptdeklaration, abweichungen dann in den weiteren. 
+ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt es einfach und semantisch, dann sollte nicht viel schief gehen.*/
+
+
+
+:root{
+  --colorfulBckgColor: #f4f4f4;
+  --colorfulTextColor: #030303;
+
+  --colorfulDataColor0: #96a0a4;
+  --colorfulDataColor1: #5f7782;
+  --colorfulDataColor2: #d8b26e;
+  --colorfulDataColor3: #a8660f;
+  --colorfulDataColor4: #736367;
+  --colorfulDataColor5: #267e82;
+  --colorfulDataColor6: #a1b9aa;
+}
+
+@font-face{
+  font-family: "FredokaOne";
+  src: url("../fonts/themes/colorful/FredokaOne-Regular.ttf");
+}
+@font-face{
+  font-family: "KhulaReg";
+  src: url("../fonts/themes/colorful/Khula-Regular.ttf");
+}
+@font-face{
+  font-family: "KhulaBold";
+  src: url("../fonts/themes/colorful/Khula-Bold.ttf");
+}
+@font-face{
+  font-family: "OpenSansItalic";
+  src: url("../fonts/themes/colorful/OpenSans-Italic.ttf");
+}
+@font-face{
+  font-family: "CutiveMono";
+  src: url("../fonts/themes/colorful/CutiveMono-Regular.ttf");
+}
+
+
+.colorful, .colorful .ppage {
+	background: var(--colorfulBckgColor);
+	color: var(--colorfulTextColor);
+  font-weight: normal;
+  font-family: "KhulaReg", Sans-Serif;
+  font-size: 1.1em;
+}
+
+
+
+/*code affects both: inlinecode and codeblock*/
+.colorful code { 
+  font-family: "CutiveMono", Monospace;
+  font-size: 0.9em;
+}
+/*inline*/
+.colorful p code{
+  padding: 0.12em 0.2em 0.12em 0.2em;
+  color: white;
+  background-color: var(--code-backg); 
+}
+
+
+
+/*codeblock affects only codeblocks*/
+.colorful code.codeblock{
+    
+}
+
+
+
+
+.colorful h1,
+.colorful h2,
+.colorful h3{
+  font-family: "FredokaOne", Sans-Serif;
+  font-weight: normal;
+  
+  text-shadow: 0.05em 0.03em coral;
+}
+
+.colorful h1{
+  font-size: 4em;
+  margin-top: 25vh;
+}
+
+.colorful h2,
+.colorful h3{
+	margin-bottom: 0.7em;
+}
+.colorful h2{
+  
+}
+
+.colorful h3{
+ margin-bottom: 0.2em;
+}
+
+
+.colorful .pblock h1+p, 
+.colorful .pblock h2+p, 
+.colorful .pblock h3+p {
+  text-align: center;
+    
+}
+
+.colorful .inline .pblock h1+p,
+.colorful .inline .pblock h2+p,
+.colorful .inline .pblock h3+p{
+  text-align: left;
+  margin-top: 1em;
+}
+
+.colorful .pblock h2+p, 
+.colorful .pblock h3+p {
+   
+}
+
+.colorful p{
+	text-shadow: 0 0 0.5em var(--colorfulBckgColor);
+  
+}
+.colorful h1 img{
+  
+}
+.colorful h2 img{
+  
+}
+.colorful h3 img{
+  
+}
+
+.colorful .pblock h1+p img, 
+.colorful .pblock h2+p img, 
+.colorful .pblock h3+p img{
+  
+}
+
+.colorful p img{
+  max-height: 1em;
+}
+
+.colorful a{
+  text-decoration: underline;
+  font-family: "OpenSansItalic";
+  color: var(--colorfulTextColor);
+}
+
+.colorful .imageblock{
+  font-size: 0.8em;
+}
+
+.colorful b{
+  font-family: "KhulaBold";
+}
+
+.colorful i{
+  font-family: "OpenSansItalic";
+  font-size: 0.95em;
+}
+
+.colorful strike{
+
+}
+
+.colorful ul, .colorful ol{
+  padding: 0 0.8em;
+  
+}
+
+.colorful ul{
+
+}
+
+.colorful ol{
+
+}
+
+.colorful li{
+
+}
+
+.colorful code.codeblock li{
+  
+}
+
+
+
+/*sub-lists (unterpunkte/verschachtelung der listen)*/
+
+.colorful ul ul, .colorful ol ul{
+  
+}
+
+.colorful ol ul, .colorful ol ol{
+  
+}
+
+
+.colorful quote{
+  text-align: center;
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-thickness: 0.02em;
+  text-underline-offset: 0.3em;
+  line-height: 1.5em;
+  font-family: "OpenSansItalic";
+}
+
+.colorful p code{
+  
+}
+.colorful code.codeblock{
+
+}
+
+/* charts:*/
+
+/* alle charts sind in einer section mit klasse chart*/
+.colorful section.chart{
+  font-size: 0.7em;
+  /*Portrait to 4:3*/
+  /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
+}
+
+/*pie-charts:*/
+.colorful section.chart-pie{
+
+}
+
+/*bar-charts*/
+.colorful section.chart-bar{
+
+}
+
+/*line-charts*/
+.colorful section.chart-line{
+  padding: 0 0 0 0.7em;
+
+}
+
+/*alle labels einer chart - wenn nur für bestimmte charts gewollt, muster von oben erweitern, also bspw. .colorful .chart-bar .ct-label. hier die größen der schrift und farben für die labels generell anpassen */
+.colorful .ct-label{
+  color: rgba(0, 0, 0, 0.7);
+}
+.colorful .ct-chart-pie .ct-label,
+.colorful .ct-chart-donut .ct-label{
+  fill: rgba(0, 0, 0, 1);
+  text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+  font-family: "KhulaBold";
+}
+
+.colorful .ct-grid{
+	stroke: var(--colorfulBckgColor);
+}
+
+/*x-achsen-label*/
+.colorful .chart-x-axis-label{
+
+}
+
+/*y-achsen-label*/
+.colorful .chart-y-axis-label{
+
+}
+
+/*dataset-label, was oben drüber steht und bspw. jahreszahl beinhaltet:*/
+.colorful .chart-datasetlabel{
+  border: none;
+  padding: 0;
+  margin-left: 1em;
+}
+
+/*die box davon:*/
+.colorful .chart-datasetlabel-box{
+
+}
+
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-0{
+	background: var(--colorfulDataColor0);
+}
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-1{
+	background: var(--colorfulDataColor1);
+}
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-2{
+	background: var(--colorfulDataColor2);
+}
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-3{
+	background: var(--colorfulDataColor3);
+}
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-4{
+	background: var(--colorfulDataColor4);
+}
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-5{
+	background: var(--colorfulDataColor5);
+}
+.colorful .chart-datasetlabel-box.chart-datasetlabel-box-6{
+	background: var(--colorfulDataColor6);
+}
+/*datasetlabel und ihre boxen können auch einzeln angesprochen werden und sind von 0 an durchnummeriert. erstes datasetlabel heißt .chart-datasetlabel-0 */
+
+
+/*farben: ich fasse die zusammen um einheitlichkeit herzustellen. jeder block umfasst immer äußere und innere farbe. das schema kann weiter erweitert werden, aber ich belasse es erstmal bei 5 farben. nicht deklarierte farben nimmt er die standard-farben die er schon hat. die ersten 5 farben sollten auf die präsentation zugeschnitten sein. jede farbe ist als "ct-series-a" bis "ct-series-z" paar.*/
+
+.colorful .ct-series-a .ct-point, .colorful .ct-series-a .ct-line, .colorful .ct-series-a .ct-bar, .colorful .ct-series-a .ct-slice-donut {
+  stroke: var(--colorfulDataColor0); 
+}
+
+.colorful .ct-series-a .ct-slice-pie, .colorful .ct-series-a .ct-slice-donut-solid, .colorful .ct-series-a .ct-area {
+  fill: var(--colorfulDataColor0); 
+}
+
+.colorful .ct-series-b .ct-point, .colorful .ct-series-b .ct-line, .colorful .ct-series-b .ct-bar, .colorful .ct-series-b .ct-slice-donut {
+  stroke: var(--colorfulDataColor1); 
+}
+
+.colorful .ct-series-b .ct-slice-pie, .colorful .ct-series-b .ct-slice-donut-solid, .colorful .ct-series-b .ct-area {
+  fill: var(--colorfulDataColor1); 
+}
+
+.colorful .ct-series-c .ct-point, .colorful .ct-series-c .ct-line, .colorful .ct-series-c .ct-bar, .colorful .ct-series-c .ct-slice-donut {
+  stroke: var(--colorfulDataColor2); 
+}
+
+.colorful .ct-series-c .ct-slice-pie, .colorful .ct-series-c .ct-slice-donut-solid, .colorful .ct-series-c .ct-area {
+  fill: var(--colorfulDataColor2); 
+}
+
+.colorful .ct-series-d .ct-point, .colorful .ct-series-d .ct-line, .colorful .ct-series-d .ct-bar, .colorful .ct-series-d .ct-slice-donut {
+  stroke: var(--colorfulDataColor3); 
+}
+
+.colorful .ct-series-d .ct-slice-pie, .colorful .ct-series-d .ct-slice-donut-solid, .colorful .ct-series-d .ct-area {
+  fill: var(--colorfulDataColor3); 
+}
+
+.colorful .ct-series-e .ct-point, .colorful .ct-series-e .ct-line, .colorful .ct-series-e .ct-bar, .colorful .ct-series-e .ct-slice-donut {
+  stroke: var(--colorfulDataColor4); 
+}
+
+.colorful .ct-series-e .ct-slice-pie, .colorful .ct-series-e .ct-slice-donut-solid, .colorful .ct-series-e .ct-area {
+  fill: var(--colorfulDataColor4); 
+}
+
+.colorful .ct-series-f .ct-point, .colorful .ct-series-f .ct-line, .colorful .ct-series-f .ct-bar, .colorful .ct-series-f .ct-slice-donut {
+  stroke: var(--colorfulDataColor5); 
+}
+
+.colorful .ct-series-f .ct-slice-pie, .colorful .ct-series-f .ct-slice-donut-solid, .colorful .ct-series-f .ct-area {
+  fill: var(--colorfulDataColor5); 
+}
+
+.colorful .ct-series-g .ct-point, .colorful .ct-series-g .ct-line, .colorful .ct-series-g .ct-bar, .colorful .ct-series-g .ct-slice-donut {
+  stroke: var(--colorfulDataColor6); 
+}
+
+.colorful .ct-series-g .ct-slice-pie, .colorful .ct-series-g .ct-slice-donut-solid, .colorful .ct-series-g .ct-area {
+  fill: var(--colorfulDataColor6); 
+}
+
+
+/*ende von charts*/
+
+/*tables stehen in einer klassenlosen section. wenn du also .colorful section bearbeitest hat das auch effekt auf deren container. ansonsten steuer tabellen direkt an über*/
+
+.colorful table{
+  
+}
+
+.colorful th, td{
+  
+}
+
+.colorful thead{
+  font-family: "KhulaBold";
+}
+
+.colorful table, th, td{
+  border: 0.02em solid #030303;
+  padding: 0 0.5em;
+}
+
+.colorful thead{
+  
+}
+
+.colorful tbody{
+
+}
+
+.colorful tr{
+
+}
+
+.colorful td{
+
+}
+
+/* latex - elemente sind in einer section mit klasse klatex*/
+.colorful section.klatex{
+
+}
+
+/* layout-elemente sind sections mit section-klasse. sie beinhalten weitere elemente*/
+
+.colorful section.section{
+
+}
+
+/*layout-element auf linker seite, nimmt ca. ein drittel der linken seite ein*/
+.colorful section.section.left{
+    
+}
+
+/*layout-element auf rechter seite, nimmt die hälfte des platzes ein, wenn nicht zwei weitere layout-sections "in reihe" stehen, dann nimmt er ein drittel*/
+.colorful section.section.right{
+
+}
+
+
