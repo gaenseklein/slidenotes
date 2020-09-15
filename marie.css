@@ -3864,6 +3864,27 @@
         border-width: calc(6.4*var(--pscale));
       }
 
+    /* menucloud, menuload */
+    /* ------------------- */
+
+      #menucloud .arrow_box::before, #menuload .arrow_box::before{
+        bottom: calc(100% + 18*var(--pscale));
+      }
+
+    /* menucloud */
+    /* --------- */
+
+      #menucloud .arrow_box::before{
+        left: calc(99*var(--pscale));
+      }
+
+    /* menuload */
+    /* -------- */
+
+      #menuload .arrow_box::before{
+        right: calc(95*var(--pscale));
+      }
+
     /* imagegallery, menusearchbox */
     /* --------------------------- */
 
@@ -3951,7 +3972,6 @@
       #menusearchbox .arrow_box::before{
         left: calc(32*var(--pscale))
       }
-
 
     /* menuimportexport, menupublish, menuoptionseditor */
     /* ------------------------------------------------ */
