@@ -3,4 +3,5 @@ var colorful = new Theme("colorful"); //erstelle ein theme mit namen colorful
 
 colorful.themetype = "css"; //themetype ist css, also ein basis-theme und keine erweiterung
 colorful.description = "a colorful theme"; //beschreibung, die im tooltip angezeigt wird
+colorful.highlightTheme = "monokai-sublime"; //theme für highlight
 slidenote.addTheme(colorful);// füge das theme der slidenote hinzu

@@ -21,6 +21,21 @@ newtheme.cssarray = styles;
 
 newtheme.addDesignOption("select", "theme of hljs:", styles, styles, 0);
 
+newtheme.init = function(){
+	let activetheme = slidenote.extensions.activeCssTheme;
+	if(activetheme===undefined){
+		let cssthemes = slidenote.extensions.CssThemes();
+		for(var x=0;x<cssthemes.length;x++){
+			if(cssthemes[x].active){
+				activetheme=cssthemes[x];
+				break;
+			}
+		}
+	}
+	if(activetheme.highlightTheme!=undefined){
+		this.changeDesignOption(0,activetheme.highlightTheme);
+	}
+}
 newtheme.changeDesignOption = function(optionnr, value){
 	if(optionnr===0){
 		//if(this.highlightstylecssfile!=undefined)this.highlightstylecssfile.parentNode.removeChild(this.highlightcssfile);

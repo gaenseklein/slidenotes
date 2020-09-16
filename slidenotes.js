@@ -3198,6 +3198,15 @@ Theme.prototype.init = function(){
 }
 Theme.prototype.changeThemeStatus = function(status){
 	this.active = status;
+	if(this.themetype==="css"){
+		//on css-choice look out for highlight-theme-selection:
+		let hltheme = slidenote.extensions.getThemeByName('highlight');
+		if(hltheme && hltheme.active &&
+			this.highlightTheme != undefined &&
+			this.active ){
+			hltheme.changeDesignOption(0,this.highlightTheme);
+		}
+	}
 	this.afterThemeStatusChange();
 }
 Theme.prototype.afterThemeStatusChange = function(){
@@ -3244,11 +3253,6 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("blocks");
 	this.loadTheme("stickytitles", true);
 	//this.loadTheme("procontra");
-	this.loadTheme("azul");
-	this.loadTheme("redalert");
-	this.loadTheme("luminoso");
-	//this.loadTheme("tufte");
-	//this.loadTheme("prototyp");
 	this.loadTheme("highlight");
 	this.loadTheme("transition");
 	this.loadTheme("chartist");
@@ -3262,6 +3266,15 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	//this.loadTheme("sequencediagram", true);
 	this.loadTheme("footnote",true);
 	this.loadTheme("progressbar");
+	//css-themes:
+	//this.loadTheme("azul");
+	//this.loadTheme("redalert");
+	//this.loadTheme("luminoso");
+	this.loadTheme("minimalist");
+	this.loadTheme("dark");
+	this.loadTheme("colorful");
+	//this.loadTheme("tufte");
+	//this.loadTheme("prototyp");
 	}else{
 		console.log("extraoptions found");
 		for(var x=0;x<themenamesToLoad.length;x++)this.loadTheme(themenamesToLoad[x].name, themenamesToLoad[x].css);
