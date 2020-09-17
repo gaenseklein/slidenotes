@@ -1615,7 +1615,8 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
           title:"missing password",
           content:"your slidenote is not protected with a password. \ndo you want to set a password now?",
           confirmbutton:"yes",
-          cancelbutton:"no"
+          cancelbutton:"no",
+          cssclass:"small"
         };
         var dontarea = document.createElement("div");
         var dontl = document.createElement("label");
@@ -2624,8 +2625,17 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
 
 	return new Promise(function(resolve, reject) {
 	    pwprompt.addEventListener('click', function handleButtonClicks(e) {
-	      if (e.target.tagName !== 'BUTTON' || e.target.id==="passwordgen" || e.target.id==="skippassword") { return; }
+	      if ((e.target.tagName !== 'BUTTON' && e.target.parentElement.tagName!='BUTTON') ||
+        e.target.id==="passwordgen" ||
+        e.target.id==="skippassword") {
+          return;
+        }
 	      pwprompt.removeEventListener('click', handleButtonClicks); //removes eventhandler on cancel or ok
+        if(e.target.id==="dialogclosebutton" ||
+        e.target.parentElement.id==="dialogclosebutton"){
+          slidenoteguardian.savingtoDestination=undefined;
+	        reject(new Error('User canceled')); //return error
+	      }
 	      if (e.target.id === "slidenoteGuardianPasswordPromptEncrypt") {
           if(pwinput.value===pwcheck.value||(pwcheck.classList.contains("hidden") && pwcheck.value.length===0)){
             let newname = document.getElementById("username").value;

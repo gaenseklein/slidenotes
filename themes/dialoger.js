@@ -221,6 +221,7 @@ dialoger.prompt = async function(options){
 */
 dialoger.confirm = async function(options){
   var dialogoptions = options;
+  if(dialogoptions.cssclass===undefined)dialogoptions.cssclass="small"
   dialogoptions.type="confirm"; //has to be confirm to let ok and cancel
   if(typeof options.content === "string" || (options.content.innerHTML &&
     options.content.innerHTML.indexOf("dialogPromptTextInput")===-1)){
