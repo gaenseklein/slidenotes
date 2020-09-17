@@ -68,6 +68,7 @@
 .blocks .griditem{
   z-index: 1;
   position: relative;
+  max-width: 100%;
 }
 
 section.inline{
@@ -81,6 +82,10 @@ div > img.bgimg{
 
 img.vertical.griditem{
   width: 100%;
+}
+.imageblock img{
+	max-width: 100%;
+	max-height: 80vh;
 }
 
 /*because it screws up the font otherwise*/
@@ -195,6 +200,9 @@ img.vertical.griditem{
   #praesentation{
     font-size: calc(11.55/10*(0.5em + 1vw));
   }
+  .ppage section.inline{
+  	flex-wrap: wrap;
+  }
 }
 
 /*4:3 to 2:1*/
@@ -275,7 +283,6 @@ img.vertical.griditem{
 }
 #controlarea button img, #controlarea a img{
   width: 100%;
-  /*position: absolute;*/
 }
 
 #controlarea.closed button, #controlarea.closed a{
