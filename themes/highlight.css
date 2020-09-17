@@ -29,7 +29,8 @@ span code{
 
 span.codeline{
 	/*opacity:0.5;*/
-	white-space: pre;
+	/*white-space: pre;*/
+	white-space: pre-wrap;
 }
 span.specialline, span.specialinline{
 	opacity:1;
