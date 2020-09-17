@@ -104,11 +104,11 @@ div > img.bgimg {
   height:6vh;
 }
 
-/*some things to forbid underthemes use margin etc:*/
+/*some things to forbid underthemes use margin etc:
 
-.blocks h1, 
-.blocks h2, 
+.blocks h1,
+.blocks h2,
 .blocks h3{
     margin:0!important;
 }
-
+*/

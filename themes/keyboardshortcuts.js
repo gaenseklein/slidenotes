@@ -949,7 +949,8 @@ keyboardshortcuts.attachShortcuts = function(){
     document.getElementById("menupublish").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"menupublish")});
     document.getElementById("menuimportexport").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"menuimportexport")});
     document.getElementById("menuoptionseditor").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"menuoptionseditor")});
-    document.getElementById("menuoptionspresentation").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"menuoptionspresentation")});
+    //document.getElementById("menuoptionspresentation").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"menuoptionspresentation")});
+    //?? dont get it? what happened?
     document.getElementById("menusearchbox").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"menusearchbox")});
     document.getElementById("toolbar").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"toolbar")});
     document.getElementById("imagegallery").addEventListener("keydown",function(e){slidenote.keyboardshortcuts.reactOn(e,"imagegallery")});
