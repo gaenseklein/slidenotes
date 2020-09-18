@@ -2294,7 +2294,7 @@
     text-align:center;
     height: calc(39/16*1em);
     display:grid;
-    grid-template-columns: 15ch 1fr 15ch;
+    grid-template-columns: 1fr auto 1fr;
     /*align-items:end;
     align-content:center;*/
     justify-content: center;
@@ -2359,10 +2359,12 @@
     /*text-align: center;*/
   }
   .small .dialogcontent{
-    max-width: calc(420*var(--pscale));
+    /*max-width: calc(420*var(--pscale));*/
+    max-width: calc(360/10.8*1vw);
   }
   .small>.dialogcontent{
-    max-width: calc(420*var(--pscale));
+    /*max-width: calc(420*var(--pscale));*/
+    max-width: calc(360/10.8*1vw);
     text-align: center;
   }
   .dialogcontent div {
@@ -4052,6 +4054,12 @@
         padding-bottom: calc(13*0.7*var(--pscale));
         padding-left: calc(10*0.7*var(--pscale));
         padding-right: calc(10*0.7*var(--pscale));
+      }
+      .dialogbox.small>.dialogcontent{
+        max-width: calc(420*var(--pscale));
+      }
+      .dialogbox.small .dialogcontent{
+        max-width: calc(420*var(--pscale));
       }
 
     /* keyboard configuration */
