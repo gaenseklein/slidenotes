@@ -1364,6 +1364,9 @@
     margin-left: -10vh;
     margin-right: -10vh;
     pointer-events: none;
+    position: relative;
+    z-index: 12;
+    background-color: var(--editor-bg-color);
   }
 
 /* shadowelbottom */
@@ -3561,7 +3564,8 @@
 }
 @media only screen and (max-width: 100vh) {
   :root {
-    --pscale: 1/3.77*1vw;
+    /*--pscale: 1/3.77*1vw;*/
+    --pscale: 0.31872/3.77*(0.5rem + 1vw);
   }
   :focus {
     outline: unset !important;
@@ -3572,7 +3576,7 @@
     Calc in Media Queries accepts no combination of different units. Until it
     gets resolved, font-size must remain dependant of only one unit.
     font-size: calc(0.5rem + 1vw);*/
-    font-size: 1.7407vw;
+    /*font-size: 1.7407vw;*/
     font-size: calc((0.5rem + 1vw)*16/10);
     grid-template-areas: "buttonleft noteinfoarea buttonright" "editor editor editor" "editor editor editor";
     grid-template-columns: calc(70*var(--pscale)) auto calc(67*var(--pscale));
@@ -3580,6 +3584,9 @@
     height: 100%;
     width: 100%;
     overflow: unset;
+  }
+  #dialogcontainer, #slidenoteGuardianPasswordPromptStore{
+    font-size: calc((0.5rem + 1vw)*16/10);
   }
 
 
@@ -3598,7 +3605,8 @@
     .closebutton/*#buttonarearightclose, #optionareaclose, #toolbarclose*/{
       display: unset;
       width: calc(34*var(--pscale));
-      left: calc(326*var(--pscale));
+      /*left: calc(326*var(--pscale));*/
+      right: calc((377 - 326 - 34)*var(--pscale));
       top: calc(15*var(--pscale));
       filter: drop-shadow(calc(1*var(--pscale)) calc(1*var(--pscale)) calc(5*var(--pscale)) var(--shadow-light))
     }
@@ -3618,6 +3626,8 @@
       padding-bottom: calc(8*var(--pscale));
       padding-right: calc(24*var(--pscale));
       padding-left: calc(15.5*var(--pscale));
+      position: relative;
+      z-index: 13;
     }
 
     #noteinfoarea button{
@@ -3717,6 +3727,8 @@
       border: none;
       display: grid;
       grid-template-rows: calc(26*var(--pscale)) 1fr;
+      position: relative;
+      z-index: 13;
     }
 
     #buttonarearightbutton{
@@ -3756,6 +3768,8 @@
       height: unset;
       background-color: var(--editor-bg-color);
       display: none;
+      position: relative;
+      z-index: 14;
     }
 
     #buttonarearight.active{
@@ -3764,33 +3778,43 @@
 
     #searchbutton{
       width: calc(42*var(--pscale));
-      left: calc(20*var(--pscale));
+      /*left: calc(20*var(--pscale));*/
       top: calc(3*var(--pscale));
+      right: calc((377 - 20 - 42)*var(--pscale));
+      left: unset;
     }
 
     #toolbarbutton{
       width: calc(52*var(--pscale));
-      left: calc(241*var(--pscale));
+      /*left: calc(241*var(--pscale));*/
       top: calc(3*var(--pscale));
       height: calc(53*var(--pscale));
+      right: calc((377 - 241 - 52)*var(--pscale));
+      left: unset;
     }
 
     #imagegallerybutton{
       width: calc(53*var(--pscale));
-      left: calc(82*var(--pscale));
+      /*left: calc(82*var(--pscale));*/
       top: calc(2*var(--pscale));
+      right: calc((377 - 82 - 53)*var(--pscale));
+      left: unset;
     }
 
     #historyBackButton{
       width: calc(49*var(--pscale));
-      left: calc(181*var(--pscale));
+      /*left: calc(181*var(--pscale));*/
       top: calc(5*var(--pscale));
+      right: calc((377 - 181 - 49)*var(--pscale));
+      left: unset;
     }
 
     #historyForwardButton{
       width: calc(33*var(--pscale));
-      left: calc(153*var(--pscale));
+      /*left: calc(153*var(--pscale));*/
       top: calc(20*var(--pscale));
+      right: calc((377 - 153 - 33)*var(--pscale));
+      left: unset;
     }
 
   /*imagegallery*/
@@ -3808,15 +3832,17 @@
       grid-area: unset;
       grid-column: 1 / 4;
       grid-row: 1;
+      grid-template-columns: calc(67*var(--pscale)) 1fr 1fr 1fr;
       display:none;
       margin-top: unset;
       background-color: var(--frame-bg-color);
+      position: relative;
+      z-index: 14;
+      padding-right: calc(70*var(--pscale));
     }
 
     #optionarea.active{
       display: grid;
-      padding-left: calc(70*var(--pscale));
-      grid-template-columns: 1fr 1fr 1fr calc(67*var(--pscale));
     }
 
     #optionarea button{
@@ -3829,6 +3855,9 @@
     #optionarea button span{
       margin-bottom: calc(3*var(--pscale));
       margin-top: calc(4*var(--pscale));
+    }
+    #optionarea button.closebutton{
+      justify-self: end;
     }
 
   /*sidebarcontainer*/
@@ -3979,8 +4008,9 @@
         max-height: calc(100vh - (59 + 1 + 17 + 20 + 6.4 + 5.6 + 9)*var(--pscale) - (1.2 + 1.2)*1em);
       }
 
-      #imagegallery .arrow_box::before{
-        left: calc(69*var(--pscale));
+      div#imagegallery .arrow_box::before{
+        right: calc((377 - 82 - 18.8)*var(--pscale));
+        left: unset;
       }
 
     /* menusearchbox */
@@ -4000,7 +4030,8 @@
       }
 
       #menusearchbox .arrow_box::before{
-        left: calc(32*var(--pscale))
+        right: calc((377 - 32 - 18.8)*var(--pscale) + 100% - 100vw);
+        left: unset;
       }
 
     /* menuimportexport, menupublish, menuoptionseditor */
@@ -4021,21 +4052,21 @@
     /* ---------------- */
       
       #menuimportexport .arrow_box::before{
-        left: calc(109*var(--pscale))
+        left: calc(66.6*var(--pscale) + (100vw - 137*var(--pscale))*1/6);
       }
 
     /* menupublish */
     /* ----------- */
 
       #menupublish .arrow_box::before{
-        left: calc(190*var(--pscale))
+        left: calc(66.6*var(--pscale) + (100vw - 137*var(--pscale))*3/6);
       }
 
     /* menuoptionseditor */
     /* ----------------- */
 
       #menuoptionseditor .arrow_box::before{
-        left: calc(269.5*var(--pscale))
+        left: calc(66.6*var(--pscale) + (100vw - 137*var(--pscale))*5/6);
       }
 
   /*dialogbox*/

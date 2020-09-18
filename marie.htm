@@ -906,6 +906,9 @@
         </div>
       </div>
       <div id="optionarea">
+        <button class="fluidbutton closebutton" id="optionareaclose" onclick="document.getElementById('optionarea').classList.remove('active');">
+          <img src="images/buttons/x.svg" alt="back">
+        </button>
         <button id="importexportbutton">
           <!--<img src="images/buttons/import-export.svg"><br>import&<br>export-->
           <!-- file button-->
@@ -932,9 +935,6 @@
             <path class="meta-button-inside" d="M15.41,8.194c-3.863,0 -7,3.137 -7,7c0,3.863 3.137,7 7,7c3.863,0 7,-3.137 7,-7c0,-3.863 -3.137,-7 -7,-7Zm0,2c2.76,0 5,2.24 5,5c0,2.76 -2.24,5 -5,5c-2.76,0 -5,-2.24 -5,-5c0,-2.76 2.24,-5 5,-5Z"/>
           </svg>
           <br><span>options</span>
-        </button>
-        <button class="fluidbutton closebutton" id="optionareaclose" onclick="document.getElementById('optionarea').classList.remove('active');">
-          <img src="images/buttons/x.svg" alt="back">
         </button>
       </div>
       <button id="optionareabutton" onclick="document.getElementById('optionarea').classList.toggle('active');">
