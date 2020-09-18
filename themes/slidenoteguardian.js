@@ -1189,9 +1189,24 @@ slidenoteGuardian.prototype.exportedPresentationToRest = function(resolve){
       var exp = slidenoteguardian.restObject.exportedPresentations[slidenoteguardian.restObject.exportedPresentations.length-1];
       var resolve = JSON.parse(this.response);
       exp.publicURL = resolve.url;
-      if(confirm("new Presentation ready with url "+resolve.url+"\n Go there now?")){
-        console.log("jump to presentationnode");
+      //if(confirm("new Presentation ready with url "+resolve.url+"\n Go there now?")){
+      //  console.log("jump to presentationnode");
+      //}
+      var dialogoptions = {
+        type:"confirm",
+        title:"new presentation ready",
+        content:"new Presentation ready with url "+resolve.url+"\n Go there now?",
+        confirmbutton:"go to presentation",
+        cancelbutton: "back to editor",
+        closefunction: function(){
+          slidenoteguardian.loadPresentationList();
+        },
       }
+      var goto = resolve.url;
+      dialoger.buildDialog(dialogoptions,function(){
+        //go to presentation:
+        location.href = goto;
+      });
     });
     urlquest.open("GET",respobj.uri+".json");
     urlquest.setRequestHeader("CONTENT-TYPE","application/json");
