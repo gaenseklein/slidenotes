@@ -18,6 +18,7 @@ var dialoger = {
 * nocancelbutton: boolean (false) if confirm without cancel - optional
 * closebutton: boolean (false) if closebutton is placed on top right - optional
 * closebuttontext: text placed before x of button - optional
+* closefunction: function to call if canceled or closed - optional
 + focuson: DOM-Node (null) the node that should be focused after build - optional
 * afterButtonArea: node to be appended on Area after Buttons (dont bother me...)
 */
