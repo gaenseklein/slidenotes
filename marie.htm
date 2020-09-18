@@ -51,7 +51,8 @@
           type:"confirm",
           title:"delete slidenote",
           content:"Do you wish to delete the slidenote?",
-          confirmbutton:"delete"
+          confirmbutton:"delete",
+          cssclass: "small"
         };
         dialoger.buildDialog(dialogoptions,function(){
           let nid = slidenoteguardian.restObject.nid;
@@ -191,7 +192,8 @@
                   type: "confirm",
                   title:"delete presentation",
                   content:"Do you wish to delete the presentation published to slidenotes.io?",
-                  confirmbutton:"delete"
+                  confirmbutton:"delete",
+                  cssclass: "small"
                 };
                 dialoger.buildDialog(dialogoptions, function(){
                   location.href=this.targeturl;
