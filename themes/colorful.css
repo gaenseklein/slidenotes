@@ -26,16 +26,16 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   src: url("../fonts/themes/colorful/FredokaOne-Regular.ttf");
 }
 @font-face{
-  font-family: "KhulaReg";
-  src: url("../fonts/themes/colorful/Khula-Regular.ttf");
+  font-family: "RobotoCondReg";
+  src: url("../fonts/themes/colorful/RobotoCondensed-Regular.ttf");
 }
 @font-face{
-  font-family: "KhulaBold";
-  src: url("../fonts/themes/colorful/Khula-Bold.ttf");
+  font-family: "RobotoCondBold";
+  src: url("../fonts/themes/colorful/RobotoCondensed-Bold.ttf");
 }
 @font-face{
-  font-family: "OpenSansItalic";
-  src: url("../fonts/themes/colorful/OpenSans-Italic.ttf");
+  font-family: "RobotoCondItalic";
+  src: url("../fonts/themes/colorful/RobotoCondensed-Italic.ttf");
 }
 @font-face{
   font-family: "CutiveMono";
@@ -47,7 +47,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 	background: var(--colorfulBckgColor);
 	color: var(--colorfulTextColor);
   font-weight: normal;
-  font-family: "KhulaReg", Sans-Serif;
+  font-family: "RobotoCondReg", Sans-Serif;
   font-size: 1.1em;
 }
 
@@ -78,7 +78,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful h1,
 .colorful h2,
 .colorful h3{
-  font-family: "FredokaOne", Sans-Serif;
+  font-family: "RobotoCondReg", Sans-Serif;
   font-weight: normal;
   
   text-shadow: 0.05em 0.03em coral;
@@ -147,7 +147,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful a{
   text-decoration: underline;
-  font-family: "OpenSansItalic";
+  font-family: "RobotoCondItalic";
   color: var(--colorfulTextColor);
 }
 
@@ -156,11 +156,11 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .colorful b{
-  font-family: "KhulaBold";
+  font-family: "RobotoCondBold";
 }
 
 .colorful i{
-  font-family: "OpenSansItalic";
+  font-family: "RobotoCondItalic";
   font-size: 0.95em;
 }
 
@@ -209,7 +209,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   text-decoration-thickness: 0.02em;
   text-underline-offset: 0.3em;
   line-height: 1.5em;
-  font-family: "OpenSansItalic";
+  font-family: "RobotoCondItalic";
 }
 
 .colorful p code{
@@ -252,7 +252,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful .ct-chart-donut .ct-label{
   fill: rgba(0, 0, 0, 1);
   text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-  font-family: "KhulaBold";
+  font-family: "RobotoCondBold";
 }
 
 .colorful .ct-grid{
@@ -377,7 +377,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .colorful thead{
-  font-family: "KhulaBold";
+  font-family: "RobotoCondBold";
 }
 
 .colorful table, th, td{
