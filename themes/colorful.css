@@ -9,16 +9,17 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 :root{
-  --colorfulBckgColor: #f4f4f4;
+  --colorfulBckgColor: #ffffff;
   --colorfulTextColor: #030303;
+  --colorfulHeadlineBckgColor: #f7ff00;
 
-  --colorfulDataColor0: #96a0a4;
-  --colorfulDataColor1: #5f7782;
-  --colorfulDataColor2: #d8b26e;
-  --colorfulDataColor3: #a8660f;
-  --colorfulDataColor4: #736367;
-  --colorfulDataColor5: #267e82;
-  --colorfulDataColor6: #a1b9aa;
+  --colorfulDataColor0: #F51AA4;
+  --colorfulDataColor1: #59DBD4;
+  --colorfulDataColor2: #5CFF8D;
+  --colorfulDataColor3: #FF7F0F;
+  --colorfulDataColor4: #A300CC;
+  --colorfulDataColor5: #D12300;
+  --colorfulDataColor6: #572100;
 }
 
 @font-face{
@@ -63,6 +64,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   padding: 0.12em 0.2em 0.12em 0.2em;
   color: white;
   background-color: var(--code-backg); 
+  text-shadow: none;
 }
 
 
@@ -78,15 +80,28 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful h1,
 .colorful h2,
 .colorful h3{
-  font-family: "RobotoCondReg", Sans-Serif;
+  font-family: "FredokaOne", Sans-Serif;
   font-weight: normal;
+  line-height: 1em;
   
-  text-shadow: 0.05em 0.03em coral;
+  text-shadow: 0.05em 0.03em #05fff3;
 }
 
 .colorful h1{
   font-size: 4em;
   margin-top: 25vh;
+  color: #095959;
+}
+.colorful h1:before{
+  content:"";
+  width: 1000vw;
+  height:106.5vh;
+  background-color: var(--colorfulHeadlineBckgColor);
+  display: block;
+  position: absolute;
+  z-index: -1;
+  margin-left: -100vw;
+  margin-top: -100vh;
 }
 
 .colorful h2,
@@ -95,6 +110,19 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 .colorful h2{
   
+}
+
+.colorful .ppage > h2:first-child::before,
+.colorful .ppage > .pblock:first-child > h2:first-child::before{
+  content:"";
+  width: 1000vw;
+  height:102.7vh;
+  background-color: var(--colorfulHeadlineBckgColor);
+  display: block;
+  position: absolute;
+  z-index: -1;
+  margin-left: -100vw;
+  margin-top: -100vh;
 }
 
 .colorful h3{
@@ -256,7 +284,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .colorful .ct-grid{
-	stroke: var(--colorfulBckgColor);
+	stroke: var(--colorfulHeadlineBckgColor);
+  stroke-width:0.15em;
+  stroke-dasharray: 0;
 }
 
 /*x-achsen-label*/

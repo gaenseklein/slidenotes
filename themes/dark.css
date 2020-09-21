@@ -62,7 +62,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .dark p code{
   padding: 0.12em 0.2em 0.12em 0.2em;
   color: white;
-  background-color: #484848; 
+  background-color: #484848;
+  text-shadow: none;
 }
 
 

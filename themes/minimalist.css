@@ -62,7 +62,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .minimalist p code{
   padding: 0.12em 0.2em 0.12em 0.2em;
   color: white;
-  background-color: var(--code-backg); 
+  background-color: var(--code-backg);
+  text-shadow: none;
 }
 
 
@@ -257,6 +258,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .minimalist .ct-grid{
 	stroke: var(--minimalistBckgColor);
+  stroke-width:0.05em;
+  stroke-dasharray: 0;
 }
 
 /*x-achsen-label*/
