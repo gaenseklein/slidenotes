@@ -85,6 +85,9 @@ div > img.bgimg{
 
 img.vertical.griditem{
   width: 100%;
+  object-fit: contain;
+  min-height: 100%;
+  object-position: top;
 }
 .imageblock img{
 	max-width: 100%;
@@ -205,6 +208,9 @@ img.vertical.griditem{
   }
   .ppage section.inline{
   	flex-wrap: wrap;
+  }
+  img.vertical.griditem{
+    min-height: unset;
   }
 }
 
