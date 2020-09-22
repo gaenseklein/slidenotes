@@ -53,6 +53,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 1.1em;
 }
 
+.colorful .progressbar{
+  background: var(--colorfulHeadlineTextShadow);
+}
+
 
 
 /*code affects both: inlinecode and codeblock*/
