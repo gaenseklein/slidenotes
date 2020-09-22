@@ -74,6 +74,9 @@
 section.inline{
   gap: 1em;
 }
+section div.pblock{
+  justify-self: normal
+}
 
 div > img.bgimg{
   top: 0;
