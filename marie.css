@@ -54,8 +54,8 @@
     --light-green-backg:#ECF4EE;
     --light-grey-backg:#efefef;
     --code-backg: #23241f;
-    /*carret*/
-    --caret-color:#ff8405;
+    /*caret*/
+    --caret-color:#125E69;
     --caret-color-backg:#ff84057a;
     /*dialogbox*/
     --dialogbox-overlay: #ffffffd9;
@@ -2843,8 +2843,8 @@
     --light-green-backg:#444400;
     --light-grey-backg:#848472;
     --code-backg: #23241f;
-    /*carret*/
-    --caret-color:#125E69;
+    /*caret*/
+    --caret-color:#ff8405;
     --caret-color-backg:#125E697a;
     /*dialogbox*/
     --dialogbox-overlay: #1B1917CC;
