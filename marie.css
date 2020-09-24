@@ -2821,7 +2821,7 @@
     --light-blue-backg:#333300;
     --light-dark-blue-backg: #444400;
     --light-green-backg:#444400;
-    --light-grey-backg:#444400;
+    --light-grey-backg:#848472;
     --code-backg: #23241f;
     /*carret*/
     --caret-color:#125E69;
@@ -2857,7 +2857,6 @@
   .nightmode #imagesblock img,
   .nightmode #contextfieldimage,
   .nightmode .imagesrc{
-    /*filter:invert(100%);*/
   }
 
   .nightmode .active .meta-button-inside {
@@ -2871,6 +2870,24 @@
     filter: invert(1) hue-rotate(180deg);
   }
 
+  .nightmode #texteditorerrorlayer .pagenr{
+  	color: var(--editor-bg-color);
+  }
+
+  .nightmode .backgroundline.h1,
+  .nightmode .backgroundline.h2,
+  .nightmode .backgroundline.h3{
+  	color: var(--text-color);
+  }
+
+  .nightmode .backgroundline.data{
+  	color: var(--editor-bg-color);
+  	background: var(--light-grey-backg);
+  }
+  .nightmode .backgroundline.metadataseparator{
+  	background:var(--light-grey-backg);
+  	opacity: 0.8;
+  }
 
   /*editorblock*/
   /*-----------*/
