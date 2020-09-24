@@ -787,7 +787,7 @@
     padding: 1px;
     height:100%;
     line-height:1.5em;
-    outline:none;
+    outline:none !important;
     padding-top: calc(81*var(--pscale));
     /*padding-bottom: calc(81*var(--pscale));*/ /* gibt Fehler in der Positionierung*/
     box-sizing: border-box;
@@ -798,6 +798,25 @@
     color:transparent;
     caret-color: var(--caret-color);
   }
+  #editorblockfade{
+    height:100%;
+    width: 100%;
+    z-Index:3;
+    position:absolute;
+    pointer-events: none;
+    background-color: var(--editor-bg-color);
+    opacity: 0.4;
+    transition-duration: 0.5s;
+    transition-property: opacity;
+    transition-timing-function: ease-out;
+    transition-delay: 0.15s;
+  }
+  #quelltext:focus~#editorblockfade, #editorblockfade.nofade{
+    opacity: 0;
+    transition-duration: 0.2s;
+    transition-delay: 0s;
+  }
+
 
 /* buttonarearight */
 /* --------------- */
@@ -2488,6 +2507,7 @@
   button.themepreviewcontainer:hover, button.themepreviewcontainer:focus{
     background: none;
     border-color:var(--dialogbox-border-color);
+    outline: none !important;
   }
 
   #presentationoptionactiveradio .themepreviewcontainer {
