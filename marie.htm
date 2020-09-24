@@ -338,6 +338,7 @@
         var menus = ["menuload","menucloud","menupublish","menuimportexport", "menuoptionseditor","toolbar", "imagegallery", "menusearchbox"]; //, "menuoptionspresentation"
         this.standardmenus = menus;
         var menubuttons = ["loadnote","cloud","publishbutton","importexportbutton", "optionsbutton","toolbarbutton", "imagegallerybutton","searchbutton"]; //,"presentationoptionsbutton"
+        var editorblockfade = document.getElementById('editorblockfade');
         for(var x=0;x<menus.length;x++){
             var button = document.getElementById(menubuttons[x]);
             var menu = document.getElementById(menus[x]);
@@ -348,26 +349,33 @@
           //    slidenote.menumanager.buildPresentationMenu();
           //  });
             button.onclick = function(e){
-                var menus = document.getElementsByClassName("autohidemenu");
-                var menu  = document.getElementById(this.menu);
-                for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
-                    menus[x].classList.remove("active");
-                    if(menus[x].button)
-                    document.getElementById(menus[x].button).classList.remove("active");
+              var menus = document.getElementsByClassName("autohidemenu");
+              var menu  = document.getElementById(this.menu);
+              for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
+                  menus[x].classList.remove("active");
+                  if(menus[x].button)
+                  document.getElementById(menus[x].button).classList.remove("active");
+              }
+              if(menu===null||menu===undefined)return;
+              if(menu.classList.contains("active")){
+              //closing menu
+                menu.classList.remove("active");
+                this.classList.remove("active");
+                //return to standard focus behavior of editorblock
+                if(this.menu == "menusearchbox" || this.menu == "toolbar"){
+                  editorblockfade.classList.remove('nofade');
                 }
-                if(menu===null||menu===undefined)return;
-                if(menu.classList.contains("active")){
-                  //closing menu
-                    menu.classList.remove("active");
-                    this.classList.remove("active");
-
-                } else{
-                  //opening menu
-                    if(this.menu==="imagegallery"){
-                      slidenote.base64images.buildImageGallery();
-                    }
-                    menu.classList.add("active");
-                    this.classList.add("active");
+              } else{
+              //opening menu
+                if(this.menu==="imagegallery"){
+                  slidenote.base64images.buildImageGallery();
+                }
+                //unfading the editorblock
+                if(this.menu == "menusearchbox" || this.menu == "toolbar"){
+                  editorblockfade.classList.add('nofade');
+                }
+                menu.classList.add("active");
+                this.classList.add("active");
                 var firstbutton = menu.getElementsByClassName("focusitem");
                 if(firstbutton.length<1)firstbutton = menu.getElementsByClassName("menuitem");
                 if(firstbutton.length<1)firstbutton = menu.getElementsByTagName("button");
@@ -375,7 +383,7 @@
                 //menu.ontransitionend = function(){
                 setTimeout(function(){
                   firstbutton[0].focus();
-                },300); //we have to wait till transition is over
+                },200); //we have to wait till transition is over
                 //}
               }
             } //end of on-click
@@ -832,6 +840,7 @@
       <main id="editorblock">
         <div id="texteditorerrorlayer"></div>
     	  <textarea spellcheck="false" id="quelltext" onload="" autofocus         onfocus="setTimeout('initeditor()',100);"></textarea>
+        <div id="editorblockfade"></div>
       </main>
       <div id="buttonarearight">
         <button class="fluidbutton" id="searchbutton">
