@@ -1353,7 +1353,7 @@
     pointer-events: none;
     position: relative;
     z-index: 12;
-    background-color: var(--editor-bg-color);
+    background-color: var(--frame-bg-color);
   }
 
 /* shadowelbottom */
@@ -2232,7 +2232,7 @@
   }
   #menusearchbox input{
     box-sizing: border-box;
-    background-color: var(--arrow-box-button3-bg-color);
+    background-color: var(--arrow-box-bg-color);
     box-shadow: inset calc(1*var(--pscale)) calc(1*var(--pscale)) calc(7*var(--pscale)) 0 var(--shadow-dark);
     margin-top: calc(12*var(--pscale));
     padding-top: calc(7.52*var(--pscale));
@@ -2247,6 +2247,10 @@
   #menusearchbox .arrow_box::after,
   #menusearchbox .arrow_box::before{
     left: calc((var(--grid-s) - var(--grid-margin))*var(--emToVh)*1vh + 0.6rem);
+  }
+
+  #searchresult {
+    padding-top: calc(6.4*var(--pscale));
   }
 
 
@@ -2909,6 +2913,8 @@
   .nightmode #menuoptionseditor button#nightmodetoggle div{
     background: var(--arrow-box-button-bg-color);
   }
+
+
 
 /* focus-mode */
 /* ---------- */
@@ -3734,7 +3740,7 @@
 
     #buttonarearightbutton, #optionareabutton{
       display: unset;
-      background-color: var(--editor-bg-color);
+      background-color: var(--frame-bg-color);
       font-size: calc(15*var(--pscale));
       height: calc(100% + 50*var(--pscale));
       z-index: 1;
@@ -3784,7 +3790,7 @@
       grid-column-end: 4;
       grid-row: 1/2;
       height: unset;
-      background-color: var(--editor-bg-color);
+      background-color: var(--frame-bg-color);
       display: none;
       position: relative;
       z-index: 14;
@@ -3974,13 +3980,14 @@
         margin: 0;
         overflow: auto;
         box-shadow: 1vw 0vw 2vw var(--shadow-dark);
+        z-index: 121;
       }
       div#toolbar .arrow_box {
         border-radius: 0;
       }
 
       div#texteditorbuttons{
-        background-color: var(--editor-bg-color);
+        background-color: var(--frame-bg-color);
       }
 
       div#texteditorbuttons button#toolbarclose{
@@ -4050,6 +4057,10 @@
       #menusearchbox .arrow_box::before{
         right: calc((377 - 32 - 18.8)*var(--pscale) + 100% - 100vw);
         left: unset;
+      }
+
+      .nightmode #menusearchbox input{
+        border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
       }
 
     /* menuimportexport, menupublish, menuoptionseditor */
