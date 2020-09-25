@@ -107,7 +107,7 @@
   }
 
   /*give all buttons parental dependent font size*/
-  a[href], input[type='submit'], input[type='text'], input[type='image'], label[for], select, button{
+  a[href], input[type='submit'], input[type='text'], input[type='password'], input[type='image'], label[for], select, button{
     font-size: 1em;
     font-family: rubikReg;
     border: 0;
@@ -376,6 +376,8 @@
   .loading-blob.active{
     display:block;
   }
+
+
 
 
 /* base layer */
@@ -1351,7 +1353,7 @@
     pointer-events: none;
     position: relative;
     z-index: 12;
-    background-color: var(--editor-bg-color);
+    background-color: var(--frame-bg-color);
   }
 
 /* shadowelbottom */
@@ -2247,6 +2249,10 @@
     left: calc((var(--grid-s) - var(--grid-margin))*var(--emToVh)*1vh + 0.6rem);
   }
 
+  #searchresult {
+    padding-top: calc(6.4*var(--pscale));
+  }
+
 
 /* dialog box */
 /* ========== */
@@ -2264,6 +2270,15 @@
     display:grid;
     justify-content: center;
     align-content: center;
+    animation-name:appear;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+  }
+
+  @keyframes appear{
+    0%{opacity: 0}
+    100%{opacity: 1}
   }
   .dialogbox{
     /*  width:95vh; /*1020px on 1920x1080;*/
@@ -2898,6 +2913,8 @@
   .nightmode #menuoptionseditor button#nightmodetoggle div{
     background: var(--arrow-box-button-bg-color);
   }
+
+
 
 /* focus-mode */
 /* ---------- */
@@ -3723,7 +3740,7 @@
 
     #buttonarearightbutton, #optionareabutton{
       display: unset;
-      background-color: var(--editor-bg-color);
+      background-color: var(--frame-bg-color);
       font-size: calc(15*var(--pscale));
       height: calc(100% + 50*var(--pscale));
       z-index: 1;
@@ -3773,7 +3790,7 @@
       grid-column-end: 4;
       grid-row: 1/2;
       height: unset;
-      background-color: var(--editor-bg-color);
+      background-color: var(--frame-bg-color);
       display: none;
       position: relative;
       z-index: 14;
@@ -3963,13 +3980,14 @@
         margin: 0;
         overflow: auto;
         box-shadow: 1vw 0vw 2vw var(--shadow-dark);
+        z-index: 121;
       }
       div#toolbar .arrow_box {
         border-radius: 0;
       }
 
       div#texteditorbuttons{
-        background-color: var(--editor-bg-color);
+        background-color: var(--frame-bg-color);
       }
 
       div#texteditorbuttons button#toolbarclose{
@@ -4039,6 +4057,10 @@
       #menusearchbox .arrow_box::before{
         right: calc((377 - 32 - 18.8)*var(--pscale) + 100% - 100vw);
         left: unset;
+      }
+
+      .nightmode #menusearchbox input{
+        border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
       }
 
     /* menuimportexport, menupublish, menuoptionseditor */

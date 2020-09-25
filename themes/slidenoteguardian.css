@@ -59,7 +59,7 @@
     margin-top:20px;
 }
 
-#slidenoteGuardianPasswortPrompt input {
+#slidenoteGuardianPasswortPrompt input, .dialogbox.initial input{
   display: block;
   margin-bottom:20px;
   margin-left: auto;
@@ -73,6 +73,7 @@
   height: calc(40/20*1em);
   box-sizing: border-box;
   margin-top: calc(5/10.8*1vh);
+  background-color: var(--dialogbox-button3-bg-color);
 }
 
 #slidenoteGuardianPasswordPromptStore{
