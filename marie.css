@@ -204,23 +204,23 @@
     opacity:1;
   }
   #slidenoteloadingscreenwrapper.midstate #slidenoteeditorloadingscreenbackground{
-    opacity:0.7;
+    opacity:1;
     transition:all 1s ease;
   }
   #slidenoteloadingscreenwrapper.endstate #slidenoteeditorloadingscreenbackground{
-    opacity: 0.7;
+    opacity: 1;
     animation-name:flaeche;
     animation-delay: 1s;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
   }
   @keyframes flaeche{
-    0%{opacity: 0.7}
+    0%{opacity: 1}
     100%{opacity: 0}
   }
 
   #slidenoteeditorhidetexteditor{
-    background:white;
+    background: var(--editor-bg-color);
     position:absolute;
     width:100vw;
     height:100vh;
@@ -264,7 +264,8 @@
     animation-iteration-count: 500;
     position: relative;
     z-index: 1500;
-
+    display: none;
+    opacity: 0;
   }
   @keyframes loading-circle {
     0%{transform:rotate(0deg);}
@@ -329,20 +330,20 @@
   /*old:
 
   img#loadingcircle {
-      transform: rotate(1deg);
-      animation-name:loadingcircle;
-      animation-duration: 4000ms;
-      animation-iteration-count: 150;
+    transform: rotate(1deg);
+    animation-name:loadingcircle;
+    animation-duration: 4000ms;
+    animation-iteration-count: 150;
 
   }
 
   @keyframes loadingcircle{
-      0%{
-          transform:rotate(1deg);
-      }
-      100%{
-          transform:rotate(359deg);
-      }
+    0%{
+        transform:rotate(1deg);
+    }
+    100%{
+        transform:rotate(359deg);
+    }
   }
   */
 
