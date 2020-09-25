@@ -107,7 +107,7 @@
   }
 
   /*give all buttons parental dependent font size*/
-  a[href], input[type='submit'], input[type='text'], input[type='image'], label[for], select, button{
+  a[href], input[type='submit'], input[type='text'], input[type='password'], input[type='image'], label[for], select, button{
     font-size: 1em;
     font-family: rubikReg;
     border: 0;
@@ -376,6 +376,8 @@
   .loading-blob.active{
     display:block;
   }
+
+
 
 
 /* base layer */
@@ -2264,7 +2266,7 @@
   }
   #menusearchbox input{
     box-sizing: border-box;
-    background-color: var(--arrow-box-bg-color);
+    background-color: var(--arrow-box-button3-bg-color);
     box-shadow: inset calc(1*var(--pscale)) calc(1*var(--pscale)) calc(7*var(--pscale)) 0 var(--shadow-dark);
     margin-top: calc(12*var(--pscale));
     padding-top: calc(7.52*var(--pscale));
@@ -2298,6 +2300,15 @@
     display:grid;
     justify-content: center;
     align-content: center;
+    animation-name:appear;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+  }
+
+  @keyframes appear{
+    0%{opacity: 0}
+    100%{opacity: 1}
   }
   .dialogbox{
     /*  width:95vh; /*1020px on 1920x1080;*/
