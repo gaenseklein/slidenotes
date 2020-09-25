@@ -54,8 +54,8 @@
     --light-green-backg:#ECF4EE;
     --light-grey-backg:#efefef;
     --code-backg: #23241f;
-    /*carret*/
-    --caret-color:#ff8405;
+    /*caret*/
+    --caret-color:#125E69;
     --caret-color-backg:#ff84057a;
     /*dialogbox*/
     --dialogbox-overlay: #ffffffd9;
@@ -137,9 +137,9 @@
 
   /*show special border on all focus elements*/
   :focus {
-    outline-style: dashed !important;
-    outline-color: rgb(190 111 97) !important;
-    outline-width: 2px !important;
+    outline-style: dotted !important;
+    outline-color: rgb(141, 191, 206) !important;
+    outline-width: 0.17em !important;
   }
 
   /*implementing font rubikReg*/
@@ -419,46 +419,12 @@
     background-color: var(--editor-bg-color);
     color: var(--text-color);
   }
-  /* 19 26 87 89 h:10 13 27 33 38 75 (90) */
-
-  /*hover and focus-effects:*/
-
-  /*#menuload button:hover,#menuload button:focus,
-  #menuload a:hover, #menuload a:focus,
-  #menupublish button:hover,#menupublish button:focus,
-  #menupublish a:hover, #menupublish a:focus,
-  #menuimportexport button:hover,#menuimportexport button:focus,
-  #toolbar button:hover,#toolbar button:focus,
-  #menucloud button:hover, #menucloud button:focus,
-  button.menuitem:hover, button.menuitem:focus,
-  button:hover, button:focus,
-  #nicesidebarsymbolcontainer:hover,
-  #nicesidebarsymbolcontainer:focus,
-  #menuoptionseditor a.menuitem:hover,
-  #menuoptionseditor a.menuitem:focus,
-  #nightmodetoggle:hover div,
-  #nightmodetoggle:focus div{
-    *//*filter:brightness(0.8); only on images*/
-    /*filter:unset;
-    background:#9c9c9c;
-    color:white;
-    outline:none;
-  }
-  button.fluidbutton:hover, button.fluidbutton:focus,
-  #cloud:hover, #cloud:focus{
-    filter:brightness(0.8);
-    background:none;
-  }*/
+  
 
   #optionarea .active img,
   #loadnote.active img {
     filter:unset;
   }
-  /*#loadnote:focus img, #loadnote:hover img,
-  #optionarea button:focus img, #optionarea button:hover img {
-    *//*filter: sepia(1) hue-rotate(150deg);*//*
-    filter: grayscale(1) brightness(0.6) contrast(5.5);
-  }*/
 
   /* general fluidbuttons */
 
@@ -2800,6 +2766,10 @@
     display: none;
   }
 
+  .nightmode :focus{
+    outline-color: #bb6e3f !important;
+  }
+
   /*general*/
   /*-------*/
 
@@ -2852,11 +2822,11 @@
     --light-blue-backg:#333300;
     --light-dark-blue-backg: #444400;
     --light-green-backg:#444400;
-    --light-grey-backg:#444400;
+    --light-grey-backg:#848472;
     --code-backg: #23241f;
-    /*carret*/
-    --caret-color:#125E69;
-    --caret-color-backg:#125E697a;
+    /*caret*/
+    --caret-color:#ff8405;
+    --caret-color-backg:#ff84057a;
     /*dialogbox*/
     --dialogbox-overlay: #1B1917CC;
     --dialogbox-bg-color: #212121;
@@ -2888,7 +2858,6 @@
   .nightmode #imagesblock img,
   .nightmode #contextfieldimage,
   .nightmode .imagesrc{
-    /*filter:invert(100%);*/
   }
 
   .nightmode .active .meta-button-inside {
@@ -2902,6 +2871,24 @@
     filter: invert(1) hue-rotate(180deg);
   }
 
+  .nightmode #texteditorerrorlayer .pagenr{
+  	color: var(--editor-bg-color);
+  }
+
+  .nightmode .backgroundline.h1,
+  .nightmode .backgroundline.h2,
+  .nightmode .backgroundline.h3{
+  	color: var(--text-color);
+  }
+
+  .nightmode .backgroundline.data{
+  	color: var(--editor-bg-color);
+  	background: var(--light-grey-backg);
+  }
+  .nightmode .backgroundline.metadataseparator{
+  	background:var(--light-grey-backg);
+  	opacity: 0.8;
+  }
 
   /*editorblock*/
   /*-----------*/
