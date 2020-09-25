@@ -391,14 +391,14 @@
     top:0;
     left:0;
     display:grid;
-    grid-template-columns: 
-      0.7fr 
-      calc(var(--grid-s)*var(--emToVh)*2vh) 
-      calc(var(--grid-s)*var(--emToVh)*1.5vh) 
-      calc(var(--grid-s)*var(--emToVh)*7vh) 
-      calc(var(--grid-s)*var(--emToVh)*0.7vh) 
-      calc(var(--grid-s)*var(--emToVh)*0.3vh) 
-      calc(var(--grid-s)*var(--emToVh)*1vh) 
+    grid-template-columns:
+      0.7fr
+      calc(var(--grid-s)*var(--emToVh)*2vh)
+      calc(var(--grid-s)*var(--emToVh)*1.5vh)
+      calc(var(--grid-s)*var(--emToVh)*7vh)
+      calc(var(--grid-s)*var(--emToVh)*0.7vh)
+      calc(var(--grid-s)*var(--emToVh)*0.3vh)
+      calc(var(--grid-s)*var(--emToVh)*1vh)
       1fr;
     /*grid-template-columns: 1fr calc(var(--grid-s)*2em) calc(var(--grid-s)*1em) calc(var(--grid-s)*7em) calc(var(--grid-s)*0.7em) calc(var(--grid-s)*0.3em) calc(var(--grid-s)*1em) 1fr;*/
     grid-template-rows: calc(var(--grid-s)*var(--emToVh)*0.32vh) calc(var(--grid-s)*var(--emToVh)*1.34vh) calc(var(--grid-s)*var(--emToVh)*0.46vh) 1fr;
@@ -417,7 +417,7 @@
     background-color: var(--editor-bg-color);
     color: var(--text-color);
   }
-  
+
 
   #optionarea .active img,
   #loadnote.active img {
@@ -752,7 +752,7 @@
     margin: 1px;
     padding: 1px;
     height:100%;
-    line-height:1.5em;
+    line-height:1.2em;
     outline:none !important;
     padding-top: calc(81*var(--pscale));
     /*padding-bottom: calc(81*var(--pscale));*/ /* gibt Fehler in der Positionierung*/
@@ -1366,7 +1366,7 @@
     right: 0;
     height: calc(142*var(--pscale));
     z-index: 10;
-    pointer-events: none;    
+    pointer-events: none;
     background-image: linear-gradient(to top, var(--shadow-white), var(--shadow-white-invisible));
   }
 
@@ -2842,7 +2842,7 @@
   .nightmode #slidenoteeditor,
   .nightmode #slidenoteloadingscreenwrapper,
   .nightmode #slidenoteGuardianPasswordPromptTemplate{
-    
+
   }
   .nightmode #imagesblock img,
   .nightmode #contextfieldimage,
@@ -3185,7 +3185,7 @@
 
     button#nightmodetoggle.menuitem div:last-child img{
       filter: none;
-    } 
+    }
 
   /*sidebarcontainer*/
   /*---------------*/
@@ -3436,14 +3436,14 @@
 
 @media only screen and (max-width: calc(91.2*1.7407vh)) {
   #slidenoteeditor{
-    grid-template-columns: 
-      0 
-      calc(var(--grid-s)*var(--emToVh)*2vh) 
-      calc(var(--grid-s)*var(--emToVh)*1.5vh) 
-      1fr 
-      calc(var(--grid-s)*var(--emToVh)*0.7vh) 
-      calc(var(--grid-s)*var(--emToVh)*0.3vh) 
-      calc(var(--grid-s)*var(--emToVh)*1vh) 
+    grid-template-columns:
+      0
+      calc(var(--grid-s)*var(--emToVh)*2vh)
+      calc(var(--grid-s)*var(--emToVh)*1.5vh)
+      1fr
+      calc(var(--grid-s)*var(--emToVh)*0.7vh)
+      calc(var(--grid-s)*var(--emToVh)*0.3vh)
+      calc(var(--grid-s)*var(--emToVh)*1vh)
       0;
   }
 }
@@ -3470,14 +3470,14 @@
 
 @media only screen and (max-width: calc(71.2*1.7407vh)) {
   #slidenoteeditor{
-    grid-template-columns: 
-      0 
-      calc(var(--grid-s)*var(--emToVh)*2vh) 
-      calc(var(--grid-s)*0.3em) 
-      1fr 
-      calc(var(--grid-s)*var(--emToVh)*0.7vh) 
-      calc(var(--grid-s)*var(--emToVh)*0.3vh) 
-      calc(var(--grid-s)*var(--emToVh)*1vh) 
+    grid-template-columns:
+      0
+      calc(var(--grid-s)*var(--emToVh)*2vh)
+      calc(var(--grid-s)*0.3em)
+      1fr
+      calc(var(--grid-s)*var(--emToVh)*0.7vh)
+      calc(var(--grid-s)*var(--emToVh)*0.3vh)
+      calc(var(--grid-s)*var(--emToVh)*1vh)
       0;
   }
   .big-mode #slidenoteeditor {
@@ -3671,7 +3671,7 @@
       width: 100%;
     }
     #loadnote div{
-      height: unset;      
+      height: unset;
     }
     #loadnote div::after{
       height: calc(1.1*var(--pscale));
@@ -4044,20 +4044,20 @@
     /* menuimportexport, menupublish, menuoptionseditor */
     /* ------------------------------------------------ */
 
-      #menuimportexport .arrow_box::before, 
-      #menupublish .arrow_box::before, 
+      #menuimportexport .arrow_box::before,
+      #menupublish .arrow_box::before,
       #menuoptionseditor .arrow_box::before{
         bottom: calc(100% + 51*var(--pscale) - 1.8em);
       }
-      #menuimportexport div.arrow_box_content, 
-      #menupublish div.arrow_box_content, 
+      #menuimportexport div.arrow_box_content,
+      #menupublish div.arrow_box_content,
       #menuoptionseditor div.arrow_box_content{
         max-height: calc(85vh - 59*var(--pscale));
       }
 
     /* menuimportexport */
     /* ---------------- */
-      
+
       #menuimportexport .arrow_box::before{
         left: calc(66.6*var(--pscale) + (100vw - 137*var(--pscale))*1/6);
       }
@@ -4077,7 +4077,7 @@
       }
 
   /*dialogbox*/
-  /*---------*/ 
+  /*---------*/
 
     /* general */
     /* ------- */
@@ -4138,7 +4138,7 @@
     /* imagegallery */
     /* ------------ */
 
-      
+
       /*image-gallery*/
 
       #imagesblock div#imagesreuseblock{
