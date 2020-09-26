@@ -32,7 +32,7 @@ newtheme.init = function(){
 			}
 		}
 	}
-	if(activetheme.highlightTheme!=undefined){
+	if(activetheme && activetheme.highlightTheme!=undefined){
 		this.changeDesignOption(0,activetheme.highlightTheme);
 	}
 }
@@ -55,10 +55,10 @@ newtheme.changeDesignOption = function(optionnr, value){
 
 
 newtheme.saveConfigString = function(){
-	return this.seldesign+"\t"+this.highlightintexteditor;
+	return this.seldesign+"###"+this.highlightintexteditor;
 }
 newtheme.loadConfigString = function(data){
-	var dataar = data.split("\t");
+	var dataar = data.split("###");
 	//dont save css-selection as long as user cant select himself
 	//this.changeDesignOption(0,this.cssarray[dataar[0]]);
 	if(dataar[1]==="true")this.highlightintexteditor=true;else this.highlightintexteditor=false;
