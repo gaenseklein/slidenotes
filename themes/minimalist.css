@@ -1,9 +1,9 @@
 /*basis-theme "minimalist"*/
 /*jegliche css-deklaration muss mit klasse .minimalist starten */
 
-/* hintergrund wird pro ppage festgelegt, nicht nur einmal fürs theme. sollte in zukunft geändert werden, aber momentan ists noch so. 
-ppage ist der jeweilige presentation-slide. 
-generelle sachen, wie bspw. schriftfarben, schriften etc. in die hauptdeklaration, abweichungen dann in den weiteren. 
+/* hintergrund wird pro ppage festgelegt, nicht nur einmal fürs theme. sollte in zukunft geändert werden, aber momentan ists noch so.
+ppage ist der jeweilige presentation-slide.
+generelle sachen, wie bspw. schriftfarben, schriften etc. in die hauptdeklaration, abweichungen dann in den weiteren.
 ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt es einfach und semantisch, dann sollte nicht viel schief gehen.*/
 
 
@@ -54,7 +54,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 /*code affects both: inlinecode and codeblock*/
-.minimalist code { 
+.minimalist code {
   font-family: "CutiveMono", Monospace;
   font-size: 0.9em;
 }
@@ -70,7 +70,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*codeblock affects only codeblocks*/
 .minimalist code.codeblock{
-    
+
 }
 
 
@@ -81,13 +81,16 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .minimalist h3{
   font-family: "ComfortaaLight", Sans-Serif;
   font-weight: normal;
-  
+
   text-shadow: 0.05em 0.03em var(--minimalistBckgColor);
 }
 
 .minimalist h1{
   font-size: 4em;
   margin-top: 25vh;
+}
+.minimalist h1 img{
+  font-size: 3.7em;
 }
 
 .minimalist h2,
@@ -96,19 +99,26 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-top: 0.5em;
 }
 .minimalist h2{
-  
+  font-size: 2em;
+}
+.minimalist h2 img{
+  height: 1.8em;
 }
 
 .minimalist h3{
- margin-bottom: 0.2em;
+  margin-bottom: 0.2em;
+  font-size: 1.4em;
+}
+.minimalist h3 img{
+  height: 1.2em;
 }
 
 
-.minimalist .pblock h1+p, 
-.minimalist .pblock h2+p, 
+.minimalist .pblock h1+p,
+.minimalist .pblock h2+p,
 .minimalist .pblock h3+p {
   text-align: center;
-    
+
 }
 
 .minimalist .inline .pblock h1+p,
@@ -121,29 +131,23 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-top: 1em;
 }
 
-.minimalist .pblock h2+p, 
+.minimalist .pblock h2+p,
 .minimalist .pblock h3+p {
-   
+
 }
 
 .minimalist p{
 	text-shadow: 0 0 0.5em var(--minimalistBckgColor);
-  
+  line-height: 1.2em;
 }
-.minimalist h1 img{
-  
-}
-.minimalist h2 img{
-  
-}
-.minimalist h3 img{
-  
+.minimalist p br{
+  margin-bottom: 0.5em;
 }
 
-.minimalist .pblock h1+p img, 
-.minimalist .pblock h2+p img, 
+.minimalist .pblock h1+p img,
+.minimalist .pblock h2+p img,
 .minimalist .pblock h3+p img{
-  
+
 }
 
 .minimalist p img{
@@ -175,7 +179,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .minimalist ul, .minimalist ol{
   padding: 0 0.8em;
-  
+
 }
 
 .minimalist ul{
@@ -191,7 +195,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .minimalist code.codeblock li{
-  
+
 }
 
 
@@ -199,11 +203,11 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*sub-lists (unterpunkte/verschachtelung der listen)*/
 
 .minimalist ul ul, .minimalist ol ul{
-  
+
 }
 
 .minimalist ol ul, .minimalist ol ol{
-  
+
 }
 
 
@@ -218,7 +222,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .minimalist p code{
-  
+
 }
 .minimalist code.codeblock{
 
@@ -315,59 +319,59 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*farben: ich fasse die zusammen um einheitlichkeit herzustellen. jeder block umfasst immer äußere und innere farbe. das schema kann weiter erweitert werden, aber ich belasse es erstmal bei 5 farben. nicht deklarierte farben nimmt er die standard-farben die er schon hat. die ersten 5 farben sollten auf die präsentation zugeschnitten sein. jede farbe ist als "ct-series-a" bis "ct-series-z" paar.*/
 
 .minimalist .ct-series-a .ct-point, .minimalist .ct-series-a .ct-line, .minimalist .ct-series-a .ct-bar, .minimalist .ct-series-a .ct-slice-donut {
-  stroke: var(--minimalistDataColor0); 
+  stroke: var(--minimalistDataColor0);
 }
 
 .minimalist .ct-series-a .ct-slice-pie, .minimalist .ct-series-a .ct-slice-donut-solid, .minimalist .ct-series-a .ct-area {
-  fill: var(--minimalistDataColor0); 
+  fill: var(--minimalistDataColor0);
 }
 
 .minimalist .ct-series-b .ct-point, .minimalist .ct-series-b .ct-line, .minimalist .ct-series-b .ct-bar, .minimalist .ct-series-b .ct-slice-donut {
-  stroke: var(--minimalistDataColor1); 
+  stroke: var(--minimalistDataColor1);
 }
 
 .minimalist .ct-series-b .ct-slice-pie, .minimalist .ct-series-b .ct-slice-donut-solid, .minimalist .ct-series-b .ct-area {
-  fill: var(--minimalistDataColor1); 
+  fill: var(--minimalistDataColor1);
 }
 
 .minimalist .ct-series-c .ct-point, .minimalist .ct-series-c .ct-line, .minimalist .ct-series-c .ct-bar, .minimalist .ct-series-c .ct-slice-donut {
-  stroke: var(--minimalistDataColor2); 
+  stroke: var(--minimalistDataColor2);
 }
 
 .minimalist .ct-series-c .ct-slice-pie, .minimalist .ct-series-c .ct-slice-donut-solid, .minimalist .ct-series-c .ct-area {
-  fill: var(--minimalistDataColor2); 
+  fill: var(--minimalistDataColor2);
 }
 
 .minimalist .ct-series-d .ct-point, .minimalist .ct-series-d .ct-line, .minimalist .ct-series-d .ct-bar, .minimalist .ct-series-d .ct-slice-donut {
-  stroke: var(--minimalistDataColor3); 
+  stroke: var(--minimalistDataColor3);
 }
 
 .minimalist .ct-series-d .ct-slice-pie, .minimalist .ct-series-d .ct-slice-donut-solid, .minimalist .ct-series-d .ct-area {
-  fill: var(--minimalistDataColor3); 
+  fill: var(--minimalistDataColor3);
 }
 
 .minimalist .ct-series-e .ct-point, .minimalist .ct-series-e .ct-line, .minimalist .ct-series-e .ct-bar, .minimalist .ct-series-e .ct-slice-donut {
-  stroke: var(--minimalistDataColor4); 
+  stroke: var(--minimalistDataColor4);
 }
 
 .minimalist .ct-series-e .ct-slice-pie, .minimalist .ct-series-e .ct-slice-donut-solid, .minimalist .ct-series-e .ct-area {
-  fill: var(--minimalistDataColor4); 
+  fill: var(--minimalistDataColor4);
 }
 
 .minimalist .ct-series-f .ct-point, .minimalist .ct-series-f .ct-line, .minimalist .ct-series-f .ct-bar, .minimalist .ct-series-f .ct-slice-donut {
-  stroke: var(--minimalistDataColor5); 
+  stroke: var(--minimalistDataColor5);
 }
 
 .minimalist .ct-series-f .ct-slice-pie, .minimalist .ct-series-f .ct-slice-donut-solid, .minimalist .ct-series-f .ct-area {
-  fill: var(--minimalistDataColor5); 
+  fill: var(--minimalistDataColor5);
 }
 
 .minimalist .ct-series-g .ct-point, .minimalist .ct-series-g .ct-line, .minimalist .ct-series-g .ct-bar, .minimalist .ct-series-g .ct-slice-donut {
-  stroke: var(--minimalistDataColor6); 
+  stroke: var(--minimalistDataColor6);
 }
 
 .minimalist .ct-series-g .ct-slice-pie, .minimalist .ct-series-g .ct-slice-donut-solid, .minimalist .ct-series-g .ct-area {
-  fill: var(--minimalistDataColor6); 
+  fill: var(--minimalistDataColor6);
 }
 
 
@@ -376,11 +380,11 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 /*tables stehen in einer klassenlosen section. wenn du also .minimalist section bearbeitest hat das auch effekt auf deren container. ansonsten steuer tabellen direkt an über*/
 
 .minimalist table{
-  
+
 }
 
 .minimalist th, td{
-  
+
 }
 
 .minimalist thead{
@@ -393,7 +397,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .minimalist thead{
-  
+
 }
 
 .minimalist tbody{
@@ -421,12 +425,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*layout-element auf linker seite, nimmt ca. ein drittel der linken seite ein*/
 .minimalist section.section.left{
-    
+
 }
 
 /*layout-element auf rechter seite, nimmt die hälfte des platzes ein, wenn nicht zwei weitere layout-sections "in reihe" stehen, dann nimmt er ein drittel*/
 .minimalist section.section.right{
 
 }
-
-
