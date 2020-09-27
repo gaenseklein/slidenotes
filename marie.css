@@ -2319,6 +2319,9 @@
     align-self: end;
     font-weight: normal;
   }
+  #slidenoteGuardianPasswortPrompt .initial #dialogclosebutton {
+    display: none; /*do not display closebutton on initial-state*/
+  }
   .dialogbox .dialogtitle .dialogclosebutton{
     align-self:start;
     justify-self:end;
