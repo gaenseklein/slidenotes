@@ -3630,7 +3630,7 @@
     }
 
 
-    .closebutton/*#buttonarearightclose, #optionareaclose, #toolbarclose*/{
+    .closebutton, .abortedDecryption .fluidbutton.closebutton/*#buttonarearightclose, #optionareaclose, #toolbarclose*/{
       display: unset;
       width: calc(34*var(--pscale));
       /*left: calc(326*var(--pscale));*/
@@ -3785,6 +3785,12 @@
       color: var(--arrow-box-font-color);
     }
 
+    .abortedDecryption #buttonarearightbutton{
+      pointer-events: none;
+      filter: grayscale(1);
+      opacity: 0.5;
+    }
+
   /*buttonarearight*/
   /*---------------*/
 
@@ -3886,6 +3892,14 @@
     }
     #optionarea button.closebutton{
       justify-self: end;
+    }
+
+    .abortedDecryption button#optionsbutton {
+      grid-column: 4;
+    }
+
+    .abortedDecryption button#publishbutton {
+      grid-column: 3;
     }
 
   /*sidebarcontainer*/
