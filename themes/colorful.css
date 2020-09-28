@@ -40,8 +40,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   src: url("../fonts/themes/colorful/RobotoCondensed-Italic.ttf");
 }
 @font-face{
-  font-family: "CutiveMono";
-  src: url("../fonts/themes/colorful/CutiveMono-Regular.ttf");
+  font-family: "CourierPrime-Regular";
+  src: url("../fonts/themes/colorful/CourierPrime-Regular.ttf");
 }
 
 
@@ -61,7 +61,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*code affects both: inlinecode and codeblock*/
 .colorful code {
-  font-family: "CutiveMono", Monospace;
+  font-family: "CourierPrime-Regular", Monospace;
   font-size: 0.9em;
 }
 /*inline*/
@@ -144,11 +144,15 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   height: 1.3em;
 }
 
+.colorful .pblock h1+p{
+  font-size: 1.3em;
+}
 
 .colorful .pblock h1+p,
 .colorful .pblock h2+p,
 .colorful .pblock h3+p {
   text-align: center;
+  margin-bottom: 1em;
 }
 
 .colorful .inline .pblock h1+p,
@@ -252,7 +256,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .colorful p code{
-
+  font-size: 0.85em;
 }
 .colorful code.codeblock{
 
