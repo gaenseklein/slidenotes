@@ -2754,7 +2754,7 @@
   .backgroundline .comment {
   	font-style:italic;
     background-color: var(--light-grey-backg);
-    box-shadow: 0 0 0 0.3em var(--light-grey-backg);
+    box-shadow: 0 0 0 0.18em var(--light-grey-backg);
   }
 
 

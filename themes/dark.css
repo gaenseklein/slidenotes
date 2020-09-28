@@ -121,12 +121,15 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   height:1.8em;
 }
 
+.dark .pblock h1+p{
+  font-size: 1.3em;
+}
 
 .dark .pblock h1+p,
 .dark .pblock h2+p,
 .dark .pblock h3+p {
   text-align: center;
-
+  margin-bottom: 1em;
 }
 
 .dark .inline .pblock h1+p,

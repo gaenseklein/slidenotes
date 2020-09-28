@@ -113,12 +113,15 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   height: 1.2em;
 }
 
+.minimalist .pblock h1+p{
+  font-size: 1.3em;
+}
 
 .minimalist .pblock h1+p,
 .minimalist .pblock h2+p,
 .minimalist .pblock h3+p {
   text-align: center;
-
+  margin-bottom: 1em;
 }
 
 .minimalist .inline .pblock h1+p,
