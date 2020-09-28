@@ -1527,8 +1527,8 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
     //error-handling - try again:
     var decfaileddialogoptions = {
       type:"confirm",
-      title:"decryption failed - wrong password!",
-      content: "decryption failed. try it again?",
+      title:"decryption failed",
+      content: "wrong password. try it again?",
       confirmbutton: "try again",
       cancelbutton: "cancel", //delete slidenote
       /*closefunction: function(){
