@@ -3038,6 +3038,9 @@
     display: none;
   }
 
+
+@media only screen and (min-width: 100.001vh) {
+
   .big-mode #slidenoteeditor {
     display:grid;
     /*grid-template-rows: 3.5vh 3em 3em 3em 1fr 42vh 22vh;
@@ -3402,6 +3405,7 @@
       border-width: calc(7.52*var(--pscale));
     }
 
+}
 /* basic-mode */
 /* ---------- */
 
@@ -3471,7 +3475,7 @@
 
 /* big-mode only */
 
-@media only screen and (max-width: calc(87.6*1.7407vh)) {
+@media only screen and (max-width: calc(87.6*1.7407vh)) and (min-width: 100.001vh) {
   .big-mode #slidenoteeditor {
     grid-template-columns:
       0
@@ -3599,7 +3603,7 @@
     outline: unset !important;
   }
 
-  #slidenoteeditor, .focus #slidenoteeditor{
+  #slidenoteeditor, .focus #slidenoteeditor, .big-mode #slidenoteeditor{
     /* Bug in Chromium: https://bugs.chromium.org/p/chromium/issues/detail?id=843584
     Calc in Media Queries accepts no combination of different units. Until it
     gets resolved, font-size must remain dependant of only one unit.
@@ -3613,8 +3617,21 @@
     width: 100%;
     overflow: unset;
   }
-  #dialogcontainer, #slidenoteGuardianPasswordPromptStore{
+  .focus #slidenoteeditor{
+    grid-template-columns: calc(40*var(--pscale)) auto;
+    grid-template-rows: calc(40*var(--pscale)) auto;
+  }
+
+  #dialogcontainer, 
+  #imagesblock, 
+  #slidenoteGuardianPasswortPrompt{
     font-size: calc((0.5rem + 1vw)*16/10);
+  }
+  .big-mode #slidenoteeditor,
+  .big-mode #imagesblock,
+  .big-mode #dialogcontainer,
+  .big-mode~#slidenoteGuardianPasswortPrompt{
+    font-size: calc((0.5rem + 1vw)*19/10);
   }
 
 
@@ -3658,8 +3675,15 @@
       z-index: 13;
     }
 
+    .focus #noteinfoarea{
+      display: none;
+    }
+
     #noteinfoarea button{
       font-size: 1em;
+    }
+    .big-mode #noteinfoarea{
+      font-size: 0.87em;
     }
 
     nav#noteinfoarea a{
@@ -3727,6 +3751,20 @@
       display: none;
     }
 
+    .big-mode #outlet {
+      grid-column: 1 / 3;
+    }
+    .big-mode div#outlineblock{
+      grid-template-columns: 1fr auto auto;
+    } 
+    .big-mode div#outlineblock div{
+      grid-column: 2;
+    }
+    .big-mode div#outlineblock div#outlineSpeakTime{
+      grid-column: 3;
+    }
+
+
   /*editorblock*/
   /*-----------*/
 
@@ -3734,10 +3772,14 @@
       margin-left: calc(40*var(--pscale));
       position: relative;
     }
+    .focus #editorblock{
+      grid-row-start: 1;
+    }
 
     #texteditorerrorlayer, #quelltext{
       padding-right: calc(23.6*var(--pscale));
     }
+
 
   /*buttonarearightbutton, optionareabutton*/
   /*---------------------------------------*/
@@ -3759,6 +3801,10 @@
       z-index: 13;
     }
 
+    .big-mode #buttonarearightbutton, .big-mode #optionareabutton{
+      font-size: calc(17*var(--pscale));
+    }
+
     #buttonarearightbutton{
       grid-column: 3;
       grid-row: 1;
@@ -3767,12 +3813,24 @@
       padding-right: calc(10*var(--pscale));
     }
 
+    .focus #buttonarearightbutton{
+      display: none;
+    }
+
     #optionareabutton{
       grid-column: 1;
       grid-row: 1;
       border-radius: 0 0 calc(26*var(--pscale)) 0;
       padding-left: calc(14.7*var(--pscale));
       padding-right: calc(17*var(--pscale));
+    }
+
+    .focus #optionareabutton{
+      pointer-events: none;
+    }
+    .focus #optionareabutton img,
+    .focus #optionareabutton span{
+      display: none;
     }
 
     #buttonarearightbutton img, #optionareabutton img {
@@ -3875,12 +3933,32 @@
       padding-right: calc(70*var(--pscale));
     }
 
+    .focus #slidenoteeditor #optionarea, 
+    .nightmode .focus #slidenoteeditor #optionarea{
+      display: grid;
+      background: none;
+      width: 100%;
+      height: 100%;
+      grid-column: 1;
+      padding: 0;
+      justify-content: center;
+    }
+
     #optionarea.active{
       display: grid;
     }
 
     #optionarea button{
       font-size: calc(16/18*1em);
+    }
+    .focus #slidenoteeditor #optionsbutton{
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    .big-mode #optionarea button{
+      height: calc(59*var(--pscale));
+      padding-top: calc(14*var(--pscale));
     }
     #optionarea button svg{
       height: calc(23.2*var(--pscale));
@@ -3902,10 +3980,24 @@
       grid-column: 3;
     }
 
+    .big-mode div#optionarea button span{
+      height: 0;
+      width:0;
+      overflow: hidden;
+      display: block;
+    }
+
+    .big-mode #optionarea button svg {
+      height: calc(32.2*var(--pscale));
+    }
+    .big-mode #optionarea #optionareaclose {
+      padding-top: 0;
+    }
+
   /*sidebarcontainer*/
   /*----------------*/
 
-    #sidebarcontainer{
+    #sidebarcontainer, .big-mode #sidebarcontainer{
       margin-right: calc(30*var(--pscale));
       grid-column: 1;
       grid-row-start: 2;
@@ -3913,16 +4005,20 @@
       padding-left: 0;
     }
 
-    #nicesidebarsymbol{
+    #nicesidebarsymbol, .big-mode #nicesidebarsymbol{
       font-size: calc(15*var(--pscale));
       left: 0;
+    }
+
+    .big-mode #nicesidebarsymbol{
+      font-size: calc(20*var(--pscale));
     }
 
     /*img#cursorlinearrow-mobile, img#cursorlinearrow-mobile-active{
       height: calc(42.2*var(--pscale));
     }*/
 
-    #insertarea{
+    #insertarea, .big-mode #insertarea{
       max-width: 50vw;
     }
 
@@ -3944,6 +4040,13 @@
       height: calc(50*var(--pscale));
     }
 
+  /* shadoweltop */
+  /* ----------- */
+
+    .focus #shadoweltop{
+      display: none;
+    }
+
   /*arrow-box*/
   /*---------*/
 
@@ -3954,7 +4057,7 @@
         border-radius: unset;
       }
 
-      .arrow_box::before{
+      .arrow_box::before, .focus #menuoptionseditor .arrow_box::before{
         /*display: none;*/
         border-width: calc(6.4*var(--pscale));
       }
@@ -4089,17 +4192,46 @@
       #menuoptionseditor .arrow_box::before{
         bottom: calc(100% + 51*var(--pscale) - 1.8em);
       }
+      #menuimportexport .arrow_box::before,
+      #menupublish .arrow_box::before,
+      #menuoptionseditor .arrow_box::before{
+        bottom: calc(100% + 51*var(--pscale) - 1.8em);
+      }
+      .big-mode #menuimportexport .arrow_box::before,
+      .big-mode #menupublish .arrow_box::before,
+      .big-mode #menuoptionseditor .arrow_box::before{
+        bottom: calc(100% + 51*var(--pscale) - 2.3em);
+      }
       #menuimportexport div.arrow_box_content,
       #menupublish div.arrow_box_content,
       #menuoptionseditor div.arrow_box_content{
         max-height: calc(85vh - 59*var(--pscale));
       }
 
+      .big-mode #menuoptionseditor .menuitem span,
+      .big-mode #menuimportexport button span {
+        height: 0;
+        width:0;
+        overflow: hidden;
+        display: block;
+      }
+
+      .big-mode #menuimportexport button img,
+      .big-mode #menuoptionseditor .menuitem img{
+        display: inline-block;
+        width: 3ch;
+        height: unset;
+      }
+
     /* menuimportexport */
     /* ---------------- */
 
-      #menuimportexport .arrow_box::before{
+      #menuimportexport .arrow_box::before, .focus #menuimportexport .arrow_box::before{
         left: calc(66.6*var(--pscale) + (100vw - 137*var(--pscale))*1/6);
+      }
+
+      .big-mode #menuimportexport .separator {
+        display: none;
       }
 
     /* menupublish */
@@ -4112,8 +4244,18 @@
     /* menuoptionseditor */
     /* ----------------- */
 
-      #menuoptionseditor .arrow_box::before{
+      #menuoptionseditor .arrow_box::before {
         left: calc(66.6*var(--pscale) + (100vw - 137*var(--pscale))*5/6);
+      }
+      .focus #menuoptionseditor{
+        max-width: unset;
+      }
+      .focus #menuoptionseditor .arrow_box::before{
+        left: calc(15*var(--pscale));
+        right: unset;
+        top: unset;
+        bottom: calc(100% + 7*var(--pscale));
+        margin: 0;
       }
 
   /*dialogbox*/
@@ -4131,6 +4273,10 @@
         padding-bottom: calc(32*0.7*var(--pscale));
         padding-left: calc(70*0.7*var(--pscale));
         padding-right: calc(78*0.7*var(--pscale));
+      }
+
+      .dialogbox{
+        font-size: calc(17em/20);
       }
 
       .dialogbox div.buttonarea{
@@ -4155,7 +4301,13 @@
         max-width: calc(420*var(--pscale));
       }
       .dialogbox.small .dialogcontent{
-        max-width: calc(420*var(--pscale));
+        max-width: min(420*var(--pscale), 100vw);
+      }
+
+
+      .big-mode ~ #slidenoteGuardianPasswortPrompt input, 
+      .big-mode .dialogbox.initial input{
+        width: 100%;
       }
 
     /* keyboard configuration */
@@ -4258,7 +4410,13 @@
 
 
 
-    div#menucloud, div#menuload, #menuimportexport, div#menupublish, #menuoptionseditor, #menuoptionspresentation{
+    div#menucloud,
+    div#menuload,
+    #menuimportexport,
+    div#menupublish,
+    #menuoptionseditor,
+    #menuoptionspresentation,
+    .focus #menuoptionseditor{
       grid-column-start: 1;
       grid-column-end: 4;
       grid-row: 2 / 4;
