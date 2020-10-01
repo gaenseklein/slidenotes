@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>slidenotes | login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+
+
+	<link rel='stylesheet' href='assets/css/style.css'>
+	<link rel='stylesheet' href='welcome.css'>
+</head>
+<body>
+<div id="login-page">
+		<a href="https://www.slidenotes.io"><img class="center-horizontal" src="slidenotes-icon.png"></a>
+		<div id="error-message">
+			<h2>login failed</h2>
+			<p>username or password wrong. please check and try again</p>
+		</div>
+		<section class="center-horizontal" >
+		<form id="loginform" method="post" accept-charset="utf-8">
+
+			<label for="email">email</label>
+			<br>
+			<input id="emailValue" type="email" name="email_address" required/>
+			<br>
+			<br>
+			<label for="password">password</label>
+			<br>
+			<input id="pwValue" type="password" name="password" required/>
+			<br>
+			<br>
+			<label for="login" style="display: none">login</label>
+			<input class="center-horizontal" type="submit" name="login" id="submit" value="login" />
+		</form>
+	</section>
+</div>
+<div id="welcome-page">
+  <div id="main">
+    <h1 class="title" id="page-title">welcome!</h1>
+
+    <div class="node"><p>what do you want to do?</p></div>
+    <div class="column-wrapper">
+       <div class="column-block">
+        <h2>work on a slidenote</h2>
+        <div class="content">
+            <div class="view-header">
+              <a href="#" title="start a new slidenote" class="newslidenote" onclick="createNewSlidenote()"><img src="/editor/images/buttons/plus-greywhite.svg">start a new slidenote</a>
+              <a href="/editor/slidenotes.htm?tutorial=welcome" title="try a tutorial" class="newslidenote"><img src="/editor/images/buttons/arrow-to.svg"> try a tutorial</a>
+            </div>
+            <div class="view-content">
+                <ul id="slidenotelist-target">
+                    <li>
+                        <a href="/editor/slidenotes.htm?id=$NID" class="slidenotelist-link">$SLIDENOTETITLE</a>
+                    </li>
+                </ul>
+            </div>
+        	</div>
+    		</div>
+				<div class="column-block">
+					<h2>view a published presentation</h2>
+
+				<div class="content">
+					<ul id="presentationlist-target">
+						<li class="presentationlist-entry">
+							<div class="views-row">
+  <div class="views field views-field-title"><a href="/presentation/$PRESENTATIONURL">$PRESENTATIONTITLE</a></div>
+  <div class="views-field views-field-created">    <span class="views-label views-label-created">creation date: </span>    <span class="field-content">$PRESENTATIONCREATIONDATE</span>  </div>
+  <div class="views-field views-field-field-slidenotenode">    <span class="views-label views-label-field-slidenotenode">from slidenote: </span>    <span class="field-content"><a href="/editor/slitenotes.htm?id=$PRESENTATIONNID">$PRESENTATIONNOTETITLE</a></span>  </div>
+  <div class="views-field views-field-comment-count">        <span class="field-content">$PRESENTATIONCOMMENTCOUNT Comments</span>  </div>
+  <div class="views-field views-field-last-comment-timestamp">    <span class="views-label views-label-last-comment-timestamp">last comment time: </span>    <span class="field-content">$PRESENTATIONLASTUPDATED</span>  </div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+function init(){
+	let cookie = document.cookie.substring(document.cookie.indexOf('authtoken=')+'authtoken='.length);
+	if(cookie.length>5){
+		token=cookie;
+		loginSuccessfull();
+	}
+}
+function preLogin(e) {
+	if (e.preventDefault) e.preventDefault();
+	let email = document.getElementById("emailValue").value;
+	let pw = document.getElementById("pwValue").value;
+	document.body.className="status--logging-in";
+	login(email,pw);
+
+	// You must return false to prevent the default form behavior
+	return false;
+}
+
+var form = document.getElementById('loginform');
+if (form.attachEvent) {
+	form.attachEvent("submit", preLogin);
+} else {
+	form.addEventListener("submit", preLogin);
+}
+var token;
+async function login(preemail, prepw){
+	let email = preemail || prompt('email please');
+	let pw = prepw || prompt('password please');
+	console.log(email,pw.length);
+	try{
+		let resp = await postJson('/api/user/login',{email:email,password:pw});
+		console.log('login:',resp);
+		if(resp.ok===false){
+			setTimeout('loginFailed()',300);
+			return;
+		}
+		token=resp;
+		setTimeout('document.cookie = "authtoken="+token+"; expires=0; path=/";',200);
+		setTimeout('loginSuccessfull()',300);
+	}catch(err){
+		console.log('login-failed',err);
+	}
+}
+
+async function loginFailed(){
+	document.body.className = "status--login-failed";
+}
+
+var slidenotelist;
+var presentationlist;
+
+async function loginSuccessfull(){
+	if(location.search.indexOf('req')>-1){
+		let nid = location.search.substring(location.search.indexOf('=')+1);
+		location.href="/editor/slidenotes.htm?nid="+nid;
+		return;
+	}
+	try{
+		slidenotelist = await getJson('/api/notes/');
+		presentationlist = await getJson('/api/presentation/user');
+	}catch(err){
+		console.log('welcome failed', err);
+	}
+	if(slidenotelist){
+		writeSlidenoteList();
+	}
+	if(presentationlist){
+		writePresentationList();
+	}
+	document.body.className = 'status--welcome';
+	document.title = "slidenotes | welcome";
+}
+
+function writeSlidenoteList(){
+	let target = document.getElementById('slidenotelist-target');
+	const template = target.innerHTML;
+	var newhtml = "";
+	for(var x=0;x<slidenotelist.length;x++){
+		let newentry = template;
+		//newentry = newentry.replace('$SLIDENOTETITLE',slidenotelist[x].title);
+		newentry = newentry.replace('$NID',slidenotelist[x].nid);
+		newhtml+=newentry;
+	}
+	target.innerHTML = newhtml;
+	let slidenotelinks = document.getElementsByClassName('slidenotelist-link');
+	for(var x=0;x<slidenotelist.length;x++){
+		slidenotelinks[x].innerText = slidenotelist[x].title;
+	}
+}
+
+function writePresentationList(){
+	let target = document.getElementById('presentationlist-target');
+	const template = target.innerHTML;
+	var newhtml = "";
+	for(var x=0;x<presentationlist.length;x++){
+		let newentry = template;
+		//newentry = newentry.replace('$SLIDENOTETITLE',slidenotelist[x].title);
+		newentry = newentry.replace('$PRESENTATIONURL',presentationlist[x].url);
+		newentry = newentry.replace('$PRESENTATIONCREATIONDATE',presentationlist[x].creationDate);
+		newentry = newentry.replace('$PRESENTATIONLASTUPDATED',presentationlist[x].lastUpdated);
+		newentry = newentry.replace('$PRESENTATIONNID',presentationlist[x].nid);
+		newentry = newentry.replace('$PRESENTATIONCOMMENTCOUNT',presentationlist[x].enccomments.length);
+		newhtml+=newentry;
+	}
+	target.innerHTML = newhtml;
+	let presentationlilist = document.getElementsByClassName('presentationlist-entry');
+	for(var x=0;x<presentationlilist.length;x++){
+		let notetitle = "";
+		for(var nt=0;nt<slidenotelist.length;nt++)if(slidenotelist[nt].nid===presentationlist[x].nid)notetitle=slidenotelist[nt].title;
+		presentationlilist[x].querySelector('.views-field-title a').innerText = presentationlist[x].title;
+		presentationlilist[x].querySelector('.views-field-field-slidenotenode a').innerText = notetitle;
+	}
+}
+
+async function createNewSlidenote(){
+	try{
+		let newnote = await postJson('/api/notes/',{});
+		if(newnote){
+			//load new created slidenote:
+			location.href="/editor/slidenotes.htm?id="+newnote.nid;
+		}
+	}catch(err){
+		return {err:err};
+	}
+}
+
+
+async function postJson(url,payload){
+	try{
+		const resp = await fetch(url,{
+			method:'POST',
+			headers:{
+				'Content-Type' : 'application/json',
+				'auth-token': token
+			},
+			body:JSON.stringify(payload)
+		});
+		if(resp.status===200)return resp.json();
+		else console.log(resp.body);
+		return resp;
+	}catch(err){
+		return err;
+	}
+}
+async function getJson(url){
+	const resp = await fetch(url,{
+		method:'GET',
+		headers:{
+			'auth-token':token
+		}
+	});
+	return resp.json();
+}
+
+
+init()
+--></script>
+
+
+</body>
+</html>
