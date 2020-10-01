@@ -3814,6 +3814,10 @@
       padding-right: calc(23.6*var(--pscale));
     }
 
+    #editorblockfade{
+      display: none;
+    }
+
 
   /*buttonarearightbutton, optionareabutton*/
   /*---------------------------------------*/
