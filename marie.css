@@ -89,6 +89,8 @@
     --grid-margin: 0.4793; /*--grid-s/2*0.13139*/
     /*pixel scaling factor*/
     --pscale: 1/10.8*1vh;
+    /*iOS Safari adress bar shrinking*/
+    --iOSbarheight: 63px;
   }
 
   /*screenreader-texts:*/
@@ -3459,6 +3461,37 @@
 /* Breaking-Points */
 /* =============== */
 
+/* Tablet Landscape */
+/* ---------------- */
+
+/*iPad Pro viewport width: 1366px*/
+/*iPad viewport width: 1024px*/
+/*iPhone X viewport width: 812px*/
+
+@media only screen and (max-width: 1366px) and (min-width: 100.001vh) and (min-width: 813px) {
+
+  /*iOS Safari iPad 100vh != viewport height*/
+  /*----------------------------------------*/
+
+    ul#toolbarbuttons {
+      max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 15.4em - var(--iOSbarheight));
+    }
+
+    div#toolbar div#texteditorbuttons.arrow_box{
+      max-height: calc(100% - var(--iOSbarheight));
+      border-radius: calc(28.69*var(--pscale));
+    }
+
+    div#imagegallerybox{
+      max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1rem - var(--iOSbarheight));
+      border-radius: calc(28.69*var(--pscale));
+    }
+
+    div#imagegallery ul{
+      max-height: calc(95.45vh - var(--grid-s)*var(--emToVh)*0.32vh - 10.1em - var(--iOSbarheight));
+    }
+}
+
 /* editorblock smaller */
 /* ------------------- */
 
@@ -3574,10 +3607,6 @@
       visibility: visible;
       opacity: 1;
     }
-
-
-
-
 }
 
 /* media query for mobile-version of sidebar at greater font sizes*/
