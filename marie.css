@@ -957,6 +957,7 @@
     margin-top: calc(15/16*1em);
     justify-items: end;
     position: relative;
+    top: calc(81*var(--pscale)); /*initial top*/
   }
 
   #nicesidebarsymbolcontainer {
@@ -1000,6 +1001,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    visibility: hidden; /*initial visibility*/
   }
 
   #nicesidebarsymbollabel{
@@ -4011,6 +4013,7 @@
     #nicesidebarsymbol, .big-mode #nicesidebarsymbol{
       font-size: calc(15*var(--pscale));
       left: 0;
+      top: calc(140*var(--pscale)); /*initial top*/
     }
 
     .big-mode #nicesidebarsymbol{
