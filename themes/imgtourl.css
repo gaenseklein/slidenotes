@@ -1,4 +1,8 @@
-#slidenotediv #imagesblock{
+@font-face {
+    font-family: "ubuntuMonoBold";
+    src: url("fonts/UbuntuMono-Bold.ttf");
+  }
+  #slidenotediv #imagesblock{
   display:none;
 }
 
@@ -7,8 +11,7 @@
 }
 .imagenotfound{
   color:var(--error-font-color);
-  font-weight:bold;
-  font-style:italic;
+  font-family: "ubuntuMonoBold";
 }
 
 .imageblock {
