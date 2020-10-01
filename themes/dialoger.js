@@ -238,6 +238,7 @@ dialoger.confirm = async function(options){
       var dialogtext = document.createElement("div");;
       if(options.inputlabel)dialogtext.innerText = options.inputlabel;
     }
+    content.appendChild(dialogtext);
     dialogoptions.content = content;
   }
   var dialog = this.buildDialog(dialogoptions);
