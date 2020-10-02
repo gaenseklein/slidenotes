@@ -1218,7 +1218,7 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
         slidenoteguardian.loadNote("cms");
       }
       slidenote.textarea.style.display = "none";
-      errl.style.background = "url(images/schloss-rot.png)";
+      // errl.style.background = "url(images/schloss-rot.png)";
       errl.style.overflow= "hidden";
       errl.style.wordBreak= "break-all";
       errl.style.backgroundRepeat= "no-repeat";
