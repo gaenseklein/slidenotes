@@ -35,3 +35,8 @@ span code{
 .specialline span.specialline, span.specialinline{
 	opacity:1;
 }
+
+.ppage code.codeblock ol {
+    list-style: decimal;
+    list-style-position: inside;
+}

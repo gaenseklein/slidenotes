@@ -107,11 +107,12 @@ newtheme.styleThemeSpecials = function(){
 		hljs.highlightBlock(block);
 		this.highlightLines(block);
 		var buildlines = (this.options.linehighlight!=null) || (this.options.linenumbering==="on" || this.options.linenumbering==="true");
-		if(buildlines){
+		//if(buildlines){
 			//this.buildLines(block);
-		}
-		if(this.options.linenumbering === "on" ||
-				this.options.linenumbering === "true")this.buildLines(block);
+		//}
+		this.buildLines(block); //we dont check it here its either ul or ol
+		//if(this.options.linenumbering === "on" ||
+		//		this.options.linenumbering === "true")this.buildLines(block);
 	}
 }
 newtheme.active = true;
