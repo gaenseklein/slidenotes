@@ -27,11 +27,11 @@ span code{
 	list-style:none;
 }*/
 
-span.codeline{
-	/*opacity:0.5;*/
-	/*white-space: pre;*/
+.specialline span.codeline{
+	opacity:0.5;
+	white-space: pre;
 	white-space: pre-wrap;
 }
-span.specialline, span.specialinline{
+.specialline span.specialline, span.specialinline{
 	opacity:1;
 }
