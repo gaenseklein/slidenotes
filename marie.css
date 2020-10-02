@@ -89,6 +89,8 @@
     --grid-margin: 0.4793; /*--grid-s/2*0.13139*/
     /*pixel scaling factor*/
     --pscale: 1/10.8*1vh;
+    /*iOS Safari adress bar shrinking*/
+    --iOSbarheight: 63px;
   }
 
   /*screenreader-texts:*/
@@ -623,7 +625,7 @@
   div#cloud-undefined div {
     color: var(--icon-curve-color);
     font-size: large;
-    font-weight: bolder;
+    font-family: rubikBold;
   }
   #cloud-undefined-path{
     fill: var(--icon-curve-color);
@@ -744,7 +746,6 @@
     overflow-y:auto;
     overflow-x:none;
     z-Index:1;
-    /*font-weight:bolder;*/
   }
 
   #texteditorerrorlayer, #quelltext {
@@ -958,6 +959,7 @@
     margin-top: calc(15/16*1em);
     justify-items: end;
     position: relative;
+    top: calc(81*var(--pscale)); /*initial top*/
   }
 
   #nicesidebarsymbolcontainer {
@@ -1001,6 +1003,7 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    visibility: hidden; /*initial visibility*/
   }
 
   #nicesidebarsymbollabel{
@@ -2679,6 +2682,10 @@
   .backgroundline b, .backgroundline i, .backgroundline strike{
   	/*border-bottom:1px solid lightgreen;*/
   }
+  .backgroundline b{
+  	font-family: "ubuntuMonoBold";
+  	font-weight: normal;
+  }
   .backgroundline.code, .backgroundline code,
   .backgroundline.codehead, .backgroundline.metadata.codehead, .backgroundline.code.metadata{
   	background:var(--code-backg);
@@ -2693,7 +2700,7 @@
   }
   .backgroundline.quote{
   	background: var(--light-green-backg);
-  	font-style:italic;
+  	font-family: "ubuntuMonoItalic";
   	display:inline-block;
   	width:100%;
   }
@@ -2752,7 +2759,7 @@
   	color:var(--light-blue-backg);
   }
   .backgroundline .comment {
-  	font-style:italic;
+  	font-family: "ubuntuMonoItalic";
     background-color: var(--light-grey-backg);
     box-shadow: 0 0 0 0.18em var(--light-grey-backg);
   }
@@ -3454,6 +3461,37 @@
 /* Breaking-Points */
 /* =============== */
 
+/* Tablet Landscape */
+/* ---------------- */
+
+/*iPad Pro viewport width: 1366px*/
+/*iPad viewport width: 1024px*/
+/*iPhone X viewport width: 812px*/
+
+@media only screen and (max-width: 1366px) and (min-width: 100.001vh) and (min-width: 813px) {
+
+  /*iOS Safari iPad 100vh != viewport height*/
+  /*----------------------------------------*/
+
+    ul#toolbarbuttons {
+      max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 15.4em - var(--iOSbarheight));
+    }
+
+    div#toolbar div#texteditorbuttons.arrow_box{
+      max-height: calc(100% - var(--iOSbarheight));
+      border-radius: calc(28.69*var(--pscale));
+    }
+
+    div#imagegallerybox{
+      max-height: calc(100vh - var(--grid-s)*var(--emToVh)*0.32vh - 6.1rem - var(--iOSbarheight));
+      border-radius: calc(28.69*var(--pscale));
+    }
+
+    div#imagegallery ul{
+      max-height: calc(95.45vh - var(--grid-s)*var(--emToVh)*0.32vh - 10.1em - var(--iOSbarheight));
+    }
+}
+
 /* editorblock smaller */
 /* ------------------- */
 
@@ -3569,10 +3607,6 @@
       visibility: visible;
       opacity: 1;
     }
-
-
-
-
 }
 
 /* media query for mobile-version of sidebar at greater font sizes*/
@@ -3778,6 +3812,10 @@
 
     #texteditorerrorlayer, #quelltext{
       padding-right: calc(23.6*var(--pscale));
+    }
+
+    #editorblockfade{
+      display: none;
     }
 
 
@@ -4008,6 +4046,7 @@
     #nicesidebarsymbol, .big-mode #nicesidebarsymbol{
       font-size: calc(15*var(--pscale));
       left: 0;
+      top: calc(140*var(--pscale)); /*initial top*/
     }
 
     .big-mode #nicesidebarsymbol{

@@ -101,8 +101,8 @@
 }
 */
 #slidenoteGuardianPasswortPrompt label{
-    display:block;
-    margin-top:20px;
+  display:block;
+  margin-top:20px;
 }
 
 #slidenoteGuardianPasswortPrompt input, .dialogbox.initial input{
@@ -127,8 +127,8 @@
 }
 
 input#username.hidden, input#password.hidden {
-    position: absolute;
-    top: -100%;
+  position: absolute;
+  top: -100%;
 }
 input#pwcheckfield.hidden,
 #slidenoteGuardianPasswordPromptRetypeLabel.hidden,
@@ -138,7 +138,7 @@ input#pwcheckfield.hidden,
 label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
 #skippassword.hidden,
 #passwordgen.hidden {
-    display: none;
+  display: none;
 }
 
 
@@ -173,20 +173,20 @@ label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
   white-space:pre-wrap;
 }
 .importfile-image-preview-block, #slidenoteGuardianCodePreview {
-    background: white;
-    overflow: hidden;
-    max-height:30vh;
-    margin: 1em;
-    border-radius: 1em;
-    box-shadow: inset black 0px 0px 0.5vh -0.2vh;
+  background: white;
+  overflow: hidden;
+  max-height:30vh;
+  margin: 1em;
+  border-radius: 1em;
+  box-shadow: inset black 0px 0px 0.5vh -0.2vh;
 }
 
 .importfile-image-preview-block ul, #slidenoteGuardianCodePreview ul {
-    overflow-y: auto;
-    max-height: 29vh;
-    margin-right: 1em;
-    margin-top: 0.5vh;
-    list-style: none;
+  overflow-y: auto;
+  max-height: 29vh;
+  margin-right: 1em;
+  margin-top: 0.5vh;
+  list-style: none;
 }
 
 .importfile-image-preview-block img{
@@ -194,35 +194,35 @@ label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
 }
 
 div#slidenoteguardiandiff {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: black;
-    color: white;
-    z-index: 999;
-    display: grid;
-    grid-template-areas: "title title" "pretext pretext" "button1 button2" "cachedt localt";
-    grid-column-gap: 10px;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: black;
+  color: white;
+  z-index: 999;
+  display: grid;
+  grid-template-areas: "title title" "pretext pretext" "button1 button2" "cachedt localt";
+  grid-column-gap: 10px;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
 }
 
 #slidenoteguardiandiff h1 {
-    grid-area: title;
+  grid-area: title;
 }
 
 #slidenoteguardiandiff .pretext {
-    grid-area: pretext;
+  grid-area: pretext;
 }
 
 .slidenoteguardian-diff {
-    height: 20em;
-    padding: 10px;
-    border: 1px solid red;
-    overflow-y: scroll;
-    max-width:90%;
-    white-space:pre-wrap;
+  height: 20em;
+  padding: 10px;
+  border: 1px solid red;
+  overflow-y: scroll;
+  max-width:90%;
+  white-space:pre-wrap;
 }
 
 .slidenoteguardian-diff-cache{
@@ -242,32 +242,32 @@ div#slidenoteguardiandiff {
 
 /*making options available during initial
 and all other options unavailable*/
-.initial div#optionarea, .initial .arrow_box {
+/*.initial div#optionarea, .initial .arrow_box {
   z-index: 10001;
-}
-
+}*/
+/*
 .midstate #optionarea button  {
-    display: none;
-}
-.initial #optionarea button{
+  display: none;
+}*/
+/*.initial #optionarea button{
   opacity:0;
-}
+}*/
 
 
 .midstate div#optionarea #optionsbutton{
-    display: block;
-    grid-column: 3;
-    opacity:1;
+  display: block;
+  grid-column: 3;
+  opacity:1;
 }
 
 
 .initial div#optionmenuinterfacedesign,
 .initial .separator {
-    display: none;
+  display: none;
 }
 /*making buttonarea invisible and untabable during initial phase*/
 .initial div#buttonarearight {
-    transition: all 3s ease;
+  transition: all 3s ease;
 }
 
 /*blur-effect to fade-in:*/
@@ -300,7 +300,7 @@ and all other options unavailable*/
 
 .midstate #buttonarearight,
 .midstate #playbuttonarea {
-    display: none;
+  display: none;
 }
 
 
@@ -312,20 +312,20 @@ and all other options unavailable*/
   display:none;
 }
 .abortedDecryption #optionsbutton {
-    grid-column: 3;
+  grid-column: 3;
 }
 
 .abortedDecryption #publishbutton {
-    grid-column: 2;
+  grid-column: 2;
 }
 
 /*loading process*/
 #initialLoadingProgress {
-    position: absolute;
-    color: black;
-    z-index: 1501;
-    top: 50%;
-    left: 35%;
+  position: absolute;
+  color: black;
+  z-index: 1501;
+  top: 50%;
+  left: 35%;
 }
 .midstate #initialLoadingProgress,
 .endstate #initialLoadingProgress{
