@@ -362,9 +362,20 @@ slidenoteGuardian.prototype.initLoad = async function(){
     await mongoguardian.initTutorial();
     slidenoteguardian.initTutorial();
   }else{
-    await mongoguardian.initload();
+    let foundnote = await mongoguardian.initload();
   //build initial note:
-
+    if(foundnote===false){
+      dialogoptions = {
+        title:"404 - file not found",
+        content:"we could not find a slidenote with this id. please check your url",
+        confirmbutton:"open last edited slidenote",
+        type:'alert',
+        closebutton:false
+      };
+      dialoger.buildDialog(dialogoptions,function(){
+        location.search='';
+      });
+    }
     slidenoteguardian.restObject.encimages = mongoguardian.mongoimages;
     slidenoteguardian.restObject.exportedPresentations = mongoguardian.presentationlist;
     slidenoteguardian.restObject.notehash = mongoguardian.mongonote.notehash;

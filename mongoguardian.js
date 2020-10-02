@@ -33,6 +33,9 @@ var mongoguardian = {
     }catch(err){
       console.log('could not load note',err);
     }
+    //if no mongonote is found return false
+    //so we can catch a 404
+    if(!this.mongonote)return false;
     //get imagelist:
     try{
       this.mongoimages = await this.getEncImages();
