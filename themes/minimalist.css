@@ -153,7 +153,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.minimalist p img{
+.minimalist p img,
+.minimalist ul img,
+.minimalist ol img{
   max-height: 1em;
 }
 

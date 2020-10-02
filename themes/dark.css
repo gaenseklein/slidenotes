@@ -161,7 +161,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.dark p img{
+.dark p img,
+.dark ul img,
+.dark ol img{
   max-height: 1em;
 }
 
