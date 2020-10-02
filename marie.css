@@ -3017,7 +3017,7 @@
 /* raw-text-mode */
 /* ------------- */
 
-  .raw-text #slidenoteeditor #texteditorerrorlayer{
+  .raw-text #slidenoteeditor #texteditorerrorlayer, .raw-text #slidenoteeditor #nicesidebarsymbol{
     display:none;
   }
   .raw-text #slidenoteeditor #quelltext{
@@ -3027,6 +3027,7 @@
   .raw-text #cursorlinearrow{
     visibility: hidden;
   }
+
 
 /* big-mode */
 /* -------- */
@@ -3443,7 +3444,7 @@
 /* audio-mode */
 /* ---------- */
 
-  .audio-mode #texteditorerrorlayer{
+  .audio-mode #texteditorerrorlayer, .audio-mode #slidenoteeditor #nicesidebarsymbol{
     display:none;
   }
   .audio-mode #quelltext{
