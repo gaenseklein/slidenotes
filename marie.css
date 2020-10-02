@@ -239,115 +239,12 @@
     animation-fill-mode: forwards;
   }
 
-  #loading-blob{
-    z-index: 10000;
-    position:absolute;
-    left:40vw;
-    top:33vh;
-    width: 20vw;
-  }
-  #slidenoteloadingscreenwrapper.endstate #loading-blob{
-    animation-name: loading-blob;
-    animation-duration: 0.87s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-  }
   @keyframes loading-blob {
     0%{opacity: 1;}
     90%{opacity: 1;}
     100%{opacity: 0;}
   }
 
-  #slidenoteloadingscreenwrapper #loadingcircle{
-    animation-name: loading-circle;
-    animation-duration: 2s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 500;
-    position: relative;
-    z-index: 1500;
-    display: none;
-    opacity: 0;
-  }
-  @keyframes loading-circle {
-    0%{transform:rotate(0deg);}
-    100%{transform:rotate(360deg);}
-  }
-
-  #slidenoteloadingscreenwrapper.midstate #loadingcircle{
-    animation-name:none;
-    transition:valueTransform;
-  }
-
-  #slidenoteloadingscreenwrapper.endstate #loadingcircle{
-    animation-name: loading-circle2;
-    animation-duration: 1s;
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-    animation-iteration-count: 1;
-  }
-  @keyframes loading-circle2 {
-    0%{
-      transform:rotate(0deg);
-      height:400px;
-      opacity:1;
-    }
-    50%{
-      opacity:0.8;
-    }
-    100%{
-      transform:rotate(360deg);
-      height:0px;
-      opacity:0;
-    }
-  }
-  #circle-colorful{
-    display:none;
-  }
-  .endstate #circle-colorful{
-    display:block;
-    position: absolute;
-    left:50%;
-    top:50%;
-    width: 100px;
-    height: 100px;
-    transform: translate(-50%, -50%);
-    background-color: var(--active-icon-color);
-    border-radius: 50%;
-    opacity: 0;
-    z-index: 9;
-
-    animation-name: circle-colorful;
-    animation-delay: 0.8s;
-    animation-duration: 1s;
-    animation-timing-function: ease-out;
-    animation-fill-mode: forwards;
-  }
-  @keyframes circle-colorful {
-    0%{opacity: 1; transform:translate(-50%, -50%) scale(1);}
-    70%{opacity: 0.5; transform:translate(-50%, -50%) scale(30);}
-    100%{opacity: 0; transform:translate(-50%, -50%) scale(30);}
-  }
-
-  /*old:
-
-  img#loadingcircle {
-    transform: rotate(1deg);
-    animation-name:loadingcircle;
-    animation-duration: 4000ms;
-    animation-iteration-count: 150;
-
-  }
-
-  @keyframes loadingcircle{
-    0%{
-        transform:rotate(1deg);
-    }
-    100%{
-        transform:rotate(359deg);
-    }
-  }
-  */
 
   /*presentation loading screen*/
   #slidenoteLoadingScreen{
