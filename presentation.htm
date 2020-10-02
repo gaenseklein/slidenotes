@@ -456,6 +456,20 @@
         console.warn('could not load presentation',err);
         return {err:err};
       }
+      if(this.mongopresentation.error){
+        //404-dialog:
+          dialogoptions = {
+            title:"404 - file not found",
+            content:"we could not find a presentation with this url. please check your url for mistiping",
+            confirmbutton:"go back to slidenotes.io",
+            type:'alert',
+            closebutton:false
+          };
+          dialoger.buildDialog(dialogoptions,function(){
+            location.href='https://www.slidenotes.io';
+          });
+        return;
+      }
       this.encBufferString = this.mongopresentation.encnote;
       this.options = this.mongopresentation.options;
       //if options are not encrypted we could start loading basic-themes here?
