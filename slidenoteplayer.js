@@ -91,15 +91,17 @@ slidenoteplayer.initButtons = function(){
   this.controlbuttons.commentbutton.onclick = function(e){slidenoteplayer.commentClick(e)};
 
   this.formSaveButton = document.getElementById("edit-submit");
-  this.commentSaveButton = document.createElement("button");
-  this.commentSaveButton.innerText = "Encrypt & Send";
-  this.commentSaveButton.onclick = function(){
-  document.getElementById("edit-field-pagenr-und-0-value").value=slidenoteplayer.actpage+1;
-	var test = slidenoteguardian.encryptComment();
-	//if(test)this.formSaveButton.click();
-  };
-  this.commentSaveButton.classList.add("comment-form");
-  document.getElementById("comments").appendChild(this.commentSaveButton);
+  if(!slidenoteguardian.mongopresentation){
+    this.commentSaveButton = document.createElement("button");
+    this.commentSaveButton.innerText = "Encrypt & Send";
+    this.commentSaveButton.onclick = function(){
+    document.getElementById("edit-field-pagenr-und-0-value").value=slidenoteplayer.actpage+1;
+  	var test = slidenoteguardian.encryptComment();
+  	//if(test)this.formSaveButton.click();
+    };
+    this.commentSaveButton.classList.add("comment-form");
+    document.getElementById("comments").appendChild(this.commentSaveButton);
+  }
 
   this.commentAddCommentButton = document.getElementById("commentAddButton");
   this.commentAddCommentButton.innerText = "post comment ⌄";
@@ -226,8 +228,54 @@ slidenoteplayer.initComments = function(){
 
 }
 
+slidenoteplayer.loadMongoComments = async function(){
+  var enccomments = slidenoteguardian.mongopresentation.enccomments;
+
+  var failedcomments = [];
+  var template = document.getElementById('')
+  for(var x=0;x<enccomments.length;x++){
+    let deccommentstring = await slidenoteguardian.decryptText(enccomments[x]);
+    try{
+      let deccomment = JSON.parse(deccommentstring);
+      this.comments.list.push(deccomment);
+      if(this.comments.perSlide[deccomment.slidenr]===undefined)this.comments.perSlide[deccomment.slidenr]=new Array();
+      this.comments.perSlide[deccomment.slidenr].push(deccomment);
+    }catch(err){
+      console.warn('could not decrypt comment '+x,err);
+      failedcomments.push({enc:enccomments,dec:deccomment,err:err});
+    }
+  }
+  this.controlbuttons.commenttotal.innerText=enccomments.length - failedcomments.length;
+  this.writeMongoCommentsHTML();
+  //all comments loaded so initialize comments by hiding comment-block:
+  slidenoteplayer.hideCommentBlock();
+}
+
+slidenoteplayer.writeMongoCommentsHTML = async function(){
+  let target = document.getElementById('commentlist');
+  if(this.MongoCommentTemplate===undefined)this.MongoCommentTemplate = target.innerHTML;
+  let template = this.MongoCommentTemplate;
+  let comments = this.comments.list;
+  let targetHTML = '';
+  for(var x=0;x<comments.length;x++){
+    let newcom = template.replace('pagenr', 'pagenr'+comments[x].slidenr);
+    targetHTML+=newcom;
+  }
+  target.innerHTML = targetHTML;
+  let commentnodes = target.getElementsByClassName("comment");
+  for(var x=0;x<comments.length;x++){
+    commentnodes[x].querySelector('.comment-name').innerText = comments[x].name;
+    commentnodes[x].querySelector('.comment-body').innerText = comments[x].text;
+  }
+  slidenoteplayer.gotoPage(this.actpage);
+}
+
 slidenoteplayer.decryptAllComments = async function(){
-	var clist = document.getElementsByClassName("enccontent");
+  if(slidenoteguardian.mongopresentation){
+    this.loadMongoComments();
+    return;
+  }
+  var clist = document.getElementsByClassName("enccontent");
     var containerlist = document.getElementsByClassName("comment");
 	for(var x=0;x<clist.length;x++){
 		console.log("decrypting "+clist[x].innerText);
@@ -352,7 +400,7 @@ slidenoteplayer.showCommentForm = function(){
  //var commentbody = document.getElementById("edit-comment-body-und-0-value");
   //var commentformtitle = document.querySelector(".title.comment-form");
   //commentformtitle.classList.add("show");
-  this.commentSaveButton.classList.add("show");
+  if(this.commentSaveButton)this.commentSaveButton.classList.add("show");
 }
 slidenoteplayer.hideCommentForm = function(){
   var commentform = document.getElementById("comment-form");

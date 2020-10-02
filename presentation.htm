@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8">
     <title>slidenotes | presentation</title>
-    <link rel="stylesheet" href="/editor/slidenoteplayer.css">
-      <link rel="stylesheet" href="/editor/drupal7/presentations.css">
-      <link rel="stylesheet" href="/editor/themes/dialoger.css">
+    <link rel="stylesheet" href="slidenoteplayer.css">
+      <link rel="stylesheet" href="drupal7/presentations.css">
+      <link rel="stylesheet" href="themes/dialoger.css">
       <!-- css-block -->
       <!-- should i insert all standard-css here? like blocks.css etc.-->
 
       <!-- css-block -->
-      <script src="/editor/drupal7/multiuserpresentation.js"></script>
-      <script src="/editor/themes/dialoger.js"></script>
-      <script language="javascript" src="/editor/slidenoteplayer.js"></script>
-      <script language="javascript" src="/editor/slidenotes.js"></script>
+      <script src="drupal7/multiuserpresentation.js"></script>
+      <script src="themes/dialoger.js"></script>
+      <script language="javascript" src="slidenoteplayer.js"></script>
+      <script language="javascript" src="slidenotes.js"></script>
       <!--added css and js-bibs from script:-->
 
   </head>
@@ -23,7 +23,7 @@
               <div id="slidenoteeditorloadingscreenbackground"></div>
               <div id="circle-colorful"></div>
               <div id="slidenoteeditorhidetexteditor"></div>
-              <img id="loadingcircle" src="/editor/images/loadingscreen.gif">
+              <img id="loadingcircle" src="images/loadingscreen.gif">
               <div id="initialLoadingProgress"></div>
             </div>
     </div>
@@ -319,44 +319,44 @@
               <span class="screenreader-only">show controlarea</span>
               <div id="controlarea_open-menu_rect1"></div>
               <div id="controlarea_open-menu_rect2"></div>
-              <!-- <img src="/editor/images/buttons/ctrlbuttonbubble.png"> -->
+              <!-- <img src="images/buttons/ctrlbuttonbubble.png"> -->
             </button>
             <!-- back-in -->
             <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="slidenote.presentation.animatePresentationControl(false)" title="hide controlarea">
               <span class="screenreader-only">hide controlarea</span>
-              <img src="/editor/images/buttons/ctrlbuttonhidearea.png">
+              <img src="images/buttons/ctrlbuttonhidearea.png">
             </button>
             <!-- first-slide -->
             <button id="controlarea_first-slide" class="controlbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
               <span class="screenreader-only">first page</span>
-              <img src="/editor/images/buttons/ctrlbuttonfirst.png">
+              <img src="images/buttons/ctrlbuttonfirst.png">
             </button>
             <!-- previous-slide -->
             <button id="controlarea_previous-slide" class="controlbutton" onclick="presentation.lastPage()" title="page before">
               <span class="screenreader-only">page before</span>
-              <img src="/editor/images/buttons/ctrlbuttonbefore.png">
+              <img src="images/buttons/ctrlbuttonbefore.png">
             </button>
             <!-- next-slide -->
             <button id="controlarea_next-slide" class="controlbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
               <span class="screenreader-only">next page</span>
-              <img src="/editor/images/buttons/ctrlbuttonnext.png">
+              <img src="images/buttons/ctrlbuttonnext.png">
             </button>
             <!-- last slide -->
             <button id="controlarea_last-slide" class="controlbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
               <span class="screenreader-only">last page</span>
-              <img src="/editor/images/buttons/ctrlbuttonlast.png">
+              <img src="images/buttons/ctrlbuttonlast.png">
             </button>
 
             <!-- additional interaction -->
             <!-- ---------------------- -->
 
     		<button class="controlbutton" id="controlcomment">
-    			<img src="/editor/images/buttons/cmscomment.png">
+    			<img src="images/buttons/cmscomment.png">
     			<span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span>
     		</button>
     		<button id="controlarea_multiuserdialog" class="controlbutton controlbuttonleft" onclick="ws.showDialog()" title="hide presentation">
     			<span class="screenreader-only">hide presentation</span>
-    			<img src="/editor/images/buttons/cmsmultisession.png">
+    			<img src="images/buttons/cmsmultisession.png">
     		</button>
     <!-- old interface
     		<button class="controlbutton">backward</button>
@@ -365,7 +365,7 @@
     		<button class="controlbutton">end of slideshow</button>
     		<select id="controlgotobutton" class="controlbutton"></select>
     		<span class="controlbutton"><span id="controlpagenumber"></span> / <span id="controlpagenumbertotal"></span></span>
-    		<button class="controlbutton" id="controlcomment"><img src="/editor/images/buttons/presentationcomment.png"><span id="controlcommentcount"></span>/<span id="controlcommenttotal"></span></button>
+    		<button class="controlbutton" id="controlcomment"><img src="images/buttons/presentationcomment.png"><span id="controlcommentcount"></span>/<span id="controlcommenttotal"></span></button>
     	-->
     	</div>
 
@@ -396,7 +396,7 @@
         <button class="commentnav" id="previousCommentSlide">&lt;</button>
         <span id="commentblocktitle">comments on slide 1</span>
         <button class="commentnav" id="nextCommentSlide">&gt;</button>
-        <button class="dialogclosebutton" id="commentCloseButton"><img src="/editor/images/buttons/x.svg"></button>
+        <button class="dialogclosebutton" id="commentCloseButton"><img src="images/buttons/x.svg"></button>
     </h2>
   <div class="dialogcontent">
     <!-- here enter the actual comments-->
@@ -455,6 +455,20 @@
       }catch(err){
         console.warn('could not load presentation',err);
         return {err:err};
+      }
+      if(this.mongopresentation.error){
+        //404-dialog:
+          dialogoptions = {
+            title:"404 - file not found",
+            content:"we could not find a presentation with this url. please check your url for mistiping",
+            confirmbutton:"go back to slidenotes.io",
+            type:'alert',
+            closebutton:false
+          };
+          dialoger.buildDialog(dialogoptions,function(){
+            location.href='https://www.slidenotes.io';
+          });
+        return;
       }
       this.encBufferString = this.mongopresentation.encnote;
       this.options = this.mongopresentation.options;
@@ -518,7 +532,7 @@
         textedlayer.style.display = "none";
         document.body.appendChild(textedlayer);
         var slideshow = document.getElementById("slidenotepresentation");
-        slidenote = new slidenotes(texted,textedlayer,textedlayer,slideshow,"/editor/");
+        slidenote = new slidenotes(texted,textedlayer,textedlayer,slideshow,"");
         var loadscreen = document.getElementById("slidenoteloadingscreenwrapper");
         loadscreen.classList.add("midstate");
         //await slidenoteguardian.initConfig();
@@ -558,7 +572,7 @@
       //load themes-config:
       for(var x=0;x<saveobject.themeConfigs.length;x++){
           var theme = slidenote.extensions.getThemeByName(saveobject.activethemes[x]);
-          theme.loadConfigString(saveobject.themeConfigs[x]);
+          if(theme)theme.loadConfigString(saveobject.themeConfigs[x]);
       }
     }
 

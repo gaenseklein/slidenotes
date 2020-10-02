@@ -362,9 +362,20 @@ slidenoteGuardian.prototype.initLoad = async function(){
     await mongoguardian.initTutorial();
     slidenoteguardian.initTutorial();
   }else{
-    await mongoguardian.initload();
+    let foundnote = await mongoguardian.initload();
   //build initial note:
-
+    if(foundnote===false){
+      dialogoptions = {
+        title:"404 - file not found",
+        content:"we could not find a slidenote with this id. please check your url",
+        confirmbutton:"open last edited slidenote",
+        type:'alert',
+        closebutton:false
+      };
+      dialoger.buildDialog(dialogoptions,function(){
+        location.search='';
+      });
+    }
     slidenoteguardian.restObject.encimages = mongoguardian.mongoimages;
     slidenoteguardian.restObject.exportedPresentations = mongoguardian.presentationlist;
     slidenoteguardian.restObject.notehash = mongoguardian.mongonote.notehash;
@@ -1331,7 +1342,15 @@ slidenoteGuardian.prototype.saveNote = async function(destination){
     //setTimeout("slidenoteguardian.saveNote('"+destination+"')",100);
     //in case sometimes something could break - if the initial saving-process is more then x minutes ago
     //retry anyway?
-    return;
+    if(this.savingtoDestination==='local' &&
+      this.savingTryTime-starttime>30000){
+        console.warn('saving to local was blocking and needed more then 30 seconds - maybe by presentation opening?');
+    }else if(this.savingtoDestination=='cms' &&
+      this.savingTryTime-starttime>180000){
+        console.warn('saving to cms was blocking and needed more then 3 minutes... server error?');
+    }else{
+        return;
+      }
   }
   this.savingTryTime = starttime;
   this.savingtoDestination = destination;
