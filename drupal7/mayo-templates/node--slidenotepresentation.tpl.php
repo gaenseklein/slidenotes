@@ -97,10 +97,6 @@ slidenoteguardian.extensionoptions = {
 		{name:"blocks"},
         {name:"progressbar"},
 		{name:"stickytitles", css:true},
-		{name:"azul"},
-		{name:"redalert"},
-		{name:"luminoso"},
-//		{name:"prototyp"},
 		{name:"highlight"},
 		{name:"transition"},
 		{name:"chartist"},
@@ -108,7 +104,12 @@ slidenoteguardian.extensionoptions = {
 		{name:"imgtourl"},
 		{name:"klatex", css:true},
 		{name:"switchparseelements", css:true},
-		{name:"sections"}
+		{name:"sections"},
+		//css-themes:
+		{name:"minimalist"},
+		{name:"dark"},
+		{name:"colorful"},
+		//		{name:"prototyp"},
 	]
 }
 
@@ -807,6 +808,6 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
 
 </div>
 </div>
-<img src="/sites/all/libraries/slidenotes/images/buttons/bold.png" width="1" onload="slidenoteguardian.init()">
+<img src="/sites/all/libraries/slidenotes/images/loadingscreen.gif" width="1" onload="slidenoteguardian.init()">
 
 <?php print render($content['comments']); ?> <!-- added -->
