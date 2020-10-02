@@ -43,7 +43,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 
-.minimalist, .minimalist .ppage {
+.minimalist, 
+.minimalist .ppage {
 	background: var(--minimalistBckgColor);
 	color: var(--minimalistTextColor);
   font-weight: normal;
@@ -182,7 +183,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.minimalist ul, .minimalist ol{
+.minimalist ul, 
+.minimalist ol{
   padding: 0 0.8em;
 
 }
@@ -207,11 +209,13 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*sub-lists (unterpunkte/verschachtelung der listen)*/
 
-.minimalist ul ul, .minimalist ol ul{
+.minimalist ul ul, 
+.minimalist ol ul{
 
 }
 
-.minimalist ol ul, .minimalist ol ol{
+.minimalist ol ul, 
+.minimalist ol ol{
 
 }
 
@@ -388,7 +392,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.minimalist th, td{
+.minimalist th, 
+.minimalist td{
 
 }
 
@@ -396,7 +401,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-family: "KhulaBold";
 }
 
-.minimalist table, th, td{
+.minimalist table, 
+.minimalist th, 
+.minimalist td{
   border: 0.02em solid #030303;
   padding: 0 0.5em;
 }
