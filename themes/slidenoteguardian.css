@@ -130,13 +130,13 @@ input#username.hidden, input#password.hidden {
     position: absolute;
     top: -100%;
 }
-input#pwcheckfield.hidden, 
-#slidenoteGuardianPasswordPromptRetypeLabel.hidden, 
+input#pwcheckfield.hidden,
+#slidenoteGuardianPasswordPromptRetypeLabel.hidden,
 #slidenoteGuardianPasswortPromptAfterText.hidden,
 #slidenoteGuardianPasswordPromptPasswordLabel.hidden,
 #slidenoteGuardianPasswordPromptTemplatePreText.hidden,
 label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
-#skippassword.hidden, 
+#skippassword.hidden,
 #passwordgen.hidden {
     display: none;
 }
@@ -330,4 +330,8 @@ and all other options unavailable*/
 .midstate #initialLoadingProgress,
 .endstate #initialLoadingProgress{
   display:none;
+}
+/*feedback dialog*/
+#template-feedback-form label {
+    display: inline;
 }
