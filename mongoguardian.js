@@ -15,7 +15,8 @@ var mongoguardian = {
       //user is not logged in - abort and load login-page instead:
       let req = '?req='+this.nid;
       if(location.search.length==0)req='';
-      location.href = '/login/login.html'+req;
+      if(location.hostname!='localhost')location.href = '/user/'+req;
+      else location.href = '/user/login.html'+req;
       return false;
     }
     return true;
@@ -145,6 +146,7 @@ var mongoguardian = {
       console.log(resp);
       //as we deleted this slidenote we could leave the page
       //location.href = '/login/login.html';
+      if(location.hostname!='localhost')location.href='/user/';
       //but we do nothing as we want to see the result for now
     }catch(err){
       console.warn(err);

@@ -354,7 +354,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
     }else{
       //we could not get id to load - either not logged in or no slidenote created.
       //send to login instead:
-      location.pathname="/login/login.html";
+      location.pathname="/user/login.html";
     }
     return;
   }
@@ -1343,10 +1343,10 @@ slidenoteGuardian.prototype.saveNote = async function(destination){
     //in case sometimes something could break - if the initial saving-process is more then x minutes ago
     //retry anyway?
     if(this.savingtoDestination==='local' &&
-      this.savingTryTime-starttime>30000){
+      this.savingTryTime-starttime<-30000){
         console.warn('saving to local was blocking and needed more then 30 seconds - maybe by presentation opening?');
     }else if(this.savingtoDestination=='cms' &&
-      this.savingTryTime-starttime>180000){
+      this.savingTryTime-starttime<-180000){
         console.warn('saving to cms was blocking and needed more then 3 minutes... server error?');
     }else{
         return;
