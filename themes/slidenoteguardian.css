@@ -311,6 +311,9 @@ and all other options unavailable*/
 .abortedDecryption #publishtocms {
   display:none;
 }
+.abortedDecryption #cloud{
+  visibility: hidden;
+}
 .abortedDecryption #optionsbutton {
   grid-column: 3;
 }
