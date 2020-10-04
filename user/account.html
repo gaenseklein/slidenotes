@@ -8,6 +8,8 @@
 
 	<link rel='stylesheet' href='assets/css/style.css'>
 	<link rel='stylesheet' href='welcome.css'>
+	<link rel="stylesheet" href="/editor/themes/dialoger.css">
+	<script type="text/javascript" src='/editor/themes/dialoger.js'></script>
 </head>
 <body>
 <div id="login-page">
@@ -77,6 +79,14 @@ async function tryUpdate(payload){
 	if(resp && !resp.error && resp.status){
 		//console.warn(resp.body.text());
 		//update succesfull - do something visualy for the user
+		dialoger.buildDialog({
+			title:'updated successfully',
+			content:'your changes are saved into db.',
+			type:'alert',
+			okbutton:'go back to editor',
+		},function(){
+			location.href='/';
+		});
 		console.log('updated user succesfully');
 	}else{
 		console.log('could not update user',resp);

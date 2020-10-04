@@ -138,7 +138,9 @@ dialoger.buildDialog = function(options, followfunction){
   }
   //append dialog to document:
   //document.getElementsByTagName("body")[0].appendChild(container);
-  document.getElementById("slidenotediv").appendChild(container);
+  let target = document.getElementById("slidenotediv");
+  if(!target)target = document.body;
+  target.appendChild(container);
   if(options.focuson){
     options.focuson.focus();
   }else if(confirmbutton){
