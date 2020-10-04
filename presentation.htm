@@ -587,7 +587,12 @@
         let buffer = new Uint8Array(this.encBufferString.length);
         for(let i=0;i<this.encBufferString.length;i++)buffer[i]=this.encBufferString.charCodeAt(i)-255;
         //this.encTextBuffer = buffer.buffer; //changing to ArrayBuffer -- TODO:kann weg oder?
+        this.password = ""; //try it once with empty password
         this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
+        if(this.decText==="decryption has failed"){
+          this.password=null;
+          this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
+        }
       while(this.decText==="decryption has failed" && confirm("decryption failed. wrong password. Retry?")){
         this.password=null;
         this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer

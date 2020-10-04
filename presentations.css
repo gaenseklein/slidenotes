@@ -62,7 +62,7 @@ input#edit-preview, input#edit-submit {
 	display:block;
 }
 
-.dialogtitle{
+#comments .dialogtitle{
     text-align:center;
     height:3em;
     display:grid;
