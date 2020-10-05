@@ -44,13 +44,13 @@
         <h2>work on a slidenote</h2>
         <div class="content">
             <div class="view-header">
-              <a href="#" title="start a new slidenote" class="newslidenote" onclick="createNewSlidenote()"><img src="/editor/images/buttons/plus-greywhite.svg">start a new slidenote</a>
-              <a href="/editor/slidenotes.htm?tutorial=welcome" title="try a tutorial" class="newslidenote"><img src="/editor/images/buttons/arrow-to.svg"> try a tutorial</a>
+              <a href="#" title="start a new slidenote" class="newslidenote" onclick="createNewSlidenote()"><img src="/images/buttons/plus-greywhite.svg">start a new slidenote</a>
+              <a href="/?tutorial=welcome" title="try a tutorial" class="newslidenote"><img src="/images/buttons/arrow-to.svg"> try a tutorial</a>
             </div>
             <div class="view-content">
                 <ul id="slidenotelist-target">
                     <li>
-                        <a href="/editor/slidenotes.htm?id=$NID" class="slidenotelist-link">$SLIDENOTETITLE</a>
+                        <a href="/?id=$NID" class="slidenotelist-link">$SLIDENOTETITLE</a>
                     </li>
                 </ul>
             </div>
@@ -65,7 +65,7 @@
 							<div class="views-row">
   <div class="views field views-field-title"><a href="/presentation.htm?$PRESENTATIONURL">$PRESENTATIONTITLE</a></div>
   <div class="views-field views-field-created">    <span class="views-label views-label-created">creation date: </span>    <span class="field-content">$PRESENTATIONCREATIONDATE</span>  </div>
-  <div class="views-field views-field-field-slidenotenode">    <span class="views-label views-label-field-slidenotenode">from slidenote: </span>    <span class="field-content"><a href="/editor/slitenotes.htm?id=$PRESENTATIONNID">$PRESENTATIONNOTETITLE</a></span>  </div>
+  <div class="views-field views-field-field-slidenotenode">    <span class="views-label views-label-field-slidenotenode">from slidenote: </span>    <span class="field-content"><a href="/?id=$PRESENTATIONNID">$PRESENTATIONNOTETITLE</a></span>  </div>
   <div class="views-field views-field-comment-count">        <span class="field-content">$PRESENTATIONCOMMENTCOUNT Comments</span>  </div>
   <div class="views-field views-field-last-comment-timestamp">    <span class="views-label views-label-last-comment-timestamp">last comment time: </span>    <span class="field-content">$PRESENTATIONLASTUPDATED</span>  </div>
 							</div>
@@ -114,7 +114,7 @@ async function login(preemail, prepw){
 			return;
 		}
 		token=resp;
-		setTimeout('document.cookie = "authtoken="+token+"; expires=0; path=/";',200);
+		setTimeout('document.cookie = "authtoken="+token+"; expires=0; path=/"; SameSite="Strict"',200);
 		setTimeout('loginSuccessfull()',300);
 	}catch(err){
 		console.log('login-failed',err);
@@ -131,7 +131,7 @@ var presentationlist;
 async function loginSuccessfull(){
 	if(location.search.indexOf('req')>-1){
 		let nid = location.search.substring(location.search.indexOf('=')+1);
-		location.href="/editor/slidenotes.htm?nid="+nid;
+		location.href="/?nid="+nid;
 		return;
 	}
 	try{
@@ -196,7 +196,7 @@ async function createNewSlidenote(){
 		let newnote = await postJson('/api/notes/',{});
 		if(newnote){
 			//load new created slidenote:
-			location.href="/editor/slidenotes.htm?id="+newnote.nid;
+			location.href="/?id="+newnote.nid;
 		}
 	}catch(err){
 		return {err:err};

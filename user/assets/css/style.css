@@ -9,19 +9,19 @@
  */
 @font-face {
   font-family: 'Rubik-reg';
-  src: url("/assets/fonts/Rubik-Regular.ttf"); }
+  src: url("../fonts/Rubik-Regular.ttf"); }
 
 @font-face {
   font-family: 'Rubik-med';
-  src: url("/assets/fonts/Rubik-Medium.ttf"); }
+  src: url("../fonts/Rubik-Medium.ttf"); }
 
 @font-face {
   font-family: 'roboto-mono-reg';
-  src: url("/assets/fonts/RobotoMono-Regular.ttf"); }
+  src: url("../fonts/RobotoMono-Regular.ttf"); }
 
 @font-face {
   font-family: 'roboto-mono-light';
-  src: url("/assets/fonts/RobotoMono-Light.ttf"); }
+  src: url("../fonts/RobotoMono-Light.ttf"); }
 
 /* NORMALIZE-RESET */
 /* NORMALIZE ELEMENTS */
