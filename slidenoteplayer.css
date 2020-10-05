@@ -160,6 +160,10 @@ img.vertical.griditem{
   padding: 0;
 }
 
+.ppage a{
+	display: inline;
+}
+
 .hljs-keyword,
 .hljs-attribute,
 .hljs-selector-tag,
