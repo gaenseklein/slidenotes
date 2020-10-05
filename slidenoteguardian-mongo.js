@@ -44,7 +44,7 @@ var SlidenoteCache = function(){
     this.id; //an id put in front of item-name in localstorage
     this.allIds; //a string in localstorage, containing all ids seperated by ","
     this.maxSpace; //a number with maximum number of chars possible in browser
-    this.version = 2; //a version number to check if we have to rebuild cache. Increase if you want to force rebuild of usercache
+    this.version = 3; //a version number to check if we have to rebuild cache. Increase if you want to force rebuild of usercache
 }
 
 SlidenoteCache.prototype.init = function(){
@@ -60,19 +60,16 @@ SlidenoteCache.prototype.init = function(){
         this.allIds="sl1"; this.localstorage.setItem("allIds",this.allIds);
         this.localstorage.setItem("slidenotecacheversion",this.version);
         this.maxSpace = this.calculateMaxSpace(); this.localstorage.setItem("maxSpace",this.maxSpace);
-        if(typeof initial_note!="undefined")this.localstorage.setItem("sl1nid",initial_note.nid);
         if(slidenoteguardian.restObject && slidenoteguardian.restObject.nid)this.localstorage.setItem("sl1nid",slidenoteguardian.restObject.nid);
     }else{
         this.maxSpace=this.localstorage.getItem("maxSpace");
         //there is a cache yet. try to find actual cache:
         var ids = this.allIds.split(",");
         var nid = null;
-        if(typeof initial_note!="undefined")nid=initial_note.nid;
         if(slidenoteguardian.restObject && slidenoteguardian.restObject.nid)nid = slidenoteguardian.restObject.nid;
         for(var x=0;x<ids.length;x++){
-            var cacheurl = this.localstorage.getItem(ids[x]+"url");
             var cachenid = this.localstorage.getItem(ids[x]+"nid");
-            if((nid!=null && cachenid === nid) || (nid === null && cacheurl && cacheurl.indexOf(acturl)>-1)){
+            if(nid!=null && cachenid == nid){
                 this.id=ids[x];
                 break;
             }
