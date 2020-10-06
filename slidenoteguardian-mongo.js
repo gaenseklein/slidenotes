@@ -464,8 +464,8 @@ slidenoteGuardian.prototype.init = function(){
       closefunction: function(){
         var nid = slidenoteguardian.restObject.nid;
         if(!nid)return;
-        slidenoteguardian.deleteFromRest("/node/"+nid,function(){
-          window.location.href="/editor";
+        //slidenoteguardian.deleteFromRest("/node/"+nid,function(){
+          window.location.href="/user";
         });
       },
       cssclass:"initial"
@@ -475,7 +475,7 @@ slidenoteGuardian.prototype.init = function(){
     var subtitle = document.createElement("h2");
     subtitle.innerText = "please give your slidenote a name";
     //check if first note:
-    if(this.notetitle==="€€€FIRST SLIDENOTE€€€"){
+    if(this.restObject.nid==1){
       subtitle.innerText = "let's start with giving it a name:"
       dialogoptions.title = "welcome to your first slidenote!";
     }
