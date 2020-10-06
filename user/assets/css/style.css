@@ -1157,7 +1157,7 @@ body.dark {
 
 /* collapse table on small screens */
 @media all and (max-width: 620px) {
-  .flex-table {
+  .flex-table{
     display: block; }
     .flex-table > .flex-table-cell {
       width: 100%; }

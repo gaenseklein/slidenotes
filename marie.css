@@ -1830,6 +1830,14 @@
   #publishedlist li button img{
     margin-right: calc(5*var(--pscale));
   }
+  /*no published Presentation*/
+  #publishedlist li:first-child:last-child {
+    padding-top: calc(6.4*var(--pscale));
+    padding-left: calc(6.4*var(--pscale));
+  }
+  #publishedlist li:first-child:last-child a.loadnotebutton{
+    margin-top: calc(-6.4*var(--pscale));
+  }
 
   #publishedlist .circle{
     grid-area: delete;

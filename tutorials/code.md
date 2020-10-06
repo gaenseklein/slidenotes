@@ -1,170 +1,337 @@
-# code tutorial
-welcome to the code tutorial! 
+# chart-tutorial
+welcome to the chart-tutorial! 
 
-this tutorial explains how to implement and use images in slidenotes.io. 
+this tutorial explains how to use charts in slidenotes.io. 
 
-to begin the presentation press `ctrl+escape` or the play button
-
+to begin the presentation press `ctrl+escape` or the `play button`
 ---
-## how to use code-blocks in slidenotes
+## a simple chart
 
-we love to code. but what we dont like is this weekly drama of making a presentation about the new development. often at the latest moment we have to work fast. but copying it in the gui is not nearly enough - you have to reformat it, give your code some meaning, give it some syntax-highlightning and structure it in a way that your clients or your ceo understands and sees the beauty in it. 
-
-well, don't suffer anymore - slidenotes will help you to work fast, easy and reliable to make your code look good inside your presentation whilest keeping the amount of work at a minimum. maybe you shouldn't tell it your boss how fast it is, otherwise he wants a presentation every day?
-
-lets dive in this topic and get it done
-
----
-## code inline
-
-a "code" in slidenotes means, that the content of it will not be interpreted as md-code but as text and rendered likewise.
-so if you want to put some code into a line of normal text you put it inside two back-ticks: `**some code here**`
-
-as you can see, the `**` are not interpreted but displayed as normal text and/or depending on the theme you choose will be highlighted as a code-segment. 
-
-this is the inline-style of baking code into your presentations. inline code can not be altered or configured more than that, as they are meant only for small inline-segments. of course its very limited, but can be usefull a lot of times. 
-
-if you want to write backticks inside the code-segment you simply put a `\ ` in front of it like so: `\\`.
- 
-next we are looking at code-blocks
----
-## code as blocks 
-
-more often we use code-blocks to transform a bunch of written code into a beautiful rendered block. the codeblock makes automagicaly use of syntax-highlightning and can be altered in some ways that it makes them very convenient to use as standard-method to present your coding. 
-
-a code-block is written as any other special blocks in slidenotes: it starts with a line containing the code-block ***head*** `+++code`, followed by lines of code and closed by a line containing the end-sign of the block `+++`. so a codeblock looks like this: 
-
-```code
-+++code
-var mycode = "is super beautiful";
-+++
-```
-
-alternatively you can use the ***github syntax*** for code-blocks:
-+++code
-```
-var mycode = "is super beautiful";
-```
-+++
-
----
-## entering codeblocks via toolbar
-
-the toolbar figures out automaticaly which one you want to enter. so if you just `click on it while the cursor is inside a line` it will create a simple inline-code-tag around the cursor. 
-if your cursor is at the beginning of a line it will insert a codeblock.
-
-if you mark **some text inside the editor** and then hit the toolbarbutton it will wrap the text with simple inline-code-tags *if the text is in one line*. if you marked *more than one line* it will wrap it inside a codeblock instead. 
-
-why not hitting escape and try it out on this slide, then come back? 
-
----
-## advanced configuration of your codeblocks
-
-we put some more love into codeblocks then just some syntax-highlightning. to make use of the advanced options you have to declare it inside the code-block-head by giving it the *options-flag* `:options`
-
-now you can insert a new-slide symbol `---` into a line in the codeblock to separate between config-options (all above the ---)  and your code. 
-
-so a codeblock could look like this: 
-
-+++layout:inline
-### sourcecode
-+++
-+++code:options
-linehighlight=3
----
-my_superfunction(){
-  //the following line is what i want to focus your attention on:
-  parentelement.dosomethingveryspecial();
-}
-+++
-+++
-
-### result:
-+++code:options
-linehighlight=3
-linenumbering=off
-linenumberingstart=1
-language=
-speciallinemarker=§§
-specialstartmarker=§a
-specialendmarker=§e
----
-my_superfunction(){
-  //the following line is what i want to focus your attention on:
-  parentelement.dosomethingveryspecial();
-}
-+++
-+++
-
-
----
-## overview over advanced options
-
-as for now we support following options: 
-
-### linenumbering
-linenumbering controls if you want to make linenumbers appear in the output. can be *"on"* or *"off"*, default is *"on"*
-
-### linenumberingstart
-linenumberingstart defines the start-line for the output if linenumbering is activated. if your original code-snippet you want to present starts in line 50 and you want the output to reflect that put it to 50. expects a number, default is 1. 
-
-### language
-while the editor tries to figure out automaticaly which language it should use for syntaxhighlightning, sometimes it does not get it right. if this happens you can try it by directly defining it here. 
-
----
-
-### linehighlight
-often you want to highlight some lines of your code to make them more attractive. "linehighlight" is one easy solution to that - just type in the numbers of lines you want to highlight. make shure the linenumber is counted in the md-code. so first line in your md-code is line 1 and so forth. 
-you can enter multiple numbers separated by comma and also line-spans like `1-3`
-
-### speciallinemarker
-if you have a lot of code or dont want to rely on fixed line-numbers because you may alter the number of lines of code you use for the presentation but wants the same lines to be highlighted, you can make use of the speciallinemarker - it "marks" a line to be used as highlighted line. therefore you insert the speciallinemarker at the beginning of the target line. with the option `speciallinemarker` you can define what signs should be interpreted as such markers. default is `§§`. 
-
-### specialstartmarker and specialendmarker
-you want to highlight only part of a line? you can do that by marking them as special with a start- and end-marker. the option `specialstartmarker` lets you define the syntax used for the beginning and `specialendmarker`the end of your marks. 
-defaults: `specialstartmarker=§a` and `specialendmarker=§e` 
-
----
-## context-menu to the help
-
-you dont have to remember every option to use them. whenever your cursor is inside a code-block you can use the context-menu on the left side of the textarea to help you out. it will insert the option at the right place, giving you also hints how to use it. just press escape and try it for yourself. 
-here are some examples for you
-
-+++code:options
-linenumbering=off
----
-my_function_call(lets, test, it){
- //here comes my logic
- return lets[test.length - it].result;
-};
-+++
-
-+++code:options
-linehighlight=1,3
----
-my_function_call(lets, test, it){
- //here comes my logic
- return lets[test.length - it].result;
-};
-+++
-
+a chart is a **graphical interpretation of data**. therefore all you need is to write down a chart-section and inside of it the data:
 
 +++code
-my_function_call(lets, test, it){
- //here comes my logic
-§§ return lets[test.length - it].result;
-};
+\+++chart
+identifier: 10
+identifier2: 22
+identifier3: 33
+\+++
 +++
 
+and you get a simple chart like this:
 
-+++code:options
-specialstartmarker=§a
-specialendmarker=§e
++++chart
+identifier: 10
+identifier2: 22
+identifier3: 33
++++
 ---
-my_function_call(lets, test, it){
- //here comes my logic
- return §a lets[test.length - it]§e.result;
-};
+## real world example
+
+as you saw, the ***datastructure*** is quite simple. you need an **identifier** and a **value** in form of **a number**. lets take a more realistic example and say we want to demonstrate the maximum temperatures of last week: 
+
++++code
+\+++chart
+monday:33
+tuesday:28
+wednesday:26
+thursday:28
+friday:28
+saturday:37
+sunday:36
+\+++
 +++
 
+as you can see, its quite easy to write down and it makes a clean linear graph out of it:
+
++++chart
+monday:33
+tuesday:28
+wednesday:26
+thursday:28
+friday:28
+saturday:37
+sunday:36
++++
+
+---
+## different chart types: bar
+
+charts can have different *types*. as now, slidenotes.io supports *8 different types* for you to select, which are divided into three groups: **linear**, **bar** and **pie**. each different type has its own chart-header as `+++chart:type`. so to write the same example as before, but this time as a **bar**-chart you would write in the header: `+++chart:bar`
+
++++code
+\+++chart:bar
+monday:33
+tuesday:28
+wednesday:26
+thursday:28
+friday:28
+saturday:37
+sunday:36
+\+++
++++
+
+you will get:
+
++++chart:bar
+monday:33
+tuesday:28
+wednesday:26
+thursday:28
+friday:28
+saturday:37
+sunday:36
++++
+
+---
+## different chart-types: pie 
+
+as the example before does not make any sense to a pie lets just bake a pie. 
+
++++layout:left
+###recipe
++++code
+\+++chart:pie
+flour:300
+sugar:100
+butter:100
+baking powder:5
+apple:1000
+\+++
++++
+
+1. mix everything except the apples and fill your form with 2/3 of the mass
+2. cut apples very fine and fill your form up
+3. top it with the mass you have left in crumbles, so that apples still are visible
+4. put it in the oven for 40 minutes...
+
++++
+
+###baked result:
+
++++chart:pie
+flour:300
+sugar:100
+butter:100
+baking powder:10
+apple:1000
++++
+
+
+well... enough of that. lets continue. 
+
+---
+## experiment yourself
+
+so why not try it yourself now? hit escape and alter the following chart. note: you can use the elements insert-menu to help you with the task whenever your carret is inside a chart-section. windows-keyboard-user can also press "control"+"contextmenu" to open up the insert-menu.   
+graph-types are: 
+a) line, arealine
+b) bar, horizontalbar, stackbar, horizontalstackbar
+c) pie, halfpie 
+
++++chart:line
+monday:33
+tuesday:28
+wednesday:26
+thursday:28
+friday:28
+saturday:37
+sunday:36
++++
+
+---
+## datastructure
+
+as we mentioned before: charts are the representation of data. this data has to be accessible in a certain form. in the previous example we always used the form which is the best and easiest way for us humans to get it right. for small graphs like this, mostly written by hand on the fly, its the best. so lets say its the slidenote-style.  unfortunately this is seldom the case with real data you want to use. 
+because data in the real world comes from other sources and certainly you dont want to write them again by hand to use them. so what to do? write your own regex or changing it by hand? hopefully not. 
+
+###supported datastructures:
+
+the datastructure needs the following: an **identifier** and its related **value**. most real world data comes in tables. so we support the following structures: 
+
++++layout:left
+###horizontal
+
+1. line with identifiers, separated by an separator
+2. line with values, separated by an separator
+
++++
+
++++layout:right
+
+###vertical
+column with **identifiers** - **separator** - **value**
+
+lets make that clearer with an example on the following page.
+
++++
+
+---
+## example datastructures
+lets write the datastructure in the two ways and as a separator we use a comma. 
++++layout:left
+### the horizontal way:
++++code
+monday,tuesday,wednesday,thursday,friday,saturday,sunday
+33,28,26,28,28,37,36
++++
+
+### the vertical way:
++++code
+monday,33
+tuesday,28
+wednesday,26
+thursday,28
+friday,28
+saturday,37
+sunday,36
++++
++++
+
+##output:
+
+horizontal:
++++chart
+monday,tuesday,wednesday,thursday,friday,saturday,sunday
+33,28,26,28,28,37,36
++++
+
+vertical:
++++chart:line
+monday,33
+tuesday,28
+wednesday,26
+thursday,28
+friday,28
+saturday,37
+sunday,36
++++
+---
+## datastructure: separator
+
+the separator in the previous example used was the comma. it is compliant with the .csv-structure so you should be able to input your data directly from .csv-files you either exported from a database or your excell-sheet. 
+but this can be inconvenient as you dont want to export your sheet to csv... its just simple text. 
+to make things easier for you we support different separators - as of now they are:
+**":"     "tab"      ","      ";"**
+
+with this, we have covered most if not all sheet-programs, so that you can just mark your data in your excell-sheet, copy it `ctrl+c` and insert it here `ctrl+v`. was it ever easier or faster to create a graph out of your data? 
+
+---
+## but wait... there is more...
+
+getting excited yet how easy it is? well, what happens if you have more then one dataset? lets say we want to compare last years average temperatures with this years average temperatures by month. what does this means? first of all it means that each **identifier** has **more than *one* value**. 
+this sounds more complicated than it is. lets write it down the slidenote-way:
+*month* : *value last year* : *value this year*
++++code
+january: 9.8:12.3
+february: 10.1:11.3
+march: 12.2:14.1
+april: 16.0:15.4
++++ 
+
++++chart
+january: 9.8:12.3
+february: 10.1:11.3
+march: 12.2:14.1
+april: 16.0:15.4
++++
+
+---
+## multiple datavalues in datastructure
+
+as we have seen, its easy to get more data into it. in the horizontal style you add just one line with separated values:
+
++++code
+january,february,march,april
+9.8,10.1,12.2,16.0
+12.3,11.3,14.1,15.4
++++
+
+in the vertical style you add it with a separator similar to the slidenote-style:
+
++++code
+january,9.8,12.3
+february,10.1,11.3
+march,12.2,14.1
+april,16.0,15.4
++++
+
+---
+## more than one means exactly that...
+lets try this one:
++++code
+january,february,march,april
+9.8,10.1,12.2,16.0
+1,2,6,8
+4.9,5.6,8.8,11.4
++++
+
+###temperatures athenas, paris, frankfurt:
++++chart
+january,february,march,april
+9.8,10.1,12.2,16.0
+1,2,6,8
+4.9,5.6,8.8,11.4
++++
+
+
+
+---
+## something is missing... metadata
+getting fixed on? you want more control? well, here it comes—the options-area. 
+with a `---` as a line inside your chart-section you divide the chart-section in two areas. the upper one (or "everything before the line with ---") is the options-area, where you can define certain options for this chart specificly. we will go over them briefly, but first lets look at an example:
++++code
+\+++chart
+xaxis: months 
+yaxis: temperature in celsius
+dataset1: this year 
+dataset2: last year
+---
+january:9.8:12.3
+february:10.1:11.3
+march:12.2:14.1
+april:16.0:15.4
+\+++
++++
+
+as you can see, there are four entries in the options-area. the first two define the labels as they would appear aside or under the axis. then there is **dataset1**  and **dataset2**. with this we set a title for each set of values. lets see that in action on the next slide.
+
+---
+## experiment with it
+
+here you see the result of the chart-code of the last example. press escape and experiment with it as you like, then come back or continue on next slide. you are nearly through. 
+
++++chart
+xaxis: months 
+yaxis: temperature in celsius
+dataset1: this year 
+dataset2: last year
+---
+january:9.8:12.3
+february:10.1:11.3
+march:12.2:14.1
+april:16.0:15.4
++++
+
+  
+---
+## overview over chart-options
+
+charttypes can have different options. for example an x-axis-label does not make any sense on a pie-chart. if you ever wonder, the insert-menu from charts helps you in finding the right ones. you dont have to remember them all. but nevertheless here is an overview:
+
+1.) xaxis: displays a label under the x-axis
+2.) yaxis: displays a label aside the y-axis
+3.) dataset$: displays a label atop the graph with the text in this line
+4.) summary: displays to screenreader an alternative text which should summarise the graphs output. dont copy your data here, as your data is accessible to screenreaders in form of a table! instead give a summary
+---
+## more options to come   
+
+you want more options? well, we are eager to implement more in the future. tell us what you think would be a useful option, we are open for feedback as always :)
+
+
+---
+## thats it!
+
+thank you for using this tutorial. we hope it helped you. 
+
+also special thanks to gion kunz and all the contributers to the project [chartistjs](http://gionkunz.github.io/chartist-js/index.html) which delivers the magic of the graph. 
 

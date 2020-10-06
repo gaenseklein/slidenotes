@@ -21,7 +21,12 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:white;
+background:#fcfcfc;
+}
+
+#welcome-page ul>li::before{
+    content: "";
+    display: none;
 }
 
 
@@ -67,6 +72,7 @@ a:hover{
     font-weight: normal;
     margin-left: 0;
     transition: 0.3s;
+    font-family: rubikMed;
 }
 
 .view-header a:hover{
@@ -91,16 +97,22 @@ a:hover{
     display: unset;
 }
 
-.views-row {
+.views-row, #slidenotelist-target li a{
     background: #f3f3f3;
     border-radius: 0.5em;
     padding-left: 0.8em;
-    padding-top: 0.1em;
+    padding-top: 0.7em;
     padding-bottom: 0.7em;
     padding-right: 0.6em;
     margin-bottom: 1em;
     margin-left:0;
     transition: 0.3s;
+    display: block;
+    line-height: 1.3em;
+}
+
+.views-row{
+    font-family: rubikReg;
 }
 
 .views-row:hover{
@@ -109,6 +121,10 @@ a:hover{
 }
 .field-content:a{
     text-decoration: none;
+}
+
+.views-field-title{
+    font-family: rubikMed;
 }
 
 
@@ -149,7 +165,7 @@ div.column-block {
     border-bottom: none;
     font-weight: normal;
     font-family: 'rubikReg';
-    font-size: 1.25;
+    font-size: 1.25em;
     margin-bottom: 1.5em;
 }
 
@@ -160,6 +176,13 @@ h1#page-title {
     font-weight:normal;
     font-family: 'rubikReg';
     font-size: 2em;
+    padding-top: 50px;
+    padding-bottom: 15px;
+}
+#page-title + .node{
+    padding-top: 15px;
+    padding-right: 23px;
+    padding-left: 23px;
 }
 
 .node{
@@ -175,6 +198,10 @@ div#main {
 }
 
 @media only screen and (max-width: 768px) and (min-width: 375px){
+    .column-wrapper{
+        display: block;
+    }
+
     #welcome-page .content {
         height: calc(50vh - 12em);
         border-bottom: 0.15em solid #626262;
@@ -182,22 +209,37 @@ div#main {
     .node{
         margin-bottom: 0.3em;
     }
-}
-@media only screen and (max-width: 374px) and (min-width: 287px){
-    #welcome-page .content {
-        height: calc(50vh - 14em);
-        border-bottom: 0.15em solid #626262;
-    }
-     .node{
-        margin-bottom: 0.3em;
+    .column-block h2 {
+        margin-top: 1.2em;
     }
 }
-@media only screen and (max-width: 287px){
+@media only screen and (max-width: 374px) and (min-width: 243px){
+    .column-wrapper{
+        display: block;
+    }
     #welcome-page .content {
-        height: calc(50vh - 15em);
+        height: calc(50vh - 13em);
         border-bottom: 0.15em solid #626262;
     }
     .node{
         margin-bottom: 0.3em;
+    }
+    .column-block h2 {
+        margin-top: 1.2em;
+    }
+}
+@media only screen and (max-width: 243px){
+    .column-wrapper{
+        display: block;
+    }
+    #welcome-page .content {
+        height: calc(50vh - 13.6em);
+        border-bottom: 0.15em solid #626262;
+    }
+    .node{
+        margin-bottom: 0.3em;
+    }
+    .column-block h2 {
+        margin-top: 1.2em;
     }
 }
