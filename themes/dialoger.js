@@ -101,7 +101,7 @@ dialoger.buildDialog = function(options, followfunction){
     confirmbutton.addEventListener("click", followfunction);
     confirmbutton.addEventListener("click",closefunction);
     if(options.confirmbutton)confirmbutton.innerText = options.confirmbutton;
-    else confirmbutton.innerText="Ok";
+    else confirmbutton.innerText="ok";
     buttondiv.appendChild(confirmbutton);
     //check for button-list:
     if(options.extrabuttons && options.extrabuttons.length>0){
