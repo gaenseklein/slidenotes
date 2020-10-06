@@ -373,6 +373,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
         location.search='';
       });
     }
+    slidenoteguardian.notetitle = mongoguardian.mongonote.title;
     slidenoteguardian.restObject.encimages = mongoguardian.mongoimages;
     slidenoteguardian.restObject.exportedPresentations = mongoguardian.presentationlist;
     slidenoteguardian.restObject.notehash = mongoguardian.mongonote.notehash;
