@@ -1861,7 +1861,7 @@ slidenoteGuardian.prototype.openFeedback = function(){
     let resp = await mongoguardian.createFeedback(payload);
     if(resp && !resp.error){
       setTimeout(function(){
-        dialoger.buildDialog({type:"alert", title:"feedback sent", content:"thank you. your help is appreciated"},function(){});
+        dialoger.buildDialog({type:"alert", title:"feedback sent", content:"thank you for your feedback!"},function(){});
       },100);
     }else{
       console.warn('feedback sent went wrong',resp)
