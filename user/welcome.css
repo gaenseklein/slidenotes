@@ -197,6 +197,14 @@ div#main {
     margin-right: auto;
 }
 
+#logout-welcome-page{
+    position: absolute;
+    left:0.5em;
+    top: 0.5em;
+    color: #505050;
+    width: 1.5em;
+}
+
 @media only screen and (max-width: 768px) and (min-width: 375px){
     .column-wrapper{
         display: block;
