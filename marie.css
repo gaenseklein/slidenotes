@@ -2432,6 +2432,9 @@
     color: var(--dialogbox-headline-color);
   }
 
+  button .themepreview img {
+      width: 100%;
+  }
 /* options */
 /* ------- */
 
@@ -3562,8 +3565,8 @@
     grid-template-rows: calc(40*var(--pscale)) auto;
   }
 
-  #dialogcontainer, 
-  #imagesblock, 
+  #dialogcontainer,
+  #imagesblock,
   #slidenoteGuardianPasswortPrompt{
     font-size: calc((0.5rem + 1vw)*16/10);
   }
@@ -3696,7 +3699,7 @@
     }
     .big-mode div#outlineblock{
       grid-template-columns: 1fr auto auto;
-    } 
+    }
     .big-mode div#outlineblock div{
       grid-column: 2;
     }
@@ -3877,7 +3880,7 @@
       padding-right: calc(70*var(--pscale));
     }
 
-    .focus #slidenoteeditor #optionarea, 
+    .focus #slidenoteeditor #optionarea,
     .nightmode .focus #slidenoteeditor #optionarea{
       display: grid;
       background: none;
@@ -4250,7 +4253,7 @@
       }
 
 
-      .big-mode ~ #slidenoteGuardianPasswortPrompt input, 
+      .big-mode ~ #slidenoteGuardianPasswortPrompt input,
       .big-mode .dialogbox.initial input{
         width: 100%;
       }

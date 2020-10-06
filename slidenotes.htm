@@ -279,8 +279,14 @@
         } else radio.checked=false;
         var preview = document.createElement("div");
         preview.classList.add("themepreview");
-        preview.classList.add(cssthemes[x].classname);
-        preview.innerHTML="<div>Welcome</div><p>to Slidenotes</p>";
+        if(cssthemes[x].previewImage){
+          let previmg = new Image();
+          previmg.src=('themes/'+cssthemes[x].classname+'.png');
+          preview.appendChild(previmg);
+        }else{
+          preview.classList.add(cssthemes[x].classname);
+          preview.innerHTML="<div>Welcome</div><p>to Slidenotes</p>";
+        }
         title.title=cssthemes[x].description;
         radio.title=cssthemes[x].description;
         preview.title=cssthemes[x].description;
