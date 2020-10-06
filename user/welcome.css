@@ -115,7 +115,7 @@ a:hover{
     font-family: rubikReg;
 }
 
-.views-row:hover{
+.views-row:hover, #slidenotelist-target li a:hover{
     text-decoration: none;
     background-color: #DEECEE;
 }
@@ -211,7 +211,7 @@ div#main {
     }
 
     #welcome-page .content {
-        height: calc(50vh - 12em);
+        height: calc(50vh - 9.5em);
         border-bottom: 0.15em solid #626262;
     }
     .node{
@@ -226,7 +226,7 @@ div#main {
         display: block;
     }
     #welcome-page .content {
-        height: calc(50vh - 13em);
+        height: calc(50vh - 10.5em);
         border-bottom: 0.15em solid #626262;
     }
     .node{
@@ -241,7 +241,7 @@ div#main {
         display: block;
     }
     #welcome-page .content {
-        height: calc(50vh - 13.6em);
+        height: calc(50vh - 11.1em);
         border-bottom: 0.15em solid #626262;
     }
     .node{
