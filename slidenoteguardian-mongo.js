@@ -466,7 +466,7 @@ slidenoteGuardian.prototype.init = function(){
         if(!nid)return;
         //slidenoteguardian.deleteFromRest("/node/"+nid,function(){
           window.location.href="/user";
-        });
+        //});
       },
       cssclass:"initial"
     };
