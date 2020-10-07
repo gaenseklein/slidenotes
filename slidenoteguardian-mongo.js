@@ -493,8 +493,10 @@ slidenoteGuardian.prototype.init = function(){
       slidenoteguardian.passwordPrompt("now choose a password to encrypt your slidenote","encrypt").then(
         function(resolve){
           slidenoteguardian.password = resolve;
+          slidenote.textarea.value = '#welcome\nto slidenotes';
           slidenoteguardian.saveNote('cms');
           slidenoteguardian.startEditorAnimation();
+          slidenote.parseneu();
           //setTimeout("slidenoteguardian.saveNote('cms')",1);
 
         },
