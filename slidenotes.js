@@ -3247,12 +3247,9 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	console.log(this.options);
 	if(themenamesToLoad===undefined){
 	this.loadTheme("history");
-	this.loadTheme("extraoptions", true);
 	this.loadTheme("hiddenobjects");
-	//this.loadTheme("contextfield");
 	this.loadTheme("blocks");
 	this.loadTheme("stickytitles", true);
-	//this.loadTheme("procontra");
 	this.loadTheme("highlight");
 	this.loadTheme("transition");
 	this.loadTheme("chartist");
@@ -3263,7 +3260,6 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("sections");
 	this.loadTheme("outline");
 	this.loadTheme("speaker");
-	//this.loadTheme("sequencediagram", true);
 	this.loadTheme("footnote",true);
 	this.loadTheme("progressbar");
 	//css-themes:
