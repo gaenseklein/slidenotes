@@ -608,7 +608,16 @@ slidenoteGuardian.prototype.initFileImport = function(){
             nombre.substring(nombre.length-3)==="csv"){
       var reader = new FileReader();
       reader.onload = function(e){
-        slidenoteguardian.insertImport(reader.result);
+        let mdcode = reader.result;
+        let imgstringmarker = '\n||€€imagepart€€||\n';
+        let imgstringpos = mdcode.indexOf(imgstringmarker);
+        if(imgstringpos>-1){
+          mdcode = mdcode.substring(0,imgstringpos);
+          let imgstring = reader.result.substring(imgstringpos+imgstringmarker.length);
+          slidenoteguardian.insertImport(mdcode, imgstring);
+        }else{
+          slidenoteguardian.insertImport(mdcode);
+        }
       }
       reader.readAsText(file);
     } else {
@@ -1478,11 +1487,11 @@ slidenoteGuardian.prototype.saveNote = async function(destination){
 
 }
 
-slidenoteGuardian.prototype.exportTutorial = async function(){
+slidenoteGuardian.prototype.exportToFilesystemRaw = async function(){
   let slidenotetext = slidenote.textarea.value;
-  let exportstring = slidenotetext +
-                      "\n||€€imagepart€€||\n" +
-                    slidenote.base64images.allImagesAsString();
+  let exportstring = slidenotetext;
+  if(slidenote.base64images.base64images.length>0)exportstring +=  "\n||€€imagepart€€||\n" +
+            slidenote.base64images.allImagesAsString();
   let filename = encodeURI(slidenoteguardian.title)+".md";
   this.exportToFilesystem(exportstring,filename);
 }
