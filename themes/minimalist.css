@@ -52,6 +52,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 1.1em;
 }
 
+.minimalist .ppage .progressbar{
+  border-radius: 99px;
+}
+
 
 
 /*code affects both: inlinecode and codeblock*/

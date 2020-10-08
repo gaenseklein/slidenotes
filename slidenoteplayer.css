@@ -71,6 +71,10 @@
   max-width: 100%;
 }
 
+.ppage .progressbar{
+  border-radius: 0;
+}
+
 section.inline{
   gap: 1em;
 }
