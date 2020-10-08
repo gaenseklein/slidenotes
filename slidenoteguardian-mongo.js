@@ -2386,6 +2386,11 @@ slidenoteGuardian.prototype.loadDiff = async function(){
   this.initialised = false;
   var cachedText = await this.loadNote("local",true);
   var cmsText = await this.loadNote("cms",true);
+  if(cachedText==cmsText){
+    //hotfix for bug, dont know why happens:
+    slidenoteguardian.loadNote('cms');
+    return;
+  }
   //var confirmpage = document.createElement("div");
   //confirmpage.id = "slidenoteguardiandiff";
   var cachedButton = document.createElement("button");
