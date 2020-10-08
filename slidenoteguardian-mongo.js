@@ -351,7 +351,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
     }else{
       //we could not get id to load - either not logged in or no slidenote created.
       //send to login instead:
-      location.pathname="/user/login.html";
+      location.pathname="/user/";
     }
     return;
   }
