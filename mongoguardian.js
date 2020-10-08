@@ -27,6 +27,7 @@ var mongoguardian = {
     if(!this.tokenIsSet())return;
     //get username from jwt
     this.loggedinuser = this.parseJwt(this.token);
+    this.loadingStarttime = new Date();
     //get note-data
     try{
       this.mongonote = await this.getSlidenote();
@@ -186,7 +187,7 @@ var mongoguardian = {
   getEncImages: async function(){
     let url = this.restpath+'encimages/nid/'+this.nid;
     try{
-      let resp = await this.get_json(url);
+      let resp = await this.getJsonWithLoadingScreen(url);
       console.log(resp);
       return resp;
     }catch(err){
@@ -307,6 +308,46 @@ var mongoguardian = {
     });
     return resp.json();
   },
+  getJsonWithLoadingScreen: async function(url){
+    return new Promise(function(resolve, reject){
+      var oReq = new XMLHttpRequest();
+      oReq.addEventListener('load',function(){
+        console.log('got response:',this.response);
+        var oldcontainerdialog = document.getElementById("dialogcontainer");
+        var loadingProgScr = document.getElementById('loadingProgressScreen');
+        if(loadingProgScr && oldcontainerdialog)oldcontainerdialog.parentElement.removeChild(oldcontainerdialog);
+        if(this.status===200){
+          let jsonobj = JSON.parse(this.response);
+          resolve(jsonobj);
+        }else{
+          resolve({error:true, err:this.response});
+        }
+      });
+      oReq.addEventListener('progress',function(evt){
+        if(evt.timeStamp<5000)return; //miliseconds to wait before showing progress
+        console.log("Download in Progress:" + evt.loaded + "/" + evt.total);
+        var ul = Math.floor(evt.loaded / 1024);
+        var tt = Math.floor(evt.total / 1024);
+        if(tt>0)tt=" / "+tt; else tt="";
+        let target = document.getElementById('loadingProgressScreen');
+        if(!target){
+          target = document.createElement('div');
+          target.id = 'loadingProgressScreen';
+          dialoger.buildDialog({
+              type:'dialog',
+              title:'loading Slidenote',
+              content:target
+          });
+        }
+        target.innerHTML = "it seems your download is kind of slow<br> or your slidenote kind of big:<br>"+ul+tt+" kB downloaded";
+      });
+      oReq.open('GET',url);
+      oReq.setRequestHeader("CONTENT-TYPE","application/json");
+      oReq.setRequestHeader('auth-token', mongoguardian.token);
+      //console.log('try to get with token:',this.token);
+      oReq.send();
+    });
+  }
 };
 
 
