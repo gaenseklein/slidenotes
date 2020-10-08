@@ -9,7 +9,7 @@
 	<link rel='stylesheet' href='assets/css/style.css'>
 	<link rel='stylesheet' href='welcome.css'>
 </head>
-<body>
+<body class="status-pre-load">
 <div id="login-page">
 		<a href="https://www.slidenotes.io"><img class="center-horizontal" src="slidenotes-icon.png"></a>
 		<div id="error-message">
@@ -88,6 +88,8 @@ function init(){
 	if(cookie.length>5){
 		token=cookie;
 		loginSuccessfull();
+	}else{
+		document.body.className="";
 	}
 }
 function preLogin(e) {
