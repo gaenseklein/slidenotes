@@ -92,6 +92,8 @@ function init(){
 }
 function preLogin(e) {
 	if (e.preventDefault) e.preventDefault();
+
+	if(document.body.className=="status--logging-in")return false; //we are logging in, so dont do it again
 	let email = document.getElementById("emailValue").value;
 	let pw = document.getElementById("pwValue").value;
 	document.body.className="status--logging-in";
