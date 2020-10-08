@@ -301,6 +301,9 @@ img.vertical.griditem{
 #controlarea button img, #controlarea a img{
   width: 100%;
 }
+#controlcomment img{
+  height: 40%;
+}
 
 #controlarea.closed button, #controlarea.closed a{
   visibility: hidden;
