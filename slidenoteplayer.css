@@ -204,9 +204,9 @@ img.vertical.griditem{
 
 /*extra thin to 1:1*/
 @media only screen and (max-width: 100vh){
-  div.blocks .ppage.active, div.blocks .ppage{
+  /*div.blocks .ppage.active, div.blocks .ppage{
     display: block;
-  }
+  }*/
   #praesentation{
     font-size: calc(11.55/10*(0.5em + 1vw));
   }
