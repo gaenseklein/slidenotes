@@ -38,7 +38,9 @@ newtheme.init = function(){
 }
 newtheme.changeDesignOption = function(optionnr, value){
 	if(optionnr===0){
-		//if(this.highlightstylecssfile!=undefined)this.highlightstylecssfile.parentNode.removeChild(this.highlightcssfile);
+		if(this.highlightstylecssfile!=undefined){
+			document.head.removeChild(this.highlightstylecssfile);
+		}
 		this.highlightstylecssfile = slidenote.appendFile("css","highlight/styles/"+value+".css");
 		//console.log("changedesignoption:"+optionnr+":"+value);
 		var seldesign = 0;
@@ -79,7 +81,7 @@ document.getElementsByTagName("head")[0].appendChild(cssfile);
 newtheme.loadingFiles = new Array();
 newtheme.loadingFiles.push(slidenote.appendFile("script","highlight/highlight.pack.js"));
 //slidenote.appendFile("css","highlight/styles/default.css");
-slidenote.appendFile("css","highlight/styles/monokai-sublime.css");
+newtheme.highlightstylecssfile = slidenote.appendFile("css","highlight/styles/monokai-sublime.css");
 //slidenote.appendFile("script", "highlight/highlightjs-line-numbers.js");
 
 newtheme.description = "automagically highlighting codes in codeblock using hljs. for more information "+

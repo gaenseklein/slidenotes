@@ -329,6 +329,7 @@ function slidenoteGuardian(slidenote){
   }
   //can we start the init here? why not?
   //this.init(); not, because slidenoteguardian is not initialised yet :(
+  this.initialised = false;
   if(location.protocol!="file:"){
     setTimeout("slidenoteguardian.initLoad()",10);
     console.log("get all css from static webserver");
@@ -337,7 +338,6 @@ function slidenoteGuardian(slidenote){
   }else{
     setTimeout("slidenoteguardian.init()",10);
   }
-  this.initialised = false;
 }
 
 /*initLoad completes initial load from cms*/
@@ -494,6 +494,7 @@ slidenoteGuardian.prototype.init = function(){
         function(resolve){
           slidenoteguardian.password = resolve;
           slidenote.textarea.value = '#welcome\nto slidenotes';
+          slidenoteguardian.initialised=true;
           slidenoteguardian.saveNote('cms');
           slidenoteguardian.startEditorAnimation();
           slidenote.parseneu();
@@ -2425,6 +2426,7 @@ slidenoteGuardian.prototype.loadDiff = async function(){
   var cmsText = await this.loadNote("cms",true);
   if(cachedText==cmsText){
     //hotfix for bug, dont know why happens:
+    this.initialised = true;
     slidenoteguardian.loadNote('cms');
     return;
   }
