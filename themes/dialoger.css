@@ -1,25 +1,64 @@
-/*dialogbox*/
-:root{
---dialogbox-overlay: #ffffff50;
---dialogbox-bg-color: #fcfcfc;
---dialogbox-headline-color: #626262;
---dialogbox-font-color: #313131;
---dialogbox-content-bg-color: #f4f4f4;
---dialogbox-button-bg-color: #f4f4f4;
---dialogbox-button2-bg-color: #777777;
---dialogbox-button2-focus-bg-color: #505050;
---dialogbox-button2-font-color: #f4f4f4;
---dialogbox-button3-bg-color: #fff;
---dialogbox-button3-focus-bg-color: #9c9c9c;
---dialogbox-button3-font-color: #313131;
---dialogbox-button3-font2-color: #626262;
---dialogbox-focus-border-color: #90c1c8;
---dialogbox-border-color: #CCCCCC;
+/* general */
+/* ======= */
 
---dialogbox-shadow: 7px 7px 25px 5px var(--shadow-dark);
---dialogbox-round-corner: calc(23/10.8*1vh);
+  /*dialogbox*/
+  :root{
+    /*arrow-box*/
+    --arrow-box-button5-bg-color: #EEEEEE;
+    /*shadows*/
+    --shadow-dark: #00000021;
+    /*dialogbox*/    
+    --dialogbox-overlay: #ffffff;
+    --dialogbox-bg-color: #fcfcfc;
+    --dialogbox-headline-color: #626262;
+    --dialogbox-font-color: #313131;
+    --dialogbox-content-bg-color: #f4f4f4;
+    --dialogbox-button-bg-color: #f4f4f4;
+    --dialogbox-button2-bg-color: #505050;
+    --dialogbox-button2-unfocus-bg-color: #777777;
+    --dialogbox-button2-focus-bg-color: #313131;
+    --dialogbox-button2-font-color: #f4f4f4;
+    --dialogbox-button3-bg-color: #fff;
+    --dialogbox-button3-focus-bg-color: #9c9c9c;
+    --dialogbox-button3-font-color: #313131;
+    --dialogbox-button3-font2-color: #626262;
+    --dialogbox-focus-border-color: #90c1c8;
+    --dialogbox-border-color: #CCCCCC;
 
-}
+    --dialogbox-shadow: calc(7*var(--pscale)) calc(7*var(--pscale)) calc(25*var(--pscale)) calc(5*var(--pscale)) var(--shadow-dark);
+    --dialogbox-round-corner: calc(23*var(--pscale));
+
+    /*lengths*/
+    /*-------*/
+
+    /*pixel scaling factor*/
+    --pscale: 1/10.8*1vh;
+
+  }
+  /*implementing font rubikReg*/
+  @font-face {
+    font-family: "rubikReg";
+    src: url("fonts/Rubik-Regular.ttf");
+  }
+  /*give all buttons parental dependent font size*/
+  .dialogbox a[href], 
+  .dialogbox input[type='submit'], 
+  .dialogbox input[type='text'], 
+  .dialogbox input[type='password'], 
+  .dialogbox input[type='image'], 
+  .dialogbox label[for], 
+  .dialogbox select, 
+  .dialogbox button{
+    font-size: 1em;
+    font-family: "rubikReg", sans-serif;
+    border: 0;
+    padding: 0;
+    border-radius: calc(5*var(--pscale));
+    display: block;
+    width: 100%;
+    color: var(--text-color);
+    text-transform: lowercase;
+  }
 
 /* dialog box */
 /* ========== */
@@ -37,23 +76,38 @@
     display:grid;
     justify-content: center;
     align-content: center;
+    animation-name:appear;
+    animation-duration: 0.3s;
+    animation-fill-mode: forwards;
+    opacity: 1;
+  }
+
+  @keyframes appear{
+    0%{opacity: 0}
+    100%{opacity: 1}
   }
   .dialogbox{
-  /*  width:95vh; /*1020px on 1920x1080;*/
-  /*  height:60vh;/*650px */
+    /*  width:95vh; /*1020px on 1920x1080;*/
+    /*  height:60vh;/*650px */
     background: var(--dialogbox-bg-color);
-    border-radius: calc(30/10.8*1vh);
+    border-radius: calc(30*var(--pscale));
     box-shadow:var(--dialogbox-shadow);
     display:grid;
-    grid-template-rows:3em 1fr auto;
-  /*  grid-template-columns: 95vh;*/
+    /*grid-template-rows:3em 1fr auto;*/
+    grid-template-rows:auto 1fr auto;
+    /*  grid-template-columns: 95vh;*/
     overflow:hidden;
+    color: var(--dialogbox-font-color);
+    font-family: "rubikReg", sans-serif;
+  }
+  .dialogbox label{
+    text-transform: lowercase;
   }
   .dialogtitle{
     text-align:center;
     height: calc(39/16*1em);
     display:grid;
-    grid-template-columns: 15ch 1fr 15ch;
+    grid-template-columns: 1fr auto 1fr;
     /*align-items:end;
     align-content:center;*/
     justify-content: center;
@@ -61,15 +115,21 @@
     margin:0;
     font-size: calc(20/20*1em);
     color: var(--dialogbox-headline-color);
-    padding-right: calc(25/10.8*1vh);
-    padding-left: calc(25/10.8*1vh);
-    padding-top: calc(18/10.8*1vh);
-    padding-bottom: calc(21/10.8*1vh);
+    padding-right: calc(25*var(--pscale));
+    padding-left: calc(25*var(--pscale));
+    padding-top: calc(18*var(--pscale));
+    padding-bottom: calc(21*var(--pscale));
+    /*padding-top: calc(37*var(--pscale));*/
+    text-transform: lowercase;
   }
   .dialogtitle span{
     grid-area: title;
     line-height: 1.2em;
     align-self: end;
+    font-weight: normal;
+  }
+  #slidenoteGuardianPasswortPrompt .initial #dialogclosebutton {
+    display: none; /*do not display closebutton on initial-state*/
   }
   .dialogbox .dialogtitle .dialogclosebutton{
     align-self:start;
@@ -83,15 +143,21 @@
     font-size: calc(18/20*1em);
     display: flex;
     align-items: center;
-    justify-content: right;
+    justify-content: flex-end;
   }
+  .dialogbox .dialogtitle .dialogclosebutton:hover{
+    color: var(--dialogbox-font-color);
+  }
+
   .dialogbox .dialogtitle .dialogclosebutton img {
     height: 1.4em;
     margin-left: 0.5em;
+    opacity: 0.7;
   }
-  .dialogclosebutton:hover{
-    filter:brightness(0.7);
+  .dialogbox .dialogtitle .dialogclosebutton:hover img {
+    opacity: 1;
   }
+
   .dialogcontent{
     background:var(--dialogbox-content-bg-color);
     border-radius: var(--dialogbox-round-corner) var(--dialogbox-round-corner) 0 0;
@@ -102,37 +168,98 @@
     max-width:80vw;
     max-height:82vh;
     overflow-y:auto;
+    padding-top: calc(28*var(--pscale));
+    padding-bottom: calc(32*var(--pscale));
+    padding-left: calc(70*var(--pscale));
+    padding-right: calc(78*var(--pscale));
+    /*text-align: center;*/
   }
+  .small .dialogcontent{
+    /*max-width: calc(420*var(--pscale));*/
+    max-width: calc(360/10.8*1vw);
+  }
+  .small>.dialogcontent{
+    /*max-width: calc(420*var(--pscale));*/
+    max-width: calc(360/10.8*1vw);
+    text-align: center;
+  }
+  .dialogcontent div {
+    margin-top: calc(11*var(--pscale));
+  }
+  .dialogcontent div:first-child {
+    margin-top: unset;
+  }
+  .dialogcontent button:first-child{
+    margin-top: 0;
+  }
+  .dialogcontent button {
+    background-color: var(--dialogbox-button2-bg-color);
+    color: var(--dialogbox-button2-font-color);
+    padding-top: calc(13*var(--pscale));
+    padding-bottom: calc(13*var(--pscale));
+    /*width: calc(315/16*1em);*/
+    margin-top: calc(11*var(--pscale));
+    padding-left: calc(10*var(--pscale));
+    padding-right: calc(10*var(--pscale));
+  }
+  .dialogcontent button:hover, .dialogcontent button:focus{
+    background-color: var(--dialogbox-button2-focus-bg-color);
+  }
+
   .dialogbox .buttonarea {
-    width: 100%;
+    /*width: 100%;*/
     height: 4em;
     display: grid;
     grid-template-columns: auto;
+    grid-column-gap: calc(70*var(--pscale));
     justify-items: center;
     align-items: center;
     background: var(--dialogbox-content-bg-color);
+    padding-left: calc(70*var(--pscale));
+    padding-right: calc(78*var(--pscale));
+    padding-bottom: calc(37*var(--pscale));
   }
+  .dialogbox .dialogcontent .buttonarea{
+    padding: 0;
+  }
+  .dialogbox .dialogcontent .buttonarea button{
+    width: unset;
+    margin-top: 0;
+  }
+  .dialogbox .dialogcontent li label {
+    text-transform: lowercase;
+  }
+
+  /*.buttonarea button{
+    margin-top: 0;
+  }*/
 
   .dialogbox .buttonarea button {
     grid-row: 1;
-    min-width: 14vh;
-    height: 4.2vh;
-    border-radius: 0.5vh;
+    /*min-width: 14vh;*/
+    min-width: calc(144*var(--pscale));
+    min-height: calc(45.36*var(--pscale));
+    border-radius: calc(5.4*var(--pscale));
     border: none;
     color: var(--dialogbox-button2-font-color);
   }
-
-  button#dialogconfirmbutton {
-    background: var(--dialogbox-button2-focus-bg-color);
+  button#dialogconfirmbutton:hover, button#dialogcancelbutton:hover{
+    background-color: var(--dialogbox-button2-focus-bg-color);
   }
 
-  button#dialogcancelbutton {
+  button#dialogconfirmbutton {
     background: var(--dialogbox-button2-bg-color);
   }
 
-  /* trash?*/
+  button#dialogcancelbutton {
+    background: var(--dialogbox-button2-unfocus-bg-color);
+  }
+
   .dontbotherarea{
     background:var(--dialogbox-content-bg-color);
+    padding-left: calc(38*var(--pscale));
+    padding-top: calc(7*var(--pscale));
+    padding-bottom: calc(20*var(--pscale));
   }
 
   /*hide imagesblock as fast as possible:*/
@@ -142,6 +269,7 @@
   #slidenotediv #imagesblock{
     display:none;
   }
+
 
 /* dialogcontainer */
 /* --------------- */

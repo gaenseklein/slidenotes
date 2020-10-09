@@ -99,30 +99,33 @@ button.commentnav.active{
 button {
     cursor: pointer;
 }
-  .dialogbox .dialogtitle .dialogclosebutton{
-    align-self:start;
-    justify-self:end;
-    border:none;
-    background:none;
-    grid-area:close;
-    margin-right:1vh;
-    margin-top:1vh;
-  }
-  .dialogclosebutton:hover{
-    filter:brightness(0.4);
-  }
-  .dialogcontent{
-    border-radius: 3vh;
-    min-height: 5em;
-    display: grid;
-    align-items: center;
-    max-width:80vw;
-    max-height:82vh;
-    overflow-y:auto;
-  }
-  .dialogcontent > a{
-    display:none;
-  }
+/*.dialogbox .dialogtitle .dialogclosebutton{
+  align-self:start;
+  justify-self:end;
+  border:none;
+  background:none;
+  grid-area:close;
+  color: var(--dialogbox-headline-color);
+  font-size: calc(18/20*1em);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.dialogclosebutton:hover{
+  color: var(--dialogbox-font-color);
+}
+.dialogcontent{
+  border-radius: 3vh;
+  min-height: 5em;
+  display: grid;
+  align-items: center;
+  max-width:80vw;
+  max-height:82vh;
+  overflow-y:auto;
+}*/
+.dialogcontent > a{
+  display:none;
+}
 
 #comments > div {
     background: #fff;
@@ -198,7 +201,7 @@ span#controlcommentcount {
 }
 
 /*loading screen */
-#slidenoteloadingscreenwrapper,
+/*#slidenoteloadingscreenwrapper,
 #slidenoteGuardianPasswortPrompt {
     position: absolute;
     top: 0;
@@ -229,80 +232,10 @@ span#controlcommentcount {
   width:50vh;
   padding-top:25vh;
   text-align: center;
-}
+}*/
 
 .hidden {
     display: none;
-}
-/*loadingscreen animation*/
-#slidenoteloadingscreenwrapper #loadingcircle{
-  animation-name: loading-circle;
-  animation-duration: 2s;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 500;
-  position: relative;
-  z-index: 1500;
-
-}
-@keyframes loading-circle {
-  0%{transform:rotate(0deg);}
-  100%{transform:rotate(360deg);}
-}
-
-#slidenoteloadingscreenwrapper.midstate #loadingcircle{
-  animation-name:none;
-  transition:valueTransform;
-}
-
-#slidenoteloadingscreenwrapper.endstate #loadingcircle{
-  animation-name: loading-circle2;
-  animation-duration: 1s;
-  animation-timing-function: linear;
-  animation-fill-mode: forwards;
-  animation-iteration-count: 1;
-}
-@keyframes loading-circle2 {
-  0%{
-    transform:rotate(0deg);
-    height:60vh;
-    opacity:1;
-  }
-  50%{
-    opacity:0.8;
-  }
-  100%{
-    transform:rotate(360deg);
-    width:0px;
-    opacity:0;
-  }
-}
-#circle-colorful{
-  display:none;
-}
-.endstate #circle-colorful{
-  display:block;
-  position: absolute;
-  left:50%;
-  top:50%;
-  width: 100px;
-  height: 100px;
-  transform: translate(-50%, -50%);
-  background-color: var(--active-object-color);
-  border-radius: 50%;
-  opacity: 0;
-  z-index: 9;
-
-  animation-name: circle-colorful;
-  animation-delay: 0.8s;
-  animation-duration: 1s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
-}
-@keyframes circle-colorful {
-  0%{opacity: 1; transform:translate(-50%, -50%) scale(1);}
-  70%{opacity: 0.5; transform:translate(-50%, -50%) scale(30);}
-  100%{opacity: 0; transform:translate(-50%, -50%) scale(30);}
 }
 
 .endstate{
