@@ -665,6 +665,9 @@
     color:transparent;
     caret-color: var(--caret-color);
   }
+  #quelltext.insidecodearea {
+    caret-color: white;
+  }
   #editorblockfade{
     height:100%;
     width: 100%;
