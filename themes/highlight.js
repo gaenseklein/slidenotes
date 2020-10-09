@@ -562,7 +562,7 @@ slidenote.afterCodeEditorrender = newtheme.highlighteditor;
 
 newtheme.highlightintexteditor = true;
 newtheme.addGlobalOption("checkbox", "highlightning of codeblocks in texteditor (experimental)", "hltexteditor",true);
-newtheme.addGlobalOption("checkbox", "show line numbers", "show line numbers",true, true)	;
+//newtheme.addGlobalOption("checkbox", "show line numbers", "show line numbers",true, true)	;
 newtheme.showLineNumbers = true;
 newtheme.changeGlobalOption = function(optionnr, value){
 		if(optionnr===0)this.highlightintexteditor = value;
