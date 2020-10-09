@@ -758,6 +758,11 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
   themes.pop(); //remove last empty entry
   themes.push("slidenoteguardian");
   themes.push("slidenoteplayermini");
+  //adding highlight-themes-styles:
+  for(var x=0;x<slidenote.extensions.cssthemes.length;x++){
+    let actt= slidenote.extensions.cssthemes[x];
+    if(actt.highlightTheme && themes.indexOf('highlight/styles/'+actt.highlightTheme)==-1)themes.push('highlight/styles/'+actt.highlightTheme);
+  }
   var oReqs = new Array();
   for(var x=0;x<themes.length;x++){
 
@@ -767,6 +772,9 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
       console.log("css-file loaded from webserver as textfile:")
       console.log(this);
       var pluginname = this.responseURL.substring(this.responseURL.lastIndexOf("/")+1,this.responseURL.lastIndexOf("."));
+      if(this.responseURL.indexOf('highlight/styles/')>-1){
+        pluginname = "highlight/styles/"+pluginname;
+      }
       if(this.status ===200)slidenoteguardian.cssBlocksPerPlugin.push({plugin:pluginname, css:this.response});
     });
     oReqs[x].open("GET", filename);
@@ -797,6 +805,7 @@ slidenoteGuardian.prototype.getJSFromStaticWebserver = function(){
 /*creates the <style>-block for the html to export*/
 slidenoteGuardian.prototype.createCssBlock = function(){
   var cssblock = "";
+  var actTheme = slidenote.extensions.activeCssTheme;
   //if(this.restObject.plugincollector == undefined && this.hascmsconnection){
     //this.getAllPlugins();
   //} else
@@ -804,8 +813,14 @@ slidenoteGuardian.prototype.createCssBlock = function(){
     for(var x=0;x<this.cssBlocksPerPlugin.length;x++){
       var cssb = this.cssBlocksPerPlugin[x];
       var ltheme = slidenote.extensions.getThemeByName(cssb.plugin);
-      if(ltheme && ltheme.active || cssb.plugin==="basic" ||
-      cssb.plugin==="slidenoteguardian" || cssb.plugin==="slidenoteplayermini"){
+      if((ltheme && ltheme.active) ||
+        cssb.plugin==="basic" ||
+      cssb.plugin==="slidenoteguardian" ||
+      cssb.plugin==="slidenoteplayermini" ||
+      (actTheme.highlightTheme &&
+        cssb.plugin.indexOf('highlight/')>-1 &&
+        cssb.plugin.indexOf(actTheme.highlightTheme) >-1)
+      ){
         cssblock+="\n"+cssb.css+"\n</style><style>";
       }else{
         console.log("plugin "+cssb.plugin +"war nicht aktiv");
