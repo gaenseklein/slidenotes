@@ -4,10 +4,10 @@ var slidechange = function(e){
 	actslidenr = actslidenr * 1;
 	if(e.key ==="ArrowRight" || e.key===" "){
 		//goto next page
-		if(actslidenr < pages.length-1)actslidenr++;		
+		if(actslidenr < pages.length)actslidenr++;
 	}else if(e.key==="ArrowLeft"){
 		//goto last page
-		if(actslidenr>0)actslidenr--;
+		if(actslidenr>1)actslidenr--;
 	}
 	console.log("goto page:"+actslidenr);
 	window.location.hash = "#slide"+actslidenr;
