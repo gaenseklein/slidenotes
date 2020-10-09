@@ -52,7 +52,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 1.1em;
 }
 
-.dark .progressbar{
+.dark .ppage .progressbar{
   background: var(--darkTextColor);
   height: 0.2em;
   border-radius: 0;

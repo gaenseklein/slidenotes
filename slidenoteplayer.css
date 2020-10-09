@@ -71,6 +71,7 @@
   max-width: 100%;
 }
 
+
 section.inline{
   gap: 1em;
 }
@@ -204,9 +205,9 @@ img.vertical.griditem{
 
 /*extra thin to 1:1*/
 @media only screen and (max-width: 100vh){
-  div.blocks .ppage.active, div.blocks .ppage{
+  /*div.blocks .ppage.active, div.blocks .ppage{
     display: block;
-  }
+  }*/
   #praesentation{
     font-size: calc(11.55/10*(0.5em + 1vw));
   }
@@ -296,6 +297,9 @@ img.vertical.griditem{
 }
 #controlarea button img, #controlarea a img{
   width: 100%;
+}
+#controlcomment img{
+  height: 40%;
 }
 
 #controlarea.closed button, #controlarea.closed a{
