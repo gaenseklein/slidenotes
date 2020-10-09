@@ -483,6 +483,7 @@ from here on forward only declarations for online-version */
   width: calc(55.7/var(--piw)*100%);
   height: calc(55.7/var(--piw)*100/5.84*33%);
   /*transition-delay: 1s;*/
+  display: none;
 
 }
 /*top-button: back-to-editor/controlarea_multiuserdialog*/

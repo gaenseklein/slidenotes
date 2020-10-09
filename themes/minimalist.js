@@ -4,5 +4,5 @@ minimalist.active=true;
 minimalist.previewImage=true;
 minimalist.themetype = "css"; //themetype ist css, also ein basis-theme und keine erweiterung
 minimalist.description = "a light colored theme"; //beschreibung, die im tooltip angezeigt wird
-minimalist.highlightTheme = "monokai-sublime"; //theme für highlight
+minimalist.highlightTheme = "mono-blue"; //theme für highlight
 slidenote.addTheme(minimalist);// füge das theme der slidenote hinzu
