@@ -499,7 +499,7 @@ newtheme.highlightLinesInEditor = function(changedlinesobjects){
 			//ct = '<span class="specialline">'+ct+"</span>";
 			//codes[x].innerHTML = ct;
 			codes[x].classList.add("specialline");
-			//console.log("highlightning line: yes"+ct);
+			//console.log("highlighting line: yes"+ct);
 		}else if(map.codeblocklines[x].origtext.indexOf(startmarker)>-1 &&
 						map.codeblocklines[x].origtext.indexOf(endmarker)>-1 &&
 					(map.codeblocklines[x].codeblock.metablockendline===undefined||
@@ -563,7 +563,7 @@ newtheme.buildLines = function(block){
 slidenote.afterCodeEditorrender = newtheme.highlighteditor;
 
 newtheme.highlightintexteditor = true;
-newtheme.addGlobalOption("checkbox", "highlightning of codeblocks in texteditor (experimental)", "hltexteditor",true);
+newtheme.addGlobalOption("checkbox", "highlighting of codeblocks in texteditor (experimental)", "hltexteditor",true);
 //newtheme.addGlobalOption("checkbox", "show line numbers", "show line numbers",true, true)	;
 newtheme.showLineNumbers = true;
 newtheme.changeGlobalOption = function(optionnr, value){

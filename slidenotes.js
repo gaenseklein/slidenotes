@@ -472,7 +472,7 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 					 imagenotfound+="imagenotfound";
 				 }
 			 }
-			 //add span for image-tag to get highlightning
+			 //add span for image-tag to get highlighting
 			 changes.push({
 				 line:element.line,
 				 posinall:element.posinall,
