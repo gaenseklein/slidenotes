@@ -756,17 +756,18 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
   var basepath = slidenote.basepath+"themes/"
   var themes = slidenote.extensions.themeCssString.split(";");//slidenote.extensions.themes;
   themes.pop(); //remove last empty entry
-  themes.push("slidenoteguardian");
-  themes.push("slidenoteplayermini");
+  for(var x=0;x<themes.length;x++)themes[x]= basepath + themes[x];
+  themes.push(basepath + "slidenoteguardian");
+  themes.push(slidenote.basepath + "slidenoteplayer");
   //adding highlight-themes-styles:
   for(var x=0;x<slidenote.extensions.cssthemes.length;x++){
     let actt= slidenote.extensions.cssthemes[x];
-    if(actt.highlightTheme && themes.indexOf('highlight/styles/'+actt.highlightTheme)==-1)themes.push('highlight/styles/'+actt.highlightTheme);
+    if(actt.highlightTheme && themes.indexOf(basepath+'highlight/styles/'+actt.highlightTheme)==-1)themes.push(basepath+'highlight/styles/'+actt.highlightTheme);
   }
   var oReqs = new Array();
   for(var x=0;x<themes.length;x++){
 
-    var filename = basepath + themes[x]+".css";//themes[x].classname + ".css";
+    var filename = themes[x]+".css";//themes[x].classname + ".css";
     oReqs[x] = new XMLHttpRequest();
     oReqs[x].addEventListener("load",function(){
       console.log("css-file loaded from webserver as textfile:")
@@ -775,7 +776,15 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
       if(this.responseURL.indexOf('highlight/styles/')>-1){
         pluginname = "highlight/styles/"+pluginname;
       }
-      if(this.status ===200)slidenoteguardian.cssBlocksPerPlugin.push({plugin:pluginname, css:this.response});
+      if(this.status ===200){
+        let resp = this.response;
+        if(pluginname=="slidenoteplayer"){
+          resp = resp.substring(0,resp.indexOf('\n/* online stuff */'));
+          pluginname="slidenoteplayermini";
+        }
+        slidenoteguardian.cssBlocksPerPlugin.push({
+          plugin:pluginname, css:resp});
+      }
     });
     oReqs[x].open("GET", filename);
     oReqs[x].send();
@@ -1086,24 +1095,37 @@ slidenoteGuardian.prototype.exportPresentationLocal = function(encrypted){
 
 slidenoteGuardian.prototype.preparePresentationForFilesystem = function(presentationdiv){
   var pages = presentationdiv.getElementsByClassName("ppage");
+  if(!this.templatePresentationControls)this.templatePresentationControls = document.getElementById('templateExportControlArea').innerHTML;
   for(var x=0;x<pages.length;x++){
+    var template = this.templatePresentationControls;
     var page = pages[x];
-    var id = "slide"+x;
+    var id = "slide"+(x+1);
     var nav = document.createElement("div");
     //nav.style.position = "fixed";
     //nav.style.bottom = 0;
     //nav.style.width = "100vw";
     nav.classList.add("controlarea");
+    let backlink = 'href="#slide'+(x)+'"';
+    if(x==0)backlink='';
+    let forwlink = 'href="#slide'+(x+2)+'"';
+    if(x==pages.length-1)forwlink='href="#slide'+(x+1)+'"';
+    /*old:
     var backlink = document.createElement("a");
     if(x>0)backlink.href="#slide"+(x-1);
     backlink.innerText="last slide";
-    var forwlink = document.createElement("a");
     backlink.classList.add("controlbutton");
+    var forwlink = document.createElement("a");
     if(x<pages.length-1)forwlink.href="#slide"+(x+1);
     forwlink.innerText = "next slide";
     forwlink.classList.add("controlbutton");
     nav.appendChild(backlink);
     nav.appendChild(forwlink);
+    */
+    let lastlink = 'href="#slide'+pages.length+'"';
+    template = template.replace('href="#previous"',backlink);
+    template = template.replace('href="#next"',forwlink);
+    template = template.replace('href="#last"',lastlink);
+    nav.innerHTML = template;
     page.appendChild(nav);
     page.id=id;
     page.classList.remove("active");
@@ -1122,7 +1144,7 @@ slidenoteGuardian.prototype.exportPresentationToFilesystem = function(presstring
   cssblock+= "\ndiv.ppage{visibility:hidden;}"+
             " \ndiv.ppage:target{visibility:visible;}"+
             "\n.blocks div.ppage.active{visibility:hidden;}"+
-            "\n#slide0{visibility:visible;z-Index:1} .ppage{z-index:2}";
+            "\n#slide1{visibility:visible;z-Index:1} .ppage{z-index:2}";
   var headerhtml = '<!DOCTYPE html><html><head><meta charset="utf-8"/><title>a slidenote presentation</title></head>';
   if(encrypted)headerhtml+='<body onload="slidenoteguardian.decryptPresentation()">'; else headerhtml+="<body>";
   var bodyhtmlbefore = '<div id="slidenotediv" class="'+slidenote.presentation.presentation.classList.toString()+'"><div id="slidenotepresentation">';
