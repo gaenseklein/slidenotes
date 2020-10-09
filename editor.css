@@ -4385,3 +4385,8 @@
   }*/
 
 }
+
+/*hide all templates*/
+#templateArea{
+  display:none;
+}

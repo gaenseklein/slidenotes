@@ -1888,7 +1888,7 @@ slidenoteGuardian.prototype.openFeedback = function(){
     title:"create feedback",
     content: document.getElementById('template-feedback-form'),
     confirmbutton: "send feedback",
-    closefunction: function(){document.body.appendChild(document.getElementById('template-feedback-form'));},
+    closefunction: function(){document.getElementById('templateArea').appendChild(document.getElementById('template-feedback-form'));},
   }
   dialoger.buildDialog(dialogoptions, async function(){
     let radios = document.getElementById('feedback-type-wrapper').querySelectorAll('input[type=radio]');
@@ -1901,7 +1901,7 @@ slidenoteGuardian.prototype.openFeedback = function(){
       //errorlog: ,
     };
     //save the template before it gets deleted:
-    document.body.appendChild(document.getElementById('template-feedback-form'));
+    document.getElementById('templateArea').appendChild(document.getElementById('template-feedback-form'));
 
     //we should visualize to user that we are uploading - or is it too fast, as its just a bit of text?
 
