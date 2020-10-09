@@ -4,5 +4,5 @@ dark.active=false;
 dark.previewImage=true;
 dark.themetype = "css"; //themetype ist css, also ein basis-theme und keine erweiterung
 dark.description = "a dark colored theme"; //beschreibung, die im tooltip angezeigt wird
-dark.highlightTheme = "monokai-sublime"; //theme für highlight
+dark.highlightTheme = "mono-blue"; //theme für highlight
 slidenote.addTheme(dark);// füge das theme der slidenote hinzu
