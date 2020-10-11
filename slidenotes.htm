@@ -191,7 +191,7 @@
             var lodtitle = document.createElement("div");
             lodtitle.innerText = list[x].title;
             var loddate = document.createElement("div");
-            loddate.innerText = new Date(list[x].creationDate).toLocaleDateString();
+            loddate.innerText = localeDateString(list[x].creationDate);
             let comments = list[x].enccomments;
             var commenttext = "";
             if(comments && comments.length>0)commenttext = comments.length+" comments";

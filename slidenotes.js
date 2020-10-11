@@ -4640,6 +4640,17 @@ slidenotes.prototype.appendFile = function(type, path){
 	}
 }
 
+//helper-function to always use same date:
+function localeDateString(timestamp){
+	let date = new Date(timestamp);
+	let datestring = date.toLocaleDateString(navigator.language);
+	let hours = date.getHours();
+	if(hours<10)hours ="0"+hours;
+	let mins = date.getMinutes();
+	if(mins<10)mins = '0'+mins;
+	return datestring + ' - '+hours+':'+mins;
+}
+
 //webkit-hacks:
 var webkit = false;
 function getKeyOfKeyCode(keycode){

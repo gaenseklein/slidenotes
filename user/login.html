@@ -177,16 +177,29 @@ function writeSlidenoteList(){
 	}
 }
 
+function localeDateString(timestamp){
+	let date = new Date(timestamp);
+	let datestring = date.toLocaleDateString(navigator.language);
+	let hours = date.getHours();
+	if(hours<10)hours ="0"+hours;
+	let mins = date.getMinutes();
+	if(mins<10)mins = '0'+mins;
+	return datestring + ' - '+hours+':'+mins;
+}
+
 function writePresentationList(){
 	let target = document.getElementById('presentationlist-target');
 	const template = target.innerHTML;
 	var newhtml = "";
 	for(var x=0;x<presentationlist.length;x++){
 		let newentry = template;
+		let newcdate = localeDateString(presentationlist[x].creationDate);
+		let newupdate = localeDateString(presentationlist[x].lastUpdated);
+		
 		//newentry = newentry.replace('$SLIDENOTETITLE',slidenotelist[x].title);
 		newentry = newentry.replace('$PRESENTATIONURL',presentationlist[x].url);
-		newentry = newentry.replace('$PRESENTATIONCREATIONDATE',presentationlist[x].creationDate);
-		newentry = newentry.replace('$PRESENTATIONLASTUPDATED',presentationlist[x].lastUpdated);
+		newentry = newentry.replace('$PRESENTATIONCREATIONDATE',newcdate);
+		newentry = newentry.replace('$PRESENTATIONLASTUPDATED',newupdate);
 		newentry = newentry.replace('$PRESENTATIONNID',presentationlist[x].nid);
 		newentry = newentry.replace('$PRESENTATIONCOMMENTCOUNT',presentationlist[x].enccomments.length);
 		newhtml+=newentry;
