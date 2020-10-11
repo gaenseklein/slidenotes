@@ -1444,6 +1444,8 @@ slidenoteGuardian.prototype.saveNote = async function(destination){
       classList.remove(classList.item(0));
     }
     cloudbutton.classList.add("status-syncing");
+    var cloudstatus = document.getElementById("cloudstatus");
+    cloudstatus.innerText = "saving note into cloud";
 
 
 
@@ -2067,6 +2069,7 @@ slidenoteGuardian.prototype.checkCloudStatus = async function(){
   let oldhash = this.restObject.notehash;
   var savestatus = document.getElementById("savestatus");
   var cloudbutton = document.getElementById("cloud");
+  var cloudstatus = document.getElementById("cloudstatus");
   if(acthash != oldhash){
     if(savestatus){
       savestatus.src=slidenote.imagespath+"buttons/cloud.png";
@@ -2074,6 +2077,7 @@ slidenoteGuardian.prototype.checkCloudStatus = async function(){
     }
     cloudbutton.className = "status-undefined";
     cloudbutton.title = "not in sync with cloud";
+    cloudstatus.innerText = "not in sync with cloud";
   }else{
     if(savestatus){
       savestatus.src=slidenote.imagespath+"buttons/cloudsaved.png";
@@ -2081,6 +2085,7 @@ slidenoteGuardian.prototype.checkCloudStatus = async function(){
     }
     cloudbutton.className = "status-ok";
     cloudbutton.title = "in sync with cloud";
+    cloudstatus.innerText = "in sync with cloud";
   }
   console.log("checking cloud status. in sync:"+(acthash==oldhash));
   var timeneeded = new Date() - timestrt;
