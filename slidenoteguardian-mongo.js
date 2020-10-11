@@ -1882,6 +1882,22 @@ slidenoteGuardian.prototype.importFromEncryptedFile = async function(encBufferSt
   this.insertImport(decMD, decImageString);
 }
 
+slidenoteGuardian.prototype.getFeedbackImage = async function(){
+  return new Promise(function(resolve,reject){
+    var upload = document.getElementById('feedback-img-upload');
+    var file = upload.files[0];
+    var imagetype=/image.*/;
+    if(file.type.match(imagetype)){
+      var reader = new FileReader();
+      reader.onload = function(e){
+        resolve(reader.result);
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+}
+
+
 slidenoteGuardian.prototype.openFeedback = function(){
 
   let dialogoptions = {
@@ -1901,6 +1917,10 @@ slidenoteGuardian.prototype.openFeedback = function(){
       contactByEmail: document.getElementById('feedback-allow-contact').checked,
       //errorlog: ,
     };
+    let imgupload = document.getElementById('feedback-img-upload');
+    if(imgupload.files['length']==1){
+      payload.base64img = await slidenoteguardian.getFeedbackImage();
+    }
     //save the template before it gets deleted:
     document.getElementById('templateArea').appendChild(document.getElementById('template-feedback-form'));
 
