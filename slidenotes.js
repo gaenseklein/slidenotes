@@ -4651,6 +4651,15 @@ function localeDateString(timestamp){
 	return datestring + ' - '+hours+':'+mins;
 }
 
+//helper-function to convert files to base64:
+const toBase64 = file => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+});
+
+
 //webkit-hacks:
 var webkit = false;
 function getKeyOfKeyCode(keycode){
