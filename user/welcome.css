@@ -61,7 +61,7 @@ a:hover{
 }
 
 .content{
-    height: calc(100vh - 20em); /* die 20em sind willkürlich*/
+    height: calc(100vh - 14.87em); /* die 20em sind willkürlich*/
     position: relative;
     overflow: auto;
 }
@@ -259,9 +259,9 @@ div#main {
     }
 
     #welcome-page .content {
-        /*height: calc(53vh - 11.5em);*/
+        /*height: calc(53vh - 11.8em);*/
         /*iOS Safari adress bar shrinking of 63px*/
-        height: calc(53vh - 11.5em - 63/3.75*1vw/2);
+        height: calc(53vh - 11.8em - 63/3.75*1vw/2);
         border-bottom: 0.15em solid #626262;
     }
     .node{

@@ -1,364 +1,363 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>slidenotes | presentation</title>
-    <link rel="stylesheet" href="slidenoteplayer.css">
-      <link rel="stylesheet" href="presentations.css">
-      <link rel="stylesheet" href="themes/dialoger.css">
-      <!-- css-block -->
-      <!-- should i insert all standard-css here? like blocks.css etc.-->
+<head>
+  <meta charset="utf-8">
+  <title>slidenotes | presentation</title>
+  <link rel="stylesheet" href="slidenoteplayer.css">
+  <link rel="stylesheet" href="presentations.css">
+  <link rel="stylesheet" href="themes/dialoger.css">
+  <link rel="stylesheet" href="themes/slidenoteguardian.css">
+  <!-- css-block -->
+  <!-- should i insert all standard-css here? like blocks.css etc.-->
 
-      <!-- css-block -->
-      <script src="multiuserpresentation.js"></script>
-      <script src="themes/dialoger.js"></script>
-      <script language="javascript" src="slidenoteplayer.js"></script>
-      <script language="javascript" src="slidenotes.js"></script>
-      <!--added css and js-bibs from script:-->
+  <!-- css-block -->
+  <script src="multiuserpresentation.js"></script>
+  <script src="themes/dialoger.js"></script>
+  <script language="javascript" src="slidenoteplayer.js"></script>
+  <script language="javascript" src="slidenotes.js"></script>
+  <!--added css and js-bibs from script:-->
 
-  </head>
-  <body onload='slidenoteguardian.initLoad();'>
-    <div id="slidenoteloadingscreenwrapper">
-            <div id="slidenoteeditorloadingscreen">
-              <div id="slidenoteeditorloadingscreenbackground"></div>
-              <div id="circle-colorful"></div>
-              <div id="slidenoteeditorhidetexteditor"></div>
-              <img id="loadingcircle" src="images/loadingscreen.gif">
-              <div id="initialLoadingProgress"></div>
-            </div>
+</head>
+<body onload='slidenoteguardian.initLoad();'>
+  <div id="slidenoteloadingscreenwrapper">
+    <div id="slidenoteeditorloadingscreen">
+      <div id="slidenoteeditorloadingscreenbackground"></div>
+      <div id="slidenoteeditorhidetexteditor"></div>
+      <div id="initialLoadingProgress"></div>
     </div>
+  </div>
+
+
+  <div id="slidenotediv">
+  	<div id="slidenotepresentation">
+    <!-- insert slidenote here:-->
+    <!--end of inserted slidenote-->
+  	</div>
+  	<div id="controlarea">
+      <!-- new interface:-->
+      <!-- presentation-interface -->
+      <!-- ====================== -->
 
+      <!-- horizontal interface -->
+      <!-- -------------------- -->
 
-       <div id="slidenotediv">
-    	<div id="slidenotepresentation">
-    	<!-- insert slidenote here:-->
-    	<!--end of inserted slidenote-->
-    	</div>
-    	<div id="controlarea">
-    <!-- new interface:-->
-    <!-- presentation-interface -->
-            <!-- ====================== -->
+      <!-- interface close -->
+      <svg id="controlarea_close" viewBox="0 0 328 58">
+
+        <!-- blob in -->
+        <path d="M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z" style="fill:url(#_Radial1);">
+          <animate class="animateToClose" id="animate-to-close_blob1" begin="indefinite" dur="0.2s" attributeName="d"
+            values="
+            M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;
 
-            <!-- horizontal interface -->
-            <!-- -------------------- -->
+            M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;
 
-            <!-- interface close -->
-            <svg id="controlarea_close" viewBox="0 0 328 58">
-
-              <!-- blob in -->
-              <path d="M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z" style="fill:url(#_Radial1);">
-                <animate class="animateToClose" id="animate-to-close_blob1" begin="indefinite" dur="0.2s" attributeName="d"
-                  values="
-                  M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;
+            M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;"
 
-                  M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
 
-                  M15.49,32.081c-7.708,-0.305 -12.404,0.058 -19.537,2.234c-10.649,3.249 -11.326,3.941 1.678,0.814c6.568,-1.58 10.982,-1.09 17.703,-1.68c4.814,-0.423 5.392,-1.161 0.156,-1.368Z;"
+        <!-- main -->
+        <path d="M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z" fill-rule="nonzero" style="fill:#1E1E1E; cursor: pointer;" filter="url(#presentation-interface_glow)">
+          <animate class="animateToClose" id="animate-to-close" begin="indefinite" dur="0.4s" attributeName="d"
+            values="
+            M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;
 
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
+            M24.34,11.438c12.485,5.274 15.458,13.78 14.946,29.369c-0.221,6.757 -1.714,13.066 -6.827,17.217l-32.459,0l0,-53.064c9.116,2.823 17.699,3.672 24.34,6.478Z;
+
+            M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;"
 
-              <!-- main -->
-              <path d="M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z" fill-rule="nonzero" style="fill:#1E1E1E; cursor: pointer;" filter="url(#presentation-interface_glow)">
-                <animate class="animateToClose" id="animate-to-close" begin="indefinite" dur="0.4s" attributeName="d"
-                  values="
-                  M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+          <animate class="animateToClose" id="animate-to-close_color" begin="indefinite" dur="0.4s" fill="freeze" attributeName="fill" to="#BEBEBE">
+          </animate>
+        </path>
 
-                  M24.34,11.438c12.485,5.274 15.458,13.78 14.946,29.369c-0.221,6.757 -1.714,13.066 -6.827,17.217l-32.459,0l0,-53.064c9.116,2.823 17.699,3.672 24.34,6.478Z;
-
-                  M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;"
+        <!-- shine -->
+        <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16; pointer-events: none;">
+          <animate class="animateToClose" id="animate-to-close_shine1" begin="indefinite" dur="0.4s" attributeName="d"
+            values="
+            M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;
+
+            M27.498,15.127c7.123,4.651 8.623,9.062 5.487,11.86c-3.431,3.061 -3.251,-0.281 -10.373,-4.932c-7.123,-4.651 -8.529,-5.497 -7.229,-7.489c1.301,-1.992 4.992,-4.091 12.115,0.561Z;
 
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-                <animate class="animateToClose" id="animate-to-close_color" begin="indefinite" dur="0.4s" fill="freeze" attributeName="fill" to="#BEBEBE">
-                </animate>
-              </path>
+            M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;"
 
-              <!-- shine -->
-              <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16; pointer-events: none;">
-                <animate class="animateToClose" id="animate-to-close_shine1" begin="indefinite" dur="0.4s" attributeName="d"
-                  values="
-                  M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;
-
-                  M27.498,15.127c7.123,4.651 8.623,9.062 5.487,11.86c-3.431,3.061 -3.251,-0.281 -10.373,-4.932c-7.123,-4.651 -8.529,-5.497 -7.229,-7.489c1.301,-1.992 4.992,-4.091 12.115,0.561Z;
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
 
-                  M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <path d="M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z" style="fill:#fff;fill-opacity:0.24; pointer-events: none;">
-                <animate class="animateToClose" id="animate-to-close_shine2" begin="indefinite" dur="0.4s" attributeName="d"
-                  values="
-                  M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;
-
-                  M37.47,33.14c0.36,1.373 -0.327,3.366 -2.219,3.821c-1.893,0.455 -2.848,-1.01 -3.231,-2.432c-0.709,-2.627 0.575,-3.303 1.654,-3.593c1.88,-0.506 3.348,0.496 3.796,2.204Z;
-
-                  M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-            </svg>
-
-            <!-- interface open -->
-            <svg id="controlarea_open" viewBox="0 0 328 58">
-
-              <!-- blob out -->
-              <path d="M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z" style="fill:url(#_Radial1); cursor: pointer;" filter="url(#presentation-interface_glow)">
-                <animate class="animateToOpen" id="animate-to-open_blob1" begin="0s" dur="0.42s" attributeName="d"
-                  values="
-                  M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z;
-
-                  M269.869,9.776c-12.938,3.491 -13.37,14.602 0.202,14.397c6.109,-0.092 14.428,1.541 18.574,3.494c11.382,5.362 13.123,-5.265 3.207,-13.727c-4.965,-4.237 -15.317,-5.963 -21.983,-4.164Z;
-
-                  M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <path d="M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z" style="fill:#fff;fill-opacity:0.08;pointer-events: none;">
-                <animate class="animateToOpen" id="animate-to-open_blob1-shine" begin="0s" dur="0.42s" attributeName="d"
-                  values="
-                  M12.049,58.232c2.583,0.948 9.326,5.269 8.138,8.335c-1.188,3.066 -7.423,-2.295 -10.107,-3.262c-4.964,-1.788 -11.622,-2.021 -10.994,-3.802c1.092,-3.101 9.75,-2.45 12.963,-1.271Z;
-
-                  M285.729,11.992c2.583,0.947 9.326,5.269 8.138,8.335c-1.188,3.066 -7.422,-2.295 -10.107,-3.262c-4.963,-1.788 -11.622,-2.021 -10.994,-3.803c1.093,-3.1 9.75,-2.449 12.963,-1.27Z;
-
-                  M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-
-              <!-- main -->
-              <path d="M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z" fill-rule="nonzero" style="fill:#BEBEBE;" filter="url(#presentation-interface_glow)">
-                <animate class="animateToOpen" id="animate-to-open" begin="0s" dur="0.4s" attributeName="d"
-                  values="
-                  M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;
-
-                  M155.718,35.328c63.276,-22.434 114.049,-36.858 149.453,-13.52c14.686,9.68 17.082,19.54 22.675,36.216l-327.846,0l0,-19.802c37.412,-10.233 127.52,7.103 155.718,-2.894Z;
-
-                  M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-                <animate class="animateToOpen" id="animate-to-open_color" begin="0s" dur="0.4s" fill="freeze" attributeName="fill" to="#1E1E1E">
-                </animate>
-              </path>
-
-              <!-- shine -->
-              <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16;">
-                <animate class="animateToOpen" id="animate-to-open_shine1" begin="0s" dur="0.4s" attributeName="d"
-                  values="
-                  M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;
-
-                  M287.785,16.257c7.878,3.209 9.219,6.262 6.674,9.607c-2.785,3.658 -7.736,-0.087 -12.386,-2.207c-7.74,-3.528 -11.95,-3.162 -10.216,-7.42c1.735,-4.258 8.05,-3.189 15.928,0.02Z;
-
-                  M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <path d="M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z" style="fill:#fff;fill-opacity:0.24;">
-                <animate class="animateToOpen" id="animate-to-open_shine2" begin="0s" dur="0.4s" attributeName="d"
-                  values="
-                  M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;
-
-                  M308.038,28.68c1.922,1.525 3.209,4.796 1.346,7.06c-1.864,2.265 -4.53,-1.122 -6.534,-2.691c-3.704,-2.902 -3.33,-4.518 -2.3,-5.851c1.792,-2.32 5.096,-0.415 7.488,1.482Z;
-
-                  M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <defs>
-                <filter id="presentation-interface_glow">
-                  <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
-                  <feOffset dx="0" dy="0" result="offsetblur"/>
-                  <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.8"/>
-                  <feComposite in2="offsetblur" operator="in"/>
-                  <feMerge>
-                    <feMergeNode/>
-                    <feMergeNode in="SourceGraphic"/>
-                  </feMerge>
-                </filter>
-
-                <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(17.1133,-17.3818,17.3818,17.1133,291.869,26.8478)">
-                  <stop offset="0" style="stop-color:#020000;stop-opacity:1"/>
-                  <stop offset="1" style="stop-color:#727272;stop-opacity:1"/>
-                </radialGradient>
-              </defs>
-            </svg>
-
-            <!-- vertical blobs -->
-            <!-- -------------- -->
-
-            <!-- vertical blobs close -->
-            <svg id="controlarea-vertical_close" viewBox="0 0 47 158" style="background-color: none">
-              <path d="M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob1);">
-                <animate class="animateToClose" id="animate-to-close_vertical-blob1" begin="0.5s" dur="0.2s" attributeName="d"
-                  values="
-                  M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;
-
-                  M17.377,79.614c-4.572,-1.413 -10.636,1.439 -11.131,4.07c-0.871,4.639 3.347,7.947 7.45,7.984c4.104,0.037 8.365,-1.746 8.263,-4.881c-0.07,-2.144 -0.799,-6.003 -4.582,-7.173Z;
-
-                  M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <defs>
-                <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
-                  <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
-                  <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-                </linearGradient>
-              </defs>
-
-              <path d="M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob2);">
-                <animate class="animateToClose" id="animate-to-close_vertical-blob2" begin="0.5s" dur="0.2s" attributeName="d"
-                  values="
-                M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;
-
-                M15.016,52.635c-2.908,-0.777 -6.969,0.527 -7.26,4.129c-0.421,5.21 0.869,6.185 7.225,6.347c6.355,0.162 7.752,-2.056 7.751,-4.873c0,-2.891 -1.239,-3.873 -7.716,-5.603Z;
-
-                M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;"
-
-                fill="freeze"
-                calcMode="spline"
-                keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <defs>
-                <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
-                  <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
-                  <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <!-- vertical blobs open -->
-            <svg id="controlarea-vertical_open" viewBox="0 0 47 158">
-              <path d="M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z" style="fill:url(#_gradient-vertical-blob1);">
-                <animate class="animateToOpen" id="animate-to-open_vertical-blob1" begin="0" dur="0.2s" attributeName="d"
-                  values="
-                  M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;
-
-                  M22.488,56.41c-11.687,1.312 -17.729,7.789 -19.46,18.509c-1.944,12.049 14.227,23.529 26.669,23.529c12.444,0 16.772,-8.662 16.772,-20.867c0,-12.204 -11.616,-22.558 -23.981,-21.171Z;
-
-                  M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <defs>
-                <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
-                  <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
-                  <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-                </linearGradient>
-              </defs>
-
-              <path d="M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z" style="fill:url(#_gradient-vertical-blob2);">
-                <animate class="animateToOpen" id="animate-to-open_vertical-blob2" begin="0" dur="0.2s" attributeName="d"
-                  values="
-                  M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;
-
-                  M27.767,1.336c-10.826,1.215 -22.866,9.246 -24.469,19.177c-1.801,11.161 14.176,23.121 25.702,23.121c11.527,0 17.128,-11.207 17.128,-22.512c0,-11.305 -6.906,-21.072 -18.361,-19.786Z;
-
-                  M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;"
-
-                  fill="freeze"
-                  calcMode="spline"
-                  keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
-                </animate>
-              </path>
-
-              <defs>
-                <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
-                  <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
-                  <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
-                </linearGradient>
-              </defs>
-            </svg>
-
-            <!-- interface interaction -->
-            <!-- --------------------- -->
-
-            <!-- open-menu -->
-            <button id="controlarea_open-menu" class="controlbutton controlbuttonbubble" onclick="slidenote.presentation.animatePresentationControl(true)" title="show controlarea">
-              <span class="screenreader-only">show controlarea</span>
-              <div id="controlarea_open-menu_rect1"></div>
-              <div id="controlarea_open-menu_rect2"></div>
-              <!-- <img src="images/buttons/ctrlbuttonbubble.png"> -->
-            </button>
-            <!-- back-in -->
-            <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="slidenote.presentation.animatePresentationControl(false)" title="hide controlarea">
-              <span class="screenreader-only">hide controlarea</span>
-              <img src="images/buttons/ctrlbuttonhidearea.png">
-            </button>
-            <!-- first-slide -->
-            <button id="controlarea_first-slide" class="controlbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
-              <span class="screenreader-only">first page</span>
-              <img src="images/buttons/ctrlbuttonfirst.png">
-            </button>
-            <!-- previous-slide -->
-            <button id="controlarea_previous-slide" class="controlbutton" onclick="presentation.lastPage()" title="page before">
-              <span class="screenreader-only">page before</span>
-              <img src="images/buttons/ctrlbuttonbefore.png">
-            </button>
-            <!-- next-slide -->
-            <button id="controlarea_next-slide" class="controlbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
-              <span class="screenreader-only">next page</span>
-              <img src="images/buttons/ctrlbuttonnext.png">
-            </button>
-            <!-- last slide -->
-            <button id="controlarea_last-slide" class="controlbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
-              <span class="screenreader-only">last page</span>
-              <img src="images/buttons/ctrlbuttonlast.png">
-            </button>
-
-            <!-- additional interaction -->
-            <!-- ---------------------- -->
-
-    		<button class="controlbutton" id="controlcomment">
-    			<img src="images/buttons/cmscomment.svg">
-    			<span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span>
-    		</button>
-    		<button id="controlarea_multiuserdialog" class="controlbutton controlbuttonleft" onclick="ws.showDialog()" title="hide presentation">
-    			<span class="screenreader-only">hide presentation</span>
-    			<img src="images/buttons/cmsmultisession.png">
-    		</button>
-    <!-- old interface
+        <path d="M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z" style="fill:#fff;fill-opacity:0.24; pointer-events: none;">
+          <animate class="animateToClose" id="animate-to-close_shine2" begin="indefinite" dur="0.4s" attributeName="d"
+            values="
+            M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;
+
+            M37.47,33.14c0.36,1.373 -0.327,3.366 -2.219,3.821c-1.893,0.455 -2.848,-1.01 -3.231,-2.432c-0.709,-2.627 0.575,-3.303 1.654,-3.593c1.88,-0.506 3.348,0.496 3.796,2.204Z;
+
+            M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+      </svg>
+
+      <!-- interface open -->
+      <svg id="controlarea_open" viewBox="0 0 328 58">
+
+        <!-- blob out -->
+        <path d="M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z" style="fill:url(#_Radial1); cursor: pointer;" filter="url(#presentation-interface_glow)">
+          <animate class="animateToOpen" id="animate-to-open_blob1" begin="0s" dur="0.42s" attributeName="d"
+            values="
+            M5.215,53.811c-8.07,-0.32 -12.504,4.93 -6.926,9.88c5.583,4.955 14.703,11.637 19.271,11.999c8.519,0.674 9.376,-5.314 5.161,-12.558c-3.282,-5.642 -10.745,-9.053 -17.506,-9.321Z;
+
+            M269.869,9.776c-12.938,3.491 -13.37,14.602 0.202,14.397c6.109,-0.092 14.428,1.541 18.574,3.494c11.382,5.362 13.123,-5.265 3.207,-13.727c-4.965,-4.237 -15.317,-5.963 -21.983,-4.164Z;
+
+            M276.207,7.181c-7.735,2.324 -10.836,5.393 -10.686,12.849c0.168,8.379 9.677,15.253 18.084,13.723c8.407,-1.531 10.676,-7.431 9.175,-15.677c-1.501,-8.246 -8.389,-13.353 -16.573,-10.895Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <path d="M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z" style="fill:#fff;fill-opacity:0.08;pointer-events: none;">
+          <animate class="animateToOpen" id="animate-to-open_blob1-shine" begin="0s" dur="0.42s" attributeName="d"
+            values="
+            M12.049,58.232c2.583,0.948 9.326,5.269 8.138,8.335c-1.188,3.066 -7.423,-2.295 -10.107,-3.262c-4.964,-1.788 -11.622,-2.021 -10.994,-3.802c1.092,-3.101 9.75,-2.45 12.963,-1.271Z;
+
+            M285.729,11.992c2.583,0.947 9.326,5.269 8.138,8.335c-1.188,3.066 -7.422,-2.295 -10.107,-3.262c-4.963,-1.788 -11.622,-2.021 -10.994,-3.803c1.093,-3.1 9.75,-2.449 12.963,-1.27Z;
+
+            M287.252,11.774c1.754,2.12 2.405,6.007 -0.165,8.057c-2.571,2.051 -5.335,0.171 -7.168,-2.017c-3.387,-4.044 -1.962,-6.066 -0.523,-7.288c2.506,-2.129 5.674,-1.388 7.856,1.248Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+
+        <!-- main -->
+        <path d="M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z" fill-rule="nonzero" style="fill:#BEBEBE;" filter="url(#presentation-interface_glow)">
+          <animate class="animateToOpen" id="animate-to-open" begin="0s" dur="0.4s" attributeName="d"
+            values="
+            M28.784,4.983c15.258,3.236 32.522,11.306 31.712,35.973c-0.222,6.757 -1.714,12.397 -4.242,17.068l-56.254,0l0,-58.024c9.116,2.823 21.731,3.487 28.784,4.983Z;
+
+            M155.718,35.328c63.276,-22.434 114.049,-36.858 149.453,-13.52c14.686,9.68 17.082,19.54 22.675,36.216l-327.846,0l0,-19.802c37.412,-10.233 127.52,7.103 155.718,-2.894Z;
+
+            M120.982,20.035c67.135,0 100.596,-23.723 161.8,23.949c17.027,13.262 27.856,11.43 45.064,14.04l-327.846,0l0,-34.31c18.38,-20.989 90.749,-3.679 120.982,-3.679Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+          <animate class="animateToOpen" id="animate-to-open_color" begin="0s" dur="0.4s" fill="freeze" attributeName="fill" to="#1E1E1E">
+          </animate>
+        </path>
+
+        <!-- shine -->
+        <path d="M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z" style="fill:#fff;fill-opacity:0.16;">
+          <animate class="animateToOpen" id="animate-to-open_shine1" begin="0s" dur="0.4s" attributeName="d"
+            values="
+            M27.356,7.673c8.268,2.003 14.639,5.508 12.618,9.193c-2.211,4.032 -9.559,3.806 -17.827,1.802c-8.267,-2.003 -15.287,-4.731 -14.204,-9.2c1.083,-4.468 11.146,-3.799 19.413,-1.795Z;
+
+            M287.785,16.257c7.878,3.209 9.219,6.262 6.674,9.607c-2.785,3.658 -7.736,-0.087 -12.386,-2.207c-7.74,-3.528 -11.95,-3.162 -10.216,-7.42c1.735,-4.258 8.05,-3.189 15.928,0.02Z;
+
+            M231.94,21.437c8.267,2.003 14.638,5.508 12.617,9.194c-2.21,4.031 -9.559,3.805 -17.826,1.802c-8.267,-2.004 -15.287,-4.732 -14.204,-9.2c1.082,-4.469 11.146,-3.799 19.413,-1.796Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <path d="M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z" style="fill:#fff;fill-opacity:0.24;">
+          <animate class="animateToOpen" id="animate-to-open_shine2" begin="0s" dur="0.4s" attributeName="d"
+            values="
+            M54.314,22.478c1.565,1.891 2.146,5.358 -0.147,7.186c-2.292,1.829 -4.758,0.152 -6.393,-1.799c-3.021,-3.607 -1.75,-5.41 -0.466,-6.5c2.235,-1.899 5.06,-1.238 7.006,1.113Z;
+
+            M308.038,28.68c1.922,1.525 3.209,4.796 1.346,7.06c-1.864,2.265 -4.53,-1.122 -6.534,-2.691c-3.704,-2.902 -3.33,-4.518 -2.3,-5.851c1.792,-2.32 5.096,-0.415 7.488,1.482Z;
+
+            M259.491,34.269c2.022,1.39 3.529,4.566 1.825,6.952c-1.705,2.386 -4.536,1.448 -6.642,0.019c-3.893,-2.643 -3.164,-4.725 -2.227,-6.125c1.63,-2.437 4.529,-2.575 7.044,-0.846Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <defs>
+          <filter id="presentation-interface_glow">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="1"/>
+            <feOffset dx="0" dy="0" result="offsetblur"/>
+            <feFlood flood-color="rgb(0,0,0)" flood-opacity="0.8"/>
+            <feComposite in2="offsetblur" operator="in"/>
+            <feMerge>
+              <feMergeNode/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+
+          <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(17.1133,-17.3818,17.3818,17.1133,291.869,26.8478)">
+            <stop offset="0" style="stop-color:#020000;stop-opacity:1"/>
+            <stop offset="1" style="stop-color:#727272;stop-opacity:1"/>
+          </radialGradient>
+        </defs>
+      </svg>
+
+      <!-- vertical blobs -->
+      <!-- -------------- -->
+
+      <!-- vertical blobs close -->
+      <svg id="controlarea-vertical_close" viewBox="0 0 47 158" style="background-color: none">
+        <path d="M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob1);">
+          <animate class="animateToClose" id="animate-to-close_vertical-blob1" begin="0.5s" dur="0.2s" attributeName="d"
+            values="
+            M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;
+
+            M17.377,79.614c-4.572,-1.413 -10.636,1.439 -11.131,4.07c-0.871,4.639 3.347,7.947 7.45,7.984c4.104,0.037 8.365,-1.746 8.263,-4.881c-0.07,-2.144 -0.799,-6.003 -4.582,-7.173Z;
+
+            M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <defs>
+          <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
+            <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
+            <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+          </linearGradient>
+        </defs>
+
+        <path d="M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z" style="fill:url(#_gradient-vertical-blob2);">
+          <animate class="animateToClose" id="animate-to-close_vertical-blob2" begin="0.5s" dur="0.2s" attributeName="d"
+            values="
+          M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;
+
+          M15.016,52.635c-2.908,-0.777 -6.969,0.527 -7.26,4.129c-0.421,5.21 0.869,6.185 7.225,6.347c6.355,0.162 7.752,-2.056 7.751,-4.873c0,-2.891 -1.239,-3.873 -7.716,-5.603Z;
+
+          M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;"
+
+          fill="freeze"
+          calcMode="spline"
+          keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <defs>
+          <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
+            <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
+            <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- vertical blobs open -->
+      <svg id="controlarea-vertical_open" viewBox="0 0 47 158">
+        <path d="M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z" style="fill:url(#_gradient-vertical-blob1);">
+          <animate class="animateToOpen" id="animate-to-open_vertical-blob1" begin="0" dur="0.2s" attributeName="d"
+            values="
+            M14.875,77.627c-5.329,-1.117 -8.802,0.332 -9.603,5.296c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 9.33,-0.576 9.33,-6.227c0,-5.651 -5.265,-8.304 -9.678,-9.228Z;
+
+            M22.488,56.41c-11.687,1.312 -17.729,7.789 -19.46,18.509c-1.944,12.049 14.227,23.529 26.669,23.529c12.444,0 16.772,-8.662 16.772,-20.867c0,-12.204 -11.616,-22.558 -23.981,-21.171Z;
+
+            M25.565,59.105c-10.826,1.215 -17.61,6.435 -19.213,16.365c-1.801,11.162 8.383,20.326 19.909,20.326c11.527,0 18.666,-6.923 18.666,-18.229c0,-11.305 -7.907,-19.747 -19.362,-18.462Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <defs>
+          <linearGradient id="_gradient-vertical-blob1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,95.7957)">
+            <stop offset="0" style="stop-color:#606060;stop-opacity:1"/>
+            <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+          </linearGradient>
+        </defs>
+
+        <path d="M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z" style="fill:url(#_gradient-vertical-blob2);">
+          <animate class="animateToOpen" id="animate-to-open_vertical-blob2" begin="0" dur="0.2s" attributeName="d"
+            values="
+            M14.875,46.807c-4.78,-2.608 -8.802,3.216 -9.603,8.18c-0.901,5.578 4.19,10.159 9.951,10.159c5.762,0 8.369,-1.538 8.369,-7.189c0,-5.65 -2.965,-8.014 -8.717,-11.15Z;
+
+            M27.767,1.336c-10.826,1.215 -22.866,9.246 -24.469,19.177c-1.801,11.161 14.176,23.121 25.702,23.121c11.527,0 17.128,-11.207 17.128,-22.512c0,-11.305 -6.906,-21.072 -18.361,-19.786Z;
+
+            M25.565,2.612c-10.826,1.215 -17.61,6.434 -19.213,16.365c-1.801,11.161 8.383,20.325 19.909,20.325c11.527,0 18.666,-6.923 18.666,-18.228c0,-11.305 -7.907,-19.748 -19.362,-18.462Z;"
+
+            fill="freeze"
+            calcMode="spline"
+            keySplines="0.9 0.03 0.93 0.53; 0.79 0.09 0.16 0.73">
+          </animate>
+        </path>
+
+        <defs>
+          <linearGradient id="_gradient-vertical-blob2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(48.2231,-41.9077,41.9077,48.2231,6.14419,39.3024)">
+            <stop offset="0" style="stop-color:#d0d0d0;stop-opacity:1"/>
+            <stop offset="1" style="stop-color:#fff;stop-opacity:0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <!-- interface interaction -->
+      <!-- --------------------- -->
+
+      <!-- open-menu -->
+      <button id="controlarea_open-menu" class="controlbutton controlbuttonbubble" onclick="slidenote.presentation.animatePresentationControl(true)" title="show controlarea">
+        <span class="screenreader-only">show controlarea</span>
+        <div id="controlarea_open-menu_rect1"></div>
+        <div id="controlarea_open-menu_rect2"></div>
+        <!-- <img src="images/buttons/ctrlbuttonbubble.png"> -->
+      </button>
+      <!-- back-in -->
+      <button id="controlarea_back-in" class="controlbutton controlbuttonbottomhidearea" onclick="slidenote.presentation.animatePresentationControl(false)" title="hide controlarea">
+        <span class="screenreader-only">hide controlarea</span>
+        <img src="images/buttons/ctrlbuttonhidearea.png">
+      </button>
+      <!-- first-slide -->
+      <button id="controlarea_first-slide" class="controlbutton controlbuttonbottomfirst" onclick="presentation.showPage(0)" title="first page">
+        <span class="screenreader-only">first page</span>
+        <img src="images/buttons/ctrlbuttonfirst.png">
+      </button>
+      <!-- previous-slide -->
+      <button id="controlarea_previous-slide" class="controlbutton" onclick="presentation.lastPage()" title="page before">
+        <span class="screenreader-only">page before</span>
+        <img src="images/buttons/ctrlbuttonbefore.png">
+      </button>
+      <!-- next-slide -->
+      <button id="controlarea_next-slide" class="controlbutton controlbuttonbottomnext" onclick="presentation.nextPage()" title="next page">
+        <span class="screenreader-only">next page</span>
+        <img src="images/buttons/ctrlbuttonnext.png">
+      </button>
+      <!-- last slide -->
+      <button id="controlarea_last-slide" class="controlbutton" onclick="presentation.showPage(presentation.pages.length-1)" title="last page">
+        <span class="screenreader-only">last page</span>
+        <img src="images/buttons/ctrlbuttonlast.png">
+      </button>
+
+      <!-- additional interaction -->
+      <!-- ---------------------- -->
+
+  		<button class="controlbutton" id="controlcomment">
+  			<img src="images/buttons/cmscomment.svg">
+  			<span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span>
+  		</button>
+  		<button id="controlarea_multiuserdialog" class="controlbutton controlbuttonleft" onclick="ws.showDialog()" title="hide presentation">
+  			<span class="screenreader-only">start a session</span>
+  			<img src="images/buttons/cmsmultisession.svg">
+  		</button>
+      <!-- old interface
     		<button class="controlbutton">backward</button>
     		<button class="controlbutton">forward</button>
     		<button class="controlbutton">start of slideshow</button>
@@ -367,31 +366,37 @@
     		<span class="controlbutton"><span id="controlpagenumber"></span> / <span id="controlpagenumbertotal"></span></span>
     		<button class="controlbutton" id="controlcomment"><img src="images/buttons/presentationcomment.png"><span id="controlcommentcount"></span>/<span id="controlcommenttotal"></span></button>
     	-->
-    	</div>
+  	</div>
 
-    </div> <!--slidenotediv-->
-    <!--passwordprompt-store-->
-    <div id="slidenoteGuardianPasswordPromptStore">
-    <div id="slidenoteGuardianPasswordPromptTemplate">
-    	<div id="slidenoteGuardianPasswordPromptNotetitle">TITLE</div>
-    	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
-    	<form onsubmit="event.preventDefault();" action="#" method="POST">
-    		<label id="slidenoteGuardianPasswordPromptUsernameLabel">FILENAME FOR EXPORT</label>
-    		<input type="text" id="username">
-    		<label>PASSWORD</label>
-    		<input type="password" id="password">
-    		<label id="slidenoteGuardianPasswordPromptRetypeLabel">RE-TYPE PASSWORD</label>
-    		<input type="password" id="pwcheckfield">
-    		<button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">ENCRYPT</button>
-    		<div id="slidenoteGuardianPasswortPromptAfterText">we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.</div>
-    	</form>
-
+  </div> <!--slidenotediv-->
+  <!--passwordprompt-store-->
+  <div id="slidenoteGuardianPasswordPromptStore">
+    <div id="slidenoteGuardianPasswordPromptTemplate" class="dialogbox initial small">
+    	<h1 class="dialogtitle">
+        <span id="slidenoteGuardianPasswordPromptNotetitle">TITLE</span>
+        <button class="dialogclosebutton" id="dialogclosebutton"><span>cancel</span><img src="images/buttons/x.svg"></button>
+      </h1>
+      <div class="dialogcontent">
+      	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
+      	<form onsubmit="event.preventDefault();" action="#" method="POST">
+      		<label id="slidenoteGuardianPasswordPromptUsernameLabel">FILENAME FOR EXPORT</label>
+      		<input type="text" id="username">
+      		<label>PASSWORD</label>
+      		<input type="password" id="password">
+      		<label id="slidenoteGuardianPasswordPromptRetypeLabel">RE-TYPE PASSWORD</label>
+      		<input type="password" id="pwcheckfield">
+      		<div class="buttonarea">
+            <button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">ENCRYPT</button>
+          </div>
+      		<div id="slidenoteGuardianPasswortPromptAfterText">we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.</div>
+      	</form>
+      </div>
     </div>
   </div><!--passwordprompt-store-->
 
 
-    <!-- comment-section:template with 1 comment:-->
-    <div id="comments" class="dialogbox comment-wrapper show">
+  <!-- comment-section:template with 1 comment:-->
+  <div id="comments" class="dialogbox comment-wrapper show">
     <h2 class="dialogtitle">
         <button class="commentnav" id="previousCommentSlide">&lt;</button>
         <span id="commentblocktitle">comments on slide 1</span>
@@ -413,28 +418,28 @@
       </li>
     </ul>
 
-    </div>
-      <button class="" id="commentAddButton">post comment ⌄</button>
-    <form class="comment-form" action="" method="post" id="comment-form" accept-charset="UTF-8">
-        <div class="form-item form-type-textfield form-item-name">
-          <label for="edit-name">your name </label>
-          <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
-        </div>
-        <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
-          <div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
-            <label for="edit-comment-body-und-0-value">Comment</label>
-            <div class="form-textarea-wrapper resizable">
-              <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
-            </div>
-          </div></div></div>
-        </div>
-        <div class="form-actions form-wrapper" id="edit-actions">
-          <input type="submit" id="comment-submit" name="op" value="encypt & send" class="form-submit">
-        </div>
-    </form>
+  </div>
+  <button class="" id="commentAddButton">post comment ⌄</button>
+  <form class="comment-form" action="" method="post" id="comment-form" accept-charset="UTF-8">
+      <div class="form-item form-type-textfield form-item-name">
+        <label for="edit-name">your name </label>
+        <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
+      </div>
+      <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
+        <div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+          <label for="edit-comment-body-und-0-value">Comment</label>
+          <div class="form-textarea-wrapper resizable">
+            <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
+          </div>
+        </div></div></div>
+      </div>
+      <div class="form-actions form-wrapper" id="edit-actions">
+        <input type="submit" id="comment-submit" name="op" value="encypt & send" class="form-submit">
+      </div>
+  </form>
 
-    <!-- additional starting-scripts-->
-    <script language="javascript">
+  <!-- additional starting-scripts-->
+  <script language="javascript">
     var slidenoteguardian = {
       actthemesstring: "extraoptions;hiddenobjects;blocks;progressbar;stickytitles;azul;redalert;tufte;prototyp;highlight;transition;chartist;table;imgtourl;klatex;switchparseelements;sections;",
       ivlength: 12,
@@ -937,7 +942,7 @@
     };
 
 
-    </script>
+  </script>
 
-  </body>
+</body>
 </html>

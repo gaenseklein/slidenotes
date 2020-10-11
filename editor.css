@@ -111,7 +111,7 @@
   /*give all buttons parental dependent font size*/
   a[href], input[type='submit'], input[type='text'], input[type='password'], input[type='image'], label[for], select, button{
     font-size: 1em;
-    font-family: rubikReg;
+    font-family: "rubikReg", sans-serif;
     border: 0;
     padding: 0;
     border-radius: calc(5*var(--pscale));

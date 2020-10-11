@@ -56,7 +56,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful .ppage .progressbar{
   background: var(--colorfulHeadlineTextShadow);
-  border-radius: 99px;
+  border-radius: 0 0 99px;
 }
 
 
