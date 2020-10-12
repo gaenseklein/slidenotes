@@ -104,15 +104,17 @@ slidenoteplayer.initButtons = function(){
   }
 
   this.commentAddCommentButton = document.getElementById("commentAddButton");
-  this.commentAddCommentButton.innerText = "post comment ⌄";
-  //this.commentAddCommentButton.id="commentAddButton";
-  this.commentAddCommentButton.onclick = function(){
-    if(this.innerText==="post comment ⌄"){
-      slidenoteplayer.showCommentForm();
-      this.innerText="post comment ⌃";
-    }else{
-      slidenoteplayer.hideCommentForm();
-      this.innerText="post comment ⌄";
+  if(this.commentAddCommentButton){
+    this.commentAddCommentButton.innerText = "post comment ⌄";
+    //this.commentAddCommentButton.id="commentAddButton";
+    this.commentAddCommentButton.onclick = function(){
+      if(this.innerText==="post comment ⌄"){
+        slidenoteplayer.showCommentForm();
+        this.innerText="post comment ⌃";
+      }else{
+        slidenoteplayer.hideCommentForm();
+        this.innerText="post comment ⌄";
+      }
     }
   }
   this.commentblock = document.getElementById("comments");
