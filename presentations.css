@@ -1,4 +1,7 @@
 /*special declarations for presentations online, mainly comments*/
+body{
+  margin: 0;
+}
 #slidenotepresentation > div {
   position: fixed;
   left: 0;
@@ -253,5 +256,15 @@ span#controlcommentcount {
 }
 
 .spectator #controlarea {
+  display: none;
+}
+
+#hidepresentation{
+  height: 100vh;
+  background: var(--dialogbox-overlay);
+  width: 100vw;
+  position: fixed;
+}
+#slidenoteloadingscreenwrapper.endstate~#hidepresentation{
   display: none;
 }
