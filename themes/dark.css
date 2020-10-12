@@ -24,22 +24,32 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 @font-face{
   font-family: "Staatliches";
   src: url("../fonts/themes/dark/Staatliches-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face{
   font-family: "Ubuntu-Light";
   src: url("../fonts/themes/dark/Ubuntu-Light.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face{
   font-family: "Ubuntu-Medium";
   src: url("../fonts/themes/dark/Ubuntu-Medium.ttf");
+  font-weight: bold;
+  font-style: normal;
 }
 @font-face{
   font-family: "Ubuntu-LightItalic";
   src: url("../fonts/themes/dark/Ubuntu-LightItalic.ttf");
+  font-weight: normal;
+  font-style: italic;
 }
 @font-face{
   font-family: "UbuntuMonoReg";
   src: url("../fonts/UbuntuMono-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 

@@ -24,22 +24,32 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 @font-face{
   font-family: "ComfortaaLight";
   src: url("../fonts/themes/minimalist/Comfortaa-Light.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face{
   font-family: "KhulaReg";
   src: url("../fonts/themes/minimalist/Khula-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face{
   font-family: "KhulaBold";
   src: url("../fonts/themes/minimalist/Khula-Bold.ttf");
+  font-weight: normal;
+  font-style: bold;
 }
 @font-face{
   font-family: "OpenSansItalic";
   src: url("../fonts/themes/minimalist/OpenSans-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
 }
 @font-face{
   font-family: "CutiveMono";
   src: url("../fonts/themes/minimalist/CutiveMono-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 

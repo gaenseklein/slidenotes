@@ -26,22 +26,32 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 @font-face{
   font-family: "FredokaOne";
   src: url("../fonts/themes/colorful/FredokaOne-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face{
   font-family: "RobotoCondReg";
   src: url("../fonts/themes/colorful/RobotoCondensed-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 @font-face{
   font-family: "RobotoCondBold";
   src: url("../fonts/themes/colorful/RobotoCondensed-Bold.ttf");
+  font-weight: bold;
+  font-style: normal;
 }
 @font-face{
   font-family: "RobotoCondItalic";
   src: url("../fonts/themes/colorful/RobotoCondensed-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
 }
 @font-face{
   font-family: "CourierPrime-Regular";
   src: url("../fonts/themes/colorful/CourierPrime-Regular.ttf");
+  font-weight: normal;
+  font-style: normal;
 }
 
 

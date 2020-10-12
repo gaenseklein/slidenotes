@@ -95,16 +95,6 @@ img.vertical.griditem{
 	max-height: 80vh;
 }
 
-/*because it screws up the font otherwise*/
-/*then find another solution, because otherwise b and i does not work anymore*/
-/*
-.ppage b{
-  font-weight: normal;
-}
-.ppage i{
-  font-style: normal;
-}
-*/
 
 .ppage p{
   margin: 0;
