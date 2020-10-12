@@ -1,34 +1,34 @@
 /*special declarations for presentations online, mainly comments*/
 #slidenotepresentation > div {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 #comments {
-    background: #f4f4f4;
-    border-radius:1vh;
-    position: fixed;
-    left: 5vw;
-    bottom: 7vh;
-    display: none;
-    max-width:80vw;
+  background: #f4f4f4;
+  border-radius:1vh;
+  position: fixed;
+  left: 5vw;
+  bottom: 7vh;
+  display: none;
+  max-width:80vw;
 }
 
 #comments.show.dialogbox{
-    box-shadow:0 0 5px 5px rgba(0,0,0,0.25);
-    display:grid;
-    overflow:hidden;
-    grid-template-areas:
-        "title"
-        "comments"
-        "hidebutton"
-        "form"
-        "sendbutton";
-    grid-gap: 1ch;
-    grid-template-columns:100%;
+  box-shadow:0 0 5px 5px rgba(0,0,0,0.25);
+  display:grid;
+  overflow:hidden;
+  grid-template-areas:
+  "title"
+  "comments"
+  "hidebutton"
+  "form"
+  "sendbutton";
+  grid-gap: 1ch;
+  grid-template-columns:100%;
 }
 
 
@@ -40,19 +40,19 @@
 }
 
 div#edit-author--2 {
-    display: none;
+  display: none;
 }
 
 fieldset#edit-comment-body-und-0-format {
-    display: none;
+  display: none;
 }
 
 div#edit-field-pagenr {
-    display: none;
+  display: none;
 }
 
 input#edit-preview, input#edit-submit {
-    display: none;
+  display: none;
 }
 
 .comment-form{
@@ -63,33 +63,33 @@ input#edit-preview, input#edit-submit {
 }
 
 #comments .dialogtitle{
-    text-align:center;
-    height:3em;
-    display:grid;
-    grid-template-columns: 5ch 5ch 1fr 5ch 10ch;
-    align-items:end;
-    align-content:center;
-    justify-content: center;
-    grid-template-areas:". navprev title navnext close";
-    margin:0;
-    padding:0;
-    font-size:large;
+  text-align:center;
+  height:3em;
+  display:grid;
+  grid-template-columns: 5ch 5ch 1fr 5ch 10ch;
+  align-items:end;
+  align-content:center;
+  justify-content: center;
+  grid-template-areas:". navprev title navnext close";
+  margin:0;
+  padding:0;
+  font-size:large;
 }
 .dialogtitle span{
-    grid-area:title;
- }
- button#previousCommentSlide {
-    grid-area: navprev;
+  grid-area:title;
+}
+button#previousCommentSlide {
+  grid-area: navprev;
 }
 
 button#nextCommentSlide {
-    grid-area: navnext;
+  grid-area: navnext;
 }
 button.commentnav {
-    border: none;
-    background: none;
-    font-size: large;
-    opacity:0.3;
+  border: none;
+  background: none;
+  font-size: large;
+  opacity:0.3;
 }
 
 button.commentnav.active{
@@ -97,7 +97,7 @@ button.commentnav.active{
 }
 
 button {
-    cursor: pointer;
+  cursor: pointer;
 }
 /*.dialogbox .dialogtitle .dialogclosebutton{
   align-self:start;
@@ -122,21 +122,21 @@ button {
   max-width:80vw;
   max-height:82vh;
   overflow-y:auto;
-}*/
+  }*/
 .dialogcontent > a{
   display:none;
 }
 
 #comments > div {
-    background: #fff;
+  background: #fff;
 }
 
 button#commentAddButton {
-    background: white;
-    border-radius: 1ch;
-    padding-left: 2ch;
-    padding-right: 1ch;
-    justify-self: center;
+  background: white;
+  border-radius: 1ch;
+  padding-left: 2ch;
+  padding-right: 1ch;
+  justify-self: center;
 }
 
 #comments form label {
@@ -145,62 +145,62 @@ button#commentAddButton {
   overflow: hidden;
   opacity: 0;
   position: absolute;
-  }
+}
 
 .comment {
-    margin-left: 3vh;
+  margin-left: 3vh;
 }
 
 
 form#comment-form textarea {
-    margin-left: 1ch;
-    margin-right: 1ch;
-    border-radius: 1ch;
-    resize: vertical;
-    max-width: 100%;
+  margin-left: 1ch;
+  margin-right: 1ch;
+  border-radius: 1ch;
+  resize: vertical;
+  max-width: 100%;
 }
 
 form#comment-form {
   width: 100%;
-  }
+}
 
 form.comment-form.show {
-    justify-self: center;
+  justify-self: center;
 }
 
 button.comment-form.show {
-    margin-left: 1ch;
-    margin-bottom: 1em;
-    justify-self: start;
-    border-radius: 0.5ch;
-    background: #505050;
-    color: white;
+  margin-left: 1ch;
+  margin-bottom: 1em;
+  justify-self: start;
+  border-radius: 0.5ch;
+  background: #505050;
+  color: white;
 }
 
 span#controlcommenttotal {
-    display: none;
+  display: none;
 }
 
 span#controlcommentcountseparator {
-    display: none;
+  display: none;
 }
 
 .hasComments span#controlcommentcount{
   display:block;
 }
 span#controlcommentcount {
-    display:none;
-    position: absolute;
-    right: 0.6ch;
-    bottom: 0.5ch;
-    border: 2px solid gray;
-    border-radius: 100%;
-    width: 2ch;
-    height: 2ch;
-    background: white;
+  display:none;
+  position: absolute;
+  right: 0.6ch;
+  bottom: 0.5ch;
+  border: 2px solid gray;
+  border-radius: 100%;
+  width: 2ch;
+  height: 2ch;
+  background: white;
 }
 
-/*loading screen */
+  /*loading screen */
 /*#slidenoteloadingscreenwrapper,
 #slidenoteGuardianPasswortPrompt {
     position: absolute;
@@ -235,7 +235,7 @@ span#controlcommentcount {
 }*/
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 .endstate{
@@ -253,5 +253,5 @@ span#controlcommentcount {
 }
 
 .spectator #controlarea {
-    display: none;
+  display: none;
 }

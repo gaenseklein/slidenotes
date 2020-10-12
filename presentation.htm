@@ -424,21 +424,22 @@
   </div>
   <button class="" id="commentAddButton">post comment ⌄</button>
   <form class="comment-form" action="" method="post" id="comment-form" accept-charset="UTF-8">
-      <div class="form-item form-type-textfield form-item-name">
-        <label for="edit-name">your name </label>
-        <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
-      </div>
-      <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
-        <div id="comment-body-add-more-wrapper"><div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
-          <label for="edit-comment-body-und-0-value">Comment</label>
-          <div class="form-textarea-wrapper resizable">
-            <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
-          </div>
-        </div></div></div>
-      </div>
-      <div class="form-actions form-wrapper" id="edit-actions">
-        <input type="submit" id="comment-submit" name="op" value="encypt & send" class="form-submit">
-      </div>
+    <div class="form-item form-type-textfield form-item-name">
+      <label for="edit-name">your name </label>
+      <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
+    </div>
+    <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
+      <div id="comment-body-add-more-wrapper">
+        <div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+        <label for="edit-comment-body-und-0-value">Comment</label>
+        <div class="form-textarea-wrapper resizable">
+          <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
+        </div>
+      </div></div></div>
+    </div>
+    <div class="form-actions form-wrapper" id="edit-actions">
+      <input type="submit" id="comment-submit" name="op" value="encypt & send" class="form-submit">
+    </div>
   </form>
 
   <!-- additional starting-scripts-->
@@ -563,7 +564,7 @@
       }catch{
       //load old config style? naa, just delete it...
         console.log("old config found");
-    //    this.loadConfigOld(destination);
+      //   this.loadConfigOld(destination);
         return;
       }
 
@@ -586,32 +587,32 @@
 
 
     slidenoteguardian.decryptPresentation = async function(){
-          //getting iv of string:
+      //getting iv of string:
 
-        let iv = new Uint8Array(this.ivlength); //create empty ivarray
-        for(let i=0;i<this.ivlength;i++)iv[i]=this.encBufferString.charCodeAt(i)-255;
-        this.iv = iv;
-        this.encBufferString = this.encBufferString.substring(this.ivlength);//delete iv-chars from string
-        let buffer = new Uint8Array(this.encBufferString.length);
-        for(let i=0;i<this.encBufferString.length;i++)buffer[i]=this.encBufferString.charCodeAt(i)-255;
-        //this.encTextBuffer = buffer.buffer; //changing to ArrayBuffer -- TODO:kann weg oder?
-        this.password = ""; //try it once with empty password
+      let iv = new Uint8Array(this.ivlength); //create empty ivarray
+      for(let i=0;i<this.ivlength;i++)iv[i]=this.encBufferString.charCodeAt(i)-255;
+      this.iv = iv;
+      this.encBufferString = this.encBufferString.substring(this.ivlength);//delete iv-chars from string
+      let buffer = new Uint8Array(this.encBufferString.length);
+      for(let i=0;i<this.encBufferString.length;i++)buffer[i]=this.encBufferString.charCodeAt(i)-255;
+      //this.encTextBuffer = buffer.buffer; //changing to ArrayBuffer -- TODO:kann weg oder?
+      this.password = ""; //try it once with empty password
+      this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
+      if(this.decText==="decryption has failed"){
+        this.password=null;
         this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
-        if(this.decText==="decryption has failed"){
-          this.password=null;
-          this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
-        }
+      }
       while(this.decText==="decryption has failed" && confirm("decryption failed. wrong password. Retry?")){
         this.password=null;
         this.decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
       }
-        if(this.decText==="decryption has failed")return;
-        //decryption was successfull
+      if(this.decText==="decryption has failed")return;
+      //decryption was successfull
 
       //var imgblockpos = this.decText.indexOf("§§§€€€€€IMAGEBLOCK€€€€€§§§");
       //this.imageblockstring = this.decText.substring(imgblockpos+26);
       //this.decText = this.decText.substring(0,imgblockpos);
-        slidenote.textarea.value = this.decText;
+      slidenote.textarea.value = this.decText;
       slidenote.extensions.addAfterLoadingThemesHook(async function(){
         //slidenote.base64images.loadImageString(slidenoteguardian.imageblockstring);
         await slidenoteguardian.loadImages();
@@ -619,10 +620,10 @@
         slidenote.parseneu();
         slidenote.presentation.showpresentation();
         slidenoteplayer.init();
-            //loadingscreen:
-            let loadingscreen = document.getElementById("slidenoteloadingscreenwrapper");
-            loadingscreen.classList.remove("midstate");
-            loadingscreen.classList.add("endstate");
+        //loadingscreen:
+        let loadingscreen = document.getElementById("slidenoteloadingscreenwrapper");
+        loadingscreen.classList.remove("midstate");
+        loadingscreen.classList.add("endstate");
       });
     }
     slidenoteguardian.loadImages = async function(){
@@ -645,21 +646,21 @@
       }
     }
     slidenoteguardian.decryptText = async function(text){
-        var encBufferString = text;
-          //getting iv of string:
-        let iv = new Uint8Array(this.ivlength); //create empty ivarray
-        for(let i=0;i<this.ivlength;i++)iv[i]=encBufferString.charCodeAt(i)-255;
-        this.iv = iv;
-        encBufferString = encBufferString.substring(this.ivlength);//delete iv-chars from string
-        let buffer = new Uint8Array(encBufferString.length);
-        for(let i=0;i<encBufferString.length;i++)buffer[i]=encBufferString.charCodeAt(i)-255;
-        //this.encTextBuffer = buffer.buffer; //changing to ArrayBuffer -- TODO:kann weg oder?
-        var decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
+      var encBufferString = text;
+        //getting iv of string:
+      let iv = new Uint8Array(this.ivlength); //create empty ivarray
+      for(let i=0;i<this.ivlength;i++)iv[i]=encBufferString.charCodeAt(i)-255;
+      this.iv = iv;
+      encBufferString = encBufferString.substring(this.ivlength);//delete iv-chars from string
+      let buffer = new Uint8Array(encBufferString.length);
+      for(let i=0;i<encBufferString.length;i++)buffer[i]=encBufferString.charCodeAt(i)-255;
+      //this.encTextBuffer = buffer.buffer; //changing to ArrayBuffer -- TODO:kann weg oder?
+      var decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
       //while(decText==="decryption has failed" && confirm("decryption failed. wrong password. Retry?")){
         //decText = await this.decrypt(buffer.buffer, this.iv); //decrypt ArrayBuffer
       //}
       //document.getElementById("slidenotepresentation").innerHTML = this.decText;
-        return decText;
+      return decText;
     }
 
     slidenoteguardian.decrypt = async function(buffer, iv){
@@ -740,13 +741,13 @@
 
     slidenoteguardian.encrypt = async function(plaintext){
       console.log("encrypt plaintext:"+plaintext.substring(0,20));
-        let plainTextUtf8 = new TextEncoder().encode(plaintext); //changing into UTF-8-Array
-        let keyguardian = await this.createKey();
-        if(keyguardian==null)return {encbuffer:null, iv:null};
-        //this.iv = keyguardian.iv;
-        let encbuffer = await crypto.subtle.encrypt(keyguardian.alg, keyguardian.key, plainTextUtf8);
-        return {encbuffer: encbuffer, iv:keyguardian.iv};
-        /*the job of encrypt is done - rest of code should be in save*/
+      let plainTextUtf8 = new TextEncoder().encode(plaintext); //changing into UTF-8-Array
+      let keyguardian = await this.createKey();
+      if(keyguardian==null)return {encbuffer:null, iv:null};
+      //this.iv = keyguardian.iv;
+      let encbuffer = await crypto.subtle.encrypt(keyguardian.alg, keyguardian.key, plainTextUtf8);
+      return {encbuffer: encbuffer, iv:keyguardian.iv};
+      /*the job of encrypt is done - rest of code should be in save*/
     }
 
     slidenoteguardian.createKey = async function(iv, passw){
