@@ -215,7 +215,7 @@
             var cpltext = document.createElement("div");
             cpltext.innerText="copy link";
             cpl.appendChild(cpltext);
-            cpl.value = 'https://presentations.slidenotes.io/presentations.htm?'+url;
+            cpl.value = location.protocol+'//'+location.host+'/presentation.htm?'+url;
             cpl.onclick = function(){
                 var text = this.value;
                 var input = document.createElement('input');
