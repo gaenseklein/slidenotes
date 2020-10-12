@@ -3,7 +3,7 @@ p code.hljs{
 }
 
 code {
-	/*white-space:pre;*/
+
 }
 span code{
 	white-space:pre-line;
@@ -38,4 +38,16 @@ span code{
 
 .ppage code.codeblock ol {
     list-style-type: decimal;
+    list-style-position: inside;
+    list-style: none;
+    counter-reset: code-line-counter;
+}
+
+.ppage code.codeblock ol li{
+	counter-increment: code-line-counter;
+}
+
+.ppage code.codeblock ol li::before{
+	content: counter(code-line-counter) " ";
+	opacity: 0.3;
 }
