@@ -11,8 +11,8 @@ body{
 }
 
 #comments {
-  background: #f4f4f4;
-  border-radius:1vh;
+  /*background: #f4f4f4;*/
+  /*border-radius:1vh;*/
   position: fixed;
   left: 5vw;
   bottom: 7vh;
@@ -59,7 +59,7 @@ input#edit-preview, input#edit-submit {
 }
 
 .comment-form{
-	display:none;
+	/*display:none;*/
 }
 .comment-form.show{
 	display:block;
@@ -75,7 +75,9 @@ input#edit-preview, input#edit-submit {
   justify-content: center;
   grid-template-areas:". navprev title navnext close";
   margin:0;
-  padding:0;
+  /*padding:0;*/
+  padding-top: 0;
+  padding-bottom: 0; 
   font-size:large;
 }
 .dialogtitle span{
@@ -131,15 +133,15 @@ button {
 }
 
 #comments > div {
-  background: #fff;
+  /*background: #fff;*/
 }
 
 button#commentAddButton {
-  background: white;
-  border-radius: 1ch;
-  padding-left: 2ch;
+  /*background: white;*/
+  /*border-radius: 1ch;*/
+  /*padding-left: 2ch;
   padding-right: 1ch;
-  justify-self: center;
+  justify-self: center;*/
 }
 
 #comments form label {
@@ -176,8 +178,8 @@ button.comment-form.show {
   margin-bottom: 1em;
   justify-self: start;
   border-radius: 0.5ch;
-  background: #505050;
-  color: white;
+  /*background: #505050;*/
+  /*color: white;*/
 }
 
 span#controlcommenttotal {
@@ -200,7 +202,7 @@ span#controlcommentcount {
   border-radius: 100%;
   width: 2ch;
   height: 2ch;
-  background: white;
+  /*background: white;*/
 }
 
   /*loading screen */
@@ -264,6 +266,7 @@ span#controlcommentcount {
   background: var(--dialogbox-overlay);
   width: 100vw;
   position: fixed;
+  z-index: 1002;
 }
 #slidenoteloadingscreenwrapper.endstate~#hidepresentation{
   display: none;

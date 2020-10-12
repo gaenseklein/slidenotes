@@ -48,6 +48,7 @@
   .dialogbox input[type='image'], 
   .dialogbox label[for], 
   .dialogbox select, 
+  .dialogbox details summary, 
   .dialogbox button{
     font-size: 1em;
     font-family: "rubikReg", sans-serif;
@@ -189,10 +190,13 @@
   .dialogcontent div:first-child {
     margin-top: unset;
   }
-  .dialogcontent button:first-child{
+  .dialogcontent button:first-child, 
+  .dialogcontent input[type='submit']:first-child{
     margin-top: 0;
   }
-  .dialogcontent button {
+  .dialogcontent button, 
+  .dialogcontent details summary, 
+  .dialogcontent input[type='submit'] {
     background-color: var(--dialogbox-button2-bg-color);
     color: var(--dialogbox-button2-font-color);
     padding-top: calc(13*var(--pscale));
@@ -202,7 +206,12 @@
     padding-left: calc(10*var(--pscale));
     padding-right: calc(10*var(--pscale));
   }
-  .dialogcontent button:hover, .dialogcontent button:focus{
+  .dialogcontent button:hover, 
+  .dialogcontent button:focus, 
+  .dialogcontent details summary:hover, 
+  .dialogcontent details summary:focus, 
+  .dialogcontent input[type='submit']:hover, 
+  .dialogcontent input[type='submit']:focus{
     background-color: var(--dialogbox-button2-focus-bg-color);
   }
 
@@ -222,7 +231,8 @@
   .dialogbox .dialogcontent .buttonarea{
     padding: 0;
   }
-  .dialogbox .dialogcontent .buttonarea button{
+  .dialogbox .dialogcontent .buttonarea button,
+  .dialogbox .dialogcontent .buttonarea input[type='submit']{
     width: unset;
     margin-top: 0;
   }
@@ -234,7 +244,8 @@
     margin-top: 0;
   }*/
 
-  .dialogbox .buttonarea button {
+  .dialogbox .buttonarea button,
+  .dialogbox .buttonarea input[type='submit']{
     grid-row: 1;
     /*min-width: 14vh;*/
     min-width: calc(144*var(--pscale));
@@ -243,6 +254,23 @@
     border: none;
     color: var(--dialogbox-button2-font-color);
   }
+  .dialogbox input[type='text']{
+    display: block;
+    margin-bottom:20px;
+    margin-left: auto;
+    margin-right: auto;
+    width: unset;
+    border-radius: calc(12/10.8*1vh);
+    font-size: calc(20/16*1em);
+    padding: calc(3/10.8*1vh);
+    border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
+    box-shadow: inset 0 0 calc(2/10.8*1vh) calc(2/10.8*1vh) var(--shadow-lighter);
+    height: calc(40/20*1em);
+    box-sizing: border-box;
+    margin-top: calc(5/10.8*1vh);
+    background-color: var(--dialogbox-button3-bg-color);
+  }
+
   button#dialogconfirmbutton:hover, button#dialogcancelbutton:hover{
     background-color: var(--dialogbox-button2-focus-bg-color);
   }
@@ -262,6 +290,20 @@
     padding-bottom: calc(20*var(--pscale));
   }
 
+  .dialogbox textarea{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: calc(12/10.8*1vh);
+    font-size: calc(20/16*1em);
+    padding: calc(3/10.8*1vh);
+    border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
+    box-shadow: inset 0 0 calc(2/10.8*1vh) calc(2/10.8*1vh) var(--shadow-lighter);
+    box-sizing: border-box;
+    margin-top: calc(5/10.8*1vh);
+    background-color: var(--dialogbox-button3-bg-color);
+  }
+
   /*hide imagesblock as fast as possible:*/
   #imagesuploadblock{
     display:none;
@@ -276,7 +318,7 @@
   .nightmode {
     /*colors*/
     /*------*/
-    
+
     /*arrow-box*/
     --arrow-box-button5-bg-color: #0D0D0D; /*mobile toolbar*/
     /*shadows*/
@@ -369,12 +411,16 @@
         padding-bottom: calc(37*0.7*var(--pscale));
       }
 
-      .dialogbox div.buttonarea button{
+      .dialogbox div.buttonarea button,
+      .dialogbox div.buttonarea details summary,
+      .dialogbox div.buttonarea input[type='submit']{
         min-width: calc(144*0.7*var(--pscale));
         min-height: calc(45.36*0.7*var(--pscale));
       }
 
-      div.dialogcontent button{
+      div.dialogcontent button,
+      div.dialogcontent details summary,
+      div.dialogcontent input[type='submit']{
         padding-top: calc(13*0.7*var(--pscale));
         padding-bottom: calc(13*0.7*var(--pscale));
         padding-left: calc(10*0.7*var(--pscale));
@@ -385,12 +431,6 @@
       }
       .dialogbox.small .dialogcontent{
         max-width: min(420*var(--pscale), 100vw);
-      }
-
-
-      .big-mode ~ #slidenoteGuardianPasswortPrompt input,
-      .big-mode .dialogbox.initial input{
-        width: 100%;
       }
 
 }

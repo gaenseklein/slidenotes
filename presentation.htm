@@ -420,27 +420,29 @@
           <!-- we could also put the date in here -->
         </li>
       </ul>
-
-    </div>
-    <button class="" id="commentAddButton">post comment ⌄</button>
-    <form class="comment-form" action="" method="post" id="comment-form" accept-charset="UTF-8">
-      <div class="form-item form-type-textfield form-item-name">
-        <label for="edit-name">your name </label>
-        <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
-      </div>
-      <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
-        <div id="comment-body-add-more-wrapper">
-          <div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
-          <label for="edit-comment-body-und-0-value">Comment</label>
-          <div class="form-textarea-wrapper resizable">
-            <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
+      <!-- <button class="" id="commentAddButton">post comment ⌄</button> -->
+      <details>
+        <summary>write comment</summary>
+        <form class="comment-form" action="" method="post" id="comment-form" accept-charset="UTF-8">
+          <div class="form-item form-type-textfield form-item-name">
+            <label for="edit-name">your name </label>
+            <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
           </div>
-        </div></div></div>
-      </div>
-      <div class="form-actions form-wrapper" id="edit-actions">
-        <input type="submit" id="comment-submit" name="op" value="encypt & send" class="form-submit">
-      </div>
-    </form>
+          <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
+            <div id="comment-body-add-more-wrapper">
+              <div class="text-format-wrapper"><div class="form-item form-type-textarea form-item-comment-body-und-0-value">
+              <label for="edit-comment-body-und-0-value">Comment</label>
+              <div class="form-textarea-wrapper resizable">
+                <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
+              </div>
+            </div></div></div>
+          </div>
+          <div class="form-actions form-wrapper" id="edit-actions">
+            <input type="submit" id="comment-submit" name="op" value="encypt & send" class="form-submit">
+          </div>
+        </form>
+      </details>
+    </div>
   </div>
   <div id="hidepresentation"></div>
   <!-- additional starting-scripts-->
