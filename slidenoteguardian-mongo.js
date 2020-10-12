@@ -748,18 +748,22 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
   console.log("theme-string:"+this.slidenote.extensions.themeObjektString);
 
   this.cssBlocksPerPlugin = new Array();
+  //is this really necesary?:
+  /*
   var basicl = new XMLHttpRequest();
   basicl.addEventListener("load",function(){
     if(this.status===200)slidenoteguardian.cssBlocksPerPlugin.push({plugin:"basic", css:this.response});
   })
   basicl.open("GET", slidenote.basepath+"editor.css");
   basicl.send();
+  */
   var basepath = slidenote.basepath+"themes/"
   var themes = slidenote.extensions.themeCssString.split(";");//slidenote.extensions.themes;
   themes.pop(); //remove last empty entry
   for(var x=0;x<themes.length;x++)themes[x]= basepath + themes[x];
   themes.push(basepath + "slidenoteguardian");
   themes.push(slidenote.basepath + "slidenoteplayer");
+  themes.push(basepath+'katex-fonts-incl');
   //adding highlight-themes-styles:
   for(var x=0;x<slidenote.extensions.cssthemes.length;x++){
     let actt= slidenote.extensions.cssthemes[x];
@@ -777,6 +781,7 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
       if(this.responseURL.indexOf('highlight/styles/')>-1){
         pluginname = "highlight/styles/"+pluginname;
       }
+      if(this.responseURL.indexOf('katex')>-1)pluginname="klatex";
       if(this.status ===200){
         let resp = this.response;
         if(pluginname=="slidenoteplayer"){
