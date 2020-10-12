@@ -767,12 +767,15 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
         <!-- additional interaction -->
         <!-- ---------------------- -->
 
-		<button class="controlbutton" id="controlcomment">
+		<button class="controlbutton" id="controlcomment" title="show comments">
+			<span class="screenreader-only">show comments</span>
 			<img src="/sites/all/libraries/slidenotes/images/buttons/cmscomment.png">
-			<span id="controlcommentcount"></span><span id="controlcommentcountseparator">/</span><span id="controlcommenttotal"></span>
+			<span id="controlcommentcount"></span>
+			<span id="controlcommentcountseparator">/</span>
+			<span id="controlcommenttotal"></span>
 		</button>
-		<button id="controlarea_multiuserdialog" class="controlbutton controlbuttonleft" onclick="ws.showDialog()" title="hide presentation">
-			<span class="screenreader-only">hide presentation</span>
+		<button id="controlarea_multiuserdialog" class="controlbutton controlbuttonleft" onclick="ws.showDialog()" title="start a session">
+			<span class="screenreader-only">start a session</span>
 			<img src="/sites/all/libraries/slidenotes/images/buttons/cmsmultisession.png">
 		</button>
 <!-- old interface
