@@ -59,7 +59,7 @@ var mongoguardian = {
   },
   initTutorial: async function(){
     //tutorials are loaded with location ?tutorial=tutorialname
-    let tutoriallist = await this.get_json('/editor/tutorials/tutoriallist.json');
+    let tutoriallist = await this.get_json('/tutorials/tutoriallist.json');
     let tutorialurl = location.search.substring(location.search.lastIndexOf("=")+1);
     let tutoriallistitem;
     var tutorial;
@@ -69,7 +69,7 @@ var mongoguardian = {
       break;
     }
     try{
-      let resp = await fetch('/editor/tutorials/'+tutoriallistitem.filename);
+      let resp = await fetch('/tutorials/'+tutoriallistitem.filename);
       let loadedtutorial = await resp.text();
       let posofimgstring = loadedtutorial.indexOf('\n||€€imagepart€€||\n')
       if(posofimgstring>-1){
