@@ -278,8 +278,8 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
         //ToDo: append on different parrents, depending element
         allinone.appendChild(li);
     }//for-to
-    //automagic closure:
-    var amli = document.createElement("li");
+    //automagic closure: -> moved to extraoptions-theme
+    /*var amli = document.createElement("li");
     var amcheck = document.createElement("input");
     amcheck.type = "checkbox";
     amcheck.name = "automagic closure";
@@ -293,6 +293,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
     amlabel.innerText = "Automatic Closure on * ~ ` _";
     amli.appendChild(amlabel);
     allinone.appendChild(amli);
+    */
     this.optionsmenu.appendChild(allinone);
     return this.optionsmenu;
 }

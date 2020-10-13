@@ -3262,6 +3262,7 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("speaker");
 	this.loadTheme("footnote",true);
 	this.loadTheme("progressbar");
+	this.loadTheme("extraoptions",true);
 	//css-themes:
 	//this.loadTheme("azul");
 	//this.loadTheme("redalert");
