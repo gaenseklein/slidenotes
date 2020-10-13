@@ -4,9 +4,12 @@
   /*dialogbox*/
   :root{
     /*arrow-box*/
+    --arrow-box-button4-bg-color: #125E69; /*emphazing-font-color*/
     --arrow-box-button5-bg-color: #EEEEEE;
+
     /*shadows*/
     --shadow-dark: #00000021;
+    --shadow-lighter: #E6E6E6;
     /*dialogbox*/    
     --dialogbox-overlay: #ffffff;
     --dialogbox-bg-color: #fcfcfc;
@@ -191,12 +194,12 @@
     margin-top: unset;
   }
   .dialogcontent button:first-child, 
-  .dialogcontent input[type='submit']:first-child{
+  .dialogbox input[type='submit']:first-child{
     margin-top: 0;
   }
   .dialogcontent button, 
-  .dialogcontent details summary, 
-  .dialogcontent input[type='submit'] {
+  .dialogbox details summary, 
+  .dialogbox input[type='submit'] {
     background-color: var(--dialogbox-button2-bg-color);
     color: var(--dialogbox-button2-font-color);
     padding-top: calc(13*var(--pscale));
@@ -208,10 +211,10 @@
   }
   .dialogcontent button:hover, 
   .dialogcontent button:focus, 
-  .dialogcontent details summary:hover, 
-  .dialogcontent details summary:focus, 
-  .dialogcontent input[type='submit']:hover, 
-  .dialogcontent input[type='submit']:focus{
+  .dialogbox details summary:hover, 
+  .dialogbox details summary:focus, 
+  .dialogbox input[type='submit']:hover, 
+  .dialogbox input[type='submit']:focus{
     background-color: var(--dialogbox-button2-focus-bg-color);
   }
 
@@ -232,7 +235,7 @@
     padding: 0;
   }
   .dialogbox .dialogcontent .buttonarea button,
-  .dialogbox .dialogcontent .buttonarea input[type='submit']{
+  .dialogbox .buttonarea input[type='submit']{
     width: unset;
     margin-top: 0;
   }
@@ -323,6 +326,7 @@
     --arrow-box-button5-bg-color: #0D0D0D; /*mobile toolbar*/
     /*shadows*/
     --shadow-dark: #00000021;
+    --shadow-lighter: #000;
     /*dialogbox*/
     --dialogbox-overlay: #1B1917;
     --dialogbox-bg-color: #212121;
@@ -351,6 +355,7 @@
       --arrow-box-button5-bg-color: #0D0D0D; /*mobile toolbar*/
       /*shadows*/
       --shadow-dark: #00000021;
+      --shadow-lighter: #000;
       /*dialogbox*/
       --dialogbox-overlay: #1B1917;
       --dialogbox-bg-color: #212121;

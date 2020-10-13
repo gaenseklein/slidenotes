@@ -18,20 +18,42 @@ body{
   bottom: 7vh;
   display: none;
   max-width:80vw;
+  max-height: 80vh;
 }
 
 #comments.show.dialogbox{
-  box-shadow:0 0 5px 5px rgba(0,0,0,0.25);
+  /*box-shadow:0 0 5px 5px rgba(0,0,0,0.25);*/
   display:grid;
   overflow:hidden;
   grid-template-areas:
   "title"
-  "comments"
-  "hidebutton"
-  "form"
-  "sendbutton";
-  grid-gap: 1ch;
+  "content"
+  "write";
   grid-template-columns:100%;
+}
+
+#comments.show.dialogbox .dialogcontent{
+  grid-template-rows: 1fr auto;
+  max-height: calc(82vh - 3em);
+
+}
+
+#comments.show.dialogbox .dialogcontent ul{
+
+}
+#comments.show.dialogbox details{
+  padding-bottom: calc(20*var(--pscale));
+  background: var(--dialogbox-content-bg-color);
+  padding-left: calc(70*var(--pscale));
+  padding-right: calc(78*var(--pscale));
+}
+
+#comments.show.dialogbox details summary{
+  width: 12ch;
+}
+#comment-submit{
+  width: unset;
+  margin-top: calc(11*var(--pscale));
 }
 
 
