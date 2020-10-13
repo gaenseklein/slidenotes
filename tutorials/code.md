@@ -1,9 +1,9 @@
 # code tutorial
 welcome to the code tutorial!
 
-this tutorial explains how to implement and use images in slidenotes.io.
+this tutorial explains how to use code in slidenotes.io.
 
-to begin the presentation press `ctrl+escape` or the play button
+to begin the presentation press `ctrl+escape` or the `play button`
 
 ---
 ## how to use code-blocks in slidenotes
