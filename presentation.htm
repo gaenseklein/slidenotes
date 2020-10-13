@@ -459,6 +459,9 @@
     }
 
     slidenoteguardian.initLoad = async function(){
+      //should we join session?
+      let joinsession = (location.href.indexOf('join')>-1);
+      if(joinsession && ws)ws.joinSession();
       //get actual slidenote
       let url = location.search.substring(1);
       console.log(url);
