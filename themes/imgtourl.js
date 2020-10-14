@@ -215,18 +215,39 @@ slidenote.base64images = {
         }
         li.appendChild(delbutton);
       }
+        //image-name-div:
       var imgname = document.createElement("div");
-      imgname.innerText = actimg.name;
+        let prespan = document.createElement('span'); let afterspan=document.createElement('span');
+        prespan.className="buttonmdcode"; afterspan.className="buttonmdcode";
+        prespan.innerText = "![]("; afterspan.innerText=")";
+        let namespan = document.createElement('span');
+        namespan.innerText = actimg.name;
+        imgname.appendChild(prespan);
+        imgname.appendChild(namespan);
+        imgname.appendChild(afterspan);
+
       if(actimg.unnamed)imgname.classList.add("imagegallery-unnamed");
       imgname.classList.add("imagegallery-name");
       imgname.title = actimg.name;
       li.appendChild(imgname);
+      // go to last/next tag
+      //let goto = document.createElement("div");
+      //goto.classList.add("imagegallery-goto-wrapper");
+      let lastb = document.createElement('button'); lastb.className="imagegallery-goto-last";
+      let nextb = document.createElement('button'); nextb.className="imagegallery-goto-next";
+      lastb.innerText ='<'; nextb.innerText='>';
+      lastb.name=actimg.name; nextb.name=actimg.name;
+      lastb.onclick=function(){slidenote.base64images.moveCursorToTag(this.name,this,true)};
+      nextb.onclick=function(){slidenote.base64images.moveCursorToTag(this.name,this,false)};
+      //goto.appendChild(lastb); goto.appendChild(nextb);
+
+        //used in slides-div
       var usedslides = document.createElement("div");
       usedslides.classList.add("imagegallery-usedslides");
       var tagpositions = this.allPositionsOfTag(actimg.name,true);
       var usedslidestext;
       if(tagpositions.length===0){
-        usedslidestext = "unconnected";
+        usedslidestext = "not used yet";
         usedslides.classList.add("imagegallery-unconnected");
       }else{
         usedslidestext = "slide ";
@@ -235,15 +256,45 @@ slidenote.base64images = {
           usedslidestext+= tagpositions[us].page;
         }
       }
-      usedslides.innerText = usedslidestext;
+      let usedslidesspan = document.createElement('span');
+
+      usedslidesspan.innerText = usedslidestext;
+      usedslides.appendChild(lastb);
+      usedslides.appendChild(usedslidesspan);
+      usedslides.appendChild(nextb);
       li.appendChild(usedslides);
+        //image
       var imgbutton = document.createElement("button");
       imgbutton.classList.add("imagegallery-image");
       imgbutton.name = actimg.name;
       if(imagegallery){
         if(tagpositions.length>0){
           imgbutton.onclick = function(){
-            slidenote.base64images.moveCursorToTag(this.name,this);
+            //slidenote.base64images.moveCursorToTag(this.name,this);
+            //check if we are inside an image-tag:
+            element = slidenote.parser.CarretOnElement();
+            let cstart=slidenote.textarea.selectionStart;
+            let cpos=slidenote.textarea.selectionEnd;
+            let txt=slidenote.textarea.value;
+            if(!element || element.typ!="image"){
+              //inserting new image-tag:
+              if(slidenote.textarea.selectionEnd!=slidenote.textarea.selectionStart){
+                //we have to insert a new image-tag and using selection as alt-text
+                txt=txt.substring(0,cstart)+'!['+txt.substring(cstart,cpos)+']('+this.name+')'+txt.substring(cpos);
+              }else{
+                //just insert to selectionEnd:
+                txt=txt.substring(0,cpos)+'![]('+this.name+')'+txt.substring(cpos);
+              }
+            }else{
+              //we are inside an image-tag: change image-name to actual image
+              let imgnamepos = element.posinall+element.midpos-element.pos+2;
+              let imgnameposend = element.posinall+element.endpos-element.pos;
+              txt=txt.substring(0,imgnamepos)+this.name+txt.substring(imgnameposend);
+            }
+            slidenote.textarea.value=txt;
+            slidenote.textarea.selectionStart=cstart+2;
+            slidenote.textarea.selectionEnd=cpos+2;              
+            slidenote.parseneu();
           }
         }
       }else{
@@ -289,10 +340,11 @@ slidenote.base64images = {
     }
     return positions;
   },
-  moveCursorToTag: function(tag, button){
+  moveCursorToTag: function(tag, button, reversed){
     var positions = this.allPositionsOfTag(tag, false);
     var actcursorpos = slidenote.textarea.selectionEnd;
     var oldcursorpos = actcursorpos;
+    var lastpos = actcursorpos;
     for(var x=positions.length-1;x>=0;x--){
       if(positions[x].posinall>oldcursorpos)actcursorpos=positions[x].posinall;
     }
@@ -302,10 +354,16 @@ slidenote.base64images = {
         if(positions[x].posinall<actcursorpos)actcursorpos = positions[x].posinall;
       }
     }
+    for(var x=0;x<positions.length;x++){
+      if(positions[x].posinall<lastpos)lastpos=positions[x].posinall;
+      //if we pass oldcursorpos and lastpos is not smaller than oldcursorpos we look for the last one instead
+      if(positions[x].posinall>=oldcursorpos && lastpos>=oldcursorpos)lastpos=positions[x].posinall;
+    }
     if(actcursorpos===oldcursorpos){
       // no tag found??
       return;
     }
+    if(reversed)actcursorpos=lastpos;
     var imggallery = document.getElementById("imagegallery");
     imggallery.classList.remove("autohidemenu");
     slidenote.textarea.selectionEnd = actcursorpos;

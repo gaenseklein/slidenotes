@@ -172,6 +172,18 @@
   font-size: calc(13/20*1em);
 }
 
+.imagegallery-usedslides {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
+
+#imagegallerybox .imagegallery-usedslides button {
+    margin: 0;
+    padding: 0;
+    width: 3ch;
+    height: 1em;
+}
+
 .imagegallery-unnamed, .imagegallery-unconnected{
   /*font-style:italic;*/
 }
