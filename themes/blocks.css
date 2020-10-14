@@ -32,22 +32,19 @@
   overflow-x:hidden;
 }
 
-.blocks .bgimg.griditem{
+/*background-images:*/
+.blocks img.bgimg.griditem{
     grid-row: 1 / last-line;
     grid-column: 1 / last-line;
     width: 100%;
     height:100%;
     position: fixed;
     z-index: 0;
+    object-fit: cover;
 }
 
 .blocks section img.bgimg.griditem{
   position: relative;
-}
-
-/*background-images:*/
-img.bgimg {
-  object-fit: cover;
 }
 
 div > img.bgimg {
