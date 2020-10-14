@@ -628,6 +628,7 @@ newtheme.init = function(){
   var texteditorbuttons = document.getElementById("texteditorbuttons");
   var button = document.createElement("button");
   button.title ="add image";
+  button.name="image";
   button.classList.add("basicbutton");
   var buttonimage = new Image();
   buttonimage.src=slidenote.imagespath+"buttons/image.svg";

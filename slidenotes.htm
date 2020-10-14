@@ -860,29 +860,29 @@
         <div class="arrow_box" id="texteditorbuttons">
           <div class="screenreader-only">Toolbar</div>
           <ul id="toolbarbuttons">
-      			<li><button class="menuitem basicbutton" onclick="insertbutton('---')" title="new slide"><img src="images/buttons/newslide.svg" alt="new slide"><span class="buttonmdcode">---</span><span class="toolbarbuttontitle"> new slide</span></button></li>
+      			<li><button name="newslide" class="menuitem basicbutton" onclick="insertbutton('---')" title="new slide"><img src="images/buttons/newslide.svg" alt="new slide"><span class="buttonmdcode">---</span><span class="toolbarbuttontitle"> new slide</span></button></li>
 
-      			<li><button class="menuitem basicbutton" onclick="insertbutton('%head1')" title="title"><img src="images/buttons/hash-h1.svg" alt="Title"><span class="buttonmdcode">#</span> <span class="toolbarbuttontitle"> headline</span></button></li>
+      			<li><button name="title" class="menuitem basicbutton" onclick="insertbutton('%head1')" title="title"><img src="images/buttons/hash-h1.svg" alt="Title"><span class="buttonmdcode">#</span> <span class="toolbarbuttontitle"> headline</span></button></li>
 
-      			<li><button class="menuitem basicbutton" onclick="insertbutton('*')" title="italic"><img src="images/buttons/italic.svg" alt="italic"><span class="buttonmdcode">*</span><span class="toolbarbuttontitle italic">italic</span><span class="buttonmdcode">*</span></button></li>
+      			<li><button name="italic" class="menuitem basicbutton" onclick="insertbutton('*')" title="italic"><img src="images/buttons/italic.svg" alt="italic"><span class="buttonmdcode">*</span><span class="toolbarbuttontitle italic">italic</span><span class="buttonmdcode">*</span></button></li>
 
-      			<li><button class="menuitem basicbutton" onclick="insertbutton('**')" title="bold"><img src="images/buttons/bold.svg" alt="bold"><span class="buttonmdcode">**</span><span class="toolbarbuttontitle bold">bold</span><span class="buttonmdcode">**</span></button></li>
+      			<li><button name="bold" class="menuitem basicbutton" onclick="insertbutton('**')" title="bold"><img src="images/buttons/bold.svg" alt="bold"><span class="buttonmdcode">**</span><span class="toolbarbuttontitle bold">bold</span><span class="buttonmdcode">**</span></button></li>
 
-      			<li><button class="menuitem" onclick="insertbutton('~~')" title="crossed"><img src="images/buttons/stroke.svg" alt="stroke"><span class="buttonmdcode">~~</span><span class="toolbarbuttontitle deleted">deleted</span><span class="buttonmdcode">~~</span></button></li>
+      			<li><button name="crossed" class="menuitem" onclick="insertbutton('~~')" title="crossed"><img src="images/buttons/stroke.svg" alt="stroke"><span class="buttonmdcode">~~</span><span class="toolbarbuttontitle deleted">deleted</span><span class="buttonmdcode">~~</span></button></li>
 
-      			<li><button class="menuitem basicbutton" onclick="insertbutton('%list')" title="unordered list"><img src="images/buttons/ul.svg" alt="list"><span class="buttonmdcode">- </span><span class="toolbarbuttontitle">list</span></button></li>
+      			<li><button name="ulist" class="menuitem basicbutton" onclick="insertbutton('%list')" title="unordered list"><img src="images/buttons/ul.svg" alt="list"><span class="buttonmdcode">- </span><span class="toolbarbuttontitle">list</span></button></li>
 
-      			<li><button class="menuitem" onclick="insertbutton('%nrlist')" title="ordered list"><img src="images/buttons/ol.svg" alt="ordered list"><span class="buttonmdcode">1. </span><span class="toolbarbuttontitle">ordered list</span></button></li>
+      			<li><button name="olist" class="menuitem" onclick="insertbutton('%nrlist')" title="ordered list"><img src="images/buttons/ol.svg" alt="ordered list"><span class="buttonmdcode">1. </span><span class="toolbarbuttontitle">ordered list</span></button></li>
 
-      			<li><button class="menuitem basicbutton" onclick="insertbutton('%quote')" title="quote"><img src="images/buttons/quote.svg" alt="quote"><span class="buttonmdcode">&gt; </span><span class="toolbarbuttontitle">quote</span></button></li>
+      			<li><button name="quote" class="menuitem basicbutton" onclick="insertbutton('%quote')" title="quote"><img src="images/buttons/quote.svg" alt="quote"><span class="buttonmdcode">&gt; </span><span class="toolbarbuttontitle">quote</span></button></li>
 
-      			<li><button class="menuitem" onclick="insertbutton('%footnote')" title="footnote"><img src="images/buttons/footnote.svg" alt="footnote"><span class="buttonmdcode">[^*]</span><span class="toolbarbuttontitle"> footnote</span></button></li>
+      			<li><button name="footnote" class="menuitem" onclick="insertbutton('%footnote')" title="footnote"><img src="images/buttons/footnote.svg" alt="footnote"><span class="buttonmdcode">[^*]</span><span class="toolbarbuttontitle"> footnote</span></button></li>
 
-      			<li><button class="menuitem" onclick="insertbutton('%comment')" title="comment"><img src="images/buttons/comment.svg" alt="comment"><span class="buttonmdcode">//</span> <span class="toolbarbuttontitle">comment</span></button></li>
+      			<li><button name="comment" class="menuitem" onclick="insertbutton('%comment')" title="comment"><img src="images/buttons/comment.svg" alt="comment"><span class="buttonmdcode">//</span> <span class="toolbarbuttontitle">comment</span></button></li>
 
-      			<li><button class="menuitem" onclick="insertbutton('%code')" title="code"><img src="images/buttons/code.svg" alt="code"><span class="buttonmdcode">`</span><span class="toolbarbuttontitle code">code</span><span class="buttonmdcode">`</span></button></li>
+      			<li><button name="code" class="menuitem" onclick="insertbutton('%code')" title="code"><img src="images/buttons/code.svg" alt="code"><span class="buttonmdcode">`</span><span class="toolbarbuttontitle code">code</span><span class="buttonmdcode">`</span></button></li>
 
-      			<li><button class="menuitem" onclick="insertbutton('%link')" title="hyperlink"><img src="images/buttons/link.svg" alt="link"><span class="buttonmdcode">[</span><span class="toolbarbuttontitle">link</span><span class="buttonmdcode">](url)</span></button></li>
+      			<li><button name="link" class="menuitem" onclick="insertbutton('%link')" title="hyperlink"><img src="images/buttons/link.svg" alt="link"><span class="buttonmdcode">[</span><span class="toolbarbuttontitle">link</span><span class="buttonmdcode">](url)</span></button></li>
 
           </ul>
           <button class="fluidbutton closebutton" id="toolbarclose" onclick="document.getElementById('toolbar').classList.remove('active');">

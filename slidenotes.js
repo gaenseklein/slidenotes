@@ -3350,10 +3350,48 @@ ExtensionManager.prototype.afterLoadingThemes = function(){
 	if(this.failedThemes.length>0)console.log("Failed to load "+this.failedThemes.length+" Themes:"+failedthemes);
 	//this.slidenote.parseneu();
 	for(var x=0;x<this.hooksAllThemesLoaded.length;x++)this.hooksAllThemesLoaded[x]();
+	//now toolbar should be complete so sort it:
+	this.sortToolbar();
 	//this.enableKeyboardShortcuts()
 	if(document.getElementById("slidenoteeditor"))
 	slidenote.appendFile("script","keyboardshortcuts.js");
 }
+
+ExtensionManager.prototype.sortToolbar = function(){
+	const toolbarorder = [
+		"newslide",
+		"title",
+		"image",
+		"italic",
+		"bold",
+		"crossed",
+		"ulist",
+		"olist",
+		"quote",
+		"footnote",
+		"comment",
+		"link",
+		"code",
+		"chartist",
+		"table",
+		"sections",
+		"hiddenobjects",
+		"klatex",
+	];
+
+	let toollist = document.getElementById('toolbarbuttons');
+	let lilist = toollist.getElementsByTagName('li');
+	let buttons = toollist.getElementsByTagName('button');
+	let buttonarr = [];
+	for(var x=0;x<buttons.length;x++)buttonarr[x]=buttons[x];
+	buttonarr.sort(function(a,b){
+		return toolbarorder.indexOf(a.name)-toolbarorder.indexOf(b.name);
+	});
+	for(var x=0;x<lilist.length;x++){
+		lilist[x].appendChild(buttonarr[x]);
+	}
+}
+
 /*
 ExtensionManager.prototype.keyboardshortcuts = {
 	toolbararrow : function(e){
@@ -3680,6 +3718,7 @@ ExtensionManager.prototype.changeThemeStatus = function(themenr, status){
 				var newhtmlbutton = document.createElement("button");
 				newhtmlbutton.type = "button";
 				newhtmlbutton.classList.add(this.themes[themenr].classname+"button");
+				newhtmlbutton.name=this.themes[themenr].classname;
 				newhtmlbutton.classList.add("menuitem");
 				newhtmlbutton.innerHTML = actbutton.innerhtml;
 
@@ -3708,6 +3747,7 @@ ExtensionManager.prototype.changeThemeStatus = function(themenr, status){
 			var oldbuttons = document.getElementsByClassName(this.themes[themenr].classname+"button");
 			for(var x=oldbuttons.length-1;x>=0;x--)oldbuttons[x].parentNode.removeChild(oldbuttons[x]);
 		}
+		this.sortToolbar();
 	}
 	//console.log("themenr"+themenr+" "+this.themes[themenr].classname+" active geändert auf"+status);
 }
