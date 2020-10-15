@@ -3,6 +3,8 @@
 
   /*dialogbox*/
   :root{
+    /*general*/
+    --text-color:#030303;
     /*arrow-box*/
     --arrow-box-button4-bg-color: #125E69; /*emphazing-font-color*/
     --arrow-box-button5-bg-color: #EEEEEE;
@@ -263,15 +265,16 @@
     margin-left: auto;
     margin-right: auto;
     width: unset;
-    border-radius: calc(12/10.8*1vh);
+    border-radius: calc(12*var(--pscale));
     font-size: calc(20/16*1em);
-    padding: calc(3/10.8*1vh);
-    border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
-    box-shadow: inset 0 0 calc(2/10.8*1vh) calc(2/10.8*1vh) var(--shadow-lighter);
+    padding: calc(3*var(--pscale));
+    border: solid calc(1*var(--pscale)) var(--dialogbox-border-color);
+    box-shadow: inset 0 0 calc(2*var(--pscale)) calc(2*var(--pscale)) var(--shadow-lighter);
     height: calc(40/20*1em);
     box-sizing: border-box;
-    margin-top: calc(5/10.8*1vh);
+    margin-top: calc(5*var(--pscale));
     background-color: var(--dialogbox-button3-bg-color);
+    text-transform: none;
   }
 
   button#dialogconfirmbutton:hover, button#dialogcancelbutton:hover{
@@ -297,13 +300,13 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    border-radius: calc(12/10.8*1vh);
+    border-radius: calc(12*var(--pscale));
     font-size: calc(20/16*1em);
-    padding: calc(3/10.8*1vh);
-    border: solid calc(1/10.8*1vh) var(--dialogbox-border-color);
-    box-shadow: inset 0 0 calc(2/10.8*1vh) calc(2/10.8*1vh) var(--shadow-lighter);
+    padding: calc(3*var(--pscale));
+    border: solid calc(1*var(--pscale)) var(--dialogbox-border-color);
+    box-shadow: inset 0 0 calc(2*var(--pscale)) calc(2*var(--pscale)) var(--shadow-lighter);
     box-sizing: border-box;
-    margin-top: calc(5/10.8*1vh);
+    margin-top: calc(5*var(--pscale));
     background-color: var(--dialogbox-button3-bg-color);
   }
 
@@ -322,6 +325,8 @@
     /*colors*/
     /*------*/
 
+    /*general*/
+    --text-color:#fff;
     /*arrow-box*/
     --arrow-box-button5-bg-color: #0D0D0D; /*mobile toolbar*/
     /*shadows*/
@@ -351,6 +356,8 @@
       /*colors*/
       /*------*/
       
+      /*general*/
+      --text-color:#fff;
       /*arrow-box*/
       --arrow-box-button5-bg-color: #0D0D0D; /*mobile toolbar*/
       /*shadows*/
