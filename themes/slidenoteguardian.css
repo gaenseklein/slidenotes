@@ -309,7 +309,8 @@ and all other options unavailable*/
 .abortedDecryption #cloud-box,
 .abortedDecryption #importexportbutton,
 .abortedDecryption #publishtocms {
-  display:none;
+  pointer-events: none;
+  opacity: 0.5;
 }
 .abortedDecryption #cloud{
   visibility: hidden;
