@@ -74,9 +74,9 @@ newtheme.changeSectionType = function(type){
 }
 
 newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/layout.svg" title="layout/section">'+
-  '<span class="buttonmdcode">+++</span>'+
-  '<span class="buttonmdtext">layout</span>'+
-  '<span class="buttonmdcode">+++</span>',"+++layout","+++");
+  '<span class="buttonmdcode">+++layout+++</span>'+
+  '<span class="buttonmdtext"></span>'+
+  '<span class="buttonmdcode"></span>',"+++layout","+++");
 
 slidenote.datatypes.push({type:"layout", mdcode:true, theme:newtheme});
 slidenote.standarddatablocktype = {type:"layout",mdcode:true,theme:newtheme};
