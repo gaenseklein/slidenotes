@@ -3381,6 +3381,7 @@ ExtensionManager.prototype.sortToolbar = function(){
 	];
 
 	let toollist = document.getElementById('toolbarbuttons');
+	if(!toollist)return; //nothing to do if there is no toollist
 	let lilist = toollist.getElementsByTagName('li');
 	let buttons = toollist.getElementsByTagName('button');
 	let buttonarr = [];
