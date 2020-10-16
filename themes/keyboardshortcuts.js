@@ -660,13 +660,13 @@ keyboardshortcuts.init = function(){
     this.addShortcut(new this.shortcut("letter navigation in toolbar","toolbar",{multipleChoiceKeys:["c","t","l","q","n","f","i","o","h","b","d"],metakey:false},function(e){
       //["c","t","l","q","n","f","i","o","h","b","d"]
       var nametable = {
-        c:["code","chart","comment"],
+        c:["code-block","chart","comment"],
         t:["table","title","headline"],
         l:["list","link","latex","layout"],
         q:["quote"],
         n:["new slide"],
         f:["footnote"],
-        i:["image","italic"],
+        i:["image","italic", "inline"],
         o:["ordered list"],
         h:["hidden","headline","title"],
         b:["bold"],

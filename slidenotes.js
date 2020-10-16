@@ -3369,14 +3369,15 @@ ExtensionManager.prototype.sortToolbar = function(){
 		"olist",
 		"quote",
 		"footnote",
-		"comment",
 		"link",
+		"inlinecode",
 		"code",
 		"chartist",
 		"table",
 		"sections",
 		"hiddenobjects",
 		"klatex",
+		"comment",
 	];
 
 	let toollist = document.getElementById('toolbarbuttons');
@@ -4499,6 +4500,29 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 		}
 	}else if(emdzeichen=="%table"){
 		emdend="\n| Column 1 | Column 2 | Column 3 |\n| -------- | -------- | -------- |\n| Text     | Text     | Text     |";
+	}else if(emdzeichen=="%codeblock"){
+		emdstart="\n+++code\n";
+		emdend="\n+++\n";
+	}else if(emdzeichen=="%inlinecode"){
+		var selectedtext = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+		if(selectedtext.indexOf("\n")>-1){
+			//change per line
+			let ill = selectedtext.indexOf("\n");
+			while(ill>-1){
+				selectedtext = selectedtext.substring(0,ill)+'`\n`'+selectedtext.substring(ill+1);
+				ill=selectedtext.indexOf("\n",ill+3);
+			}
+			selectedtext='`'+selectedtext+'`';
+			let sels = textarea.selectionStart;
+			let sele = textarea.selectionEnd;
+			textarea.value=textarea.value.substring(0,textarea.selectionStart)+selectedtext+textarea.value.substring(textarea.selectionEnd);
+			textarea.selectionEnd = sels+selectedtext.length;
+			textarea.selectionStart = sels;
+			multilineselection=true;
+		}else{
+			emdstart="`";
+			emdend="`";
+		}
 	}else if(emdzeichen=="%code"){
 		var selectedtext = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
 		if(selectedtext.indexOf("\n")>-1 ||
