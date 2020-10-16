@@ -19,11 +19,29 @@ newtheme.addGlobalOption("checkbox", "_","_",true);
 newtheme.changeGlobalOption = function(optionnr, value){
   console.log("switch parseelements"+optionnr+":"+value)
   this.options[optionnr].value = value;
+  this.globaloptions[optionnr].values=value;
   console.log(this.options[optionnr].value);
   if(this.options[0].value &&this.options[1].value){
     console.log("switch back to normal");
   slidenote.parseelemente = this.standardparseelemente;
-}else if(this.options[1].value){
+  }else{
+    var parseelemente = new Array();
+    if(this.options[0].value){
+      console.log('add stars to parseelements');
+      parseelemente.push(this.standardparseelemente[0]);
+      parseelemente.push(this.standardparseelemente[1]);
+      parseelemente.push(this.standardparseelemente[3]);
+    }
+    if(this.options[1].value){
+      console.log('add underscores to parseelements');
+      parseelemente.push(this.standardparseelemente[2]);
+      parseelemente.push(this.standardparseelemente[4]);
+    }
+    parseelemente.push(this.standardparseelemente[5]);
+    slidenote.parseelemente = parseelemente;
+  }
+  /*old:
+  if(this.options[1].value){
     console.log("no stars");
     //no stars:
     var parseelemente = new Array();
@@ -35,11 +53,12 @@ newtheme.changeGlobalOption = function(optionnr, value){
     console.log("no underline");
     //no underline:
     var parseelemente = new Array();
-    parseelemente.push(this.standardparselemenete[0]);
+    parseelemente.push(this.standardparseelemenete[0]);
     parseelemente.push(this.standardparseelemente[1]);
     parseelemente.push(this.standardparseelemente[3]);
     parseelemente.push(this.standardparseelemente[5]);
-  }
+    slidenote.parseelemente = parseelemente;
+  }*/
 }
 newtheme.saveConfigString = function(){
   var stringToSave = "";
