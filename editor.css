@@ -2331,6 +2331,7 @@
   }
   .dialogbox .dialogcontent li label {
     text-transform: lowercase;
+    display:inline;
   }
 
   /*.buttonarea button{

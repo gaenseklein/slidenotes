@@ -3251,7 +3251,7 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("blocks");
 	this.loadTheme("stickytitles", true);
 	this.loadTheme("highlight");
-	this.loadTheme("transition");
+	//this.loadTheme("transition");
 	this.loadTheme("chartist");
 	this.loadTheme("table", true);
 	this.loadTheme("imgtourl");
@@ -3454,16 +3454,16 @@ ExtensionManager.prototype.showAdvancedMenu = function(){
 }
 //dialog for Editormenu / ex global options:
 ExtensionManager.prototype.showEditorMenu = function(){
-	var parent = document.createElement("div");
+	var parent = document.createElement("ul");
 	for(var x=0;x<this.themes.length;x++){
 		var acttheme = this.themes[x];
 		if(acttheme.globaloptions!=null && acttheme.active){
-			var actp = document.createElement("div");
-			var acttitle = document.createElement("h3");
-			acttitle.innerText = acttheme.classname;
-			actp.appendChild(acttitle);
-			var actplist = document.createElement("ul");
-			actp.appendChild(actplist);
+			//var actp = document.createElement("div");
+			//var acttitle = document.createElement("h3");
+			//acttitle.innerText = acttheme.classname;
+			//actp.appendChild(acttitle);
+			//var actplist = document.createElement("ul");
+			//actp.appendChild(actplist);
 			for(var glop=0;glop<acttheme.globaloptions.length;glop++){
 				var actopt = acttheme.globaloptions[glop];
 				var actoptli = document.createElement("li");
@@ -3472,6 +3472,7 @@ ExtensionManager.prototype.showEditorMenu = function(){
 					var actinp = document.createElement("input");
 					actinp.type="checkbox";
 					actinp.nr = glop;
+					actinp.id='global-option-checkbox-'+acttheme.classname+glop;
 					actinp.name = acttheme.classname;
 					actinp.classList.add("menuitem");
 					if(actopt.values)actinp.checked = true;
@@ -3483,12 +3484,14 @@ ExtensionManager.prototype.showEditorMenu = function(){
 					}
 					var actlabel = document.createElement("label");
 					actlabel.innerText = actopt.description;
+					actlabel.setAttribute("for",actinp.id);// for=actinp.name;
 					actoptli.appendChild(actinp);
 					actoptli.appendChild(actlabel);
-					actplist.appendChild(actoptli);
+					//actplist.appendChild(actoptli);
+					parent.appendChild(actoptli);
 				}
 			}
-			parent.appendChild(actp);
+			//parent.appendChild(actp);
 		}
 	}
 	var dialogoptions = {

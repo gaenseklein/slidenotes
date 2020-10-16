@@ -13,8 +13,8 @@ newtheme.options = new Array(
   {name: "*", value:true},
   {name: "_", value:true}
 );
-newtheme.addGlobalOption("checkbox", "*", "*", true);
-newtheme.addGlobalOption("checkbox", "_","_",true);
+newtheme.addGlobalOption("checkbox", "activate * and ** as syntax ", "*", true);
+newtheme.addGlobalOption("checkbox", "activate _ and __ as syntax","_",true);
 
 newtheme.changeGlobalOption = function(optionnr, value){
   console.log("switch parseelements"+optionnr+":"+value)

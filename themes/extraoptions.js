@@ -8,7 +8,7 @@ xtraoptions.options=new Array();
   //if(this.value)document.getElementById("texteditorbuttons").style.display="unset";
   //  else document.getElementById("texteditorbuttons").style.display = "none";
 //}
-xtraoptions.options[0]={name:"automagic closure on * ~ ` _", value:true};
+xtraoptions.options[0]={name:"automagic closure on * ~ ` _ and +++", value:true};
 xtraoptions.options[0].onchange = function(){
   if(!keyboardshortcuts)return;
   slidenote.keyboardshortcuts.automaticClosure = this.value;
