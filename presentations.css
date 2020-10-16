@@ -93,7 +93,7 @@
     margin:0;
     /*padding:0;*/
     padding-top: 0;
-    padding-bottom: 0; 
+    padding-bottom: 0;
     font-size:large;
   }
 
@@ -345,4 +345,8 @@
   }
   #slidenoteloadingscreenwrapper.endstate~#hidepresentation{
     display: none;
+  }
+
+  #invitelink {
+      text-transform: none;
   }
