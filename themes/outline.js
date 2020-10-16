@@ -23,8 +23,10 @@ newtheme.speakTimeBlock; //html-element to put speaktime inside
 newtheme.speakTimeActivated = true; //generate Speaktime or not
 
 newtheme.addGlobalOption("checkbox", "calculate speak time", "Calculate Speak Time", this.speakTimeActivated);
+
 newtheme.changeGlobalOption = function(optionnr, value){
   this.speakTimeActivated = value; //!this.speakTimeActivated;
+  this.globaloptions[0].values=value;
   var outlineblock = document.getElementById("outlineblock");
   if(this.speakTimeActivated)outlineblock.classList.remove("withoutSpeakTime");
   else outlineblock.classList.add("withoutSpeakTime");

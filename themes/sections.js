@@ -81,14 +81,19 @@ newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/layout.svg" 
 slidenote.datatypes.push({type:"layout", mdcode:true, theme:newtheme});
 slidenote.standarddatablocktype = {type:"layout",mdcode:true,theme:newtheme};
 
+/* we dont use any config here right now
+
 newtheme.addGlobalOption("checkbox","use github-default (``` is codeblock, not section)","githubcodeblock",false);
 
 newtheme.changeGlobalOption = function(optionnr, value){
-  if(slidenote.standarddatablocktype && slidenote.standarddatablocktype.type ==="layout"){
+  this.globaloptions[0].values=value;
+  //if(slidenote.standarddatablocktype && slidenote.standarddatablocktype.type ==="layout"){
+  if(value){
     slidenote.standarddatablocktype=null;
   } else{
     slidenote.standarddatablocktype = {type:"layout",mdcode:true,theme:this};
   }
+  console.log('changed to standarddatablocktype:',slidenote.standarddatablocktype);
 }
 
 newtheme.saveConfigString = function(){
@@ -98,10 +103,13 @@ newtheme.saveConfigString = function(){
 newtheme.loadConfigString = function(data){
   if(data==="true"){
     slidenote.standarddatablocktype=null;
+    this.globaloptions[0].values=true;
   }else{
     slidenote.standarddatablocktype = {type:"layout",mdcode:true,theme:this};
+    this.globaloptions[0].values=false;
   }
 }
+*/
 
 newtheme.styleThemeSpecials = function(){
   //get all data-blocks:
