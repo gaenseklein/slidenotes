@@ -401,9 +401,9 @@
   <!-- comment-section:template with 1 comment:-->
   <div id="comments" class="dialogbox comment-wrapper show">
     <h2 class="dialogtitle">
-        <button class="commentnav" id="previousCommentSlide">&lt;</button>
+        <button class="commentnav" id="previousCommentSlide">&#9664;</button>
         <span id="commentblocktitle">comments on slide 1</span>
-        <button class="commentnav" id="nextCommentSlide">&gt;</button>
+        <button class="commentnav" id="nextCommentSlide">&#9654;</button>
         <button class="dialogclosebutton" id="commentCloseButton"><img src="images/buttons/x.svg"></button>
     </h2>
     <div class="dialogcontent">
@@ -423,13 +423,14 @@
         </ul>
       </div>
     </div>
+    <div id="commentseparator"></div>
     <!-- <button class="" id="commentAddButton">post comment ⌄</button> -->
     <details>
       <summary>write comment</summary>
       <form class="comment-form" action="" method="post" id="comment-form" accept-charset="UTF-8">
         <div class="form-item form-type-textfield form-item-name">
           <label for="edit-name">your name </label>
-          <input type="text" id="comment-name" name="name" value="" size="30" maxlength="60" class="form-text">
+          <input type="text" id="comment-name" name="name" placeholder="name" value="" size="30" maxlength="60" class="form-text">
         </div>
         <div class="field-type-text-long field-name-comment-body field-widget-text-textarea form-wrapper" id="edit-comment-body">
           <div id="comment-body-add-more-wrapper">

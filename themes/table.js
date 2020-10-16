@@ -11,9 +11,9 @@ newtheme.helpText = function(head){
 }
 
 newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/table.svg" title="Table">'+
-  '<span class="buttonmdcode">+++</span>'+
-  '<span class="buttonmdtext">table</span>'+
-  '<span class="buttonmdcode">+++</span>'
+  '<span class="buttonmdcode">+++table+++</span>'+
+  '<span class="buttonmdtext"></span>'+
+  '<span class="buttonmdcode"></span>'
 ,"+++table","+++");
 slidenote.datatypes.push({type:"table",mdcode:false,theme:newtheme});
 

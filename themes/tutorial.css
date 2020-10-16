@@ -13,4 +13,6 @@ blends out several buttons and menus which are not needed in tutorial-mode
 	background-color: #1f1000;
 }
 
-
+#publishbutton{
+	opacity: 0.5;
+}
