@@ -145,7 +145,7 @@
     max-width:80vw;
     max-height:82vh;
     overflow-y:auto;
-    }*/
+    }
   .dialogcontent > a{
     display:none;
   }
@@ -158,6 +158,9 @@
 
   #comments.show.dialogbox .dialogcontent ul{
   }
+  #commentlist{
+  	padding: 0;
+  }
 
   .comment{
     display:none;
@@ -167,7 +170,7 @@
   }
 
   .comment {
-    margin-left: 3vh;
+    margin-left: 0;
   }
 
   .comment-name{
