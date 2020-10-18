@@ -268,7 +268,7 @@ slidenote.base64images = {
       imgbutton.classList.add("imagegallery-image");
       imgbutton.name = actimg.name;
       if(imagegallery){
-        if(tagpositions.length>0){
+        //if(tagpositions.length>0){
           imgbutton.onclick = function(){
             //slidenote.base64images.moveCursorToTag(this.name,this);
             //check if we are inside an image-tag:
@@ -293,10 +293,10 @@ slidenote.base64images = {
             }
             slidenote.textarea.value=txt;
             slidenote.textarea.selectionStart=cstart+2;
-            slidenote.textarea.selectionEnd=cpos+2;              
+            slidenote.textarea.selectionEnd=cpos+2;
             slidenote.parseneu();
           }
-        }
+        //}
       }else{
         imgbutton.onclick = function(){
           var imgtag = this.getElementsByTagName("img")[0];
