@@ -50,7 +50,7 @@ var SlidenoteCache = function(){
 SlidenoteCache.prototype.init = function(){
 
     this.allIds = this.localstorage.getItem("allIds");
-    var acturl = window.location.pathname; //href;
+    //var acturl = window.location.pathname; //href;
     var version = this.localstorage.getItem("slidenotecacheversion");
     if(this.allIds ===null || version === null || version < this.version ){
         //there is no cache in Browser - let things get started:
@@ -103,7 +103,7 @@ SlidenoteCache.prototype.init = function(){
             this.allIds +=  ","+this.id;
             this.localstorage.setItem("allIds",this.allIds);
             if(nid)this.localstorage.setItem(this.id+"nid", nid);
-            if(acturl)this.localstorage.setItem(this.id+"url",acturl);
+            //if(acturl)this.localstorage.setItem(this.id+"url",acturl);
 
         }
         //set this cache activeTime so it would not be deleted by garbage-cleaning:
@@ -372,6 +372,7 @@ slidenoteGuardian.prototype.initLoad = async function(){
       dialoger.buildDialog(dialogoptions,function(){
         location.search='';
       });
+      return;
     }
     slidenoteguardian.notetitle = mongoguardian.mongonote.title;
     slidenoteguardian.restObject.encimages = mongoguardian.mongoimages;
@@ -530,12 +531,12 @@ slidenoteGuardian.prototype.init = function(){
       }
     );
   }else{
-    if(cachednote.url === window.location.href){
+    if(cachednote.nid == this.restObject.nid){
       //var confirmtext = "You have an unsaved Version of this slidenote in Cache. Show Diff?";
       //if(confirm(confirmtext))setTimeout("slidenoteguardian.loadDiff()",1); //only for now, TODO: always load Diff on this occasion
       //else setTimeout("slidenoteguardian.loadNote('cms')",1);
       setTimeout("slidenoteguardian.loadDiff()",1);
-    }else if(cachednote.url != undefined){
+    }/*else if(cachednote.url != undefined){
       var confirmtext = "you have an unsaved version in cache from another slidenote "+this.localstorage.getItem("title");
       confirmtext +="\n open unsaved slidenote? ("+cachednote.url+") \n\n warning - unsaved cache will be lost if not saved to cloud";
       if(confirm(confirmtext)){
@@ -543,7 +544,7 @@ slidenoteGuardian.prototype.init = function(){
       }else{
           setTimeout("slidenoteguardian.loadNote('cms')",1);
       }
-    }
+    }*/
   }
 
   document.getElementById("optionsclose").addEventListener("click",function(event){
@@ -2114,16 +2115,16 @@ slidenoteGuardian.prototype.checkCloudStatus = async function(){
       savestatus.title="not in sync with cloud";
     }
     cloudbutton.className = "status-undefined";
-    cloudbutton.title = "not in sync with cloud";
-    cloudstatus.innerText = "not in sync with cloud";
+    cloudbutton.title = this.savebuttontitles.default;//"not in sync with cloud";
+    cloudstatus.innerText = this.savebuttontitles.default;//"not in sync with cloud";
   }else{
     if(savestatus){
       savestatus.src=slidenote.imagespath+"buttons/cloudsaved.png";
-      savestatus.title="in sync with cloud";
+      savestatus.title=this.savebuttontitles.sync;//"in sync with cloud";
     }
     cloudbutton.className = "status-ok";
-    cloudbutton.title = "in sync with cloud";
-    cloudstatus.innerText = "in sync with cloud";
+    cloudbutton.title = this.savebuttontitles.sync;//"in sync with cloud";
+    cloudstatus.innerText = this.savebuttontitles.sync;//"in sync with cloud";
   }
   console.log("checking cloud status. in sync:"+(acthash==oldhash));
   var timeneeded = new Date() - timestrt;
