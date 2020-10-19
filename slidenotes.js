@@ -4218,7 +4218,12 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 					key === slidenoteSpeaker.metakey))
 					)return;
 					var cursor = document.getElementById("carret");
-					cursor.innerHTML = cursor.innerHTML+""+key;
+					setTimeout(function(){
+						let realkey = slidenote.textarea.value.charAt(slidenote.textarea.selectionEnd-1);
+						console.log(key,"vs",slidenote.textarea.value.charAt(slidenote.textarea.selectionEnd-1));
+						cursor.innerHTML = cursor.innerHTML+""+realkey;
+					},1);
+					//cursor.innerHTML = cursor.innerHTML+""+key;
 					if(this.keypressstack===undefined)this.keypressstack=0;
 					this.keypressstack++;
 					setTimeout("slidenote.parseAfterPause()", 500);
