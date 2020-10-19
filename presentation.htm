@@ -463,8 +463,10 @@
 
     slidenoteguardian.initLoad = async function(){
       //should we join session?
-      let joinsession = (location.href.indexOf('join')>-1);
-      if(joinsession && ws)ws.joinSession();
+      this.joinsession = (location.href.indexOf('join')>-1);
+      //we dont start session here cause password is not set yet
+      //we could cut the url here to be more standard-like if join is on
+
       //get actual slidenote
       let url = location.search.substring(1);
       console.log(url);
@@ -617,6 +619,10 @@
       }
       if(this.decText==="decryption has failed")return;
       //decryption was successfull
+
+      //if we have to join a session we should do it now as
+      //password is set:
+      if(this.joinsession && ws)ws.joinSession();
 
       //var imgblockpos = this.decText.indexOf("§§§€€€€€IMAGEBLOCK€€€€€§§§");
       //this.imageblockstring = this.decText.substring(imgblockpos+26);
