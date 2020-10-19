@@ -69,7 +69,7 @@
 					<ul id="presentationlist-target">
 						<li class="presentationlist-entry">
 							<div class="views-row">
-  <div class="views field views-field-title"><a href="/presentation.htm?$PRESENTATIONURL">$PRESENTATIONTITLE</a></div>
+  <div class="views field views-field-title"><a href="/presentation.htm?$PRESENTATIONURL" target="_blank">$PRESENTATIONTITLE</a></div>
   <div class="views-field views-field-created">    <span class="views-label views-label-created">creation date: </span>    <span class="field-content">$PRESENTATIONCREATIONDATE</span>  </div>
   <div class="views-field views-field-field-slidenotenode">    <span class="views-label views-label-field-slidenotenode">from slidenote: </span>    <span class="field-content"><a href="/?id=$PRESENTATIONNID">$PRESENTATIONNOTETITLE</a></span>  </div>
   <div class="views-field views-field-comment-count">        <span class="field-content">$PRESENTATIONCOMMENTCOUNT Comments</span>  </div>
@@ -195,7 +195,7 @@ function writePresentationList(){
 		let newentry = template;
 		let newcdate = localeDateString(presentationlist[x].creationDate);
 		let newupdate = localeDateString(presentationlist[x].lastUpdated);
-		
+
 		//newentry = newentry.replace('$SLIDENOTETITLE',slidenotelist[x].title);
 		newentry = newentry.replace('$PRESENTATIONURL',presentationlist[x].url);
 		newentry = newentry.replace('$PRESENTATIONCREATIONDATE',newcdate);
