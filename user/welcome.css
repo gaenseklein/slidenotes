@@ -222,6 +222,49 @@ div#main {
     color: #ccc;
 }
 
+/*loading animation*/
+/*loading animation start*/
+
+#circle-loading-animation {
+    display: none;
+  position: absolute;
+  top: 12.2em;
+  left: 12em;
+}
+#circle-loading-animation::before,
+#circle-loading-animation::after {
+  content: '';
+  width: 0.7em;
+  height: 0.7em;
+  display: block;
+  border-radius: 50%;
+  position: absolute;
+  transform-origin: 50% 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+#circle-loading-animation::before {
+  background: transparent;
+  border: 0.13em solid #72C3D3;
+  animation: growCircle 1s ease-out infinite;
+  background: #CD7B67;
+}
+#circle-loading-animation::after {
+  background: #CD7B67;
+}
+@keyframes growCircle {
+  0% {
+    transform: translate(-50%,-50%) scale(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%,-50%) scale(2.5);
+    opacity: 0;
+  }
+}
+/*loading animation end*/
+
 @media (prefers-color-scheme: dark) {
     #welcome-page{
         background: inherit;
