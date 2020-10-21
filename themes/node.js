@@ -174,8 +174,16 @@ newtheme.builder = {
             result.appendChild(msg);
             result.appendChild(arrow);
             let actors = meta.split(action);
-            let gridFrom = this.getGridPosOfActor(actors[0])+1;
-            let gridTo = this.getGridPosOfActor(actors[1])+1;
+            //clean actors:
+            let actfrom=actors[0];
+            if(actfrom.charAt(0)==" ")actfrom=actfrom.substring(1);
+            if(actfrom.charAt(actfrom.length-1)==" ")actfrom=actfrom.substring(0,actfrom.length-1);
+            let actto=actors[1];
+            if(actto.charAt(0)==" ")actto=actto.substring(1);
+            if(actto.charAt(actto.length-1)==" ")actto=actto.substring(0,actto.length-1);
+            
+            let gridFrom = this.getGridPosOfActor(actfrom)+1;
+            let gridTo = this.getGridPosOfActor(actto)+1;
             if(gridFrom===false || gridTo===false)return false;
             if(gridFrom<gridTo){
                 //left to right
