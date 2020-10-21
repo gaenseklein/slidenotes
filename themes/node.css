@@ -1,0 +1,48 @@
+.node .sequence {
+    display: grid;
+    grid-row-gap: 0.4em;
+}
+
+.node .sequence .stroke {
+    grid-row: 1/last;
+    width: 3px;
+    height: 100%;
+    background: black;
+    justify-self: start;
+}
+
+.node .sequence .actor {
+  border: 3px solid;
+  padding: 1ch;
+  background: aliceblue;
+  text-align: center;
+}
+.node .sequence .arrow {
+    overflow: hidden;
+    width:100%;
+}
+.node .sequence .arrow .arrowimg{
+  background: transparent;
+  background-size: cover;
+  background-position: right;
+  height:1em;
+}
+
+.node .sequence .arrow div {
+    text-align: center;
+}
+
+.node .sequence .arrow.toleft .arrowimg {
+    transform: rotate(180deg);
+}
+.node .sequence .note {
+    border: 1px solid;
+    text-align: center;
+    padding: 0.2em;
+    background: aliceblue;
+    width: 100%;
+}
+
+.node .sequence .note.right {
+    justify-self: start;
+}
