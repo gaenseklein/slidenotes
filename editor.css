@@ -887,9 +887,7 @@
 
     padding-bottom: calc(7*var(--pscale));
     padding-top: calc(8.8*var(--pscale));
-    /*padding-left: calc(4.8*var(--pscale));*/
-    padding-left: calc(18.5*var(--pscale));
-    /*padding-right: 0;*/
+    padding-left: calc(7*var(--pscale));
     padding-right: calc(19/16*1em);
 
     color: var(--nicesidebarsymbol-font-color);
@@ -898,6 +896,7 @@
     margin-right: calc(1.8*var(--pscale));
     border: none;
     transform: translateY(-50%);
+    min-width: 4em;
 
     text-align: right;
     grid-column: 2;
