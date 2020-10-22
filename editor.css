@@ -723,6 +723,18 @@
     font-size: 1em;
   }
 
+  .fluidbutton.active img.active,
+  .nightmode .fluidbutton.active img.nightmode-only.active {
+    display: block;
+  }
+  .fluidbutton img.active,
+  .fluidbutton img.active.nightmode-only,
+  .fluidbutton.active img.active.nightmode-only,
+  .fluidbutton.active img,
+  .nightmode .fluidbutton.active img.nightmode-hidden.active {
+    display: none;
+  }
+
   #toolbarbutton{/*
     grid-column-start:1;
     grid-column-end: 5;
