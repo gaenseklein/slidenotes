@@ -35,6 +35,21 @@
 .node .sequence .arrow.toleft .arrowimg {
     transform: rotate(180deg);
 }
+
+.node .sequence .arrow.dashed .arrowimg{
+  background-image:url("/themes/node/sequencearrowdashed.png");
+}
+
+.node .sequence .arrow.open .arrowimg{
+  background-image:url("/themes/node/sequencearrowopen.png");
+}
+.node .sequence .arrow.normal .arrowimg{
+  background-image:url("/themes/node/sequencearrownormal.png");
+}
+.node .sequence .arrow.noarrow .arrowimg{
+  border-top:3px solid;
+}
+
 .node .sequence .note {
     border: 1px solid;
     text-align: center;

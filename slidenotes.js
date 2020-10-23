@@ -1083,13 +1083,13 @@ emdparser.prototype.CarretOnElement = function(carrethardpos, secondcall){
 		}
 		var otherlinetype;
 		if(this.map.lineswithmdcodeinsidedatablock)otherlinetype = this.map.lineswithmdcodeinsidedatablock[line];
-		if(element ==null && otherlinetype==="layout"){
+		if(element ==null && (otherlinetype==="layout" || otherlinetype==="node")){
 			var lline = line;
 			for(lline = line;lline>=0;lline--){
 				var eil = this.map.insertedhtmlinline[lline];
 				var eilfound=false;
 				for(var eilx=0;eilx<eil.length;eilx++){
-					if(eil[eilx].dataobject && eil[eilx].dataobject.type==="layout"){
+					if(eil[eilx].dataobject && eil[eilx].dataobject.type===otherlinetype){
 						element=eil[eilx];
 						eilfound=true;
 						break;
@@ -1816,10 +1816,10 @@ emdparser.prototype.parseMap = function(){
 										if(slidenote.datatypes.elementOfType(datatyp).mdcode==false){
 			              	for(var lwh=x;lwh<=dataende;lwh++)this.lineswithhtml[lwh]="data"; //fill lineswithhtml with data
 										}else{
-											this.lineswithhtml[x]="layout";
-											this.lineswithhtml[dataende]="layout";
+											this.lineswithhtml[x]= datatyp;//"layout";
+											this.lineswithhtml[dataende]= datatyp;//"layout";
 											if(!this.map.lineswithmdcodeinsidedatablock)this.map.lineswithmdcodeinsidedatablock = new Array();
-											for(var lwh=x;lwh<=dataende;lwh++)this.map.lineswithmdcodeinsidedatablock[lwh]="layout";
+											for(var lwh=x;lwh<=dataende;lwh++)this.map.lineswithmdcodeinsidedatablock[lwh]=datatyp;//"layout";
 										}
 			              var mapstartel = {line:x,pos:0,html:"<section>",mdcode:lines[x],typ:"start"};
 			    					var mapendel = {line:dataende,pos:0,html:"</section>",mdcode:lines[dataende],typ:"end", brotherelement: mapstartel};
