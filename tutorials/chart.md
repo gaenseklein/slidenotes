@@ -3,18 +3,18 @@ welcome to the chart-tutorial!
 
 this tutorial explains how to use charts in slidenotes.io. 
 
-to begin the presentation press `ctrl+escape` or the `play button`
+to begin the presentation press `ctrl/cmd+Enter` or the `play button`
 ---
 ## a simple chart
 
 a chart is a **graphical interpretation of data**. therefore all you need is to write down a chart-section and inside of it the data:
 
 +++code
-\+++chart
+ +++chart
 identifier: 10
 identifier2: 22
 identifier3: 33
-\+++
+ +++
 +++
 
 and you get a simple chart like this:
@@ -30,7 +30,7 @@ identifier3: 33
 as you saw, the ***datastructure*** is quiet simple. you need an **identifier** and a **value** in form of **a number**. lets take a more realistic example and say we want to demonstrate the maximum temperatures of last week: 
 
 +++code
-\+++chart
+ +++chart
 monday:33
 tuesday:28
 wednesday:26
@@ -38,7 +38,7 @@ thursday:28
 friday:28
 saturday:37
 sunday:36
-\+++
+ +++
 +++
 
 as you can see, its quite easy to write down and it makes a clean linear graph out of it:
@@ -56,10 +56,10 @@ sunday:36
 ---
 ## different chart types: bar
 
-charts can have different *types*. as now, slidenotes.io supports *8 different types* for you to select, which are divided into three groups: **linear**, **bar** and **pie**. each different type has its own chart-header as `\`\`\`chart:type`. so to write the same example as before, but this time as a **bar**-chart you would write in the header: `\`\`\`chart:bar`
+charts can have different *types*. as now, slidenotes.io supports *8 different types* for you to select, which are divided into three groups: **linear**, **bar** and **pie**. each different type has its own chart-header as `+++chart:type`. so to write the same example as before, but this time as a **bar**-chart you would write in the header: `+++chart:bar`
 
 +++code
-\+++chart:bar
+ +++chart:bar
 monday:33
 tuesday:28
 wednesday:26
@@ -67,7 +67,7 @@ thursday:28
 friday:28
 saturday:37
 sunday:36
-\+++
+ +++
 +++
 
 you will get:
@@ -90,13 +90,13 @@ as the example before does not make any sense to a pie lets just bake a pie.
 +++layout:left
 ##recipe
 +++code
-\+++chart:pie
+ +++chart:pie
 flour:300
 sugar:100
 butter:100
 baking powder:5
 apple:1000
-\+++
+ +++
 +++
 
 1. mix everything except the apples and fill your form with 2/3 of the mass
@@ -148,34 +148,35 @@ because data in the real world comes from other sources and certainly you dont w
 
 the datastructure needs the following: an **identifier** and its related **value**. most real world data comes in tables. so we support the following structures: 
 
-+++layout:left
-###horizontal
++++layout:inline
 
+
+
+###horizontal
 1. line with identifiers, separated by an separator
 2. line with values, separated by an separator
 
-+++
-
-+++layout:right
 
 ###vertical
 column with **identifiers** - **separator** - **value**
 
++++
+
+
 lets make that clearer with an example on the following page.
 
-+++
 
 ---
 ## example datastructures
 lets write the datastructure in the two ways and as a separator we use a comma. 
 +++layout:left
-## the horizontal way:
+## horizontal datastructure:
 +++code
 monday,tuesday,wednesday,thursday,friday,saturday,sunday
 33,28,26,28,28,37,36
 +++
 
-## the vertical way:
+## vertical datastructure:
 +++code
 monday,33
 tuesday,28
@@ -279,7 +280,7 @@ january,february,march,april
 getting fixed on? you want more control? well, here it comes - the options-area. 
 with a `---` as a line inside your chart-section you divide the chart-section in two areas. the upper one (or "everything before the line with ---") is the options-area, where you can define certain options for this chart specificly. we will go over them briefly, but first lets look at an example:
 +++code
-\+++chart
+ +++chart
 xaxis: months 
 yaxis: temperature in celsius
 dataset1: this year 
@@ -289,7 +290,7 @@ january:9.8:12.3
 february:10.1:11.3
 march:12.2:14.1
 april:16.0:15.4
-\+++
+ +++
 +++
 
 as you can see, there are four entrys in the options-area. the first two define the labels as they would apear aside or under the axis. then there is **dataset1**  and **dataset2**. with this we set a title for each set of values. lets see that in action on the next slide.
