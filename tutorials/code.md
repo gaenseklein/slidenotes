@@ -3,7 +3,7 @@ welcome to the code tutorial!
 
 this tutorial explains how to use code in slidenotes.io.
 
-to begin the presentation press `ctrl+escape` or the `play button`
+to begin the presentation press `ctrl/cmd+enter` or the `play button`
 
 ---
 ## how to use code-blocks in slidenotes
@@ -48,16 +48,6 @@ var mycode = "is super beautiful";
 +++
 
 ---
-## entering codeblocks via toolbar
-
-the toolbar figures out automatically which one you want to enter. so if you just `click on it while the cursor is inside a line` it will create a simple inline-code-tag around the cursor.
-if your cursor is at the beginning of a line it will insert a codeblock.
-
-if you mark **some text inside the editor** and then hit the toolbarbutton it will wrap the text with simple inline-code-tags *if the text is in one line*. if you marked *more than one line* it will wrap it inside a codeblock instead.
-
-why not hitting escape and try it out on this slide, then come back?
-
----
 ## advanced configuration of your codeblocks
 
 we put some more love into codeblocks then just some syntax-highlighting. to make use of the advanced options you have to declare it inside the code-block-head by giving it the *options-flag* `:options`
@@ -66,17 +56,16 @@ now you can insert a new-slide symbol `---` into a line in the codeblock to sepa
 
 so a codeblock could look like this:
 
-+++layout:inline
 ### sourcecode
-+++
-+++code:options
++++code
+ +++code:options
 linehighlight=3
 ---
 my_superfunction(){
   //the following line is what i want to focus your attention on:
   parentelement.dosomethingveryspecial();
 }
-+++
+ +++
 +++
 
 ### result:
@@ -93,7 +82,6 @@ my_superfunction(){
   //the following line is what i want to focus your attention on:
   parentelement.dosomethingveryspecial();
 }
-+++
 +++
 
 
