@@ -1,6 +1,6 @@
 @font-face {
     font-family: "ubuntuMonoBold";
-    src: url("fonts/UbuntuMono-Bold.ttf");
+    src: url("/fonts/UbuntuMono-Bold.ttf");
   }
   #slidenotediv #imagesblock{
   display:none;
