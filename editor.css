@@ -1888,11 +1888,11 @@
 
   div#linkcopyalert {
     position: absolute;
-    top: -2em;
-    background: #f3f8f8;
+    top: 0;
+    background: var(--nicesidebarsymbol-bg-color);
     width: 14ch;
     padding: 0.5em;
-    color: var(--text-color);
+    color: var(--nicesidebarsymbol-font-color);
     left: 9ch;
     border-radius: 1ch;
     animation-name: linkcopyalert;
@@ -1915,7 +1915,7 @@
     }
   }
   #linkcopyalert svg path {
-    stroke: var(--text-color);
+    stroke: var(--nicesidebarsymbol-font-color);
   }
 
   #linkcopyalert svg {
