@@ -338,6 +338,29 @@ nodetheme.builder = {
           result.style.gridColumnEnd = this.getGridPosOfActor(parsedline.actor)+2;
         }
       }else if(parsedline.type=='arrow'){
+        result.classList.add('arrow');
+        result.classList.add(parsedline.arrowtype);
+        let msg = document.createElement('div');
+        if(this.mdcode)msg.innerHTML = parsedline.msg;
+        else msg.innerText = parsedline.msg;
+        let arrow = document.createElement('div');//new Image();
+        arrow.className='arrowimg';
+        result.appendChild(msg);
+        result.appendChild(arrow);
+        let gridFrom = this.getGridPosOfActor(parsedline.actfrom)+1;
+        let gridTo = this.getGridPosOfActor(parsedline.actto)+1;
+        if(gridFrom<gridTo){
+            //left to right
+            result.style.gridColumnStart = gridFrom;
+            result.style.gridColumnEnd = gridTo;
+            result.classList.add('toright');
+        }else{
+            //right to left
+            result.style.gridColumnStart = gridTo;
+            result.style.gridColumnEnd = gridFrom;
+            result.classList.add('toleft');
+        }
+        return result;
 
       }else{
         return false;
