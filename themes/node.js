@@ -5,7 +5,7 @@ var buttonhtml = '<span class="buttonmdcode">+++node+++</span>';
 nodetheme.addEditorbutton(buttonhtml,'+++node');
 
 //internal vars:
-nodetheme.nodetypes = ['sequence'];
+nodetheme.nodetypes = ['simpleflow','sequence'];
 nodetheme.mdcode = true;
 nodetheme.syntax = {
   headseparator:"---",
@@ -431,7 +431,82 @@ nodetheme.builder = {
   //simple-flow from start to end node with arrows
   simpleflow:{
     build:function(parseobj){
-
+      let lines = parseobj.parsedlines;
+      let nodes = parseobj.actors;
+      let aliases = parseobj.aliases;
+      let options = parseobj.options;
+      this.mdcode = parseobj.mdcode;
+      var result = document.createElement('div');
+      result.classList.add('simpleflow');
+      let nodedivs = [];
+      for(var x=0;x<nodes.length;x++){
+        let node = document.createElement('div');
+        node.classList.add('node');
+        node.id = 'simpleflow-node-'+x;
+        if(this.mdcode)node.innerHTML=nodes[x];
+        else node.innerText=nodes[x];
+        result.appendChild(node);
+        nodedivs.push(node);
+        //position node in grid:
+        //TODO: horizontal and vertical, for now just horizontal:
+        node.style.gridColumnStart = 2+(4*x);
+        node.style.gridColumnEnd = 4+(4*x);
+      }
+      //add arrows and notes to nodes:
+      for(var x=0;x<lines.length;x++){
+        if(lines[x]==false)continue;
+        if(lines[x].type==="arrow"){
+          let indexfrom = nodes.indexOf(lines[x].actfrom);
+          if(indexfrom==-1)indexfrom=aliases.indexOf(lines[x].actfrom);
+          let indexto = nodes.indexOf(lines[x].actto);
+          if(indexto==-1)indexto=aliases.indexOf(lines[x].actto);
+          if(indexfrom<0||indexto<0)continue;
+          let arrow = document.createElement('div');
+          arrow.classList.add('arrow');
+          if(this.mdcode)arrow.innerHTML = lines[x].msg;
+          else arrow.innerText=lines[x].msg;
+          arrow.classList.add(lines[x].arrowtype);
+          //position arrow in grid
+          //TODO: add vertical option
+          if(indexto>indexfrom){
+            arrow.style.gridColumnStart=(indexfrom*4)+4;
+            arrow.style.gridColumnEnd = (indexto*4)+1;
+            result.insertBefore(arrow,nodedivs[indexto]);
+          }else{
+            arrow.style.gridColumnStart=(indexto*4)+4;
+            arrow.style.gridColumnEnd = (indexfrom*4)+1;
+            result.insertBefore(arrow,nodedivs[indexfrom]);
+          }
+        }
+        if(lines.type==="note"){
+          let note = document.createElement('div');
+          note.classList.add('note');
+          note.classList.add(lines[x].nodetype);
+          let gc;
+          let index = aliases.indexOf(lines[x].actor);
+          if(index==-1)index=nodes.indexOf(lines[x].actor);
+          if(lines[x].nodetype=='left'){
+            gc=(index*4+1)+'/'+(index*4+2);
+          }else if(lines[x].nodetype=='right'){
+            gc=(index*4+4)+'/'+(index*4+5);
+          }else if(lines[x].nodetype=='over'){
+            let i1=aliases.indexOf(lines[x].act1);
+            if(i1==-1)i1=nodes.indexOf(lines[x].act1);
+            let i2=aliases.indexOf(lines[x].act2);
+            if(i1==-1)i2=nodes.indexOf(lines[x].act2);
+            if(i1<i2){
+              gc=(i1*4+2)+'/'+(i2*4+3);
+              index=i1;
+            }else{
+              gc=(i2*4+2)+'/'+(i1*4+3);
+              index=i2;
+            }
+          }
+          note.gridColumn = gc;
+          result.insertAfter(note, nodedivs[index]);
+        }
+      }
+      return result;
     },
     insertMenu: function(){
 
