@@ -38,8 +38,18 @@ nodetheme.styleThemeSpecials = function(){
     let renhtml = targetdiv.innerHTML.substring(1);//get rid of first \n
     //clean out some tags:
     renhtml = renhtml.replace(/<p>/g,'');
+    renhtml = renhtml.replace(/<\/p>/g,'');
     renhtml = renhtml.replace(/<br>/g,'');
-    nodeobj.renderedLines=renhtml.split('\n');
+    let renlines=renhtml.split('\n');
+    renlines.pop(); //get rid of last empty line
+    //get rid of comments:
+    for(var c=0;c<renlines.length;c++){
+      if(nodeobj.raw[c].indexOf('//')>-1){
+        renlines[c] = renlines[c].substring(0,renlines[c].indexOf('//'));
+        nodeobj.raw[c]=nodeobj.raw[c].substring(0,nodeobj.raw[c].indexOf('//'));
+      }
+    }
+    nodeobj.renderedLines=renlines;
     var nodediv = document.createElement('div');
     let nodetype;
     for(var x=0;x<this.nodetypes.length;x++){
@@ -64,6 +74,7 @@ nodetheme.builder = {
   parsedlines:[],
   //general parsing:
   parseLine: function(line){
+      if(line.length<1)return false; //nothing to do on empty line
       let posofpoint = line.indexOf(":");
       let posofdoublepoint = line.indexOf("::");
       if(posofdoublepoint>-1 && posofdoublepoint<=posofpoint){
@@ -125,7 +136,7 @@ nodetheme.builder = {
             if(actorpos==-1)actorpos=this.actors.length;
             this.actors[actorpos]=content;
             this.aliases[actorpos]=meta;
-            return false; //no action found, syntax wrong
+            return false; //nothing to do later on with this line
           }
           result.arrowtype=arrowtype;
           result.msg=content;
