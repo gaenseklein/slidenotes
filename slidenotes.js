@@ -2658,6 +2658,14 @@ pagegenerator.prototype.showInsertMenu = function(){
 	var insertmenu = document.getElementById("insertarea");
 	var xtram = document.getElementById("extrainsertmenu");
 	var container = document.getElementById("nicesidebarsymbol");
+	let editorblockfade = document.getElementById('editorblockfade');
+
+	if(container.classList.contains('active')){
+		container.classList.remove('active');
+		editorblockfade.classList.remove('nofade');
+		return;
+	}
+	editorblockfade.classList.add('nofade');
 	container.classList.add("active");
 
 	//check if we are on an object:
