@@ -23,31 +23,37 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 @font-face{
   font-family: "Staatliches";
-  src: url("../fonts/themes/dark/Staatliches-Regular.ttf");
+  src: url("/fonts/themes/dark/Staatliches-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 @font-face{
   font-family: "Ubuntu-Light";
-  src: url("../fonts/themes/dark/Ubuntu-Light.ttf");
+  src: url("/fonts/themes/dark/Ubuntu-Light.ttf");
   font-weight: normal;
   font-style: normal;
 }
 @font-face{
   font-family: "Ubuntu-Medium";
-  src: url("../fonts/themes/dark/Ubuntu-Medium.ttf");
+  src: url("/fonts/themes/dark/Ubuntu-Medium.ttf");
   font-weight: bold;
   font-style: normal;
 }
 @font-face{
   font-family: "Ubuntu-LightItalic";
-  src: url("../fonts/themes/dark/Ubuntu-LightItalic.ttf");
+  src: url("/fonts/themes/dark/Ubuntu-LightItalic.ttf");
   font-weight: normal;
   font-style: italic;
 }
 @font-face{
+  font-family: "Ubuntu-MediumItalic";
+  src: url("/fonts/themes/dark/Ubuntu-MediumItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face{
   font-family: "UbuntuMonoReg";
-  src: url("../fonts/UbuntuMono-Regular.ttf");
+  src: url("/fonts/UbuntuMono-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
@@ -180,7 +186,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .dark a{
   text-decoration: underline;
-  font-family: "Ubuntu-LightItalic";
+  font-family: "Ubuntu-LightItalic", Sans-Serif;
   color: var(--darkTextColor);
 }
 
@@ -189,12 +195,16 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .dark b{
-  font-family: "Ubuntu-Medium";
+  font-family: "Ubuntu-Medium", Sans-Serif;
 }
 
 .dark i{
-  font-family: "Ubuntu-LightItalic";
+  font-family: "Ubuntu-LightItalic", Sans-Serif;
   font-size: 0.95em;
+}
+
+.dark b i{
+  font-family: "Ubuntu-MediumItalic", Sans-Serif
 }
 
 .dark strike{
@@ -245,7 +255,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   text-decoration-thickness: 0.02em;
   text-underline-offset: 0.3em;
   line-height: 1.5em;
-  font-family: "Ubuntu-LightItalic";
+  font-family: "Ubuntu-LightItalic", Sans-Serif;
 }
 
 .dark p code{

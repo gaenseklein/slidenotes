@@ -25,31 +25,37 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 @font-face{
   font-family: "FredokaOne";
-  src: url("../fonts/themes/colorful/FredokaOne-Regular.ttf");
+  src: url("/fonts/themes/colorful/FredokaOne-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 @font-face{
   font-family: "RobotoCondReg";
-  src: url("../fonts/themes/colorful/RobotoCondensed-Regular.ttf");
+  src: url("/fonts/themes/colorful/RobotoCondensed-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
 @font-face{
   font-family: "RobotoCondBold";
-  src: url("../fonts/themes/colorful/RobotoCondensed-Bold.ttf");
+  src: url("/fonts/themes/colorful/RobotoCondensed-Bold.ttf");
   font-weight: bold;
   font-style: normal;
 }
 @font-face{
   font-family: "RobotoCondItalic";
-  src: url("../fonts/themes/colorful/RobotoCondensed-Italic.ttf");
+  src: url("/fonts/themes/colorful/RobotoCondensed-Italic.ttf");
+  font-weight: normal;
+  font-style: italic;
+}
+@font-face{
+  font-family: "RobotoCondBoldItalic";
+  src: url("/fonts/themes/colorful/RobotoCondensed-BoldItalic.ttf");
   font-weight: normal;
   font-style: italic;
 }
 @font-face{
   font-family: "CourierPrime-Regular";
-  src: url("../fonts/themes/colorful/CourierPrime-Regular.ttf");
+  src: url("/fonts/themes/colorful/CourierPrime-Regular.ttf");
   font-weight: normal;
   font-style: normal;
 }
@@ -204,7 +210,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful a{
   text-decoration: underline;
-  font-family: "RobotoCondReg";
+  font-family: "RobotoCondReg", Sans-Serif;
   color: var(--colorfulTextColor);
 }
 
@@ -213,12 +219,16 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .colorful b{
-  font-family: "RobotoCondBold";
+  font-family: "RobotoCondBold", Sans-Serif;
 }
 
 .colorful i{
-  font-family: "RobotoCondItalic";
+  font-family: "RobotoCondItalic", Sans-Serif;
   font-size: 0.95em;
+}
+
+.colorful b i{
+  font-family: "RobotoCondBoldItalic", Sans-Serif
 }
 
 .colorful strike{
@@ -269,7 +279,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   text-decoration-thickness: 0.02em;
   text-underline-offset: 0.3em;
   line-height: 1.5em;
-  font-family: "RobotoCondItalic";
+  font-family: "RobotoCondItalic", Sans-Serif;
 }
 
 .colorful p code{
@@ -312,7 +322,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful .ct-chart-donut .ct-label{
   fill: rgba(0, 0, 0, 1);
   text-shadow: 0 0 20px rgba(255, 255, 255, 1);
-  font-family: "RobotoCondBold";
+  font-family: "RobotoCondBold", Sans-Serif;
 }
 
 .colorful .ct-grid{
