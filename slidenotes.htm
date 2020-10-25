@@ -335,6 +335,12 @@
             button.onclick = function(e){
                 var menus = document.getElementsByClassName("autohidemenu");
                 var menu  = document.getElementById(this.menu);
+                if(menu.classList.contains('autohideright')){
+                  let rightmenus = document.querySelectorAll('.autohideright.active');
+                  for(var x=rightmenus.length-1;x>=0;x--){
+                    if(rightmenus[x]!=menu)rightmenus[x].classList.remove('active');
+                  }
+                }
                 for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
                     menus[x].classList.remove("active");
                     if(menus[x].button)
@@ -862,7 +868,7 @@
         <img class="nightmode-only" src="images/buttons/mob_edit_open_dark.svg">
         <span>edit</span>
       </button>
-      <div id="toolbar">
+      <div id="toolbar" class="autohideright">
         <div class="arrow_box" id="texteditorbuttons">
           <div class="screenreader-only">Toolbar</div>
           <ul id="toolbarbuttons">
@@ -897,7 +903,7 @@
           </button>
         </div>
       </div>
-      <div id="imagegallery">
+      <div id="imagegallery" class="autohideright">
         <div id="imagegallerybox" class="arrow_box">
           <div>image gallery</div>
           <button class="plusbutton"  title="add image to imagegallery">
@@ -1109,7 +1115,7 @@
     		  </ul>
         </div>
       </div> -->
-      <div id="menusearchbox"><div class="arrow_box"><div class="arrow_box_content">
+      <div id="menusearchbox" class="autohideright"><div class="arrow_box"><div class="arrow_box_content">
         <!--<div class="separator">Search</div>-->
         <div class="separator">
           <select class="menuitem" name="searchinputchoice" id="searchinputchoice">
