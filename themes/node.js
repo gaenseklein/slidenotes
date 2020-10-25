@@ -338,9 +338,11 @@ nodetheme.builder = {
         if(this.mdcode)result.innerHTML = parsedline.content;
           else result.innerText = parsedline.content;
         if(parsedline.notetype=='left'){
-          result.style.gridColumn = this.getGridPosOfActor(parsedline.actor)-1;
+          result.style.gridColumnStart = this.getGridPosOfActor(parsedline.actor)-1;
+          result.style.gridColumnEnd = this.getGridPosOfActor(parsedline.actor)+1;
         }else if(parsedline.notetype=='right'){
-          result.style.gridColumn = this.getGridPosOfActor(parsedline.actor)+2;
+          result.style.gridColumnStart = this.getGridPosOfActor(parsedline.actor)+1;
+          result.style.gridColumnEnd = this.getGridPosOfActor(parsedline.actor)+3;
         }else if(parsedline.notetype=='over' && parsedline.multiactor){
           result.style.gridColumnStart = this.getGridPosOfActor(parsedline.act1);
           result.style.gridColumnEnd = this.getGridPosOfActor(parsedline.act2)+2;
@@ -452,6 +454,8 @@ nodetheme.builder = {
         node.style.gridColumnStart = 2+(4*x);
         node.style.gridColumnEnd = 4+(4*x);
       }
+      let simplearrowdivs = [];
+      let multiarrows = [];
       //add arrows and notes to nodes:
       for(var x=0;x<lines.length;x++){
         if(lines[x]==false)continue;
@@ -463,33 +467,69 @@ nodetheme.builder = {
           if(indexfrom<0||indexto<0)continue;
           let arrow = document.createElement('div');
           arrow.classList.add('arrow');
-          if(this.mdcode)arrow.innerHTML = lines[x].msg;
-          else arrow.innerText=lines[x].msg;
           arrow.classList.add(lines[x].arrowtype);
+          let msg = document.createElement('div');
+          if(this.mdcode)msg.innerHTML = lines[x].msg;
+          else msg.innerText=lines[x].msg;
+          msg.className='msg';
+          let arrimg = document.createElement('div');
+          arrimg.classList.add('arrowimg');
+          arrow.appendChild(arrimg);
+          arrow.appendChild(msg);
           //position arrow in grid
-          //TODO: add vertical option
-          if(indexto>indexfrom){
-            arrow.style.gridColumnStart=(indexfrom*4)+4;
-            arrow.style.gridColumnEnd = (indexto*4)+1;
-            result.insertBefore(arrow,nodedivs[indexto]);
-          }else{
-            arrow.style.gridColumnStart=(indexto*4)+4;
-            arrow.style.gridColumnEnd = (indexfrom*4)+1;
-            result.insertBefore(arrow,nodedivs[indexfrom]);
+          let start = (indexfrom*4)+4;
+          let end = (indexto*4)+2;
+          let target = indexto;
+          if(indexto<indexfrom){
+            start=(indexto*4)+4;
+            end=(indexfrom*4)+2;
+            target=indexfrom;
+            arrow.classList.add('toleft');
           }
+          let arrowpos;
+          //is it multi-arrow?
+          let multiarrow = (indexfrom-indexto!=1&&indexfrom-indexto!=-1);
+          if(!multiarrow){
+            if(!simplearrowdivs[start]){
+              simplearrowdivs[start]=document.createElement('div');
+              simplearrowdivs[start].classList.add('arrowspace');
+              simplearrowdivs[start].style.gridColumn = start+"/"+end;
+              result.insertBefore(simplearrowdivs[start],nodedivs[target]);
+            }
+            simplearrowdivs[start].appendChild(arrow);
+
+             //arrowpos = simplearrowdivs[start];
+          }else{
+            start--; //multiarrows go till middle of nodes
+            end++;
+            let max=1; //grid starts at 1, not 0
+            for(var me=start;me<=end;me++){
+              if(multiarrows[me]>max)max=multiarrows[me];
+            }
+            max++; //we have to start in next line;
+            for(var me=start;me<=end;me++)multiarrows[me]=max;
+            arrow.style.gridColumnStart=start;
+            arrow.style.gridColumnEnd = end;
+            arrow.style.gridRow = '-'+max+'/-'+(max+1);
+            arrow.classList.add('multi');
+            result.insertBefore(arrow,nodedivs[target]);
+          }
+          //TODO: add vertical option
         }
-        if(lines.type==="note"){
+        if(lines[x].type==="note"){
           let note = document.createElement('div');
           note.classList.add('note');
-          note.classList.add(lines[x].nodetype);
+          note.classList.add(lines[x].notetype);
           let gc;
           let index = aliases.indexOf(lines[x].actor);
           if(index==-1)index=nodes.indexOf(lines[x].actor);
-          if(lines[x].nodetype=='left'){
+          if(lines[x].notetype=='left'){
             gc=(index*4+1)+'/'+(index*4+2);
-          }else if(lines[x].nodetype=='right'){
+          }else if(lines[x].notetype=='right'){
             gc=(index*4+4)+'/'+(index*4+5);
-          }else if(lines[x].nodetype=='over'){
+          }else if(lines[x].notetype=='over' && lines[x].actor){
+            gc=(index*4+2)+'/'+(index*4+4);
+          }else if(lines[x].notetype=='over'){
             let i1=aliases.indexOf(lines[x].act1);
             if(i1==-1)i1=nodes.indexOf(lines[x].act1);
             let i2=aliases.indexOf(lines[x].act2);
@@ -503,9 +543,21 @@ nodetheme.builder = {
             }
           }
           note.gridColumn = gc;
-          result.insertAfter(note, nodedivs[index]);
+          note.gridRow = "1/1";
+          if(this.mdcode)note.innerHTML = lines[x].content;
+          else note.innerText = lines[x].content;
+          if(index<nodes.length-1)result.insertBefore(note, nodedivs[index+1]);
+          else result.appendChild(note);
         }
       }
+      //build grid-template:
+      let maxmarrows=0;
+      for(var x=0;x<multiarrows.length;x++)if(multiarrows[x]>maxmarrows)maxmarrows=multiarrows[x];
+      let gridrows = 2+maxmarrows;
+      let gridcols = nodes.length;
+      result.style.gridTemplateColumns='repeat('+gridcols+',1fr 1fr 1fr 1fr)';
+      result.style.gridTemplateRows = 'auto repeat('+gridrows+',auto)';
+
       return result;
     },
     insertMenu: function(){

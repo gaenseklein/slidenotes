@@ -60,4 +60,65 @@
 
 .node .sequence .note.right {
     justify-self: start;
+    margin-left:1ch;
+}
+.node .sequence .note.left{
+  justify-self:end;
+  margin-right:1ch;
+}
+
+.node .simpleflow .node {
+    border: 1px solid;
+    border-radius: 50%;
+    width: 10ch;
+    height: 10ch;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-row: 2/2;
+    /* font-size: xx-large; */
+}
+
+.node .simpleflow .arrow {
+    width:100%;
+    height:100%;
+    display: grid;
+    align-content: center;
+    justify-content: center;
+    position: relative;
+}
+.node .simpleflow .msg{
+  z-index: 2;
+}
+.node .simpleflow .arrowimg{
+  background: url('node/simpleflowhorizontal.png');
+  background-size: cover;
+  background-position: right;
+  position: absolute;
+  width:100%;
+  height:100%;
+  z-index: 1;
+}
+.node .simpleflow .arrow.multi .arrowimg{
+  background-image:url('node/simpleflowhorizontalmulti.png');
+}
+.node .simpleflow .arrow.multi.toleft .arrowimg{
+  transform:scaleX(-1);
+  height:3em;
+}
+
+.node .simpleflow .arrow.toleft .arrowimg{
+  transform:rotate(180deg);
+}
+.node .simpleflow .arrowspace{
+  grid-row:2/2;
+  display: grid;
+  grid-template-rows: repeat(auto-fit,minmax(1em,1fr));
+  width:100%;
+  height:100%;
+}
+.node .simpleflow {
+    display: grid;
+    grid-template-rows: 10ch;
+    grid-template-columns: repeat(3,1fr 1fr 1fr 1fr);
 }
