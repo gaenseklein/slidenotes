@@ -8,10 +8,15 @@ nodetheme.addEditorbutton(buttonhtml,'+++node');
 nodetheme.nodetypes = ['simpleflow','sequence'];
 nodetheme.mdcode = true;
 nodetheme.syntax = {
+  //"md"-prefix: mdcode-allowed, so deformed html:
   headseparator:"---",
   arrows: ['-->','->>','->','-'],
   arrowtypes: ['dashed', 'open','normal','noarrow'],
   mdarrows: ['--&gt;', '-&gt;&gt;','-&gt;','-'],
+  wrapper:['()','[]','<>','{}'],
+  wrappertitle:['circle','block','diamond','cloud'],
+  wrapperlist:[['(',')'],['[',']'],['<','>'],['{','}']],
+  mdwrapperlist:[['(',')'],['[',']'],['&lt;','&gt;'],['{','}']],
 };
 
 slidenote.datatypes.push({type:'node',mdcode:this.mdcode, theme:nodetheme});
@@ -196,19 +201,60 @@ nodetheme.builder = {
         if(actorpos==-1)actorpos=this.actors.length;
         this.actors[actorpos]=multicontent;
         this.aliases[actorpos]=alias;
+        parsedlines[x]=false;
       }
       if(parsedlines[x].actors)this.pushActor(parsedlines[x].actors);
       else if(parsedlines[x].actor)this.pushActor(parsedlines[x].actor);
     }
+    //forming to html:
+    for(var x=0;x<parsedlines.length;x++){
+      if(parsedlines[x]){
+        let text=parsedlines[x].msg || parsedlines[x].content;
+        parsedlines[x].html = this.formHTML(text);
+      }
+    }
+    var actorhtml = [];
+    for(var x=0;x<this.actors.length;x++){
+      actorhtml[x]=this.formHTML(this.actors[x]);
+    }
+
     let parseobj = {
       actors:this.actors,
       aliases:this.aliases,
       options:this.options,
       parsedlines:parsedlines,
+      actorhtml:actorhtml,
       mdcode:nodetheme.mdcode
     }
     console.log('parsed nodeobject:',parseobj, nodeobj);
     return parseobj;
+  },
+  formHTML:function(text){
+    let result = document.createElement('div');
+    let returntext = text;
+    let wrapperlist = nodetheme.syntax.wrapperlist;
+    if(nodetheme.mdcode)wrapperlist=nodetheme.syntax.mdwrapperlist;
+    let wtitle = nodetheme.syntax.wrappertitle;
+    var wn=null;
+    for(var x=0;x<wrapperlist.length;x++){
+    let wrapper=wrapperlist[x];
+    if(text.substring(0,wrapper[0].length)==wrapper[0] &&
+      text.substring(text.length-wrapper[1].length)==wrapper[1]){
+        wn=x;
+        returntext = text.substring(wrapper[0].length,text.length-wrapper[1].length);
+        result.classList.add(wtitle[x]);
+        let wdiv = document.createElement('div');
+        if(nodetheme.mdcode)wdiv.innerHTML=returntext;
+        else wdiv.innerText = returntext;
+        result.appendChild(wdiv);
+        break;
+      }
+    }
+    if(wn==null){
+      if(nodetheme.mdcode)result.innerHTML=returntext;
+      else result.innerText = returntext;
+    }
+    return result;
   },
   pushActor: function(actor){
     let actors = actor;
@@ -275,6 +321,7 @@ nodetheme.builder = {
     build: function(parseobj){
       this.actors = parseobj.actors || [];
       this.aliases = parseobj.aliases || [];
+      this.actorhtml = parseobj.actorhtml || [];
       this.mdcode = parseobj.mdcode;
       let lines = parseobj.parsedlines;
       result = document.createElement('div');
@@ -317,8 +364,9 @@ nodetheme.builder = {
       }
       div.style.gridColumnStart = (actorsnr*4)+2;
       div.style.gridColumnEnd=(actorsnr*4)+4;
-      if(this.mdcode)div.innerHTML = actor;
-        else div.innerText=actor;
+      //if(this.mdcode)div.innerHTML = actor;
+      //  else div.innerText=actor;
+      div.appendChild(this.actorhtml[actorsnr])
       return div;
     },
     buildLine: function(parsedline){
@@ -335,8 +383,9 @@ nodetheme.builder = {
       if(parsedline.type=='note'){
         result.classList.add('note');
         result.classList.add(parsedline.notetype);
-        if(this.mdcode)result.innerHTML = parsedline.content;
-          else result.innerText = parsedline.content;
+        //if(this.mdcode)result.innerHTML = parsedline.content;
+        //  else result.innerText = parsedline.content;
+        result.appendChild(parsedline.html);
         if(parsedline.notetype=='left'){
           result.style.gridColumnStart = this.getGridPosOfActor(parsedline.actor)-1;
           result.style.gridColumnEnd = this.getGridPosOfActor(parsedline.actor)+1;
@@ -354,8 +403,9 @@ nodetheme.builder = {
         result.classList.add('arrow');
         result.classList.add(parsedline.arrowtype);
         let msg = document.createElement('div');
-        if(this.mdcode)msg.innerHTML = parsedline.msg;
-        else msg.innerText = parsedline.msg;
+        //if(this.mdcode)msg.innerHTML = parsedline.msg;
+        //else msg.innerText = parsedline.msg;
+        msg.appendChild(parsedline.html);
         let arrow = document.createElement('div');//new Image();
         arrow.className='arrowimg';
         result.appendChild(msg);
@@ -445,8 +495,9 @@ nodetheme.builder = {
         let node = document.createElement('div');
         node.classList.add('node');
         node.id = 'simpleflow-node-'+x;
-        if(this.mdcode)node.innerHTML=nodes[x];
-        else node.innerText=nodes[x];
+        //if(this.mdcode)node.innerHTML=nodes[x];
+        //else node.innerText=nodes[x];
+        node.appendChild(parseobj.actorhtml[x]);
         result.appendChild(node);
         nodedivs.push(node);
         //position node in grid:
@@ -469,8 +520,9 @@ nodetheme.builder = {
           arrow.classList.add('arrow');
           arrow.classList.add(lines[x].arrowtype);
           let msg = document.createElement('div');
-          if(this.mdcode)msg.innerHTML = lines[x].msg;
-          else msg.innerText=lines[x].msg;
+          //if(this.mdcode)msg.innerHTML = lines[x].msg;
+          //else msg.innerText=lines[x].msg;
+          msg.appendChild(lines[x].html);
           msg.className='msg';
           let arrimg = document.createElement('div');
           arrimg.classList.add('arrowimg');
@@ -544,8 +596,9 @@ nodetheme.builder = {
           }
           note.gridColumn = gc;
           note.gridRow = "1/1";
-          if(this.mdcode)note.innerHTML = lines[x].content;
-          else note.innerText = lines[x].content;
+          //if(this.mdcode)note.innerHTML = lines[x].content;
+          //else note.innerText = lines[x].content;
+          note.appendChild(lines[x].html);
           if(index<nodes.length-1)result.insertBefore(note, nodedivs[index+1]);
           else result.appendChild(note);
         }
