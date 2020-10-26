@@ -49,7 +49,9 @@
 .node .sequence .arrow.noarrow .arrowimg{
   border-top:3px solid;
 }
-
+.node .sequence .arrow.noarrowdashed .arrowimg{
+  border-top:3px dashed;
+}
 .node .sequence .note {
     border: 1px solid;
     text-align: center;
@@ -72,6 +74,7 @@
     border-radius: 50%;
     width: 10ch;
     height: 10ch;
+    text-align: center;
     display: grid;
     justify-content: center;
     align-content: center;
@@ -174,4 +177,7 @@
 
 .node .node.cloud div {
     z-index: 3;
+}
+.node .node.block{
+  border-radius:unset;
 }

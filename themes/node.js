@@ -10,8 +10,8 @@ nodetheme.mdcode = true;
 nodetheme.syntax = {
   //"md"-prefix: mdcode-allowed, so deformed html:
   headseparator:"---",
-  arrows: ['-->','->>','->','-'],
-  arrowtypes: ['dashed', 'open','normal','noarrow'],
+  arrows: ['-->','->>','->','--', '-'],
+  arrowtypes: ['dashed', 'open','normal','noarrowdashed','noarrow'],
   mdarrows: ['--&gt;', '-&gt;&gt;','-&gt;','-'],
   wrapper:['()','[]','<>','{}'],
   wrappertitle:['circle','block','diamond','cloud'],
@@ -29,10 +29,50 @@ nodetheme.insertMenuArea = function(dataobject){
     if(dataobject.head.indexOf(this.nodetypes[x])>-1)type=this.nodetypes[x];
   }
   result.classList.add('nodeinsertmenu');
+  var standardbuttonlist = this.standardInsertMenu();
+  result.appendChild(standardbuttonlist);
   var buttonlist=this.builder[type].insertMenu();
-  result.appendChild(buttonlist);
+  if(buttonlist)result.appendChild(buttonlist);
   return result;
 };
+
+nodetheme.standardInsertMenu = function(){
+  let result = document.createElement('div');
+  //we have note left, right, over and all arrows
+  let notes = [
+    'a:alice',
+    'a->b',
+    'a-->b',
+    'a->>b',
+    'a-b',
+    'note left of ',
+    'note right of ',
+    'note over ',
+  ];
+  for(var x=0;x<notes.length;x++){
+    //let li=document.createElement('li');
+    let bt = document.createElement('button');
+    bt.clasName='menuitem';
+    bt.title='insert '+notes[x]+'to code';
+    bt.name=notes[x];
+    bt.innerText=notes[x];
+    bt.onclick=function(){
+      let inspos = slidenote.textarea.value.indexOf('\n',slidenote.textarea.selectionEnd);
+      let txt=slidenote.textarea.value;
+      let inserttext='\n'+this.name;
+      if(this.name.indexOf(":")==-1)inserttext+=":";
+      txt=txt.substring(0,inspos)+inserttext+txt.substring(inspos);
+      slidenote.textarea.value=txt;
+      slidenote.textarea.selectionEnd=inspos+inserttext.length-1;
+      slidenote.parseneu();
+      slidenote.textarea.focus();
+    };
+    //li.appendChild(bt);
+    //result.appendChild(li);
+    result.appendChild(bt);
+  }
+  return result;
+}
 
 nodetheme.styleThemeSpecials = function(){
   var datadivs = slidenote.presentationdiv.getElementsByTagName("section");
@@ -146,6 +186,9 @@ nodetheme.builder = {
             //if not put it to end of actors:
             if(actorpos==-1)actorpos=this.actors.length;
             this.actors[actorpos]=content;
+            if(content==""){
+              this.actors[actorpos]=meta;
+            }
             this.aliases[actorpos]=meta;
             return false; //nothing to do later on with this line
           }
@@ -452,31 +495,7 @@ nodetheme.builder = {
         return gridpos;
     },
     insertMenu: function(){
-      let result = document.createElement('div');
-      //we have note left, right, over and all arrows
-      let notes = ['note left of ', 'note right of ', 'note over ', 'a->b','a-->b','a->>b','a-b'];
-      for(var x=0;x<notes.length;x++){
-        //let li=document.createElement('li');
-        let bt = document.createElement('button');
-        bt.clasName='menuitem';
-        bt.title='insert '+notes[x]+'to code';
-        bt.name=notes[x];
-        bt.innerText=notes[x];
-        bt.onclick=function(){
-          let inspos = slidenote.textarea.value.indexOf('\n',slidenote.textarea.selectionEnd);
-          let txt=slidenote.textarea.value;
-          let inserttext='\n'+this.name+':';
-          txt=txt.substring(0,inspos)+inserttext+txt.substring(inspos);
-          slidenote.textarea.value=txt;
-          slidenote.textarea.selectionEnd=inspos+inserttext.length-1;
-          slidenote.parseneu();
-          slidenote.textarea.focus();
-        };
-        //li.appendChild(bt);
-        //result.appendChild(li);
-        result.appendChild(bt);
-      }
-      return result;
+
     },
 
   },
