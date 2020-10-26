@@ -234,8 +234,8 @@ function slidenotecodeblockoptions(){
 	this.linenumberingstart = 1;
 	this.language = "";	 //programming language - default is let hljs choose
 	this.speciallinemarker = "§§";
-	this.specialstartmarker = "§a";
-	this.specialendmarker = "§e";
+	this.specialstartmarker = "§(";
+	this.specialendmarker = ")§";
 
 	this.showLineNumbers = function(){
 		return (this.linenumbering === "on"|| this.linenumbering ==="true");
