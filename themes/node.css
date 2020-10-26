@@ -122,3 +122,56 @@
     grid-template-rows: 10ch;
     grid-template-columns: repeat(3,1fr 1fr 1fr 1fr);
 }
+.node .simpleflow .node.diamond {
+    transform: rotate(45deg);
+    border-radius: unset;
+}
+
+.node.diamond div {
+    transform: rotate(-45deg);
+}
+
+.node .simpleflow .node.circle {
+    border-radius: 50%;
+}
+.node .simpleflow .node.cloud {
+  border-radius: 100px / 50px;
+  background-color: white;
+  text-align: center;
+  position: relative;
+  height: 6ch;
+  width: 100%;
+  border-color: transparent;
+  box-shadow: 0px 0px 15px -2px;
+}
+
+.node .simpleflow .node.cloud::before {
+  width: 6ch;
+  height: 4ch;
+  border-radius: 50%;
+  background-color: white;
+  line-height: 75px;
+  text-align: center;
+  position: absolute;
+  content: "";
+  top: -0.7ch;
+  left: 1.5ch;
+}
+
+.node .simpleflow .node.cloud::after {
+  width: 6ch;
+  height: 6ch;
+  border-radius: 50%;
+  background-color: white;
+  /* line-height: 75px; */
+  /* text-align: center; */
+  position: absolute;
+  content: "";
+  top: -14%;
+  left: 39%;
+  z-index: 1;
+}
+
+.node .node.cloud div {
+    z-index: 3;
+}

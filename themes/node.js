@@ -88,8 +88,14 @@ nodetheme.builder = {
         //return that we have found a double-point-alias
         return {multilinedeclaration:true, alias:alias};
       }
+      var content;
+      if(posofpoint==-1){
+        posofpoint=line.length;
+        content="";
+      }else{
+        content= line.substring(posofpoint+1);
+      }
       let meta=line.substring(0,posofpoint);
-      let content= line.substring(posofpoint+1);
       var result = {};
       if(meta.indexOf('note ')==0){
           result.type='note';
@@ -209,7 +215,8 @@ nodetheme.builder = {
     //forming to html:
     for(var x=0;x<parsedlines.length;x++){
       if(parsedlines[x]){
-        let text=parsedlines[x].msg || parsedlines[x].content;
+        let text=parsedlines[x].msg;
+        if(text===undefined)text=parsedlines[x].content;
         parsedlines[x].html = this.formHTML(text);
       }
     }
@@ -353,7 +360,8 @@ nodetheme.builder = {
     },
     buildActor: function(actorsnr, top){
       let actor=this.actors[actorsnr];
-      let div = document.createElement('div');
+      //let div = document.createElement('div');
+      let div = this.actorhtml[actorsnr];
       div.classList.add('actor');
       if(top){
         div.classList.add('top');
@@ -366,7 +374,7 @@ nodetheme.builder = {
       div.style.gridColumnEnd=(actorsnr*4)+4;
       //if(this.mdcode)div.innerHTML = actor;
       //  else div.innerText=actor;
-      div.appendChild(this.actorhtml[actorsnr])
+      //div.appendChild(this.actorhtml[actorsnr])
       return div;
     },
     buildLine: function(parsedline){
@@ -381,11 +389,12 @@ nodetheme.builder = {
 
       let result = document.createElement('div');
       if(parsedline.type=='note'){
+        result = parsedline.html;
         result.classList.add('note');
         result.classList.add(parsedline.notetype);
         //if(this.mdcode)result.innerHTML = parsedline.content;
         //  else result.innerText = parsedline.content;
-        result.appendChild(parsedline.html);
+        //result.appendChild(parsedline.html);
         if(parsedline.notetype=='left'){
           result.style.gridColumnStart = this.getGridPosOfActor(parsedline.actor)-1;
           result.style.gridColumnEnd = this.getGridPosOfActor(parsedline.actor)+1;
@@ -402,10 +411,10 @@ nodetheme.builder = {
       }else if(parsedline.type=='arrow'){
         result.classList.add('arrow');
         result.classList.add(parsedline.arrowtype);
-        let msg = document.createElement('div');
+        let msg = parsedline.html;//document.createElement('div');
         //if(this.mdcode)msg.innerHTML = parsedline.msg;
         //else msg.innerText = parsedline.msg;
-        msg.appendChild(parsedline.html);
+        //msg.appendChild(parsedline.html);
         let arrow = document.createElement('div');//new Image();
         arrow.className='arrowimg';
         result.appendChild(msg);
@@ -492,12 +501,12 @@ nodetheme.builder = {
       result.classList.add('simpleflow');
       let nodedivs = [];
       for(var x=0;x<nodes.length;x++){
-        let node = document.createElement('div');
+        let node = parseobj.actorhtml[x];// document.createElement('div');
         node.classList.add('node');
         node.id = 'simpleflow-node-'+x;
         //if(this.mdcode)node.innerHTML=nodes[x];
         //else node.innerText=nodes[x];
-        node.appendChild(parseobj.actorhtml[x]);
+        //node.appendChild(parseobj.actorhtml[x]);
         result.appendChild(node);
         nodedivs.push(node);
         //position node in grid:
@@ -519,10 +528,10 @@ nodetheme.builder = {
           let arrow = document.createElement('div');
           arrow.classList.add('arrow');
           arrow.classList.add(lines[x].arrowtype);
-          let msg = document.createElement('div');
+          let msg = lines[x].html;//document.createElement('div');
           //if(this.mdcode)msg.innerHTML = lines[x].msg;
           //else msg.innerText=lines[x].msg;
-          msg.appendChild(lines[x].html);
+          //msg.appendChild(lines[x].html);
           msg.className='msg';
           let arrimg = document.createElement('div');
           arrimg.classList.add('arrowimg');
@@ -569,7 +578,7 @@ nodetheme.builder = {
           //TODO: add vertical option
         }
         if(lines[x].type==="note"){
-          let note = document.createElement('div');
+          let note = lines[x].html;//document.createElement('div');
           note.classList.add('note');
           note.classList.add(lines[x].notetype);
           let gc;
@@ -598,7 +607,7 @@ nodetheme.builder = {
           note.gridRow = "1/1";
           //if(this.mdcode)note.innerHTML = lines[x].content;
           //else note.innerText = lines[x].content;
-          note.appendChild(lines[x].html);
+          //note.appendChild(lines[x].html);
           if(index<nodes.length-1)result.insertBefore(note, nodedivs[index+1]);
           else result.appendChild(note);
         }
