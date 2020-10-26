@@ -4140,6 +4140,10 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 			key = getKeyOfKeyCode(event.keyCode);
 			event.key = key;
 	}
+	//check for alt-right:
+	if(key=="AltGraph"||event.code=="AltRight"){
+		this.altright = true;
+	}
 	//automatic closure:
 	if(slidenote.keyboardshortcuts){
 		if(slidenote.textarea.selectionEnd-slidenote.textarea.selectionStart!=0){
@@ -4226,12 +4230,15 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 					key === slidenoteSpeaker.metakey))
 					)return;
 					var cursor = document.getElementById("carret");
+					if(this.altright){
 					setTimeout(function(){
 						let realkey = slidenote.textarea.value.charAt(slidenote.textarea.selectionEnd-1);
 						console.log(key,"vs",slidenote.textarea.value.charAt(slidenote.textarea.selectionEnd-1));
 						cursor.innerHTML = cursor.innerHTML+""+realkey;
 					},1);
-					//cursor.innerHTML = cursor.innerHTML+""+key;
+				}else{
+					cursor.innerHTML = cursor.innerHTML+""+key;
+				}
 					if(this.keypressstack===undefined)this.keypressstack=0;
 					this.keypressstack++;
 					setTimeout("slidenote.parseAfterPause()", 500);
@@ -4255,6 +4262,11 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 	}
 	this.lastcarretpos = carretpos;*/
 	if(key=="undefined")key=getKeyOfKeyCode(event.keyCode);//key=String.fromCharCode(event.keyCode);
+	//check for alt-right:
+	if(key=="AltGraph"||event.code=="AltRight"){
+		this.altright=false;
+	}
+
 	if(this.texteditorerroractivated){
 		if(key==="Enter" || key==="Backspace" || key==="Delete" || renderkeys.indexOf(key)>-1){
 			console.log("parseneu forced after key "+key);
