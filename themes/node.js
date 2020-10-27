@@ -404,7 +404,8 @@ nodetheme.builder = {
     buildActor: function(actorsnr, top){
       let actor=this.actors[actorsnr];
       //let div = document.createElement('div');
-      let div = this.actorhtml[actorsnr];
+      let div = document.createElement('div');
+      div.appendChild(this.actorhtml[actorsnr].cloneNode(true));
       div.classList.add('actor');
       if(top){
         div.classList.add('top');
