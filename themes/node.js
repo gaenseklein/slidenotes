@@ -5,7 +5,7 @@ var buttonhtml = '<span class="buttonmdcode">+++node+++</span>';
 nodetheme.addEditorbutton(buttonhtml,'+++node');
 
 //internal vars:
-nodetheme.nodetypes = ['simpleflow','sequence'];
+nodetheme.nodetypes = ['simpleflow','tree','sequence'];
 nodetheme.mdcode = true;
 nodetheme.syntax = {
   //"md"-prefix: mdcode-allowed, so deformed html:
@@ -271,9 +271,9 @@ nodetheme.builder = {
     let parseobj = {
       actors:this.actors,
       aliases:this.aliases,
+      actorhtml:actorhtml,
       options:this.options,
       parsedlines:parsedlines,
-      actorhtml:actorhtml,
       mdcode:nodetheme.mdcode
     }
     console.log('parsed nodeobject:',parseobj, nodeobj);
@@ -503,7 +503,117 @@ nodetheme.builder = {
   //tree-diagram:
   tree:{
     build: function(parseobj){
+      this.actors = [];
+      for(var x=0;x<parseobj.actors.length;x++){
+        this.actors.push({
+          html:parseobj.actorhtml[x],
+          actor:parseobj.actors[x],
+          alias:parseobj.aliases[x],
+          used:false,
+          children:[],
+          parent:null,
+          weight:0,
+          arrows:[],
+        });
+      }
+      for(var x=0;x<parseobj.parsedlines.length;x++){
+        if(parseobj.parsedlines[x]==false)continue;
+        let pline = parseobj.parsedlines[x];
+        if(pline.type=="arrow"){
+          let parent = parseobj.actors.indexOf(pline.actfrom);
+          if(parent==-1)parent = parseobj.aliases.indexOf(pline.actfrom);
+          let child = parseobj.actors.indexOf(pline.actto);
+          if(child==-1)child = parseobj.aliases.indexOf(pline.actto);
+          if(this.actors[child].parent!=null){
+            if(this.actors[parent].children.indexOf(this.actors[child])==-1){
+              //invalid connection
+            continue;
+            }else{
+              pline.direction='up'
+            }
+          }else{
+            pline.direction='down';
+          }
+          this.actors[parent].children.push(this.actors[child]);
+          this.actors[child].parent=this.actors[parent];
 
+          this.actors[child].arrows.push(pline);
+        }
+      }
+      var treelines = [];
+      treelines[0]=[];
+      for(var x=0;x<this.actors.length;x++){
+        if(this.actors[x].parent==null)treelines[0].push(this.actors[x]);
+      }
+      var lnr = 0;
+      var maxnodesperline=1;
+      while(treelines[lnr] &&
+                treelines[lnr].length>0 &&
+                lnr<this.actors.length){
+        let line = treelines[lnr];
+        if(line.length>maxnodesperline)maxnodesperline=line.length;
+        lnr++;
+        treelines[lnr]=[];
+        for(var x=0;x<line.length;x++){
+          let children = line[x].children;
+          for(var y=0;y<children.length;y++){
+            let child=children[y];
+            if(child.used==false){
+              child.used=true;
+              treelines[lnr].push(child);
+            }
+          }
+        }
+      }
+      //treelines contains now all lines of the tree in order
+      var leafs = [];
+      for(var x=0;x<this.actors.length;x++){
+        if(this.actors[x].children.length==0)leafs.push(this.actors[x]);
+      }
+
+      for(var x=0;x<leafs.length;x++){
+        this.addWeight(leafs[x],1);
+      }
+      var totalweight = 0;
+      for(var x=0;x<treelines[0].length;x++)totalweight+=treelines[0][x].weight;
+      var result = document.createElement('div');
+      result.classList.add('tree');
+      for(var x=0;x<treelines.length;x++){
+        var gridstartinline=1;
+        for(var y=0;y<treelines[x].length;y++){
+          let actor = treelines[x][y];
+          let node = document.createElement('div');
+          node.classList.add('node');
+          node.style.gridColumnStart=gridstartinline;
+          node.style.gridColumnEnd=gridstartinline+actor.weight;
+          gridstartinline+=actor.weight;
+          node.style.gridRow=(x+1)+"/"+(x+1);
+
+          let arrows = document.createElement('div');
+          arrows.classList.add('arrowspace');
+          for(var ar=0;ar<actor.arrows.length;ar++){
+            let arrow = document.createElement('div');
+            let arrowimg = document.createElement('div');
+            arrowimg.classList.add('arrowimg');
+            arrow.classList.add(actor.arrows[ar].direction);
+            arrowimg.classList.add(actor.arrows[ar].direction);
+            arrow.appendChild(arrowimg);
+            arrow.appendChild(actor.arrows[ar].html);
+            arrows.appendChild(arrow);
+          }
+          node.appendChild(arrows);
+          node.appendChild(actor.html);
+
+          result.appendChild(node);
+        }
+      }
+      result.style.gridTemplateRows = 'repeat('+treelines.length+',auto)';
+      result.style.gridTemplateColumns= 'repeat('+totalweight+', auto)';
+      return result;
+    },
+    addWeight: function(node, weight){
+      node.weight+=weight;
+      if(node.parent!=null)this.addWeight(node.parent,node.weight);
     },
     insertMenu: function(){
 
