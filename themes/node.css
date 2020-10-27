@@ -22,10 +22,13 @@
     width:100%;
 }
 .node .sequence .arrow .arrowimg{
-  background: transparent;
+  /*background: transparent;
   background-size: cover;
   background-position: right;
+  */
   height:1em;
+  width:100%;
+  position: relative;
 }
 
 .node .sequence .arrow div {
@@ -33,18 +36,46 @@
 }
 
 .node .sequence .arrow.toleft .arrowimg {
-    transform: rotate(180deg);
+    transform: scaleX(-1);
+}
+/*
+old background-images:
+background-image:url("/themes/node/sequencearrowdashed.png");
+background-image:url("/themes/node/sequencearrowopen.png");
+background-image:url("/themes/node/sequencearrownormal.png");
+*/
+
+/*pure css arrows:*/
+.arrowimg::after {
+    width: 1ch;
+    height: 1ch;
+    content: "";
+    border-right: 3px solid;
+    border-top: 3px solid;
+    position: absolute;
+    right: 3px;
+    transform: rotate(45deg);
+    top: -0.5ch;
+    background: linear-gradient(to top right, transparent 50%, black 50%);
 }
 
-.node .sequence .arrow.dashed .arrowimg{
-  background-image:url("/themes/node/sequencearrowdashed.png");
+.arrowimg::before {
+    width: 100%;
+    height: 0;
+    border-top: 2px solid;
+    position: absolute;
+    top: 0;
+    content: " ";
+    left: 0;
+}
+.node .sequence .arrow.dashed .arrowimg::before{
+  border-top:2px dashed;
 }
 
-.node .sequence .arrow.open .arrowimg{
-  background-image:url("/themes/node/sequencearrowopen.png");
+.node .sequence .arrow.open .arrowimg::after{
+  background:none;
 }
 .node .sequence .arrow.normal .arrowimg{
-  background-image:url("/themes/node/sequencearrownormal.png");
 }
 .node .sequence .arrow.noarrow .arrowimg{
   border-top:3px solid;
@@ -94,7 +125,6 @@
   z-index: 2;
 }
 .node .simpleflow .arrowimg{
-  background: url('node/simpleflowhorizontal.png');
   background-size: cover;
   background-position: right;
   position: absolute;
@@ -102,16 +132,60 @@
   height:100%;
   z-index: 1;
 }
-.node .simpleflow .arrow.multi .arrowimg{
-  background-image:url('node/simpleflowhorizontalmulti.png');
+/*
+background: url('node/simpleflowhorizontal.png');
+old background-urls:
+background-image:url('node/simpleflowhorizontalmulti.png');
+*/
+.simpleflow .arrowspace .arrowimg::before {
+    height: 60%;
+    background: lightblue;
+    top: 20%;
+    left: 0;
+    border: none;
+    width: 75%;
+    /* border-top: 1ch solid lightblue; */
+    /* border-bottom: 1ch solid lightblue; */
 }
+
+
+.simpleflow .arrowspace .arrowimg::after {
+    height: 4.5em;
+    width: 4.5em;
+    /* padding-left: 55%; */
+    right: 0;
+    top: 10%;
+    background: linear-gradient(to top right, transparent 50%, lightblue 50%);
+    border: none;
+}
+.node .simpleflow .arrow.multi .arrowimg{
+  height:100%;
+}
+.node .simpleflow .multi {
+    height: 3em;
+}
+
+.node .multi .arrowimg::before {
+    border-left: 2px solid;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    border-top: none;
+    height: 100%;
+    content:"";
+}
+
+.node .multi .arrowimg::after {
+    top: 0;
+    right: -0.9ch;
+    transform: rotate(-45deg);
+}
+
 .node .simpleflow .arrow.multi.toleft .arrowimg{
   transform:scaleX(-1);
-  height:3em;
 }
 
 .node .simpleflow .arrow.toleft .arrowimg{
-  transform:rotate(180deg);
+  transform:scaleX(-1);
 }
 .node .simpleflow .arrowspace{
   grid-row:2/2;
