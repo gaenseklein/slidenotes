@@ -3966,10 +3966,27 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	var texteditorrahmen = this.textarea.parentElement;//document.getElementById("texteditor");
 	var eingabeblock = this.textarea;
 	var texteditorfehlerlayer = this.texteditorerrorlayer;
-	var maxspace = texteditorrahmen.offsetWidth-4;
+	var maxspace = texteditorrahmen.offsetWidth-2;
+	//2 is a magic number... it works somehow but dont know why
+	//have to check different browsers
+	/*the calculation i have from error on width 523 is the following:
+	 523-19 = 504 and 504 is dividable by 8...
+	 so maybe sometimes it comes to a rounding-error where
+	 textarea rounds differently then html-rendered block.
+	 therefore we should add 1 px if textarea.clientWidth is dividable by 8
+	 whereas 8 is character-width which could change if people activate enlarging
+	 therefore we should check it out and use that as dividor?
+	 in chromium it works well for now with 8 even if i enlarge the page
+	*/
+	let charwidth = 8;
 	//set texteditor-width to max-space:
 	eingabeblock.style.width = maxspace+"px";
-	texteditorfehlerlayer.style.width = maxspace+"px";
+	if(eingabeblock.clientWidth % charwidth==0){
+		console.log('changed width of textarea to avoid error on float to integer');
+		maxspace+=1;
+		eingabeblock.style.width = maxspace+"px";
+	}
+	texteditorfehlerlayer.style.width = (maxspace)+"px";
 	/*old stuff:
 	//check if textarea bigger than space available:
 	var maxspace = window.innerWidth - 30 - hardcodedwith; //521 is hard-coded widths from neighbours, could change in future
