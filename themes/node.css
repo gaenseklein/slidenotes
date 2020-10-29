@@ -286,3 +286,76 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 .node .node.block{
   border-radius:unset;
 }
+
+.node .tree{
+  display:grid;
+  justify-items: center;
+  align-items: center;
+}
+
+.node .tree .node {
+    width: 100%;
+    text-align: center;
+    display: grid;
+    justify-items:center;
+}
+
+.node .tree .arrowspace{
+  display: grid;
+  grid-template-columns: auto;
+  grid-auto-flow: column;
+  grid-gap: 3em;
+}
+
+.node .tree .arrowspace .arrowimg {
+    position: relative;
+    width: 100%;
+    height: 3em;
+    z-index: 1;
+}
+
+.node .tree .arrowspace .arrowimg::after {
+    right: auto;
+    transform: rotate(135deg);
+    height: 4em;
+    width: 4em;
+    opacity: 0.3;
+    top: -2em;
+}
+
+.node .tree .arrowspace .arrowimg::before {
+    display: none;
+}
+.node .tree .arrowspace .up .arrowimg::after{
+  transform: rotate(-45deg);
+  top: 1em;
+}
+
+.node .tree .arrowspace div {
+    z-index: 2;
+}
+
+.node .tree .arrowspace .down,
+.node .tree .arrowspace .up {
+  display: grid;
+  grid-template-areas:"arrow";
+  justify-items: center;
+  text-align: center;
+}
+
+.node .tree .down > div{
+  grid-area:arrow;
+  align-self: start;
+}
+.node .tree .up > div {
+  grid-area: arrow;
+  align-self: end;
+}
+
+
+.node .tree .content {
+    border: 3px solid;
+    border-radius: 9px;
+    width: 90%;
+    justify-self: center;
+}

@@ -513,6 +513,7 @@ nodetheme.builder = {
           children:[],
           parent:null,
           weight:0,
+          gridStart:1,
           arrows:[],
         });
       }
@@ -525,19 +526,30 @@ nodetheme.builder = {
           let child = parseobj.actors.indexOf(pline.actto);
           if(child==-1)child = parseobj.aliases.indexOf(pline.actto);
           if(this.actors[child].parent!=null){
-            if(this.actors[parent].children.indexOf(this.actors[child])==-1){
-              //invalid connection
+            //we should not reuse nodes so do nothing
+            console.log('syntax error in line '+x+": in trees a node can only have one parent", pline.sourcecode);
+            continue;
+          }
+          if(this.hasParentInTree(this.actors[parent],this.actors[child])){
+            //building a circle - so only add up arrow to child
+            if(this.actors[child].children.indexOf(this.actors[parent])==-1){
+              //invalid connection -
+              //in tree its impossible to show arrows up for more then one level
+              console.log('syntax error in line '+x+': in trees you cant write arrows over more then one line',pline.sourcecode);
             continue;
             }else{
-              pline.direction='up'
+              //parent of is in next line above so push arrows
+              pline.direction='up';
+              this.actors[parent].arrows.push(pline);
             }
           }else{
-            pline.direction='down';
+            pline.direction="down";
+            //no circle so add childs to parent and vice versa:
+            this.actors[parent].children.push(this.actors[child]);
+            this.actors[child].parent=this.actors[parent];
+            this.actors[child].arrows.push(pline);
           }
-          this.actors[parent].children.push(this.actors[child]);
-          this.actors[child].parent=this.actors[parent];
 
-          this.actors[child].arrows.push(pline);
         }
       }
       var treelines = [];
@@ -566,6 +578,12 @@ nodetheme.builder = {
         }
       }
       //treelines contains now all lines of the tree in order
+      //add levels to them:
+      for(var x=0;x<treelines.length;x++){
+        for(var y=0;y<treelines[x].length;y++){
+          treelines[x][y].level = x;
+        }
+      }
       var leafs = [];
       for(var x=0;x<this.actors.length;x++){
         if(this.actors[x].children.length==0)leafs.push(this.actors[x]);
@@ -575,11 +593,16 @@ nodetheme.builder = {
         this.addWeight(leafs[x],1);
       }
       var totalweight = 0;
-      for(var x=0;x<treelines[0].length;x++)totalweight+=treelines[0][x].weight;
+      for(var x=0;x<treelines[0].length;x++){
+        if(x>0)this.increaseTreeGridPos(treelines[0][x],totalweight);
+        totalweight+=treelines[0][x].weight;
+      }
+      console.log('total weight:' + totalweight, treelines);
       var result = document.createElement('div');
       result.classList.add('tree');
       for(var x=0;x<treelines.length;x++){
         var gridstartinline=1;
+        if(treelines[x][0] && treelines[x][0].gridStart>1)gridstartinline=treelines[x][0].gridStart;
         for(var y=0;y<treelines[x].length;y++){
           let actor = treelines[x][y];
           let node = document.createElement('div');
@@ -602,7 +625,10 @@ nodetheme.builder = {
             arrows.appendChild(arrow);
           }
           node.appendChild(arrows);
-          node.appendChild(actor.html);
+          let nodecontent = document.createElement('div');
+          nodecontent.classList.add('content');
+          nodecontent.appendChild(actor.html);
+          node.appendChild(nodecontent);
 
           result.appendChild(node);
         }
@@ -611,9 +637,29 @@ nodetheme.builder = {
       result.style.gridTemplateColumns= 'repeat('+totalweight+', auto)';
       return result;
     },
-    addWeight: function(node, weight){
-      node.weight+=weight;
+    addWeight: function(node){
+      node.weight+=1;//weight; its recursive - only add 1 and let the recursion do the rest
       if(node.parent!=null)this.addWeight(node.parent,node.weight);
+    },
+    increaseTreeGridPos:function(node,addedWeight){
+      node.gridStart+=addedWeight;
+      for(var x=0;x<node.children.length;x++){
+        this.increaseTreeGridPos(node.children[x],addedWeight);
+      }
+    },
+    hasChildInTree: function(parent, node){
+      if(parent.children.indexOf(node)>-1)return true;
+      if(parent.children.length==0 && parent != node)return false;
+      let result = false;
+      for(var x=0;x<parent.children.length;x++){
+        result = result || this.hasChildInTree(parent.children[x],node);
+      }
+      return result;
+    },
+    hasParentInTree: function(nodeInTree,possibleParent){
+      if(nodeInTree.parent==possibleParent)return true;
+      if(nodeInTree.parent==null)return false;
+      return this.hasParentInTree(nodeInTree.parent,possibleParent);
     },
     insertMenu: function(){
 
