@@ -2941,7 +2941,7 @@
 /* raw-text-mode */
 /* ------------- */
 
-  .raw-text #slidenoteeditor #texteditorerrorlayer, .raw-text #slidenoteeditor #nicesidebarsymbol{
+  .raw-text #slidenoteeditor #texteditorerrorlayer{
     display:none;
   }
   .raw-text #slidenoteeditor #quelltext{
