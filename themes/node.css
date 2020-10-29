@@ -131,33 +131,64 @@ background-image:url("/themes/node/sequencearrownormal.png");
   width:100%;
   height:100%;
   z-index: 1;
+  display:grid;
 }
 /*
 background: url('node/simpleflowhorizontal.png');
 old background-urls:
 background-image:url('node/simpleflowhorizontalmulti.png');
 */
-.simpleflow .arrowspace .arrowimg::before {
+.simpleflow .arrowspace .arrowimg::before,
+.node .simpleflow .arrowspace .arrowimg::after {
+    display:none;
+}
+  /*
+.simpleflow .arrowspace .arrowimg::before{
     height: 60%;
     background: lightblue;
     top: 20%;
     left: 0;
     border: none;
     width: 75%;
-    /* border-top: 1ch solid lightblue; */
-    /* border-bottom: 1ch solid lightblue; */
 }
-
-
-.simpleflow .arrowspace .arrowimg::after {
+.node .simpleflow .arrowspace .arrowimg::after {
     height: 4.5em;
     width: 4.5em;
-    /* padding-left: 55%; */
     right: 0;
     top: 10%;
     background: linear-gradient(to top right, transparent 50%, lightblue 50%);
     border: none;
 }
+*/
+
+.node .simpleflow .arrowspace .triangle {
+    width: 100%;
+    background: linear-gradient(to top right, transparent 50%, lightblue 50%);
+    transform: rotate(45deg);
+    grid-column: 2;
+    align-self: center;
+}
+
+.node .simpleflow .arrowspace .triangle::after {
+    padding-bottom: 100%;
+    content: " ";
+    display: block;
+}
+.triangle::before {
+  content: "";
+  width: 180%;
+  padding-top: 100%;
+  position: absolute;
+  background: lightblue;
+  bottom: -50%;
+  transform: rotate(-45deg);
+  left: -87%;
+}
+
+.node .simpleflow .multi .triangle {
+    display: none;
+}
+
 .node .simpleflow .arrow.multi .arrowimg{
   height:100%;
 }

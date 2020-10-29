@@ -136,7 +136,7 @@ nodetheme.builder = {
         content= line.substring(posofpoint+1);
       }
       let meta=line.substring(0,posofpoint);
-      var result = {};
+      var result = {sourcecode:line};
       if(meta.indexOf('note ')==0){
           result.type='note';
           meta = meta.substring('note '.length);
@@ -665,6 +665,9 @@ nodetheme.builder = {
           msg.className='msg';
           let arrimg = document.createElement('div');
           arrimg.classList.add('arrowimg');
+          let arrimgsquare = document.createElement('div');
+          arrimgsquare.classList.add('triangle');
+          arrimg.appendChild(arrimgsquare);
           arrow.appendChild(arrimg);
           arrow.appendChild(msg);
           //position arrow in grid
