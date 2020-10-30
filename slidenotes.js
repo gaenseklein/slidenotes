@@ -2946,6 +2946,7 @@ pagegenerator.prototype.startLoadingScreen = function(){
 */
 var fullscreen = false;
 pagegenerator.prototype.showpresentation = function(forExport){
+	slidenote.parseneu();
 	if(forExport)this.forExport = true; else this.forExport = false;
 	var praesesrahmen = slidenote.presentationdiv.parentElement;//document.getElementById("praesentationrahmen");
 	var quelle = slidenote.textarea;
