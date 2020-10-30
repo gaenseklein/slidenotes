@@ -46,7 +46,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
 */
 
 /*pure css arrows:*/
-.arrowimg::after {
+.node .arrowimg::after {
     width: 1ch;
     height: 1ch;
     content: "";
@@ -59,7 +59,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
     background: linear-gradient(to top right, transparent 50%, black 50%);
 }
 
-.arrowimg::before {
+.node .arrowimg::before {
     width: 100%;
     height: 0;
     border-top: 2px solid;
@@ -67,6 +67,12 @@ background-image:url("/themes/node/sequencearrownormal.png");
     top: 0;
     content: " ";
     left: 0;
+}
+.node .broad .arrowimg::before {
+    height: 2px;
+    border-bottom: 2px solid;
+    width: 98%;
+    top: -1px;
 }
 .node .sequence .arrow.dashed .arrowimg::before{
   border-top:2px dashed;
@@ -120,11 +126,27 @@ background-image:url("/themes/node/sequencearrownormal.png");
     align-content: center;
     justify-content: center;
     position: relative;
+    grid-template-columns:60%;
 }
 .node .simpleflow .msg{
   z-index: 2;
 }
-.node .simpleflow .arrowimg{
+
+.node .simpleflow .triangle {
+    display: none;
+}
+.node .simpleflow .arrowspace .broad .triangle{
+  display:block;
+}
+
+.node .simpleflow .arrowspace .arrowimg {
+    position: relative;
+    width: 100%;
+    margin-top:10px;
+}
+
+
+.node .simpleflow .arrowspace .broad .arrowimg{
   background-size: cover;
   background-position: right;
   position: absolute;
@@ -132,14 +154,17 @@ background-image:url("/themes/node/sequencearrownormal.png");
   height:100%;
   z-index: 1;
   display:grid;
+  grid-template-columns:5fr 3fr;
+  margin-top:0;
+  margin-right:2ch;
 }
 /*
 background: url('node/simpleflowhorizontal.png');
 old background-urls:
 background-image:url('node/simpleflowhorizontalmulti.png');
 */
-.simpleflow .arrowspace .arrowimg::before,
-.node .simpleflow .arrowspace .arrowimg::after {
+.simpleflow .arrowspace .broad .arrowimg::before,
+.node .simpleflow .arrowspace .broad .arrowimg::after {
     display:none;
 }
   /*
@@ -161,7 +186,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 }
 */
 
-.node .simpleflow .arrowspace .triangle {
+.node .simpleflow .arrowspace .broad .triangle {
     width: 100%;
     background: linear-gradient(to top right, transparent 50%, lightblue 50%);
     transform: rotate(45deg);
@@ -169,12 +194,12 @@ background-image:url('node/simpleflowhorizontalmulti.png');
     align-self: center;
 }
 
-.node .simpleflow .arrowspace .triangle::after {
+.node .simpleflow .arrowspace .broad .triangle::after {
     padding-bottom: 100%;
     content: " ";
     display: block;
 }
-.triangle::before {
+.node .simpleflow .arrowspace .broad .triangle::before {
   content: "";
   width: 180%;
   padding-top: 100%;
@@ -191,6 +216,8 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 
 .node .simpleflow .arrow.multi .arrowimg{
   height:100%;
+  width:100%;
+  position: absolute;
 }
 .node .simpleflow .multi {
     height: 3em;

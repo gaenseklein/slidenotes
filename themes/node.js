@@ -10,9 +10,9 @@ nodetheme.mdcode = true;
 nodetheme.syntax = {
   //"md"-prefix: mdcode-allowed, so deformed html:
   headseparator:"---",
-  arrows: ['-->','->>','->','--', '-'],
-  arrowtypes: ['dashed', 'open','normal','noarrowdashed','noarrow'],
-  mdarrows: ['--&gt;', '-&gt;&gt;','-&gt;','-'],
+  arrows: ['-->','->>','->','--', '-', '=>'],
+  arrowtypes: ['dashed', 'open','normal','noarrowdashed','noarrow', 'broad'],
+  mdarrows: ['--&gt;', '-&gt;&gt;','-&gt;','--','-','=&gt;'],
   wrapper:['()','[]','<>','{}'],
   wrappertitle:['circle','block','diamond','cloud'],
   wrapperlist:[['(',')'],['[',']'],['<','>'],['{','}']],
@@ -36,14 +36,50 @@ nodetheme.insertMenuArea = function(dataobject){
   return result;
 };
 
+nodetheme.switchNodetype = function(type){
+  let selend = slidenote.textarea.selectionEnd;
+  let selstart = slidenote.textarea.selectionStart;
+  let nodeheaderstart = slidenote.textarea.value.lastIndexOf('+++node',selend);
+  let nodeheaderend = slidenote.textarea.value.indexOf('\n',nodeheaderstart);
+  let txt = slidenote.textarea.value;
+  txt = txt.substring(0,nodeheaderstart)+
+        '+++node:'+type+
+        txt.substring(nodeheaderend);
+  slidenote.textarea.value=txt;
+  slidenote.textarea.selectionStart = selstart;
+  slidenote.textarea.selectionEnd = selend;
+  slidenote.textarea.focus();
+  slidenote.parseneu();
+}
+
 nodetheme.standardInsertMenu = function(){
+  let header = slidenote.parser.CarretOnElement().dataobject.head;
+  let nodetype = 'simpleflow';
+  for(var x=0;x<this.nodetypes.length;x++){
+    if(header.indexOf(this.nodetypes[x])>-1)nodetype = this.nodetypes[x];
+  }
+
   let result = document.createElement('div');
+  let nodetypeselect = document.createElement('select');
+  nodetypeselect.classList.add('menuitem');
+  for(var x=0;x<this.nodetypes.length;x++){
+      let option = document.createElement('option');
+      option.innerText=this.nodetypes[x];
+      option.value=this.nodetypes[x];
+      if(this.nodetypes[x]==nodetype)option.selected = true;
+      nodetypeselect.appendChild(option);
+  }
+  nodetypeselect.onchange = function(){
+    nodetheme.switchNodetype(this.value);
+  }
+  result.appendChild(nodetypeselect);
   //we have note left, right, over and all arrows
   let notes = [
     'a:alice',
     'a->b',
     'a-->b',
     'a->>b',
+    'a=>b',
     'a-b',
     'note left of ',
     'note right of ',
@@ -119,7 +155,7 @@ nodetheme.builder = {
   parsedlines:[],
   //general parsing:
   parseLine: function(line){
-      if(line.length<1)return false; //nothing to do on empty line
+      if(line==undefined || line.length<1)return false; //nothing to do on empty line
       let posofpoint = line.indexOf(":");
       let posofdoublepoint = line.indexOf("::");
       if(posofdoublepoint>-1 && posofdoublepoint<=posofpoint){
@@ -327,7 +363,7 @@ nodetheme.builder = {
     ::alias
     */
     var separators = ['->','=','::',':'];
-    if(nodetheme.mdcode)separators=['&gt;','=','::',':'];
+    if(nodetheme.mdcode)separators=['-&gt;','=','::',':'];
     for(var x=0;x<metalines.length;x++){
       var line = metalines[x];
       let separator;
@@ -714,8 +750,8 @@ nodetheme.builder = {
           let arrimgsquare = document.createElement('div');
           arrimgsquare.classList.add('triangle');
           arrimg.appendChild(arrimgsquare);
-          arrow.appendChild(arrimg);
           arrow.appendChild(msg);
+          arrow.appendChild(arrimg);
           //position arrow in grid
           let start = (indexfrom*4)+4;
           let end = (indexto*4)+2;
