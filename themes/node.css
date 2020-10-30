@@ -17,6 +17,46 @@
   background: aliceblue;
   text-align: center;
 }
+.node .sequence .actor.cloud{
+    border: none;
+    padding: 0;
+}
+.node .sequence .actor .cloud.node {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    width:12ch;
+}
+.node .sequence .cloud.actor.top {
+    display: grid;
+    align-items: end;
+}
+
+.node .sequence .diamond.actor {
+    transform: rotate(45deg);
+    width: 4ch;
+    height: 4ch;
+    position: relative;
+}
+
+.node .sequence .actor .diamond.node {
+  transform: rotate(-45deg);
+  width: 100%;
+  height: 100%;
+  display: grid;
+  align-items: center;
+}
+
+.node .sequence .actor .diamond div {
+    transform: none;
+}
+
+
+.node .sequence .actor.circle{
+    border-radius:50%;
+    display:grid;
+    align-items:center;
+}
 .node .sequence .arrow {
     overflow: hidden;
     width:100%;
@@ -126,7 +166,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
     align-content: center;
     justify-content: center;
     position: relative;
-    grid-template-columns:60%;
+    grid-template-columns:100%;
 }
 .node .simpleflow .msg{
   z-index: 2;
@@ -266,10 +306,10 @@ background-image:url('node/simpleflowhorizontalmulti.png');
     transform: rotate(-45deg);
 }
 
-.node .simpleflow .node.circle {
+.node .node.circle {
     border-radius: 50%;
 }
-.node .simpleflow .node.cloud {
+.node .node.cloud {
   border-radius: 100px / 50px;
   background-color: white;
   text-align: center;
@@ -280,7 +320,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
   box-shadow: 0px 0px 15px -2px;
 }
 
-.node .simpleflow .node.cloud::before {
+.node .node.cloud::before {
   width: 6ch;
   height: 4ch;
   border-radius: 50%;
@@ -293,7 +333,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
   left: 1.5ch;
 }
 
-.node .simpleflow .node.cloud::after {
+.node .node.cloud::after {
   width: 6ch;
   height: 6ch;
   border-radius: 50%;

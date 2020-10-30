@@ -442,7 +442,10 @@ nodetheme.builder = {
       //let div = document.createElement('div');
       let div = document.createElement('div');
       div.appendChild(this.actorhtml[actorsnr].cloneNode(true));
+      div.className = this.actorhtml[actorsnr].className;
       div.classList.add('actor');
+      
+      div.firstChild.classList.add('node');
       if(top){
         div.classList.add('top');
         div.style.gridRow="1/1";
