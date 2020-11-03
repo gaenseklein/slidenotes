@@ -3272,6 +3272,7 @@ ExtensionManager.prototype.loadBasicThemes = function(){
 	this.loadTheme("footnote",true);
 	this.loadTheme("progressbar");
 	this.loadTheme("extraoptions",true);
+	this.loadTheme("node");
 	//css-themes:
 	//this.loadTheme("azul");
 	//this.loadTheme("redalert");
@@ -3382,6 +3383,7 @@ ExtensionManager.prototype.sortToolbar = function(){
 		"inlinecode",
 		"code",
 		"chartist",
+		"node",
 		"table",
 		"sections",
 		"hiddenobjects",

@@ -1,6 +1,6 @@
 var nodetheme = new Theme('node');
 nodetheme.description = "creates different kind of node-based views (sequence diagram, tree...)";
-
+nodetheme.active = true;
 var buttonhtml = '<span class="buttonmdcode">+++node+++</span>';
 nodetheme.addEditorbutton(buttonhtml,'+++node');
 
@@ -444,7 +444,7 @@ nodetheme.builder = {
       div.appendChild(this.actorhtml[actorsnr].cloneNode(true));
       div.className = this.actorhtml[actorsnr].className;
       div.classList.add('actor');
-      
+
       div.firstChild.classList.add('node');
       if(top){
         div.classList.add('top');
