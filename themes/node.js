@@ -822,8 +822,8 @@ nodetheme.builder = {
               index=i2;
             }
           }
-          note.gridColumn = gc;
-          note.gridRow = "1/1";
+          note.style.gridColumn = gc;
+          note.style.gridRow = "1/1";
           //if(this.mdcode)note.innerHTML = lines[x].content;
           //else note.innerText = lines[x].content;
           //note.appendChild(lines[x].html);
