@@ -20,6 +20,7 @@
 .node .sequence .actor.cloud{
     border: none;
     padding: 0;
+    background: none;
 }
 .node .sequence .actor .cloud.node {
     display: grid;
@@ -73,6 +74,7 @@
 
 .node .sequence .arrow div {
     text-align: center;
+    min-height:0.5em;
 }
 
 .node .sequence .arrow.toleft .arrowimg {
@@ -114,11 +116,17 @@ background-image:url("/themes/node/sequencearrownormal.png");
     width: 98%;
     top: -1px;
 }
-.node .sequence .arrow.dashed .arrowimg::before{
+.node .arrow.dashed .arrowimg::before,
+.node .arrow.noarrowdashed .arrowimg::before{
   border-top:2px dashed;
 }
 
-.node .sequence .arrow.open .arrowimg::after{
+.node .noarrow .arrowimg::after,
+.node .noarrowdashed .arrowimg::after {
+    display:none;
+}
+
+.node .arrow.open .arrowimg::after{
   background:none;
 }
 .node .sequence .arrow.normal .arrowimg{
@@ -147,6 +155,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
 }
 
 .node .simpleflow .node {
+    background: aliceblue;
     border: 1px solid;
     border-radius: 50%;
     width: 10ch;
@@ -196,7 +205,10 @@ background-image:url("/themes/node/sequencearrownormal.png");
   display:grid;
   grid-template-columns:5fr 3fr;
   margin-top:0;
-  margin-right:2ch;
+  margin-right:4ch;
+}
+.node .simpleflow .arrowspace .arrow.toleft .arrowimg {
+    margin-right: -2ch;
 }
 /*
 background: url('node/simpleflowhorizontal.png');
@@ -261,6 +273,10 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 }
 .node .simpleflow .multi {
     height: 3em;
+    align-content: unset;
+}
+.node .simpleflow .multi .msg{
+  align-self: end;
 }
 
 .node .multi .arrowimg::before {
@@ -270,6 +286,19 @@ background-image:url('node/simpleflowhorizontalmulti.png');
     border-top: none;
     height: 100%;
     content:"";
+}
+
+.node .multi.arrow.dashed .arrowimg::before,
+.node .multi.arrow.noarrowdashed .arrowimg::before {
+    border-left: 2px dashed;
+    border-bottom: 2px dashed;
+    border-right: 2px dashed;
+    border-top: none;
+}
+
+.node .multi.noarrow .arrowimg::after,
+.node .multi.noarrowdashed .arrowimg::after {
+    display: none;
 }
 
 .node .multi .arrowimg::after {
@@ -311,44 +340,48 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 }
 .node .node.cloud {
   border-radius: 100px / 50px;
-  background-color: white;
+  background-color: aliceblue;
   text-align: center;
   position: relative;
   height: 6ch;
   width: 100%;
-  border-color: transparent;
-  box-shadow: 0px 0px 15px -2px;
+  border:1px solid;
+  /*box-shadow: 0px 0px 15px -2px;*/
+  align-self: center;
 }
 
 .node .node.cloud::before {
   width: 6ch;
   height: 4ch;
+  border-top:1px solid;
   border-radius: 50%;
-  background-color: white;
+  background-color: aliceblue;
   line-height: 75px;
   text-align: center;
   position: absolute;
   content: "";
   top: -0.7ch;
   left: 1.5ch;
+  z-index: 3;
 }
 
 .node .node.cloud::after {
   width: 6ch;
   height: 6ch;
+  border-top:1px solid;
   border-radius: 50%;
-  background-color: white;
+  background-color: aliceblue;
   /* line-height: 75px; */
   /* text-align: center; */
   position: absolute;
   content: "";
   top: -14%;
   left: 39%;
-  z-index: 1;
+  z-index: 2;
 }
 
 .node .node.cloud div {
-    z-index: 3;
+    z-index: 4;
 }
 .node .node.block{
   border-radius:unset;

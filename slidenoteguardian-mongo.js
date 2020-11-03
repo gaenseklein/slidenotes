@@ -1762,7 +1762,8 @@ slidenoteGuardian.prototype.loadConfig = async function(destination){
   //activate and disable Themes depending on config:
   for(var x=0;x<slidenote.extensions.themes.length;x++){
       var act=slidenote.extensions.themes[x];
-      if(saveobject.activethemes.indexOf(act.classname)>-1){
+      if(saveobject.activethemes.indexOf(act.classname)>-1 ||
+        act.newFeature){
           act.changeThemeStatus(true);
       }else{
           act.changeThemeStatus(false);
