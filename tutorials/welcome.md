@@ -174,6 +174,14 @@ at first its a bit of an uncommon feeling, but once you get used to it you don't
 
 try it out yourself! 
 
+*but wait*
+
+---
+#there's more!
+
+we're constantly working on implementing more features and improving the ones we have.
+if you have any suggestion—drop us a message under `options → feedback` or [hi@slidenotes.io](mailto:hi@slidenotes.io)
+
  
 
 

@@ -59,7 +59,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 
-.dark, 
+.dark,
 .dark .ppage {
 	background: var(--darkBckgColor);
 	color: var(--darkTextColor);
@@ -113,9 +113,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 4.5em;
   margin-top: 20vh;
 }
-.dark h1 img{
-  height: 4.2em;
-}
+
 
 .dark h2,
 .dark h3{
@@ -211,7 +209,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.dark ul, 
+.dark ul,
 .dark ol{
   padding: 0 0.8em;
 
@@ -237,12 +235,12 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*sub-lists (unterpunkte/verschachtelung der listen)*/
 
-.dark ul ul, 
+.dark ul ul,
 .dark ol ul{
 
 }
 
-.dark ol ul, 
+.dark ol ul,
 .dark ol ol{
 
 }
@@ -419,7 +417,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.dark th, 
+.dark th,
 .dark td{
 
 }
@@ -428,8 +426,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-family: "Ubuntu-Medium";
 }
 
-.dark table, 
-.dark th, 
+.dark table,
+.dark th,
 .dark td{
   border: 0.02em solid #030303;
   padding: 0 0.5em;

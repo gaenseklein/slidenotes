@@ -61,7 +61,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 
-.colorful, 
+.colorful,
 .colorful .ppage {
 	background: var(--colorfulBckgColor);
 	color: var(--colorfulTextColor);
@@ -126,9 +126,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-left: -100vw;
   margin-top: -100vh;
 }
-.colorful h1 img{
-  height:3.5em;
-}
+
 
 .colorful h2,
 .colorful h3{
@@ -235,7 +233,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.colorful ul, 
+.colorful ul,
 .colorful ol{
   padding: 0 0.8em;
 
@@ -261,12 +259,12 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 /*sub-lists (unterpunkte/verschachtelung der listen)*/
 
-.colorful ul ul, 
+.colorful ul ul,
 .colorful ol ul{
 
 }
 
-.colorful ol ul, 
+.colorful ol ul,
 .colorful ol ol{
 
 }
@@ -444,7 +442,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.colorful th, 
+.colorful th,
 .colorful td{
 
 }
@@ -453,8 +451,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-family: "RobotoCondBold";
 }
 
-.colorful table, 
-.colorful th, 
+.colorful table,
+.colorful th,
 .colorful td{
   border: 0.2em solid var(--colorfulHeadlineTextShadow);
   padding: 0 0.5em;
