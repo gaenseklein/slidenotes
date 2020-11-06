@@ -231,6 +231,11 @@ div#main {
   top: 12.2em;
   left: 12em;
 }
+
+.status--logging-in #circle-loading-animation {
+  display: block;
+
+}
 #circle-loading-animation::before,
 #circle-loading-animation::after {
   content: '';
