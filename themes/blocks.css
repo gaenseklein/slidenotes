@@ -7,7 +7,7 @@
 }
 .imageblock.vertical {
   float:left;
-  margin: 1em;
+  /* margin: 1em; */
 }
 .imageblock.horizontal {
   display:block;

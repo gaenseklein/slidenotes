@@ -2590,18 +2590,18 @@
     border-bottom: 0.2em solid;
     font-family: 'ubuntuMonoBold';
     background-color:var(--light-blue-backg);
-    box-shadow: 0 0 0 0.3em var(--light-blue-backg);
+    box-shadow: 0 0 0 0.2em var(--light-blue-backg);
   }
   .backgroundline.h2{
     color:var(--emphazing-font-color);
     font-family: 'ubuntuMonoBold';
     background-color:var(--light-blue-backg);
-    box-shadow: 0 0 0 0.3em var(--light-blue-backg);
+    box-shadow: 0 0 0 0.2em var(--light-blue-backg);
   }
   .backgroundline.h3{
     color:var(--emphazing-font-color);
     background-color:var(--light-blue-backg);
-    box-shadow: 0 0 0 0.3em var(--light-blue-backg);
+    box-shadow: 0 0 0 0.2em var(--light-blue-backg);
   }
   .backgroundline b, .backgroundline i, .backgroundline strike{
   	/*border-bottom:1px solid lightgreen;*/

@@ -70,6 +70,9 @@
   position: relative;
   max-width: 100%;
 }
+.blocks .griditem img ~ p{
+  padding: 0.15em 0.15em 0.3em 0.3em;
+}
 
 
 section.inline{
