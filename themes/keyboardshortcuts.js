@@ -507,9 +507,13 @@ keyboardshortcuts.init = function(){
     //toolbar:
     this.addShortcut(new this.shortcut("open toolbar", "global", " ", function(e){
       var toolbar = document.getElementById("toolbar");
-      if(!toolbar.classList.contains("active"))toolbar.classList.add("active");
+      toolbar.classList.add("active");
+      document.getElementById("toolbarbutton").classList.add("active");
       document.getElementById("imagegallery").classList.remove("active");
+      document.getElementById("imagegallerybutton").classList.remove("active");
       document.getElementById("menusearchbox").classList.remove("active");
+      document.getElementById("searchbutton").classList.remove("active");
+
       //setTimeout("document.getElementById('toolbar').getElementsByTagName('button')[0].focus()",20);
       slidenote.keyboardshortcuts.delayTillKeyUp(function(){
         setTimeout("document.getElementById('toolbar').getElementsByTagName('button')[0].focus();",20);
@@ -655,6 +659,7 @@ keyboardshortcuts.init = function(){
     this.shortcutByName("arrownavigate menusearchbox escape").activate = function(e){
       slidenote.textarea.focus();
       document.getElementById("menusearchbox").classList.remove("active");
+      document.getElementById("searchbutton").classList.remove("active");
     }
     //letter-navigation in toolbar:
     this.addShortcut(new this.shortcut("letter navigation in toolbar","toolbar",{multipleChoiceKeys:["c","t","l","q","n","f","i","o","h","b","d"],metakey:false},function(e){

@@ -340,6 +340,7 @@
                   let rightmenus = document.querySelectorAll('.autohideright.active');
                   for(var x=rightmenus.length-1;x>=0;x--){
                     if(rightmenus[x]!=menu)rightmenus[x].classList.remove('active');
+                    document.getElementById(rightmenus[x].button).classList.remove('active');
                   }
                 }
                 for(var x=0;x<menus.length;x++)if(menus[x]!=menu){
