@@ -539,7 +539,7 @@ newtheme.buildLines = function(block){
 	var firstli = "<li>";
 	if(markedlines.includes(1))firstli='<li class="specialline">';
 	if(this.options.linenumbering === "on"|| this.options.linenumbering==="true"){
-		text = '<ol start="'+this.options.linenumberingstart+'" style="counter-set:code-line-counter '+(this.options.linenumberingstart-1)+';">'+firstli+text;
+		text = '<ol start="'+this.options.linenumberingstart+'" style="counter-reset:code-line-counter '+(this.options.linenumberingstart-1)+';">'+firstli+text;
 	}else{
 		text = '<ul>'+firstli+text;
 	}
