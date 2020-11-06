@@ -115,6 +115,7 @@
         var nid = list[x].nid;//url.substring(url.lastIndexOf("/")+1);
         var url = list[x].url;
         if(nid!=undefined && nid==slidenoteguardian.restObject.nid)continue;
+        if(slidenoteguardian.tutorialNr !=undefined && slidenoteguardian.tutorialNr==x)continue;
         var li=document.createElement("li");
         var lod = document.createElement("a");
         lod.classList.add("loadnotebutton");

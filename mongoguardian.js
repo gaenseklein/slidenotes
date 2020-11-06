@@ -66,6 +66,7 @@ var mongoguardian = {
     var imagestring;
     for(var x=0;x<tutoriallist.length;x++)if(tutoriallist[x].url === tutorialurl){
       tutoriallistitem = tutoriallist[x];
+      slidenoteguardian.tutorialNr = x;
       break;
     }
     try{
