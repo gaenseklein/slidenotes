@@ -104,7 +104,11 @@ newtheme.styleThemeSpecials = function(){
 		this.options = options;
 		this.findHighlightLines(block); //remember lines to highlight before changing code
 		if(this.options.language && this.options.language.length>0){
-			block.classList.add(this.options.language);
+			try{
+				block.classList.add(this.options.language);
+			}catch(err){
+				console.warn('highlight.js: language builds not a valid css-class',language)
+			}
 		}
 		hljs.highlightBlock(block);
 		this.highlightLines(block);
@@ -120,15 +124,68 @@ newtheme.styleThemeSpecials = function(){
 newtheme.active = true;
 slidenote.datatypes.elementOfType("code").theme = newtheme;
 
+/*
+use highlight.js to add syntax-highlightning to
+editor
+*/
 newtheme.highlighteditor = function(){
 	var codes = document.getElementsByClassName("code");
+	var bglines = document.getElementsByClassName("backgroundline");
+	//only highlight real code, not options and use
+	//input of language-option if available as class:
+	var codeblocks = slidenote.parser.map.codeblocks;
+	for (var x=0;x<codeblocks.length;x++){
+		bglines[codeblocks[x].line].classList.add('meta');
+		bglines[codeblocks[x].endline].classList.add('meta');
+		if(codeblocks[x].head.indexOf(':options')>-1){
+			let start = codeblocks[x].line+1;
+			let end= codeblocks[x].endline;
+			let language=null;
+			let meta=true;
+			for(var y=start;y<end;y++){
+				let line = slidenote.parser.map.origLines[y];
+				if(meta){
+					bglines[y].classList.add('meta');
+					if(line==="---"){
+						meta=false;
+						continue;
+					}
+					if(line.indexOf('language')==0){
+						let divider = line.indexOf(':');
+						let eq = line.indexOf('=');
+						if(eq>0 && (eq<divider || divider==-1))divider=eq;
+						if(divider!=-1)language=HighlightGetLanguageClass(line.substring(divider+1));
+					}
+				}else{
+					bglines[y].className='backgroundline code';
+					if(language!=null && language!=''){
+						try{
+							bglines[y].classList.add(language);
+						}catch(err){
+							console.warn('language is not a valid classname:',language)
+						}
+					}
+				}
+			}
+		}
+	}
 	for(var cx=0;cx<codes.length;cx++){
-		if(codes[cx].classList.contains("backgroundline"))
-		if(codes[cx].innerHTML.length>5){
+		if(codes[cx].classList.contains("backgroundline") &&
+		codes[cx].classList.contains('meta')==false &&
+		codes[cx].innerHTML.length>5){
 			hljs.highlightBlock(codes[cx]);
 			codes[cx].classList.remove("hljs");
 		}
 	}
+}
+
+
+var HighlightGetLanguageClass = function(languagecode){
+	let lang = languagecode.toLowerCase().replace(' ','');
+	let aliases = 	 ['c++', 'c#', 		'html', 'markup', 'objective-c', 'phptemplate', 'text',				'plain','.properties','pythonrepl','shellsession',];
+	let aliascontent=['cpp', 'csharp', 'xml', 'markdown', 'objectivec', 'php-template','plaintext','plaintext','properties','python-repl','shell',];
+	if(aliases.indexOf(lang)>-1)lang=aliascontent[aliases.indexOf(lang)];
+	return lang;
 }
 
 newtheme.findHighlightLines = function(block){
@@ -375,12 +432,20 @@ newtheme.parseStyledBlockOptions = function(block){
 		//check if default exist: if so, overwrite it. else do nothing
 		//if(options[optionname]===undefined)continue;
 		options[optionname]=optiondata;
+		if(optionname=='language')options[optionname]=HighlightGetLanguageClass(optiondata);
 
 	}
 	block.innerHTML = block.innerHTML.substring(text.length+5);
 	return options;
 }
-
+/*
+highlightLinesInEditor: is called every cycle to check for
+lines with the attribute "highlight" in the options-area
+ and sets them to be underlined to show visual feedback in editor of which lines
+of the code should be more visible then others
+it runs independently if highlightning of code via highlight.js
+is activated or not as its part of slidenote
+*/
 newtheme.highlightLinesInEditor = function(changedlinesobjects){
 	var map = slidenote.parser.map;
 	var codes = slidenote.texteditorerrorlayer.getElementsByClassName("code");
@@ -560,9 +625,9 @@ newtheme.buildLines = function(block){
 	return text;
 }
 
-slidenote.afterCodeEditorrender = newtheme.highlighteditor;
+slidenote.afterCodeEditorrender = null; //newtheme.highlighteditor;
 
-newtheme.highlightintexteditor = true;
+newtheme.highlightintexteditor = false;
 newtheme.addGlobalOption("checkbox", "highlighting of codeblocks in texteditor (experimental)", "hltexteditor",true);
 //newtheme.addGlobalOption("checkbox", "show line numbers", "show line numbers",true, true)	;
 newtheme.showLineNumbers = true;
