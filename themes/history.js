@@ -1,9 +1,11 @@
 var newtheme = new Theme("history");
 
-newtheme.backList = new Array();
-newtheme.forwardList = new Array();
+//newtheme.backList = new Array();
+//newtheme.forwardList = new Array();
 
 newtheme.init = function(){
+  this.backList = new Array();
+  this.forwardList = new Array();
   //memorise first back-stadium:
 /*  this.backList.push({value:slidenote.textarea.value,
   selectionStart : slidenote.textarea.selectionStart,
@@ -13,32 +15,26 @@ newtheme.init = function(){
   this.active = true;
   var backb = document.getElementById("historyBackButton");
   var forwb = document.getElementById("historyForwardButton");
-  if(backb && forwb){
-    backb.onclick = function(){slidenote.extensions.getThemeByName("history").goBack()};
-    forwb.onclick = function(){slidenote.extensions.getThemeByName("history").goForward()};
-    this.backButton = backb;
-    this.forwardButton = forwb;
-    return;
-  }
-  var buttondiv = document.createElement("div");
-  backb = document.createElement("button");
-  forwb = document.createElement("button");
+
   backb.onclick = function(){slidenote.extensions.getThemeByName("history").goBack()};
   forwb.onclick = function(){slidenote.extensions.getThemeByName("history").goForward()};
-  backb.id="historyBackButton";
-  forwb.id="historyForwardButton";
-  backb.classList.add("historyButton");
-  forwb.classList.add("historyButton");
-  backb.title="undo last change";
-  forwb.title="redo last change";
-  backb.innerText="⤺";
-  forwb.innerText="⤻";
   this.backButton = backb;
   this.forwardButton = forwb;
-  buttondiv.appendChild(backb);
-  buttondiv.appendChild(forwb);
-  var texteb = document.getElementById("texteditorbuttons");
-  texteb.insertBefore(buttondiv, texteb.firstElementChild);
+  slidenote.textarea.addEventListener('keyup',function(e){
+    let key = e.key;
+    if(key.indexOf('Arrow')>-1 || key.indexOf('Page')>-1){
+      let h = slidenote.extensions.getThemeByName('history');
+      h.lastSelStart = this.selectionStart;
+      h.lastSelEnd = this.selectionEnd;
+      h.lastScrollTop = this.scrollTop;
+    }
+  });
+  slidenote.textarea.addEventListener('mouseup', function(e){
+    let h = slidenote.extensions.getThemeByName('history');
+    h.lastSelStart = this.selectionStart;
+    h.lastSelEnd = this.selectionEnd;
+    h.lastScrollTop = this.scrollTop;
+  });
 }
 
 newtheme.styleThemeMDCodeEditor = function(){
@@ -53,21 +49,34 @@ newtheme.styleThemeMDCodeEditor = function(){
     console.log("save history");
     this.backList.unshift({
       value:newCode,
-      selectionStart:newSelectionStart,
-      selectionEnd:newSelectionEnd,
-      scrollTop:newScrollTop
+      selectionStart:this.lastSelStart,
+      selectionEnd:this.lastSelEnd,
+      scrollTop:this.lastScrollTop,
+      newSelectionStart:newSelectionStart,
+      newSelectionEnd:newSelectionEnd,
+      newScrollTop:newScrollTop
     });
+    this.lastScrollTop = newScrollTop;
+    this.lastSelEnd = newSelectionEnd;
+    this.lastSelStart = newSelectionStart;
     this.forwardList = new Array();//on new entry in backList empty forwardList
   }
-  if(this.backList.length>10)this.backList.pop();
+  if(this.backList.length>100)this.backList.pop();
   if(this.backList.length>1 && this.backButton.classList.contains("disabled"))this.backButton.classList.remove("disabled");
   if(this.forwardList.length>0)this.forwardButton.classList.remove("disabled");else this.forwardButton.classList.add("disabled");
 }
 
-newtheme.setTo = function(statusObject){
-  slidenote.textarea.value = statusObject.value;
-  slidenote.textarea.selectionStart = statusObject.selectionStart;
-  slidenote.textarea.selectionEnd = statusObject.selectionEnd;
+newtheme.setTo = function(statusObject, backward, text){
+  if(text)slidenote.textarea.value = text;
+  else slidenote.textarea.value = statusObject.value;
+  if(backward){
+    slidenote.textarea.selectionStart = statusObject.selectionStart;
+    slidenote.textarea.selectionEnd = statusObject.selectionEnd;
+  }else{
+    slidenote.textarea.selectionStart = statusObject.newSelectionStart;
+    slidenote.textarea.selectionEnd = statusObject.newSelectionEnd;
+  }
+  console.log('history set to backward:',backward,statusObject);
   slidenote.textarea.scrollTop = statusObject.scrollTop;
   slidenote.textarea.focus();
   slidenote.parseneu();
@@ -77,7 +86,8 @@ newtheme.goBack = function(){
   if(this.backList.length>1){
     var oldCode = this.backList.shift();
     this.forwardList.unshift(oldCode);
-    this.setTo(this.backList[0]);
+    //this.setTo(this.backList[0]);
+    this.setTo(oldCode,true,this.backList[0].value);
     //this.forwardButton.classList.remove("disabled");
     if(this.backList.length===1)this.backButton.classList.add("disabled");
   }
