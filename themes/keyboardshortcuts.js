@@ -95,6 +95,8 @@ keyboardshortcuts.addShortcut = function(shortcut){
     if(typeof elements === "string")elements = [shortcut.element];
     for(var x=0;x<elements.length;x++){
       let element = elements[x];
+      // i use this block as a standard-definition of what exists
+      // therefore a lot of ifs. performance is not crucial at this point
       if(element==="toolbar")this.toolbar.push(shortcut);
       if(element==="insertmenu")this.insertmenu.push(shortcut);
       if(element==="imagegallery")this.imagegallery.push(shortcut);
@@ -339,8 +341,8 @@ keyboardshortcuts.init = function(){
         slidenote.keyboardshortcuts.selectCurrentElement();
     }));
     */
-    //jump to next/last element:
-    this.addShortcut(new this.shortcut("jump to element","textarea",{multipleChoiceKeys:["ArrowUp","ArrowDown"],metakey:true},function(e){
+    //jump to next/last element: does not work at the moment...
+    this.addShortcut(new this.shortcut("jump to element","textarea",{multipleChoiceKeys:["PageUp","PageDown"],metakey:true},function(e){
       var actline = slidenote.parser.lineAtPosition(slidenote.textarea.selectionStart);
       var selstart = slidenote.textarea.selectionStart;
       var selend = slidenote.textarea.selectionEnd;
@@ -358,11 +360,11 @@ keyboardshortcuts.init = function(){
 
       if(e.shiftKey && selend-selstart===0){
         slidenote.keyboardshortcuts.selectCurrentElement();
-        if(e.key==="ArrowDown")slidenote.textarea.selectionDirection="forward";
+        if(e.key==="PageDown")slidenote.textarea.selectionDirection="forward";
           else slidenote.textarea.selectionDirection="backward";
         return; //do nothing more
       }
-      if(e.key==="ArrowDown"){
+      if(e.key==="PageDown"){
         if(actel && actel.parentelement)actline=actel.parentelement.lastline+1;
         var elines = slidenote.parser.map.insertedhtmlinline;
         if(actline>elines.length)return;
@@ -405,7 +407,7 @@ keyboardshortcuts.init = function(){
         if(e.shiftKey){
           slidenote.keyboardshortcuts.selectCurrentElement();
           if(selisforward){
-            if(e.key==="ArrowUp"){
+            if(e.key==="PageUp"){
               if(pos<selstart){
                 //selection turns backward
                 slidenote.textarea.selectionEnd = selstart;
@@ -421,7 +423,7 @@ keyboardshortcuts.init = function(){
               slidenote.textarea.selectionDirection = "forward";
             }
           }else{ //selisbackward
-            if(e.key==="ArrowDown" && pos>selend){
+            if(e.key==="PageDown" && pos>selend){
               //selection changes selectionDirection
               slidenote.textarea.selectionStart=selend;
               slidenote.textarea.selectionDirection="forward";
@@ -440,6 +442,38 @@ keyboardshortcuts.init = function(){
         slidenote.textarea.focus();
         slidenote.keyboardshortcuts.pressedkeys=pressedkeys;
       }
+    }));
+
+    //move lines up and down:
+    this.addShortcut(new this.shortcut("move line up or down", "textarea", {multipleChoiceKeys:["ArrowUp","ArrowDown"],metakey:true},function(e){
+      let selstart = slidenote.textarea.selectionStart;
+      let selend = slidenote.textarea.selectionEnd;
+      var txt = slidenote.textarea.value;
+      let lineblockstart = txt.lastIndexOf('\n',selstart-1);
+      let lineblockend = txt.indexOf('\n',selend);
+      if(e.key==="ArrowUp"){
+        let exchangestart = txt.lastIndexOf('\n',lineblockstart-1);
+        if(exchangestart==-1)exchangestart=0;
+        txt = txt.substring(0,exchangestart)+
+              txt.substring(lineblockstart,lineblockend)+
+              txt.substring(exchangestart,lineblockstart)+
+              txt.substring(lineblockend);
+        selstart = exchangestart+1;
+        selend = exchangestart + lineblockend - lineblockstart;
+      }else{
+        let exchangeend = txt.indexOf('\n',lineblockend+1);
+        if(exchangeend==-1)exchangeend=txt.length;
+        txt = txt.substring(0,lineblockstart)+
+              txt.substring(lineblockend, exchangeend)+
+              txt.substring(lineblockstart,lineblockend)+
+              txt.substring(exchangeend);
+        selstart = selstart + exchangeend - lineblockend;
+        selend = exchangeend;
+      }
+      slidenote.textarea.value=txt;
+      slidenote.textarea.selectionStart = selstart;
+      slidenote.textarea.selectionEnd = selend;
+      slidenote.parseneu();
     }));
     /*
     //automatic closure on dead key:
