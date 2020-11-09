@@ -102,7 +102,9 @@ lists can be divided into two families: *ordered* and *unordered* lists.
 *ordered* lists have a numeral or alphabetical counter while unordered lists are just lists. 
 the most simple examples are:
 +++layout:left
-+++code
++++code:options
+linenumbering=off
+---
 - unordered list
 - unordered list
 - unordered list
@@ -114,7 +116,9 @@ the most simple examples are:
 +++
 
 +++layout:right
-+++code
++++code:options
+linenumbering=off
+---
 1. ordered list
 2. ordered list
 3. ordered list
@@ -159,7 +163,7 @@ we designed our keyboard-navigation of the editor so that it adapts to the needs
 with `page up` and `page down` you either jump to the begining of the actual slide or to the begining of the last / next slide. with this you can switch between the slides very fast. of course you can use `shift` to mark all text while jumping slides. 
 deleting a whole slide is as fast as `page up` to jump to the begining of the slide, then `shift + page down` to mark the whole page. now delete it by pressing `delete / backspace`, cut it with `ctrl+x` or simply overwrite it. 
 
-while `home/end` and `ctrl+left/right` work like you are used to we added `ctrl-up/down` to jump between different elements. to mark a whole element just press `ctrl+shift+up/down` while being inside an element.
+while `home/end` and `ctrl+left/right` work like you are used to we added `ctrl-up/down` to move current marked lines or the line with the carret up and down. quite a usefull feature which we are shure you will like a lot.
  
 the menus are all controllable with your arrow-keys once you are inside them. and of course all menues are reachable with a shortcut. once you are inside a menu and want to go back to the editor just press `escape`.
 > personalize your navigation under **advanced options**
