@@ -4533,7 +4533,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 			multilineselection = true;
 
 	}else if(emdzeichen=="%link"){
-			var linkurl = prompt("url for the link");
+			var linkurl = prompt("url for the link or slide (e.g. #slide10)");
 			emdstart="[";
 			emdend="]("+linkurl+")";
 	}else if(emdzeichen=="%image"){
