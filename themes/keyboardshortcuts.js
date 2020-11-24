@@ -448,27 +448,51 @@ keyboardshortcuts.init = function(){
     this.addShortcut(new this.shortcut("move line up or down", "textarea", {multipleChoiceKeys:["ArrowUp","ArrowDown"],metakey:true},function(e){
       let selstart = slidenote.textarea.selectionStart;
       let selend = slidenote.textarea.selectionEnd;
+      let sellength = selend - selstart;
       var txt = slidenote.textarea.value;
       let lineblockstart = txt.lastIndexOf('\n',selstart-1);
+      if(lineblockstart==-1)lineblockstart=0;
       let lineblockend = txt.indexOf('\n',selend);
+      if(lineblockend==-1)lineblockend=txt.length;
       if(e.key==="ArrowUp"){
         let exchangestart = txt.lastIndexOf('\n',lineblockstart-1);
         if(exchangestart==-1)exchangestart=0;
-        txt = txt.substring(0,exchangestart)+
+        if(exchangestart==lineblockstart)return; //we cant go further up
+        if(exchangestart==0){
+          txt = txt.substring(lineblockstart+1,lineblockend)+
+              '\n'+
+              txt.substring(exchangestart,lineblockstart)+
+              txt.substring(lineblockend);
+          selstart = 0;
+          selend = lineblockend - lineblockstart-1;
+        }else{
+          txt = txt.substring(0,exchangestart)+
               txt.substring(lineblockstart,lineblockend)+
               txt.substring(exchangestart,lineblockstart)+
               txt.substring(lineblockend);
-        selstart = exchangestart+1;
-        selend = exchangestart + lineblockend - lineblockstart;
+          selstart = exchangestart+1;
+          selend = exchangestart + lineblockend - lineblockstart;
+        }
       }else{
         let exchangeend = txt.indexOf('\n',lineblockend+1);
         if(exchangeend==-1)exchangeend=txt.length;
-        txt = txt.substring(0,lineblockstart)+
-              txt.substring(lineblockend, exchangeend)+
-              txt.substring(lineblockstart,lineblockend)+
-              txt.substring(exchangeend);
-        selstart = selstart + exchangeend - lineblockend;
-        selend = exchangeend;
+        if(exchangeend==lineblockend)return; //we cant go further down
+        if(lineblockstart==0){
+          txt = txt.substring(lineblockend+1, exchangeend)+
+                '\n'+
+                txt.substring(lineblockstart,lineblockend)+
+                txt.substring(exchangeend);
+          selend = exchangeend;
+          selstart =  selend-lineblockend + lineblockstart;
+        }else{
+          txt = txt.substring(0,lineblockstart)+
+                txt.substring(lineblockend, exchangeend)+
+                txt.substring(lineblockstart,lineblockend)+
+                txt.substring(exchangeend);
+          selend = exchangeend;
+          selstart =  selend-lineblockend + lineblockstart +1;//dont select the \n
+        }
+
       }
       slidenote.textarea.value=txt;
       slidenote.textarea.selectionStart = selstart;
