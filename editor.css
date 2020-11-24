@@ -2422,6 +2422,9 @@
     padding-top: calc(7*var(--pscale));
     padding-bottom: calc(20*var(--pscale));
   }
+  .dontbotherarea label{
+    display: inline;
+  }
 
   /*hide imagesblock as fast as possible:*/
   #imagesuploadblock{
