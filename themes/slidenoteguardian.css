@@ -232,7 +232,10 @@ div#slidenoteguardiandiff {
   grid-area: cachedt;
 }
 .slidenoteguardiandiffdialog .dialogcontent{
-  grid-template-areas: "pretext pretext" "button1 button2" "cachedt localt";
+  grid-template-areas:
+  "pretext pretext"
+  "button1 button2"
+  "localt cachedt";
   grid-gap:2vh;
   padding:2vh;
 }
