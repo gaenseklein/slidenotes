@@ -318,6 +318,10 @@ newtheme.addBlockClassesToElements = function(gridcontainer){
       console.log("grid: imagew:"+cliw+"imageh:"+clih);
       if(!landscape)node.classList.add("vertical");
       if(landscape)node.classList.add("horizontal");
+      if(nodes.length==1){
+        node.classList.add("horizontal");
+        node.classList.remove("vertical");
+      }
       //if(e===0){
         //image is first element, so image as background
       //  node.classList.add("bgimg");
