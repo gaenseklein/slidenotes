@@ -6,7 +6,7 @@ var buttonhtml = '<span class="buttonmdcode">+++node+++</span>';
 nodetheme.addEditorbutton(buttonhtml,'+++node');
 
 //internal vars:
-nodetheme.nodetypes = ['simpleflow','tree','sequence'];
+nodetheme.nodetypes = ['simpleflow','tree','sequence','flow'];
 nodetheme.mdcode = true;
 nodetheme.syntax = {
   //"md"-prefix: mdcode-allowed, so deformed html:
@@ -57,7 +57,10 @@ nodetheme.standardInsertMenu = function(){
   let header = slidenote.parser.CarretOnElement().dataobject.head;
   let nodetype = 'simpleflow';
   for(var x=0;x<this.nodetypes.length;x++){
-    if(header.indexOf(this.nodetypes[x])>-1)nodetype = this.nodetypes[x];
+    if(header.indexOf(this.nodetypes[x])>-1){
+      nodetype = this.nodetypes[x];
+      break;
+    }
   }
 
   let result = document.createElement('div');
@@ -846,6 +849,383 @@ nodetheme.builder = {
     },
   },
   //other diagrams/nodetypes
+  //flow:
+  flow: {
+    initObjects: function(parseobject){
+      this.nodes = [];
+      this.parseobject = parseobject;
+      this.circuits = [];
+      this.caminos = []; //not needed anymore
+      this.pathBlocks = []; //holds path-arrays per starting-node
+      for (var x=0;x<parseobject.actors.length;x++){
+        this.nodes.push({
+          actor:parseobject.actors[x],
+          nr:x,
+          childarrows:[],
+          rawchildren:[],
+          children:[],
+          hasParents:false,
+          touched:false,
+        });
+      }
+      for (var x=0;x<parseobject.parsedlines.length;x++){
+        let pl = parseobject.parsedlines[x];
+        if(pl==false)continue;
+        if(pl.type=="arrow"){
+          let from = parseobject.aliases.indexOf(pl.actfrom);
+          if(from==-1)from=parseobject.actors.indexOf(pl.actfrom);
+          let target = parseobject.aliases.indexOf(pl.actto);
+          if(target==-1)target=parseobject.actors.indexOf(pl.actto);
+          if(from==-1 || target==-1)continue; //something wrong
+          if(target==0)continue; //first node is always start and has no parent
+          this.nodes[from].childarrows.push(pl);
+          this.nodes[from].rawchildren.push(this.nodes[target]);
+          if(this.nodes[target].hasParents)this.nodes[target].hasMultipleParents=true;
+          this.nodes[target].hasParents=true;
+        }
+      }
+    },
+    buildPaths: function(){
+      //find root-elements
+      var roots = [];
+      for (var x=0;x<this.nodes.length;x++){
+        if(this.nodes[x].hasParents===false)roots.push(this.nodes[x]);
+      }
+      //root-elements are now stored in roots
+      //build ways:
+      for(var rootx=0;rootx<roots.length;rootx++){
+        let root = roots[rootx];
+        var validchilds = [];
+        var paths = [];
+        for (var x=0;x<root.rawchildren.length;x++){
+          let child = root.rawchildren[x];
+          let camino = this.buildPath(child, [root]);
+          for(var cam=0;cam<camino.caminos.length;cam++){
+            paths.push(camino.caminos[cam]);
+          }
+          for(var cir=0;cir<camino.circuits.length;cir++){
+            this.circuits.push(camino.circuits[cir]);
+          }
+        }
+        paths = this.sortPaths(paths)
+        this.caminos = this.caminos.concat(paths);
+        this.pathBlocks.push(paths);
+        root.children = root.rawchildren;
+      }
+    },
+    sortPaths: function(paths){
+      if(paths.length<=2)return paths; //nothing to sort...
+      let result = []; //array with paths inside
+      let pathobjects = []; //array with temporary pathobjects to facilitate sorting
+      for (var x=1;x<paths.length;x++){ //first element is root, so dont put it into sorting
+        pathobjects.push({
+          path:paths[x],
+          rejoinedRootAt:-1, //we use that to sort later
+          exitRootPathAt:-1, //we use that to sort later
+        });
+      }
+      let root = paths[0]; //always compare against root - root never changes position
+      for (var x=0;x<pathobjects.length;x++){
+        let hasLeft = false;
+        let actpath = pathobjects[x].path;
+        for(var i=0;i<actpath.length;i++){
+          if(!hasLeft){
+            if(root.indexOf(actpath[i])==-1){
+              hasLeft=true;
+              pathobjects[x].exitRootPathAt=i-1;
+            }
+          }else{
+            if(root.indexOf(actpath[i])>-1){
+              pathobjects[x].rejoinedRootAt=root.indexOf(actpath[i]);
+              break;
+            }
+          }
+        }
+      }
+      console.log('flow pathobjects',pathobjects);
+      //pathobjects contains now paths with rejoinedRootAt-values. sort it by that:
+      pathobjects.sort(function(a,b){
+        if(a.exitRootPathAt<b.exitRootPathAt)return 1;
+        if(a.exitRootPathAt>b.exitRootPathAt)return -1;
+        if(a.rejoinedRootAt==-1 && b.rejoinedRootAt!=-1)return 1;
+        if(a.rejoinedRootAt<b.rejoinedRootAt)return -1;
+        if(a.rejoinedRootAt>b.rejoinedRootAt)return 1;
+        return 0;
+      });
+      //put together resulting array including root:
+      result.push(root);
+      for (var x=0;x<pathobjects.length;x++){
+        result.push(pathobjects[x].path);
+      }
+      return result;
+    },
+    sortChildren: function(){
+      for(var pb=0;pb<this.pathBlocks.length;pb++){
+        let paths = this.pathBlocks[pb];
+        for (var pathx=0;pathx<paths.length;pathx++){
+          let path = paths[pathx];
+          for (var x=0;x<path.length;x++){
+            if(path[x].childPath==undefined){
+              path[x].childPath = pathx + pb*100;
+            }
+          }
+        }
+      }
+      for (var x=0;x<this.nodes.length;x++){
+        let node = this.nodes[x];
+        if(node.children.length>1){
+          node.children.sort(function(a,b){
+            if(a.childPath==undefined && b.childPath!=undefined)return 1;
+            if(b.childPath==undefined)return 0;
+            return a.childPath - b.childPath;
+          });
+        }
+      }
+    },
+    buildPath: function(node, pathToHere){
+      if(pathToHere.indexOf(node)>-1){
+        //circuit found
+        return {
+          caminos:[],
+          circuits:{path:pathToHere,conflictNode:node}
+        };
+      }
+      var validchilds = [];
+      var circuits = [];
+      var paths = [];
+      var pathWithThis = [];
+      for (var x=0;x<pathToHere.length;x++)pathWithThis[x]=pathToHere[x];
+      pathWithThis.push(node);
+
+      if(node.rawchildren.length==0){
+        return {
+          caminos:[pathWithThis],
+          circuits:circuits
+        }
+      }
+      for (var x=0;x<node.rawchildren.length;x++){
+        let child = node.rawchildren[x];
+        let camino = this.buildPath(child,pathWithThis);
+        for(let cam=0;cam<camino.caminos.length;cam++){
+          paths.push(camino.caminos[cam]);
+        }
+        for(let circ=0;circ<camino.circuits.length;circ++){
+          circuits.push(camino.circuits[circ]);
+        }
+        if(camino.caminos.length>0)validchilds.push(child);
+      }
+      for (var x=0;x<validchilds.length;x++){
+        node.children[x]=validchilds[x];
+      }
+      return {
+        caminos:paths,
+        circuits:circuits
+      }
+    },
+    buildPositionsOfNodes: function(){
+      var startx = 1;
+      if(this.pathBlocks[0]==undefined){
+        for (var x=0;x<this.nodes.length;x++){
+          this.nodes[x].posx=x;
+          this.nodes[x].posx=1;
+        }
+        return;
+      }
+      for(var pb=0;pb<this.pathBlocks.length;pb++){
+        var paths = this.pathBlocks[pb];
+        if(paths.length==0)continue;
+        var maxx=1;
+        if(paths[0][0].touched==false){
+          paths[0][0].touched=true;
+          paths[0][0].posx=startx;
+          paths[0][0].posy=1;
+        }
+        for(var y=0;y<paths.length;y++){
+          var path = paths[y];
+          for (var x=1;x<path.length;x++){
+            let parent = path[x-1];
+            let node = path[x];
+            let posinparent = parent.children.indexOf(node);
+            let newposx;
+            let newposy;
+            if(posinparent==0){
+              //go one position deeper
+              newposx=parent.posx;
+              newposy=parent.posy+1;
+            }else if(posinparent==parent.children.length-1 && !parent.hasMultipleParents){
+              //go one or more positions to the right
+              newposx=parent.posx+parent.children.length-1;
+              newposy=parent.posy;
+              if(newposx<=maxx)newposx=maxx+1;
+            }else{
+              //go one or more positions to the right
+              //and one deeper:
+              newposy=parent.posy+1;
+              newposx=parent.posx+posinparent;
+              if(newposx<=maxx)newposx=maxx+1;
+            }
+            if(node.touched){
+              if(newposy>node.posy){
+                node.posy=newposy;
+              }
+            }else{
+              if(newposx>maxx)maxx=newposx;
+              node.posx=newposx;
+              node.posy=newposy;
+              node.touched=true;
+            }
+          }//end of path-loop
+        }//end of paths-loop
+        startx+=maxx;
+      }//end of block-loop
+      this.translateNodesToGrid();
+    },
+    translateNodesToGrid: function(){
+      for (var x=0;x<this.nodes.length;x++){
+        let node = this.nodes[x];
+        if(node.posx){
+          node.gridColumnStart=(node.posx-1)*3 + 1;
+          node.gridColumnEnd = node.gridColumnStart+2;
+        }
+        if(node.posy){
+          node.gridRowStart=(node.posy-1)*3 + 1;//node.posy;
+          node.gridRowEnd = node.gridRowStart+2;
+        }
+      }
+    },
+    buildArrows:function(){
+      let arrows = [];
+      for (var x=0;x<this.parseobject.parsedlines.length;x++){
+        let line = this.parseobject.parsedlines[x];
+        if(line.type=="arrow"){
+          let from = this.parseobject.aliases.indexOf(line.actfrom);
+          if(from==-1)from=this.parseobject.actors.indexOf(line.actfrom);
+          let target = this.parseobject.aliases.indexOf(line.actto);
+          if(target==-1)target=this.parseobject.actors.indexOf(line.actto);
+          let parent = this.nodes[from];
+          let child = this.nodes[target];
+          let direction = "";
+          if(parent.posx<child.posx)direction+="right";
+          if(parent.posy<child.posy)direction+="down";
+          if(parent.posx>child.posx)direction+="left";
+          if(parent.posy>child.posy)direction+="up";
+          if(parent.posy<child.posy && parent.children[0]!=child)direction+="multi";
+          let startx; let starty; let endx; let endy;
+          if(direction==="right"){
+            startx = parent.gridColumnEnd;
+            endx = child.gridColumnStart;
+            starty = parent.gridRowStart;
+            endy = starty+1;
+          }else if(direction==="rightdown" || direction==="rightdownmulti"){
+            startx = parent.gridColumnEnd;
+            endx = child.gridColumnStart+1;
+            starty = parent.gridRowStart+1;
+            endy = starty+2;
+          }else if(direction==="down"){
+            startx = parent.gridColumnStart;
+            endx = child.gridColumnStart+1;
+            starty = parent.gridRowEnd;
+            endy = child.gridRowStart;
+          }else if(direction==="downleft"){
+            startx = child.gridColumnEnd;
+            endx = parent.gridColumnStart+1;
+            starty = parent.gridRowEnd;
+            endy = child.gridRowStart+1;
+          }else if(direction==="downleftmulti"){
+            startx = child.gridColumnEnd;
+            endx = parent.gridColumnEnd+1;
+            starty = parent.gridRowEnd-1;
+            endy = child.gridRowStart+1;
+          }else if(direction==="downmulti"){
+            startx = child.gridColumnEnd;
+            endx = parent.gridColumnEnd+1;
+            starty = parent.gridRowEnd-1;
+            endy = child.gridRowStart+1;
+          }else if(direction==="left"){
+            startx = child.gridColumnEnd;
+            endx = parent.gridColumnStart;
+            starty = parent.gridRowStart+1;
+            endy = starty+1;
+          }else if(direction==="up"){
+            startx = parent.gridColumnStart+1;
+            endx = child.gridColumnStart+2;
+            starty = child.gridRowEnd;
+            endy = parent.gridRowStart;
+          }else if(direction==="rightup"){
+            startx = parent.gridColumnEnd;
+            endx = child.gridColumnStart+1;
+            starty = child.gridRowEnd;
+            endy = parent.gridRowStart+1;
+          }
+          arrows.push({
+            from:parent,
+            to:child,
+            direction:direction,
+            message:line.msg,
+            arrowtype:line.arrowtype,
+            gridColumnStart:startx,
+            gridColumnEnd:endx,
+            gridRowStart:starty,
+            gridRowEnd:endy,
+          })
+        }
+      }
+      this.arrows=arrows;
+    },
+    buildHTML: function(){
+      var container = document.createElement('div');
+      container.classList.add('flow');
+      //add nodes:
+      let maxx=1;
+      let maxy=1;
+      for (var x=0;x<this.nodes.length;x++){
+        let node = this.nodes[x];
+        let nodediv = this.parseobject.actorhtml[node.nr];
+        nodediv.classList.add('node');
+        nodediv.style.gridColumn=node.gridColumnStart+"/"+node.gridColumnEnd;
+        nodediv.style.gridRow=node.gridRowStart+"/"+node.gridRowEnd;
+        if(node.posx>maxx)maxx=node.posx;
+        if(node.posy>maxy)maxy=node.posy;
+        container.appendChild(nodediv);
+      }
+      for (var x=0;x<this.arrows.length;x++){
+        let arrow = this.arrows[x];
+        let arrowdiv = document.createElement('div');
+        arrowdiv.classList.add("arrow");
+        arrowdiv.classList.add(arrow.arrowtype);
+        arrowdiv.classList.add(arrow.direction);
+        arrowdiv.style.gridColumn = arrow.gridColumnStart+"/"+arrow.gridColumnEnd;
+        arrowdiv.style.gridRow = arrow.gridRowStart+"/"+arrow.gridRowEnd;
+        let msg = document.createElement('div');
+        msg.classList.add('msg');
+        msg.innerHTML = arrow.message;
+        arrowdiv.appendChild(msg);
+        container.appendChild(arrowdiv);
+      }
+      //container.style.gridTemplateColumns = '1fr 1fr repeat('+(maxx-1)+',auto 1fr 1fr)';
+      //container.style.gridTemplateRows = '1fr 1fr repeat('+(maxy-1)+',auto 1fr 1fr)';
+      container.style.gridTemplateColumns = 'repeat('+maxx+',5ch 5ch 1fr)';
+      container.style.gridTemplateRows = 'repeat('+maxy+',2em 2em 1fr)';
+
+      container.style.display = 'grid';
+      return container;
+    },
+    build: function(parseobject){
+      this.initObjects(parseobject);
+      this.buildPaths();
+      this.sortChildren();
+      this.buildPositionsOfNodes();
+      this.buildArrows();
+      console.log("caminos:",this.caminos);
+      console.log(this);
+      var result = this.buildHTML();
+
+      return result;
+    },
+    insertMenu: function(){
+
+    },
+  },
   /*every new diagram/nodetype needs the folowing:
     build: a function which takes a parseobject (list with parsed lines)
           and returns the finished html inside a node

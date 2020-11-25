@@ -1,3 +1,8 @@
+section.node.griditem {
+  height: 100%;
+  max-height: 90vh;
+}
+
 .node .sequence {
     display: grid;
     grid-row-gap: 0.4em;
@@ -154,7 +159,8 @@ background-image:url("/themes/node/sequencearrownormal.png");
   margin-right:1ch;
 }
 
-.node .simpleflow .node {
+.node .simpleflow .node,
+.node .flow .node {
     background: aliceblue;
     border: 1px solid;
     border-radius: 50%;
@@ -458,4 +464,129 @@ background-image:url('node/simpleflowhorizontalmulti.png');
     border-radius: 9px;
     width: 90%;
     justify-self: center;
+}
+/*flow:*/
+.node .flow{
+  display:grid;
+  height:100%;
+  width:100%;
+}
+
+.node .flow .node{
+  height:4em;
+  width:10ch;
+  z-index: 10;
+}
+
+.node .flow .arrow{
+  width:100%;
+  height:100%;
+  position: relative;
+  display: grid;
+  z-index: 1;
+}
+.node .flow .arrow.right{
+  border-bottom:1px solid;
+}
+.node .flow .arrow.left{
+  border-top:1px solid;
+  margin-top:1ch;
+}
+.node .flow .arrow.rightdown,
+.node .flow .arrow.rightdownmulti{
+  border-top:1px solid;
+  border-right:1px solid;
+}
+.node .flow .arrow.downleft{
+  border-right:1px solid;
+  border-bottom:1px solid;
+  margin-top:-10px;
+  /*height:90%; does not work as intended*/
+}
+.node .flow .arrow.downleftmulti{
+  border-right:1px solid;
+  border-bottom:1px solid;
+  border-radius: 0 10px 10px 0;
+}
+.node .flow .arrow.downmulti{
+  border-top:1px solid;
+  border-right:1px solid;
+  border-bottom:1px solid;
+  border-radius: 0 10px 10px 0;
+  display: grid;
+  align-items: center;
+  margin-top:-30px;
+  margin-left:-20px;
+}
+.node .flow .arrow.down{
+  border-right:1px solid;
+}
+.node .flow .arrow.up{
+  border-left:1px solid;
+  margin-left:1.6ch;
+}
+.node .flow .arrow.rightup{
+  border-right:1px solid;
+  border-bottom:1px solid;
+}
+.node .flow .arrow::after {
+    width: 1ch;
+    height: 1ch;
+    content: "";
+    border-right: 3px solid;
+    border-top: 3px solid;
+    position: absolute;
+    background: linear-gradient(to top right, transparent 50%, black 50%);
+}
+.node .flow .arrow.right::after {
+  right: 3px;
+  bottom: -0.7ch;
+  transform: rotate(45deg);
+}
+.node .flow .arrow.downleftmulti::after,
+.node .flow .arrow.downmulti::after,
+.node .flow .arrow.downleft::after{
+  left: 0.3ch;
+  bottom:-0.6ch;
+  transform:rotate(-135deg);
+}
+.node .flow .arrow.left::after {
+  left: 0.3ch;
+  top:-0.6ch;
+  transform:rotate(-135deg);
+}
+.node .flow .arrow.rightdown::after,
+.node .flow .arrow.rightdownmulti::after,
+.node .flow .arrow.down::after {
+  right:-0.6ch;
+  bottom:0.3ch;
+  transform:rotate(135deg);
+}
+.node .flow .arrow.rightup::after{
+  right:-0.7ch;
+  top:0.3ch;
+  transform:rotate(-45deg);
+}
+.node .flow .arrow.up::after {
+  left:-0.7ch;
+  top:0.3ch;
+  transform:rotate(-45deg);
+}
+.node .flow .arrow .msg {
+    width: 100%;
+    align-self: end;
+    text-align: center;
+}
+
+.node .flow .arrow.left .msg {
+    align-self: start;
+}
+
+.node .flow .arrow.rightup .msg {
+    margin-bottom: -1.5em;
+}
+
+.node .flow .arrow.down .msg,
+.node .flow .arrow.up .msg {
+    align-self: center;
 }
