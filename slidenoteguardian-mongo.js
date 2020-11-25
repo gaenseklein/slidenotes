@@ -1063,7 +1063,7 @@ slidenoteGuardian.prototype.exportPresentation = async function(destination, pre
       var dialogoptions = {
         type:"confirm",
         title:"new presentation ready",
-        content:"new Presentation ready with url "+resp.url+"\n Go there now?",
+        content:"new presentation ready with url "+resp.url+"\n go there now?",
         confirmbutton:"go to presentation",
         cancelbutton: "back to editor",
         closefunction: function(){
