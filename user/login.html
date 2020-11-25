@@ -84,9 +84,21 @@
   </div>
 </div>
 <script type="text/javascript"><!--
+var token;
+function tokenIsStillValid(cookietoken){
+	let tokenobj = JSON.parse(atob(cookietoken.split('.')[1]));
+	let timeinseconds = Math.floor(Date.now()/1000);
+	if(tokenobj.ttl && timeinseconds-tokenobj.iat<tokenobj.ttl){
+		console.log('token valid for', tokenobj.ttl-(timeinseconds-tokenobj.iat));
+		return true;
+	}
+	console.log('token invalid:',timeinseconds-tokenobj.iat,tokenobj.ttl);
+	//if(timeinseconds-tokenobj.iat<tokenValidTime)return true;
+	return false;
+}
 function init(){
 	let cookie = document.cookie.substring(document.cookie.indexOf('authtoken=')+'authtoken='.length);
-	if(cookie.length>5){
+	if(cookie.length>5 && tokenIsStillValid(cookie)){
 		token=cookie;
 		loginSuccessfull();
 	}else{
@@ -112,7 +124,6 @@ if (form.attachEvent) {
 } else {
 	form.addEventListener("submit", preLogin);
 }
-var token;
 async function login(preemail, prepw){
 	let email = preemail || prompt('email please');
 	let pw = prepw || prompt('password please');
@@ -149,6 +160,10 @@ async function loginSuccessfull(){
 		slidenotelist = await getJson('/api/notes/');
 		presentationlist = await getJson('/api/presentation/user');
 	}catch(err){
+		if(err=="invalid token"){
+			document.cookie = "authtoken=; expires=0; path=/";
+			document.body.className="status--login";
+		}
 		console.log('welcome failed', err);
 	}
 	if(slidenotelist){
@@ -252,7 +267,11 @@ async function getJson(url){
 			'auth-token':token
 		}
 	});
-	return resp.json();
+	if(resp.status==400){
+		throw "invalid token";
+	}else{
+		return resp.json();
+	}
 }
 
 

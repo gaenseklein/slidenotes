@@ -360,9 +360,27 @@ slidenoteGuardian.prototype.initLoad = async function(){
     slidenoteguardian.initTutorial();
   }else{
     let foundnote = await mongoguardian.initload();
+    //check for invalid tokens
+    if(foundnote=="invalid token"){
+      //token is invalid:
+      let dialogoptions = {
+        title:"400 - token is invalid",
+        content:"your token is invalid or expired. please log in a new",
+        type:'alert',
+        closebutton:'false'
+      }
+      document.cookie = "authtoken=; expires=0; path=/";
+      dialoger.buildDialog(dialogoptions, function(){
+        let req = '?req='+this.nid;
+        if(this.nid==undefined)req='?req='+location.search.substring(location.search.indexOf('nid=')+'nid='.length);
+        if(location.search.length==0)req='';
+        if(location.hostname!='localhost')location.href = '/user/'+req;
+        else location.href = '/user/login.html'+req;
+      });
+    }
   //build initial note:
     if(foundnote===false){
-      dialogoptions = {
+      let dialogoptions = {
         title:"404 - file not found",
         content:"we could not find a slidenote with this id. please check your url",
         confirmbutton:"open last edited slidenote",
@@ -698,8 +716,20 @@ slidenoteGuardian.prototype.initTutorial = function(){
   //overwriting cloud-button:
   var cloudbutton = document.getElementById("cloud");
   var backlink = document.createElement("a");
-  backlink.href = window.location.pathname;
-  backlink.innerHTML = "&larr; back to editor"; //←
+  //check if user is logged in:
+  if(mongoguardian.tokenIsSet()){
+    backlink.href = window.location.pathname;
+    backlink.innerHTML = "&larr; back to editor"; //←
+  }else{
+    backlink.href="https://www.slidenotes.io";
+    backlink.innerHTML = "&larr; back";
+    //disable certain options for not-logged-in-users:
+    let linkstohide = document.querySelectorAll('#menuoptionseditor a');
+    for(var x=0;x<linkstohide.length;x++){
+      linkstohide.href="#";
+      linkstohide.style.opacity = "0.5";
+    }
+  }
   //cloudbutton.replaceWith(backlink);
   cloudbutton.style.display = "none";
   cloudbutton.parentElement.insertBefore(backlink,cloudbutton);
@@ -1370,8 +1400,10 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
         var dontarea = document.createElement("div");
         var dontl = document.createElement("label");
         dontl.innerText = "don't remind me again";
+        dontl.setAttribute('for', "dontbotherbox");
         var dontbother = document.createElement("input");
         dontbother.type = "checkbox";
+        dontbother.id = "dontbotherbox";
         dontbother.onchange = function(){
           slidenoteguardian.localstorage.setItem("dontBotherOnEmptyPassword", this.checked);
         };

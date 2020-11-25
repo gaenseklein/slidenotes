@@ -12,11 +12,45 @@ var mongoguardian = {
   restpath:restpath,
   tokenIsSet: function(){
     if(this.token.length==0 || this.token.length<10){
-      //user is not logged in - abort and load login-page instead:
-      let req = '?req='+this.nid;
-      if(location.search.length==0)req='';
-      if(location.hostname!='localhost')location.href = '/user/'+req;
-      else location.href = '/user/login.html'+req;
+      return false;
+    }
+    return true;
+  },
+  refreshToken: async function(){
+    const resp = await this.get_json('/api/user/refresh');
+    if(resp.stillvalid)return false;
+    if(resp.newtoken){
+      this.token = resp.token;
+      document.cookie = "authtoken="+resp.token+"; expires=0; path=/";
+      console.log('refreshed token & cookie');
+      return true;
+    }
+  },
+  tokenTTL: function(){
+    try{
+      let tokenobj = JSON.parse(atob(this.token.split(".")[1]));
+      let timeinseconds = Math.floor(Date.now()/1000);
+      let timeleft = tokenobj.ttl - (timeinseconds - tokenobj.iat);
+      if(timeleft<0){
+        //token is expired
+        dloptions = {
+          type:"alert",
+          content:"your token has been expired - please login a new"
+        }
+        dialoger.buildDialog(dloptions,function(){
+          let req = '?req='+this.nid;
+          if(location.search.length==0)req='';
+          if(location.hostname!='localhost')location.href = '/user/'+req;
+          else location.href = '/user/login.html'+req;
+        });
+        return false;
+      }else if(timeleft<tokenobj.ttl/2){
+        console.log("token nearly out of date - refresh token");
+        this.refreshToken();
+        return true;
+      }
+    }catch(err){
+      console.log(err);
       return false;
     }
     return true;
@@ -24,14 +58,31 @@ var mongoguardian = {
   initload : async function(){
     //initload is only for slidenotes, not for tutorials
     //only if token is Set, else go to loginpage
-    if(!this.tokenIsSet())return;
+    if(!this.tokenIsSet()){
+      //user is not logged in - abort and load login-page instead:
+      let req = '?req='+this.nid;
+      if(location.search.length==0)req='';
+      if(location.hostname!='localhost')location.href = '/user/'+req;
+      else location.href = '/user/login.html'+req;
+      return;
+    }
+    let refreshedtoken = await this.refreshToken();
+
     //get username from jwt
     this.loggedinuser = this.parseJwt(this.token);
     this.loadingStarttime = new Date();
     //get note-data
     try{
-      this.mongonote = await this.getSlidenote();
-      console.log('got slidenote',this.mongonote);
+      let resp = await this.getSlidenote();
+      if(resp.error){
+        console.log('could not load mongonote');
+        if(resp.status===400){
+          return "invalid token";
+        }
+      }else{
+        this.mongonote = resp;
+        console.log('got slidenote',this.mongonote);
+      }
     }catch(err){
       console.log('could not load note',err);
     }
@@ -58,6 +109,7 @@ var mongoguardian = {
     }
   },
   initTutorial: async function(){
+
     //tutorials are loaded with location ?tutorial=tutorialname
     let tutoriallist = await this.get_json('/tutorials/tutoriallist.json');
     let tutorialurl = location.search.substring(location.search.lastIndexOf("=")+1);
@@ -120,6 +172,7 @@ var mongoguardian = {
   },
   //update Slidenote: expects fields to update including a hash of slidenote
   updateSlidenote: async function(fields){
+    if(this.tokenTTL()==false)return;
     let payload = {};
     let allowedFields = ['title','encnote', 'notehash'];
     for(let x=0;x<allowedFields.length;x++){
@@ -292,9 +345,9 @@ var mongoguardian = {
       },
 
     });
-    if(resp.status===404){
+    if(resp.status===404 || resp.status===400){
       resperrors.push(resp);
-      return resp.status;
+      return {error:true, status:resp.status};
     }
     return resp.json();
   },
