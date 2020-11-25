@@ -42,6 +42,13 @@ var mycode = "is super beautiful";
 +++
 ```
 
+alternatively you can also use three back-ticks if you prefer
++++code:md
+```
+var mycode = "is super beautiful";
+```
++++
+
 
 ---
 ## advanced configuration of your code blocks
@@ -69,12 +76,6 @@ my_superfunction(){
 ### result:
 +++code:options
 linehighlight=3
-linenumbering=on
-linenumberingstart=10
-language=
-speciallinemarker=§§
-specialstartmarker=§a
-specialendmarker=§e
 ---
 my_superfunction(){
   //the following line is what i want to focus your attention on:
@@ -97,7 +98,7 @@ linenumberingstart defines the start-line for the output if linenumbering is act
 
 ### language
 
-while the editor tries to figure out automatically which language it should use for syntaxhighlighting, sometimes it does not get it right. if this happens you can try it by directly defining it here.
+while the editor tries to figure out automatically which language it should use for syntaxhighlighting, sometimes it does not get it right. if this happens you can try it by directly defining it here. *language is also the only option you can directly declare in the header itself - more on that on [slide 10](#slide10)*
 
 ---
 
@@ -154,6 +155,31 @@ my_function_call(lets, test, it){
  return §a lets[test.length - it]§e.result;
 };
 +++
+---
+## declaring language in the header
+
+the shorter the code, the most likely slidenotes will fail to detect the correct language. to make things easier for smaller codeblocks, where you dont want to add other options then the language, you can enter your language attached with a **:** to the header:
++++code
+ +++code:javascript
+    alert:('hello world');
+ +++
++++
+
++++code:javascript
+    alert:('hello world');
++++ 
+
+if you prefer the github-style you can also use that to declare the language:
++++code:markdown
+```markdown
+# hello world
+```
++++
+
+```markdown
+# hello world
+```
+
 
 ---
 #there's more!
