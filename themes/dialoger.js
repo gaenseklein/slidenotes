@@ -31,7 +31,7 @@ dialoger.buildDialog = function(options, followfunction){
     setTimeout(function(){
       var dialog = document.getElementById("dialogcontainer");
       dialog.parentElement.removeChild(dialog);
-      slidenote.textarea.focus();
+      if(slidenote)slidenote.textarea.focus();
     },40);
   };
 
