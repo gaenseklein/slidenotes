@@ -99,7 +99,15 @@ newtheme.styleThemeSpecials = function(){
 		var options;
 		if(codeheads[x] && codeheads[x].indexOf(this.metablockSymbol)>-1){
 			options = this.parseStyledBlockOptions(block);
-		}else options = new slidenotecodeblockoptions();
+		}else {
+			options = new slidenotecodeblockoptions();
+			if(codeheads[x] && codeheads[x].indexOf(':')>1){
+				let rawlanguage = codeheads[x].substring(codeheads[x].indexOf(':')+1);
+				if(rawlanguage.length>1)options.language = HighlightGetLanguageClass(rawlanguage);
+			}else if(codeheads[x] && codeheads[x].substring(0,3)==='```' && codeheads[x].length>4){
+				options.language = HighlightGetLanguageClass(codeheads[x].substring(3));
+			}
+		}
 		//console.log(options);
 		this.options = options;
 		this.findHighlightLines(block); //remember lines to highlight before changing code
