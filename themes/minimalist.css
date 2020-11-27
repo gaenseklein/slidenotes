@@ -80,14 +80,12 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 0.9em;
 }
 /*inline*/
-.minimalist p code{
+.minimalist p code, .minimalist h1 code, .minimalist h2 code, .minimalist h3 code{
   padding: 0.12em 0.2em 0.12em 0.2em;
   color: white;
   background-color: var(--code-backg);
   text-shadow: none;
 }
-
-
 
 /*codeblock affects only codeblocks*/
 .minimalist code.codeblock{

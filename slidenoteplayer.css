@@ -19,6 +19,9 @@
   --paddingPpage: 6.5vh 7.5vw 0vh 7.3vw;
   --paddingPpageWide: 6.5vh 20vw 0vh 20vw;
   --paddingPpageNeg: -6.5vh -7.5vw -0vh -7.3vw;
+
+  /*for width*/
+  --widthGriditem: 48rem;
 }
 
 /* presentation main rules */
@@ -68,18 +71,26 @@
 .blocks .griditem{
   z-index: 1;
   position: relative;
-  max-width: 100%;
+  max-width: var(--widthGriditem);
   overflow: hidden;
   word-break: break-word;
+  justify-self:center;
 }
 .blocks .griditem img ~ p{
   padding: 0.15em 0.15em 0.3em 0.3em;
 }
-
+.section.inline.griditem {
+  justify-self: unset;
+  max-width: 100%;
+}
 
 section.inline{
   gap: 1em;
 }
+.blocks section.inline{
+  max-width: 100%;
+}
+
 section div.pblock{
   justify-self: normal
 }
@@ -125,12 +136,13 @@ img.vertical.griditem{
   text-align: left;
 }
 
-.gridx1 div,
+/*now in .griditem*/
+/*.gridx1 div,
 .gridx1 p,
 .gridx2 div,
 .gridx2 p{
   justify-self:center;
-}
+}*/
 
 
 

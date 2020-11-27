@@ -83,7 +83,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 0.9em;
 }
 /*inline*/
-.colorful p code{
+.colorful p code, .colorful h1 code, .colorful h2 code, .colorful h3 code{
   padding: 0.12em 0.2em 0.12em 0.2em;
   color: white;
   background-color: var(--code-backg);

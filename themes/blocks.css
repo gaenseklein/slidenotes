@@ -85,6 +85,8 @@ div > img.bgimg {
 .blocks code.codeblock{
   margin-bottom: 0.5em;
   max-width: 85vw;
+  overflow: visible;
+  width: 100%;
 }
 
 /*sections: */

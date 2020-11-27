@@ -82,7 +82,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 0.9em;
 }
 /*inline*/
-.dark p code{
+.dark p code, .dark h1 code, .dark h2 code, .dark h3 code{
   padding: 0.12em 0.2em 0.12em 0.2em;
   color: white;
   background-color: #484848;
