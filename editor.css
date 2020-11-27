@@ -1737,6 +1737,8 @@
     color: var(--arrow-box-button4-font-color);
     margin-top: 0;
     padding-left: calc(12*var(--pscale));
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   #menuload #actnotearea button.minibutton {
@@ -1859,6 +1861,8 @@
     padding-left: calc(5.6*var(--pscale));
     padding-right: calc(5.6*var(--pscale));
     box-sizing: border-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   #menupublish .arrow_box:before{
@@ -1913,6 +1917,8 @@
   }
   #menupublish .loadnotebutton div{
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /*#menupublish button.circle, #menupublish button.copylink {
