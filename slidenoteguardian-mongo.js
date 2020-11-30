@@ -726,8 +726,8 @@ slidenoteGuardian.prototype.initTutorial = function(){
     //disable certain options for not-logged-in-users:
     let linkstohide = document.querySelectorAll('#menuoptionseditor a');
     for(var x=0;x<linkstohide.length;x++){
-      linkstohide.href="#";
-      linkstohide.style.opacity = "0.5";
+      linkstohide[x].href="#";
+      linkstohide[x].style.opacity = "0.5";
     }
   }
   //cloudbutton.replaceWith(backlink);
