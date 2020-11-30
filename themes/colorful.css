@@ -126,7 +126,11 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-left: -100vw;
   margin-top: -100vh;
 }
-
+.colorful h1.griditem{
+  max-width: 90vw;
+  margin-left:-2em;
+  margin-right:-2em;
+}
 
 .colorful h2,
 .colorful h3{
@@ -188,7 +192,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful p{
 	text-shadow: 0 0 0.5em var(--colorfulBckgColor);
-  line-height: 1.2em;
+  line-height: 1.3em;
 }
 .colorful p br{
   margin-bottom: 0.5em;
@@ -235,8 +239,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful ul,
 .colorful ol{
-  padding: 0 0.8em;
-
+  padding: 0 0.9em;
+  line-height: 1.3em;
 }
 
 .colorful ul{
@@ -247,8 +251,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
-.colorful li{
-
+.colorful li+li{
+  margin: 0.3em 0;
 }
 
 .colorful code.codeblock li{
