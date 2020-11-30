@@ -234,7 +234,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .dark code.codeblock li{
-
+  overflow: hidden;
 }
 
 
