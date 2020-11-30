@@ -1500,7 +1500,7 @@ emdparser.prototype.parseMap = function(){
       //how many? as jakob only wants till ### we just check it this way:
       if(lines[x].substring(0,2)==="##")rauten="##";
       if(lines[x].substring(0,3)==="###")rauten="###";
-			var label = ["title","subtitle","subsubtitle"];
+			var label = ["title","chapter title","section title"];
       var ersatz = "€€€";
       ersatz = ersatz.substring(0,rauten.length);
       this.map.addElement({
