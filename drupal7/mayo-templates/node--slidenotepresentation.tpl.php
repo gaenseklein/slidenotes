@@ -361,7 +361,7 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
     if(this.notetitle==="undefined")this.notetitle=this.localstorage.getItem("title");
     pwinput.value="";
     usernamefield.value = this.notetitle; //+"@slidenotes.io";
-    if(pwnotetitle!=null)pwnotetitle.innerText = "Decrypting Slidenote \""+this.notetitle+"\"";
+    if(pwnotetitle!=null)pwnotetitle.innerText = "decrypting slidenote \""+this.notetitle+"\"";
   }
   if(method==="decrypt"){
     pwokbutton.innerText="DECRYPT";

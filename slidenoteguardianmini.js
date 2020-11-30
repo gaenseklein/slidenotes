@@ -4,7 +4,7 @@ var slidenoteguardian = {
 	decText: null,
 	crypto: window.crypto,
 	iv:null,
-				
+
 }
 
 slidenoteguardian.decryptPresentation = async function(){
@@ -73,7 +73,7 @@ slidenoteguardian.encryptComment = async function(){
    var enctext = this.encBufferToString(encresult);
    bodyfield.value = enctext;
    document.getElementById("edit-submit").click();
-   return true;	   
+   return true;
 }
 
 slidenoteguardian.encBufferToString = function(encResult){
@@ -196,7 +196,7 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
     if(this.notetitle==="undefined")this.notetitle=this.localstorage.getItem("title");
     pwinput.value="";
     usernamefield.value = this.notetitle; //+"@slidenotes.io";
-    if(pwnotetitle!=null)pwnotetitle.innerText = "Decrypting Slidenote \""+this.notetitle+"\"";
+    if(pwnotetitle!=null)pwnotetitle.innerText = "decrypting slidenote \""+this.notetitle+"\"";
   }
   if(method==="decrypt"){
     pwokbutton.innerText="DECRYPT";
@@ -273,6 +273,3 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
     pwcheck.addEventListener('keyup',handleenter);
 	});
 }
-
-
-
