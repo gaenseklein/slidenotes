@@ -2200,7 +2200,9 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
   //if(this.notetitle==="undefined")this.notetitle=this.localstorage.getItem("title");
   pwinput.value="";
   usernamefield.value = this.notetitle; //+"@slidenotes.io";
-  if(pwnotetitle!=null)pwnotetitle.innerText = "decrypting slidenote \""+this.notetitle+"\"";
+  let pwmantitle = "decrypting slidenote \""+this.notetitle+"\"";
+  if(location.href.indexOf('presentation.htm?')>-1)pwmantitle = "decrypting presentation \""+this.notetitle+"\""
+  if(pwnotetitle!=null)pwnotetitle.innerText = pwmantitle;
   //standard: skipbutton is hidden
   pwskipbutton.classList.add("hidden");
   if(method==="encrypt" && document.getElementById("slidenotediv").classList.contains("midstate")){
