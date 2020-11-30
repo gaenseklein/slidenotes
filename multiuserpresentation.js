@@ -50,6 +50,10 @@ ws.init2 = async function(){
                 let speclist = document.getElementById("spectatorcount");
                 if(speclist)speclist.innerText = ws.userlist.length-1;
             }
+            if(data.action==="sendToAll" && data.options ==="pointerClick"){
+              console.log('pointerClick',data.data);
+              pointer.showPointer(data.msg);
+            }
             /*
             if(data.action==="getUserNames"){
                 peerworker.updatePeerConnectionList(data.data);
@@ -69,6 +73,10 @@ ws.sendMessage = function(msg, action, options){
 ws.sendSlideNr = function(){
         if(this.creator===false)return;
         this.sendMessage(slidenoteplayer.actpage, "syncToSlideNr");
+}
+ws.sendPointer = function(klick){
+  if(this.creator===false)return;
+  this.sendMessage(klick,"sendToAll", "pointerClick");
 }
 
 //helper functions:
@@ -141,6 +149,129 @@ ws.showDialog = function(){
     dialoger.buildDialog(dialogoptions);
 }
 
+
+
+/*pointer*/
+var pointerklick = function(event){
+    function validNode(node){
+      if(node.offsetParent==undefined){
+        return validNode(node.parentNode);
+      }
+      return node;
+    }
+    function buildPath(root, node){
+        if(root==node)return [];
+        let returnpath =  buildPath(root, node.parentNode);
+        let index = 0;
+        for(let x=1;x<node.parentNode.children.length;x++)if(node.parentNode.children[x]==node){
+            index=x;
+            break;
+        }
+        //index = Array.from(node.parentNode.children).indexOf(node);
+        returnpath.push(index);
+        return returnpath;
+    }
+    let target = validNode(event.target);
+    let root = document.getElementById('slidenotepresentation');
+    if(root==null)root = document.getElementById('praesentation');
+    let path = buildPath(root,target);
+    let targetobj = pointer.getPosition(target);
+    targetobj.endx = targetobj.x + target.clientWidth;
+    targetobj.endy = targetobj.y + target.clientHeight;
+    targetobj.width = target.clientWidth;
+    targetobj.height = target.clientHeight;
+    targetobj.node = target;
+    let percX = targetobj.width/100;
+    let percY = targetobj.height/100;
+    let clickX = event.clientX;
+    let clickY = event.clientY;
+
+    let distX = clickX-targetobj.x;
+    let distY = clickY-targetobj.y;
+    let relativeX = Math.floor(distX/percX);
+    let relativeY = Math.floor(distY/percY);
+
+    let klick = {
+        path:path,
+        //target:targetobj,
+        relativeDistanceX:relativeX,
+        relativeDistanceY:relativeY
+    }
+    console.log('pointer makes klick',klick);
+    if(ws.server){
+      ws.sendPointer(klick);
+    }
+    klicks.push(klick);
+    pointer.showPointer(klick);
+}
+var klicks = [];
+var pointer = {
+  init:function(){
+    this.presentation = document.getElementById('slidenotepresentation');
+    if(this.presentation==null)this.presentation = document.getElementById('praesentation');
+    this.presentation.addEventListener("click",pointerklick);
+    this.pointernode = document.getElementById('laserpointer');
+    if(!this.pointernode){
+      this.pointernode = document.createElement('div');
+      this.pointernode.id='laserpointer';
+      document.body.appendChild(this.pointernode);
+    }
+
+  },
+  // helper function to get an element's exact position
+  getPosition: function(el) {
+    var xPosition = 0;
+    var yPosition = 0;
+
+    while (el) {
+      if (el.tagName == "BODY") {
+        // deal with browser quirks with body/window/document and page scroll
+        var xScrollPos = el.scrollLeft || document.documentElement.scrollLeft;
+        var yScrollPos = el.scrollTop || document.documentElement.scrollTop;
+
+        xPosition += (el.offsetLeft - xScrollPos + el.clientLeft);
+        yPosition += (el.offsetTop - yScrollPos + el.clientTop);
+      } else {
+        xPosition += (el.offsetLeft - el.scrollLeft + el.clientLeft);
+        yPosition += (el.offsetTop - el.scrollTop + el.clientTop);
+      }
+
+      el = el.offsetParent;
+    }
+    return {
+      x: xPosition,
+      y: yPosition
+    };
+  },
+  showPointer: function(klick){
+    if(!this.presentation)this.init();
+    let target = this.getElementByPath(klick.path);
+    let twidth = target.clientWidth;
+    let theight = target.clientHeight;
+    let tpercX = twidth/100;
+    let tpercY = theight/100;
+    let tpos = this.getPosition(target);
+
+    let distX = Math.floor(klick.relativeDistanceX*tpercX);
+    let distY = Math.floor(klick.relativeDistanceY*tpercY);
+    let posX = tpos.x+distX;
+    let posY=tpos.y+distY;
+    this.pointernode.style.left = posX+"px";
+    this.pointernode.style.top = posY+"px";
+    this.pointernode.classList.toggle('active',true);
+    console.log('pointer moved to',posX,posY);
+    setTimeout("pointer.pointernode.classList.toggle('active',false)",5000);
+  },
+  getElementByPath: function(path){
+    let node = this.presentation;
+    for(var x=0;x<path.length;x++){
+      node = node.children[path[x]];
+    }
+    return node;
+  },
+
+}
+//setTimeout("pointer.init()",3000);
 /*
 for future use: the peerworker, establishes and controls audio and video per webrtc
 

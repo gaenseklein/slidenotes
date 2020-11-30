@@ -354,3 +354,21 @@
   #invitelink {
       text-transform: none;
   }
+
+/*pointer*/
+#laserpointer{
+  background:red;
+  width: 4ch;
+  height:4ch;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 10000;
+  opacity:0.1;
+  transition: opacity 3s;
+  margin-top:-2ch;
+  margin-left:-2ch;
+}
+#laserpointer.active{
+  opacity:1;
+  transition:none;
+}
