@@ -113,7 +113,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-size: 4.5em;
   margin-top: 20vh;
 }
-.dark h1.griditem{
+.dark h1.griditem,
+.dark .griditem h1{
   max-width: 90vw;
   margin-left:-2em;
   margin-right:-2em;

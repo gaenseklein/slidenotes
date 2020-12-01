@@ -126,7 +126,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-left: -100vw;
   margin-top: -100vh;
 }
-.colorful h1.griditem{
+.colorful h1.griditem,
+.colorful .griditem h1{
   max-width: 90vw;
   margin-left:-2em;
   margin-right:-2em;
