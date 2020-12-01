@@ -491,7 +491,11 @@
         return;
       }
       this.encBufferString = this.mongopresentation.encnote;
-      this.options = this.mongopresentation.options;
+      try{
+        this.options = JSON.parse(this.mongopresentation.options);
+      }catch(e){
+        console.warn('could not load options, no valid json');
+      }
       //if options are not encrypted we could start loading basic-themes here?
       //no we cant - slidenote must be defined with extensionmanager ready
       this.notetitle = this.mongopresentation.title;

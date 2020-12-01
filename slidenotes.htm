@@ -1578,12 +1578,14 @@
       <div class="dialogcontent">
       	<div id="slidenoteGuardianPasswordPromptTemplatePreText"></div>
       	<form onsubmit="event.preventDefault();" action="#" method="POST">
-      		<label id="slidenoteGuardianPasswordPromptUsernameLabel">filename for export</label>
+      		<label for="username" id="slidenoteGuardianPasswordPromptUsernameLabel">filename for export</label>
       		<input type="text" id="username">
-      		<label id="slidenoteGuardianPasswordPromptPasswordLabel">password</label>
+      		<label for="password" id="slidenoteGuardianPasswordPromptPasswordLabel">password</label>
       		<input type="password" id="password">
-      		<label id="slidenoteGuardianPasswordPromptRetypeLabel">re-type password</label>
+      		<label for="pwcheckfield" id="slidenoteGuardianPasswordPromptRetypeLabel">re-type password</label>
       		<input type="password" id="pwcheckfield">
+          <label for="slidenoteGuardianPasswordPromptCommentEnable" id="slidenoteGuardianPasswordPromptCommentEnableLabel">enable feedback</label>
+          <input type="checkbox" id="slidenoteGuardianPasswordPromptCommentEnable" checked="checked" onchange="slidenoteguardian.uploadRestObject.enableComments = this.checked">
           <div class="buttonarea">
         		<button type="submit" id="slidenoteGuardianPasswordPromptEncrypt">encrypt</button>
             <button id="skippassword" onclick="slidenoteguardian.skipPassword()">skip</button>

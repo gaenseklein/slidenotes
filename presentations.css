@@ -116,9 +116,16 @@
     opacity:1;
   }
 
+  #controlarea button.no-comments{
+    opacity:0.3;
+  }
+
   button {
     cursor: pointer;
   }
+
+
+
   /*.dialogbox .dialogtitle .dialogclosebutton{
     align-self:start;
     justify-self:end;
@@ -134,6 +141,7 @@
   .dialogclosebutton:hover{
     color: var(--dialogbox-font-color);
   }
+
 
 
   /* dialogcontent */

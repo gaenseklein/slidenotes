@@ -65,6 +65,7 @@ slidenoteplayer.initButtons = function(){
   this.controlbuttons.commentbutton = document.getElementById("controlcomment");
   this.controlbuttons.commentcount = document.getElementById("controlcommentcount");
   this.controlbuttons.commenttotal = document.getElementById("controlcommenttotal");
+  this.options = slidenoteguardian.options;
 
   /*
   this.controlbuttons.gotopage = document.getElementById("controlgotobutton");
@@ -88,7 +89,21 @@ slidenoteplayer.initButtons = function(){
 
   this.controlbuttons.commentcount.innerHTML = this.commentCount();
   this.controlbuttons.commenttotal.innerHTML = document.getElementsByClassName("comment").length;
-  this.controlbuttons.commentbutton.onclick = function(e){slidenoteplayer.commentClick(e)};
+  if(this.options && (this.options.enableComments == true || this.options.enableComments===undefined)){
+    this.controlbuttons.commentbutton.onclick = function(e){slidenoteplayer.commentClick(e)};
+  }else{
+    this.controlbuttons.commentbutton.classList.add('no-comments');
+    this.controlbuttons.commentbutton.onclick = function(e){
+      let dloptions = {
+        type:'alert',
+        title:'feedback',
+        content:'comments are disabled in this presentation',
+        closebutton:true
+      }
+      dialoger.buildDialog(dloptions,function(){});
+    }
+
+  }
 
   this.formSaveButton = document.getElementById("edit-submit");
   if(!slidenoteguardian.mongopresentation){

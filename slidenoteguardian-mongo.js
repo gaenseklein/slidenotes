@@ -1027,7 +1027,8 @@ prepares the presentation to be exported to destination
 @param destination: where to save (filesystem, cms)
 */
 slidenoteGuardian.prototype.exportPresentation = async function(destination, presentationdiv){
-  var password = await this.passwordPrompt("Choose a password for the presentation", "exportCMS", true);
+  this.uploadRestObject.enableComments=true;
+  var password = await this.passwordPrompt("choose a password for the presentation", "exportCMS", true);
   if(destination==="filesystem")this.preparePresentationForFilesystem(presentationdiv);
   var presentationstring = '<div class="'+presentationdiv.classList.toString()+'">'+
                             presentationdiv.innerHTML + "</div>";
@@ -1042,7 +1043,9 @@ slidenoteGuardian.prototype.exportPresentation = async function(destination, pre
   if(destination==="cms"){
     this.uploadRestObject.title = encResult.filename;
     //mongo-style:
-    let optionstring = this.saveConfig();
+    let optionobj = this.saveConfig("cms");
+    optionobj.enableComments = this.uploadRestObject.enableComments;
+    let optionstring = JSON.stringify(optionobj);
     var payload = {
       title:encResult.filename,
       encnote:this.uploadRestObject.encpresentation,
@@ -2196,6 +2199,12 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
   var pwskipbutton = document.getElementById("skippassword");
   var pwgenbutton = document.getElementById("passwordgen");
   var pwaftertext = document.getElementById("slidenoteGuardianPasswortPromptAfterText");
+  var commentsenablelable = document.getElementById("slidenoteGuardianPasswordPromptCommentEnableLabel");
+  var commentsenable = document.getElementById("slidenoteGuardianPasswordPromptCommentEnable");
+  if(commentsenablelable&&commentsenable){
+    commentsenablelable.style.display="none";
+    commentsenable.style.display="none";
+  }
   pwtext.innerText = text;
   //if(this.notetitle==="undefined")this.notetitle=this.localstorage.getItem("title");
   pwinput.value="";
@@ -2250,6 +2259,10 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     pwcheck.classList.remove("hidden");
     pwchecklabel.classList.remove("hidden");
     pwgenbutton.classList.remove("hidden");
+    if(commentsenablelable&&commentsenable){
+      commentsenablelable.style.display=null;
+      commentsenable.style.display=null;
+    }
   }else if(method==="rename"){
     pwokbutton.innerText = "save";
     usernamefield.value = this.notetitle;
