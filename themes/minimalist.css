@@ -111,8 +111,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .minimalist h1.griditem,
 .minimalist .griditem h1{
   max-width: 90vw;
-  margin-left:-2em;
-  margin-right:-2em;
+  margin-bottom: calc((var(--h1scale) - 1)*2em);
+  margin-top: calc((var(--h1scale) - 1)*2em + 25vh);
+  transform: scale(var(--h1scale));
+  font-size: calc(1/var(--h1scale)*4em);
 }
 
 
