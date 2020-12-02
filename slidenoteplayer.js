@@ -43,6 +43,7 @@ slidenoteplayer.init = async function(){
   this.pages = this.presentation.getElementsByClassName("ppage");
   this.initButtons();
   this.initKeystrokes();
+  this.initCommentfieldCounter();
   //this.initComments();
   this.gotoPage(this.actpage);
   if(ws && ws.server===null && location.search ==="?join")ws.joinSession();
@@ -111,7 +112,7 @@ slidenoteplayer.initButtons = function(){
     this.commentSaveButton.innerText = "Encrypt & Send";
     this.commentSaveButton.onclick = function(){
     document.getElementById("edit-field-pagenr-und-0-value").value=slidenoteplayer.actpage+1;
-  	var test = slidenoteguardian.encryptComment();
+  	//var test = slidenoteguardian.encryptComment();
   	//if(test)this.formSaveButton.click();
     };
     this.commentSaveButton.classList.add("comment-form");
@@ -184,6 +185,20 @@ slidenoteplayer.initKeystrokes = function(){
   }
   this.controlbuttons.area.tabIndex=1;
   this.controlbuttons.area.focus();
+}
+
+slidenoteplayer.initCommentfieldCounter = function(){
+  slidenoteguardian.maximumCommentLength = 140; //overwrites the default max-comment-length
+  var cfield = document.getElementById('comment-body');
+  var cdisplay = document.getElementById('comment-char-count');
+  var charcounter = function(){
+    let act = cfield.value.length;
+    let max = slidenoteguardian.maximumCommentLength;
+    cfield.classList.toggle('char-limit-reached',(act>max));
+    cdisplay.innerText = act+"/"+max;
+  }
+  cfield.addEventListener('click',charcounter);
+  cfield.addEventListener('keyup',charcounter);
 }
 
 slidenoteplayer.gotoPage = function (pagenumber, dontsend){

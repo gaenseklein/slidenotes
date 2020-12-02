@@ -438,6 +438,7 @@
             <label for="edit-comment-body-und-0-value">Comment</label>
             <div class="form-textarea-wrapper resizable">
               <textarea class="text-full form-textarea required" id="comment-body" name="comment_body[und][0][value]" cols="60" rows="5"></textarea>
+              <div id='comment-char-count'></div>
             </div>
           </div></div></div>
         </div>
@@ -551,6 +552,7 @@
     var slidenote;
 
     slidenoteguardian.init = async function(){
+      this.maximumCommentLength = 255; //will be overwritten by slidenoteplayer.js, just to have a default here
       var texted = {value:"", selectionEnd:0, selectionStart:0, focus:function(){}}; //emulate textarea
         var textedlayer = document.createElement("div");
         //textedlayer.id="texteditorbuttons"; //avoid failure of loading themes by simply adding buttons there
@@ -709,6 +711,9 @@
          date:Date.now(),
          slidenr:slidenoteplayer.actpage+1
        }
+       if(newcomment.text.length<1)return "empty body";
+       if(newcomment.text.length>this.maximumCommentLength)return "body too long";
+       if(newcomment.name.length<1)return "empty name";
        let plaintext = JSON.stringify(newcomment);
        var encresult = await this.encrypt(plaintext);
        if(encresult.iv===null||encresult.encbuffer===null)return false;
@@ -722,6 +727,22 @@
         console.warn('could not encrypt comment');
         return;
       }
+      if(comment=="empty body"){
+        console.warn('comment: empty bodyfield');
+        dialoger.buildDialog({type:'alert', title:'could not send comment', content:'you must enter some text to send a comment'});
+        return;
+      }
+      if(comment=="empty name"){
+        console.warn('comment: empty namefield');
+        dialoger.buildDialog({type:'alert', title:'could not send comment', content:'you must enter a name to send a comment'});
+        return;
+      }
+      if(comment=="body too long"){
+        console.warn('comment: bodyfield too long');
+        dialoger.buildDialog({type:'alert', title:'could not send comment', content:'your comment should not exceed '+this.maximumCommentLength+' characters'});
+        return;
+      }
+
       let enccomment = comment.enccomment;
       let url = '/api/presentation/comment/'+location.search.substring(1);
       try{

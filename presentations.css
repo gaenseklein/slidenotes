@@ -124,7 +124,14 @@
     cursor: pointer;
   }
 
+/*comment char counter*/
+textarea#comment-body.char-limit-reached {
+    background: indianred;
+}
 
+div#comment-char-count {
+  text-align: end;
+}
 
   /*.dialogbox .dialogtitle .dialogclosebutton{
     align-self:start;
