@@ -129,7 +129,7 @@ textarea#comment-body.char-limit-reached {
     background: indianred;
 }
 
-div#comment-char-count {
+#comment-char-wrapper {
   text-align: end;
 }
 
