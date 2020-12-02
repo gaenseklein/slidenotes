@@ -188,7 +188,7 @@ slidenoteplayer.initKeystrokes = function(){
 }
 
 slidenoteplayer.initCommentfieldCounter = function(){
-  slidenoteguardian.maximumCommentLength = 140; //overwrites the default max-comment-length
+  slidenoteguardian.maximumCommentLength = 160; //overwrites the default max-comment-length
   var cfield = document.getElementById('comment-body');
   var cdisplay = document.getElementById('comment-char-count');
   var charcounter = function(){
