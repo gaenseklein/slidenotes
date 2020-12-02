@@ -129,11 +129,11 @@ dialoger.buildDialog = function(options, followfunction){
   //append keyboard-shortcuts:
   dialogbox.addEventListener("keydown",function(e){
    //console.log("key on dialog:"+e.key);
-    slidenote.keyboardshortcuts.reactOn(e,"dialog");
+    if(slidenote.keyboardshortcuts)slidenote.keyboardshortcuts.reactOn(e,"dialog");
   });
   if(type==="confirm" || options.arrownavleftright){
     dialogbox.addEventListener("keydown",function(e){
-      slidenote.keyboardshortcuts.reactOn(e,"arrowleftright");
+      if(slidenote.keyboardshortcuts)slidenote.keyboardshortcuts.reactOn(e,"arrowleftright");
     });
   }
   //append dialog to document:
