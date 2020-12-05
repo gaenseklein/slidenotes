@@ -13,7 +13,13 @@ xtraoptions.options[0].onchange = function(){
   if(!keyboardshortcuts)return;
   slidenote.keyboardshortcuts.automaticClosure = this.value;
 }
+xtraoptions.options[1]={name:"activate tab-functionality in textarea" ,value:false};
+xtraoptions.options[1].onchange = function(){
+  if(!keyboardshortcuts)return;
+  slidenote.keyboardshortcuts.enableTab = this.value;
+}
 xtraoptions.addGlobalOption("checkbox",xtraoptions.options[0].name,xtraoptions.options[0].name,true);
+xtraoptions.addGlobalOption("checkbox",xtraoptions.options[1].name,xtraoptions.options[1].name,false);
 //xtraoptions.addGlobalOption("checkbox","editorbuttons","Show Editorbuttons",true);
 
 xtraoptions.changeGlobalOption = function(optionnr, value){
@@ -24,13 +30,13 @@ xtraoptions.changeGlobalOption = function(optionnr, value){
 
 xtraoptions.saveConfigString = function(){
   var stringToSave="";
-  stringToSave+=this.options[0].value+";";//+this.options[1].value;
+  stringToSave+=this.options[0].value+";"+this.options[1].value;
   return stringToSave;
 }
 
 xtraoptions.loadConfigString = function(datastring){
   var data = datastring.split(";");
-  for(var x=0;x<data.length-1;x++)this.changeGlobalOption(x,(data[x]==="true"));
+  for(var x=0;x<data.length;x++)this.changeGlobalOption(x,(data[x]==="true"));
 }
 
 

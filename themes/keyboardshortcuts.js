@@ -20,7 +20,8 @@ var keyboardshortcuts = {
     presentation:[],//all shortcuts for presentation
     pressedkeys:{}, //element that holds all pressed keys at the time - used to check if shortcut is found
     metakey: "Control", //global metakey to check against
-    automaticClosure:true //global boolean if automatic closure is active or not
+    automaticClosure:true, //global boolean if automatic closure is active or not
+    enableTab:false, //global boolean if tab in editor should be enabled
 }
 
 keyboardshortcuts.shortcut = function(name, element, key, shortcutfunc){
@@ -59,7 +60,8 @@ keyboardshortcuts.allPressedKeys = function(){
 keyboardshortcuts.configString = function(){
   var saveobject = {
     metakey:this.metakey,
-    automaticClosure:this.automaticClosure
+    automaticClosure:this.automaticClosure,
+    enableTab: this.enableTab,
   };
   saveobject.changedkeys = new Array();
   for(var x=0;x<this.allkeys.length;x++){
@@ -78,6 +80,7 @@ keyboardshortcuts.loadConfigString = function(configstring){
   }
   this.metakey = confobject.metakey;
   this.automaticClosure = confobject.automaticClosure;
+  this.enableTab = (confobject.enableTab==true);
   for(var x=0;x<confobject.changedkeys.length;x++){
     var sc = confobject.changedkeys[x];
     var shortcut = this.shortcutByName(sc.name);
@@ -827,6 +830,11 @@ keyboardshortcuts.pressKey = function(e){
       e.preventDefault();
       //e.stopPropagation();
     }
+    if((key=="Tab" || e.keyCode==9)&&this.enableTab && e.target==slidenote.textarea){
+      e.preventDefault();
+      this.handleTab(e);
+      e.stopPropagation();
+    }
 }
 keyboardshortcuts.preventDefaultOnKeypress = function(e){
   if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
@@ -892,6 +900,79 @@ keyboardshortcuts.reactOn = function(e, element){
     }
 
 }
+//handle tab:
+keyboardshortcuts.handleTab = function(e){
+  var text = slidenote.textarea.value;
+  let selstart = slidenote.textarea.selectionStart;
+  let selend = slidenote.textarea.selectionEnd;
+  var firstline = slidenote.parser.lineAtPosition(selstart);
+  var lastline = slidenote.parser.lineAtPosition(selend);
+
+
+  //if(selstart-selend!=0){
+  //there is a selection:
+  if(lastline-firstline!=0){
+    //there is a multiline-selection
+    if(e.shiftKey){
+      //shift to left
+      var totaldeleted=0;
+      for (var x=lastline;x>=firstline;x--){
+        let linestart = slidenote.parser.map.linestart[x];
+        let firstfourChars = text.substring(linestart,linestart+4);
+        while(firstfourChars.length>0 && firstfourChars.charAt(0)==' '){
+          firstfourChars=firstfourChars.substring(1);
+        }
+        let deleteAmmount = 4-firstfourChars.length;
+        if(deleteAmmount>0){
+          text=text.substring(0,linestart)+
+              text.substring(linestart+deleteAmmount);
+        }
+        totaldeleted+=deleteAmmount;
+      }
+      slidenote.textarea.value=text;
+      slidenote.parseneu();
+      slidenote.textarea.selectionStart = slidenote.parser.map.linestart[firstline];
+      slidenote.textarea.selectionEnd = slidenote.parser.map.lineend[lastline];//selend-totaldeleted;
+    }else{
+      //shift to right: easy
+      for (var x=lastline;x>=firstline;x--){
+        text = text.substring(0,slidenote.parser.map.linestart[x])+"    "+text.substring(slidenote.parser.map.linestart[x]);
+      }
+      slidenote.textarea.value=text;
+      slidenote.parseneu();
+      slidenote.textarea.selectionStart=slidenote.parser.map.linestart[firstline];
+      slidenote.textarea.selectionEnd=slidenote.parser.map.lineend[lastline];
+    }
+
+  }else{
+    //there is no selection or selection inside a line, make tab-function
+    let linestart = slidenote.parser.map.linestart[slidenote.parser.lineAtPosition(selstart)];
+    let posinline = selstart-linestart;
+    let spaces = "    ";
+    if(e.shiftKey){
+      let spacestogoback = 4-(posinline%4);
+      if(posinline<4)spacestogoback=posinline;
+      let textbeforesel = text.substring(selstart-spacestogoback,selstart);
+      let expected = spaces.substring(posinline%4);
+      if(textbeforesel==expected){
+        text=text.substring(0,selstart-spacestogoback)+text.substring(selstart);
+        slidenote.textarea.value=text;
+        slidenote.textarea.selectionStart=selstart-spacestogoback;
+        slidenote.textarea.selectionEnd=selend-spacestogoback;
+        slidenote.parseneu();
+      }
+    }else{
+      spaces = spaces.substring(posinline%4);
+      console.log('tab:spaces:'+spaces.length,posinline,(posinline%4));
+      text = text.substring(0,selstart)+spaces+text.substring(selstart);
+      slidenote.textarea.value=text;
+      slidenote.textarea.selectionStart=selstart+spaces.length;
+      slidenote.textarea.selectionEnd=selend+spaces.length;//slidenote.textarea.selectionStart;
+      slidenote.parseneu();
+    }
+  }
+}
+
 //automagic closure:
 keyboardshortcuts.closeAutomagic = function(event){
   if(!this.automaticClosure)return;
