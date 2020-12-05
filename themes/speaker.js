@@ -362,6 +362,45 @@ slidenoteSpeaker.readElement = function(mdelement){
   this.say(textToSpeak);
 }
 
+slidenoteSpeaker.whereAmI = function(){
+    let result;
+    let actfocuselement = document.activeElement;
+    if(actfocuselement === slidenote.textarea){
+        result = this.editorOverview();
+    }else if(actfocuselement.type === submit){
+        result.type = "button";
+        result.text = actfocuselement.innerText;
+    }
+    result.focusOnElement = actfocuselement;
+    return result;
+}
+
+slidenoteSpeaker.editorOverview = function(){
+    let result = {type:"editor"};
+    let selection = (slidenote.textarea.selectionEnd - slidenote.textarea.selectionStart === 0);
+    let carretpos = slidenote.textarea.selectionStart;
+    let element = slidenote.parser.CarretOnElement();
+    let pagenr = slidenote.parser.map.pageAtPosition(carretpos);
+    let slidenr = pagenr +1;
+    let linenr = slidenote.parser.lineAtPosition(carretpos);
+    let lineOnSlide = linenr - slidenote.parser.map.pagestart[linenr].line + 1;
+
+    if(selection){
+        let toSlide = slidenote.parser.map.pageAtPosition(slidenote.textarea.selectionEnd) + 1;
+        let toLine = slidenote.parser.lineAtPosition(slidenote.textarea.selectionEnd) + 1;
+
+        result.text = "selection from slide "+slidenr+" line "+lineOnSlide+" to slide "+toSlide+" line "+toLine;
+        result.text +=": \n"+slidenote.textarea.value.substring(slidenote.textarea.value.selectionStart, slidenote.texarea.value.selectionEnd);
+    }else{
+      result.text = "carret on slide "+slidenr+" line "+lineOnSlide;
+      if(element){
+        result.text += " inside "+element.label;
+      }
+    }
+    result.text += ": \n" + slidenote.parser.lines[linenr];
+    return result;
+}
+
 slidenoteSpeaker.hoverManager = {
     lastFocus: null,
     onHover: function(e){
