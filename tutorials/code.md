@@ -20,13 +20,13 @@ lets dive into this topic and get it done!
 ## code inline
 
 a "code" in slidenotes means, that the content of it will not be interpreted as md-code but as text and rendered likewise.
-so if you want to put some code into a line of normal text you put it inside two back-ticks: `**some code here**`
+so if you want to put some code into a line of normal text you put it inside two back-ticks\`**some code here**\`: `**some code here**`
 
 as you can see, the `**` are not interpreted but displayed as normal text and highlighted as a code-segment.
 
 this is the **inline-style** of baking code into your presentations. inline code can not be altered or configured more than that, as they are meant only for small inline-segments.
 
-if you want to write backticks inside the code-segment you simply put a `\ ` in front of it like so: `\\`
+if you want to write backticks inside the code-segment you simply put a `\ ` in front of it like so: \\` ->`\``
 
 next: code blocks ➡︎
 ---
@@ -103,15 +103,16 @@ while the editor tries to figure out automatically which language it should use 
 ---
 
 ### linehighlight
-if you want to highlight some lines of your code to make them more attractive, "linehighlight" is one easy solution for that. just type in the numbers of lines that you want to highlight. make sure the linenumber is counted in the md-code. so first line in your md-code is line 1 and so forth.
-you can enter multiple numbers separated by comma and also line-spans like `1-3`
+if you want to highlight some lines of your code to make them more attractive, *linehighlight* is one easy solution for that. just type in the numbers of lines that you want to highlight. make sure the linenumber is counted in the code-part of the codeblock. so first line in your codepart is line 1 and so forth. you can enter multiple numbers separated by comma: `linehighlight=3,5,7` and also line-spans like 1-3: `linehighlight=3-6`
 
 ### speciallinemarker
-if you have a lot of code or don't want to rely on fixed line-numbers because you may alter the number of lines of code you use for the presentation but want the same lines to be highlighted, you can make use of the speciallinemarker. it "marks" a line to be used as highlighted line. therefore you insert the speciallinemarker at the beginning of the target line. with the option `speciallinemarker` you can define what signs should be interpreted as such markers. default is `§§`.
+if you have a lot of code or don't want to rely on fixed line-numbers because you may alter the number of lines of code you use for the presentation but want the same lines to be highlighted, you can make use of the speciallinemarker. it *"marks"* a line to be used as highlighted line. therefore you insert the speciallinemarker at the beginning of the target line:`§§ my special line`
+
+ with the option `speciallinemarker` you can define what signs should be interpreted as such markers. default is `§§`.
 
 ### specialstartmarker and specialendmarker
 you want to highlight only a part of a line? you can do that by marking them as special with a start- and end-marker. the option `specialstartmarker` lets you define the syntax used for the beginning and `specialendmarker`the end of your marks.
-defaults: `specialstartmarker=§a` and `specialendmarker=§e`
+defaults: `specialstartmarker=§(` and `specialendmarker=)§`
 
 ---
 ## context-menu to the help
@@ -180,7 +181,17 @@ if you prefer the github-style you can also use that to declare the language:
 # hello world
 ```
 
+---
+## language support
 
+under the hood we use the awesome [highlight.js](https://highlightjs.org) library for adding a sweet syntax-highlightning to the code of the presentation. it supports more then 190 languages as for now, so fear not that your language is not supported. [^*]
+
+we also facilitated the process of naming with aliases, so it does not matter if you write javascript, Javascript, JavaScript, Java-Script or just js... (or objective-c, ObjectiveC, Objective-C...)
+
+our goal is to be as intuitive as possible: focus on the content, not on how to write it
+
+
+[^*]:if you are still worried check out their [Demo page](https://highlightjs.org/static/demo) and see for yourself
 ---
 #there's more!
 

@@ -87,6 +87,7 @@ div > img.bgimg {
   max-width: 85vw;
   overflow: visible;
   width: 100%;
+  white-space: pre-wrap;
 }
 
 /*sections: */
