@@ -216,6 +216,10 @@ var pointer = {
       this.pointernode.id='laserpointer';
       document.body.appendChild(this.pointernode);
     }
+    this.pointernode.onclick = function(){
+      //repeat old click
+      pointer.showPointer(pointer.lastklick);
+    }
 
   },
   // helper function to get an element's exact position
@@ -245,6 +249,7 @@ var pointer = {
   },
   showPointer: function(klick){
     if(!this.presentation)this.init();
+    this.lastklick = klick;
     let target = this.getElementByPath(klick.path);
     let twidth = target.clientWidth;
     let theight = target.clientHeight;
@@ -260,7 +265,8 @@ var pointer = {
     this.pointernode.style.top = posY+"px";
     this.pointernode.classList.toggle('active',true);
     console.log('pointer moved to',posX,posY);
-    setTimeout("pointer.pointernode.classList.toggle('active',false)",5000);
+    if(this.timeout)clearTimeout(this.timeout);
+    this.timeout = setTimeout("pointer.pointernode.classList.toggle('active',false)",3000);
   },
   getElementByPath: function(path){
     let node = this.presentation;
