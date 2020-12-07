@@ -554,14 +554,14 @@
     slidenoteguardian.init = async function(){
       this.maximumCommentLength = 255; //will be overwritten by slidenoteplayer.js, just to have a default here
       var texted = {value:"", selectionEnd:0, selectionStart:0, focus:function(){}}; //emulate textarea
-        var textedlayer = document.createElement("div");
-        //textedlayer.id="texteditorbuttons"; //avoid failure of loading themes by simply adding buttons there
-        textedlayer.style.display = "none";
-        document.body.appendChild(textedlayer);
-        var slideshow = document.getElementById("slidenotepresentation");
-        slidenote = new slidenotes(texted,textedlayer,textedlayer,slideshow,"");
-        var loadscreen = document.getElementById("slidenoteloadingscreenwrapper");
-        loadscreen.classList.add("midstate");
+      var textedlayer = document.createElement("div");
+      //textedlayer.id="texteditorbuttons"; //avoid failure of loading themes by simply adding buttons there
+      textedlayer.style.display = "none";
+      document.body.appendChild(textedlayer);
+      var slideshow = document.getElementById("slidenotepresentation");
+      slidenote = new slidenotes(texted,textedlayer,textedlayer,slideshow,"");
+      var loadscreen = document.getElementById("slidenoteloadingscreenwrapper");
+      loadscreen.classList.add("midstate");
         //await slidenoteguardian.initConfig();
       this.decryptPresentation();
       document.getElementById('comment-form').addEventListener('submit',function(e){
@@ -578,10 +578,15 @@
       //load Themes-Config:
         var saveobject;
       try {
-      saveobject = JSON.parse(this.options);
+        if(typeof this.options=="object"){
+          saveobject=this.options;
+        }else{
+          saveobject = JSON.parse(this.options);
+        }      
       }catch{
       //load old config style? naa, just delete it...
         console.log("old config found");
+
       //   this.loadConfigOld(destination);
         return;
       }
