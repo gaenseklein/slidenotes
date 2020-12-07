@@ -478,3 +478,16 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .dark section.section.right{
 
 }
+
+/*node-sequenzen*/
+.dark .sequence .actor {
+    color: black;
+}
+
+.dark .sequence .note.over {
+    color: black;
+}
+
+.dark .node .sequence .stroke {
+    background: white;
+}
