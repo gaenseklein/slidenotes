@@ -1104,19 +1104,11 @@
         <ul>
   				<li><a href="?tutorial=welcome" class="menuitem">tutorials</a></li>
           <li><button class="menuitem" onclick="slidenoteguardian.openFeedback()">feedback</button></li>
+          <li><button class="menuitem" onclick="slidenote.showLicensesDialog()">licenses</button></li>
   				<!--<li><a href="#" class="menuitem">documentation</a></li>
   				<li><a href="#" class="menuitem">community</a></li>-->
         </ul>
       </div></div></div>
-      <!-- <div id="menuoptionspresentation"><div class="arrow_box_down">
-        <div class="separator">slide design</div>
-          <ul id="basicthemelist">
-    				<li><div>prototype</div><input type="radio" name="basictheme" value="prototype"><div class="prototype"><div>WELCOME</div>TO SLIDENOTES</div></li>
-    				<li><div>prototype</div><input type="radio" name="basictheme" value="pop"><div class="pop"><div>WELCOME</div> TO SLIDENOTES</div></li>
-            <li><div>prototype</div><input type="radio" name="basictheme" value="coding"><div class="coding"><div>WELCOME</div> TO SLIDENOTES</div></li>
-    		  </ul>
-        </div>
-      </div> -->
       <div id="menusearchbox" class="autohideright"><div class="arrow_box"><div class="arrow_box_content">
         <!--<div class="separator">Search</div>-->
         <div class="separator">
@@ -1138,35 +1130,7 @@
         </div>
         <div id="searchresult"></div>
       </div></div></div>
-      <!-- only stuff for making shadows and such:-->
-          <!-- old stuff(cornerleft)
-          <div id="cornerleft"></div>
-          <div id="topleft"></div>
-          <img id="cornerleftimage" src="images/cornerleftimage.png">
-          <div id="topmiddle"></div>
-          <div id="noteareaempty"><img src="images/borderleft.png"></div>
-          <div id="cornerright"></div>
-      -->
-      <!-- <div id="topright"><svg viewBox="0 0 40 40" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
-  	    <g transform="matrix(1,0,0,1,-1190.49,-3479)">
-  	        <g transform="matrix(1,0,0,1,0,3479)">
-  	            <g transform="matrix(1,0,0,1,0,-3479)">
-  	                <path class="rightcorner" filter="url(#rightcorner-shadow" d="M1230.49,3519L1230.41,3519C1229.09,3497.58 1211.92,3480.41 1190.49,3479.09L1190.49,3479L1230.49,3479L1230.49,3519Z"/>
-  	                <path class="rightcorner" d="M1230.49,3519L1230.41,3519C1229.09,3497.58 1211.92,3480.41 1190.49,3479.09L1190.49,3479L1230.49,3479L1230.49,3519Z"/>
-  	            </g>
-  	        </g>
-  	    </g>
-  	    <defs>
-  	    	<filter id="rightcorner-shadow">
-  	    		<feOffset result="offOut" in="SourceAlpha" dx="-1" dy="0" />
-    					<feGaussianBlur result="blurOut" in="offOut" stdDeviation="4" />
-    					<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
-    					<feComponentTransfer>
-  						<feFuncA type="linear" slope="0.3"/>
-  					</feComponentTransfer>
-      			</filter>
-  	    </defs>
-  		</svg></div> -->
+
       <div id="frame-left"><div class="shadow-element"></div><div class="frame-top-element"></div></div>
       <div id="shadoweltop"></div>
       <div id="shadowelbottom" class="portrait-only"></div>
@@ -1765,6 +1729,99 @@
             </a>
       </div>
   </div>
+  <!-- template for license-dialog -->
+  <div id="templateLicenseDialog">
+    <div class="teaser">
+      slidenotes.io makes use of third-party-librarys under the hood.
+      We want to thank all contributors and specialy the mantainers of the following projects
+      which helped building slidenotes.io
+    </div>
+    <div class="3rdPartyLibrary">
+      <a class="projectlink" href="https://github.com/gionkunz/chartist-js/" target="_blank">
+      chartist<a>
+      <div class="copyright-note">
+        Copyright © 2017 Gion Kunz
+      </div>
+      <a class="licenselink" href="#licenseMIT">
+        License: MIT
+      </a>
+    </div>
+    <div class="3rdPartyLibrary">
+      <a class="projectlink" href="https://github.com/eligrey/FileSaver.js" target="_blank">
+        FileSaver.js
+      <a>
+      <div class="copyright-note">
+        Copyright © 2016 Eli Grey.
+      </div>
+      <a class="licenselink" href="#licenseMIT">
+        License: MIT
+      </a>
+    </div>
+    <div class="3rdPartyLibrary">
+      <a class="projectlink" href="https://highlightjs.org" target="_blank">
+        highlightjs
+      <a>
+      <div class="copyright-note">
+        Copyright (c) 2006, Ivan Sagalaev
+      </div>
+      <a class="licenselink" href="#licenseBSD">
+        License: BSD
+      </a>
+    </div>
+    <div class="3rdPartyLibrary">
+      <a class="projectlink" href="https://katex.org" target="_blank">
+        katex
+      <a>
+      <div class="copyright-note">
+        Copyright (c) 2013-2020 Khan Academy and other contributors
+      </div>
+      <a class="licenselink" href="#licenseMIT">
+        License: MIT
+      </a>
+    </div>
+    <hr>
+    <div class="license" id="licenseMIT">
+        <h3>The MIT License</h3>
+        <p>
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+        </p><p>
+          The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+        </p><p>
+          THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+        </p>
+    </div>
+
+    <div class="license" id="licenseBSD">
+        <h3>
+          The BSD License
+        </h3>
+        <p>
+          Redistribution and use in source and binary forms, with or without
+          modification, are permitted provided that the following conditions are met:
+        </p><p>
+          * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+          * Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the distribution.
+          * Neither the name of highlight.js nor the names of its contributors
+          may be used to endorse or promote products derived from this software
+          without specific prior written permission.
+        </p><p>
+          THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND ANY
+          EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+          WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+          DISCLAIMED. IN NO EVENT SHALL THE REGENTS AND CONTRIBUTORS BE LIABLE FOR ANY
+          DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+          (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+          LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+          ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+          (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+          SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+        </p>
+    </div>
+  </div>
+  <!--end of license-template-->
  </div>
 </body>
 </html>

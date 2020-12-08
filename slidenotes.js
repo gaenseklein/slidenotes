@@ -4794,6 +4794,20 @@ function getKeyOfKeyCode(keycode){
   return keycodes[keycode];
 }
 
+slidenotes.prototype.showLicensesDialog = function(){
+	let doptions = {
+		type: 'alert',
+		title:'3rd Party Licenses',
+		closebutton:true,
+		content:document.getElementById('templateLicenseDialog'),
+	}
+	dialoger.buildDialog(doptions,function(){
+		let template = document.getElementById('templateLicenseDialog');
+		let parent = document.getElementById('templateArea');
+		parent.appendChild(template);
+	})
+}
+
 //testfunctions:
 function renderMinimizedSwitchOfInnerHtml(oldnode, newnode){
     var oldchilds = new Array();
