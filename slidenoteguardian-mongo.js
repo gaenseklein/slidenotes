@@ -819,7 +819,7 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
           resp = resp.substring(0,resp.indexOf('\n/* online stuff */'));
           pluginname="slidenoteplayermini";
         }
-        if(resp.indexOf('../fonts/')>-1){
+        if(resp.indexOf('/fonts/')>-1){
           resp = await slidenoteguardian.replaceCSSFontsWithBase64(resp);
         }
         slidenoteguardian.cssBlocksPerPlugin.push({
@@ -834,14 +834,15 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
 
 slidenoteGuardian.prototype.replaceCSSFontsWithBase64 = async function(csstext){
   let fontsToLoad = [];
-  let actstart = csstext.indexOf('"../fonts/');
+  let urlstart = location.protocol + '//' + location.host;
+  let actstart = csstext.indexOf('"/fonts/');
   let actend = csstext.indexOf('"',actstart+5);
   while(actend>-1 && actstart>-1){
     fontsToLoad.push({
       start:actstart, end:actend,
-      url:csstext.substring(actstart+'"..'.length,actend),
+      url:urlstart + csstext.substring(actstart+1,actend),
     });
-    actstart = csstext.indexOf('"../fonts/', actend);
+    actstart = csstext.indexOf('"/fonts/', actend);
     actend = csstext.indexOf('"',actstart+5);
   }
   for(var x=0;x<fontsToLoad.length;x++){
