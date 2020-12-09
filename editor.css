@@ -1126,10 +1126,9 @@
     margin-top:0;
   }
 
-  /*#insertarea button:focus, #insertarea button:hover {
-      background: #9c9c9c;
-      color: white;
-  }*/
+  #insertarea button:focus, #insertarea button:hover {
+      background:rgba(255,255,255,0.5);      
+  }
   #insertarea #extrainsertmenu, #insertarea #extrainsertmenu div{
     display: flex;
     flex-direction: column;
