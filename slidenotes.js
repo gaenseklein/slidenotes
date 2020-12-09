@@ -1969,12 +1969,12 @@ emdparser.prototype.parseMap = function(){
 						var mapcstart = {
 							line:x, pos:codestart, html:dt.htmlstart,mdcode:dt.start,
 							typ:"start", dataobject:dt,
-							tag: "inlinecodestart"
+							tag: "inline"+dt.type+"start"
 						};
 						var mapcend = {
 							line:x, pos:codeend, html:dt.htmlend, mdcode:dt.end,
 							typ:"end", dataobject:dt,
-							tag:"inlinecodeend", brotherelement:mapcstart
+							tag:"inline"+dt.type+"end", brotherelement:mapcstart
 						};
 						mapcstart.brotherelement=mapcend;
 						this.map.addElement(mapcstart);
