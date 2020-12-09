@@ -6,6 +6,50 @@
     display:block;
 }
 
+/*general*/
+
+  /*make all clickable items show pointer*/
+  a[href], input[type='submit'], input[type='image'], label[for], select, button, .pointer {
+    cursor: pointer;
+    /*give all buttons parental dependent font size*/
+
+  }
+
+  /*give all buttons parental dependent font size*/
+  a[href], input[type='submit'], input[type='text'], input[type='password'], input[type='image'], label[for], select, button{
+    font-size: 1em;
+    font-family: "rubikReg", sans-serif;
+    border: 0;
+    padding: 0;
+    border-radius: calc(5*var(--pscale));
+    display: block;
+    width: 100%;
+    color: var(--text-color);
+  }
+
+  a{
+    text-decoration: none;
+  }
+
+  .menuitem{
+  }
+
+  h1 img{
+    /*max-height:75px;*/
+    height: 0.75em;
+  }
+
+  /*give extra space between checkboxes and labels*/
+  input[type='checkbox'] + label {
+    margin-left: 0.4em;
+  }
+
+  /*show special border on all focus elements*/
+  :focus {
+    outline-style: dotted !important;
+    outline-color: rgb(141, 191, 206) !important;
+    outline-width: 0.17em !important;
+  }
 
 /* variables */
 /* --------- */
