@@ -2693,6 +2693,20 @@ pagegenerator.prototype.showPage = function(page){
 	//console.log("aktpage:"+this.aktpage+" pagedivslength:"+this.pagedivs.length+" page:"+page);
 	this.pagedivs[page].classList.add("active");
 	this.pagedivs[page].scrollTop = 0;
+	this.startGifAnimations(this.pagedivs[page]);
+}
+pagegenerator.prototype.startGifAnimations = function(slide){
+  let allimages = slide.getElementsByTagName("img");
+  for (var x=0;x<allimages.length;x++){
+    let actsrc = allimages[x].src;
+    let expectedGif = 'data:image/gif'
+    if(actsrc.substring(0,expectedGif.length)==expectedGif){
+      var b64= allimages[x].src;
+      var image = allimages[x];
+      allimages[x].src="";
+			image.src=b64;      
+    }
+  }
 }
 
 /*

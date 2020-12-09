@@ -222,6 +222,11 @@ slidenoteplayer.gotoPage = function (pagenumber, dontsend){
   this.setCommentFormPagenr();
   window.location.hash="#slide"+(this.actpage+1);
   if(ws && ws.server!=null && dontsend!=true)ws.sendSlideNr();
+  this.startGifAnimations(this.pages[pn]);
+}
+
+slidenoteplayer.startGifAnimations = function(slide){
+  slidenote.presentation.startGifAnimations(slide);
 }
 
 slidenoteplayer.nextPage = function(){
