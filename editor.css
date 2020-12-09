@@ -2745,6 +2745,7 @@
   }
   .backgroundline .latex{
     background: #f3f8f8;
+    display: inline;
   }
 
 /* modi */
@@ -2877,7 +2878,8 @@
   .nightmode .backgroundline.h3{
   	color: var(--text-color);
   }
-
+  .nightmode .backgroundline.node,
+  .nightmode .backgroundline latex,
   .nightmode .backgroundline.data{
   	color: var(--editor-bg-color);
   	background: var(--light-grey-backg);
