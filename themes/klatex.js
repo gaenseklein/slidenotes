@@ -17,6 +17,7 @@ newtheme.loadingFiles = new Array();
 newtheme.loadingFiles.push(slidenote.appendFile("script","katex/katex.js"));
 slidenote.appendFile("css","katex/katex.min.css");
 newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latex.svg" title="LaTeX"><span class="buttonmdcode">+++latex+++</span><span class="buttonmdtext"></span> <span class="buttonmdcode"></span>',"+++latex","+++"); //TODO: add function to body?
+newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latex.svg" title="LaTeX"><span class="buttonmdcode">\\(</span><span class="buttonmdtext">inline-latex</span> <span class="buttonmdcode">\\)</span>',"\\(","\\)");
 slidenote.datatypes.push({type:"latex",mdcode:false,theme:newtheme});
 slidenote.inlinedatatypes.push({
   type:"latex",mdcode:false, theme:newtheme,

@@ -4522,12 +4522,14 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode){
 	console.log("insert button:"+emdzeichen+"mdstart:"+mdstartcode);
 	var textarea = this.textarea;
-	var startemdl = new Array('**','*','~~',"%head","%list","%nrlist","%link","%quote","%image","%table","-----");
-	var endemdl = new Array('**','*','~~',"\n","\n","\n","%link","\n","%image","%table","\n");
+	var startemdl = new Array('**','*','~~',"%head","%list","%nrlist","%link","%quote","%image","%table","-----", "\\(");
+	var endemdl = new Array('**','*','~~',"\n","\n","\n","%link","\n","%image","%table","\n","\\)");
 	var emdnr;
 	var emdstart="";
 	var emdend="";
 	var multilineselection = false;
+	var selstart = slidenote.textarea.selectionStart;
+	var selend = slidenote.textarea.selectionEnd;
 	var actelement = this.parser.CarretOnElement(textarea.selectionEnd);
 	if(actelement!=null && actelement.dataobject!=null){
 		if(this.datatypes.elementOfType(actelement.dataobject.type)!=null &&
@@ -4710,6 +4712,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 	//var textarbody = textarea.value;
 	//textarea.value = textarbody.substring(0,selectionend);
 	textarea.selectionEnd = selectionend+emdstart.length; //cursor vor emdendsymbol stellen
+	textarea.selectionStart = selstart + emdstart.length;
 	textarea.blur();
 	textarea.focus();
 	//textarea.value = textarbody;
