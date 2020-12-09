@@ -2743,7 +2743,7 @@
     background-color: var(--light-grey-backg);
     box-shadow: 0 0 0 0.18em var(--light-grey-backg);
   }
-  .backgroundline .latex{
+  .backgroundline latex{
     background: #f3f8f8;
     display: inline;
   }
