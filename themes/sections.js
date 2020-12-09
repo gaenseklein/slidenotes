@@ -18,14 +18,17 @@ newtheme.insertMenuArea = function(dataobject){
   //if(selectionline!=dataobject.startline && selectionline!=dataobject.endline)return null;
   var result = document.createElement("div");
   var leftbutton = document.createElement("button");
+  var centerbutton = document.createElement("button");
   var rightbutton = document.createElement("button");
   var inlinebutton = document.createElement("button");
 //  var topbutton = document.createElement("button");
-  leftbutton.innerText="<- Left";
-  rightbutton.innerText="Right ->";
+  leftbutton.innerText="<- left";
+  centerbutton.innerText="center";
+  rightbutton.innerText="right ->";
   inlinebutton.innerText="inline"
 //  topbutton.innerText="Head";
   leftbutton.name="left";
+  centerbutton.name="center";
   rightbutton.name="right"
   inlinebutton.name="inline";
 //  topbutton.name="head";
@@ -33,10 +36,12 @@ newtheme.insertMenuArea = function(dataobject){
     slidenote.extensions.getThemeByName("sections").changeSectionType(this.name);
   };
   leftbutton.addEventListener("click", buttonfunc);
+  centerbutton.addEventListener("click",buttonfunc);
   rightbutton.addEventListener("click",buttonfunc);
   inlinebutton.addEventListener("click",buttonfunc);
   //topbutton.addEventListener("click",buttonfunc);
   result.appendChild(leftbutton);
+  result.appendChild(centerbutton);
   result.appendChild(rightbutton);
   result.appendChild(inlinebutton);
   //result.appendChild(topbutton);
