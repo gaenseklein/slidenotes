@@ -2632,6 +2632,12 @@ pagegenerator.prototype.lastPage = function(){
 pagegenerator.prototype.showPage = function(page){
 	if(page*0!=0 || page===-1)return;
 	this.pagedivs[this.aktpage].classList.remove("active");
+	//seems not enough or too late,
+	//aktpage has changed to new aktpage after new init
+	//so seek old one and if there remove active-state:
+	let oldaktpage = document.querySelector('.ppage.active');
+	if(oldaktpage)oldaktpage.classList.remove('active');
+	
 	if(page>=this.pages.length)page= this.pages.length-1;
 	if(page<0)page=0;
 	this.aktpage = page;
