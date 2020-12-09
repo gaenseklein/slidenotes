@@ -480,11 +480,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 /*node-sequenzen*/
-.dark .sequence .actor {
-    color: black;
-}
-
-.dark .sequence .note.over {
+.dark .sequence .actor,
+.dark .sequence .note {
     color: black;
 }
 
