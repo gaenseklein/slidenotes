@@ -1247,8 +1247,8 @@ slidenoteGuardian.prototype.exportPresentationToFilesystem = function(presstring
               "<script>"+jsblock+"</script>"+
               '<div id="slidenoteGuardianPasswordPromptStore">'+passwordprompt+'</div>'+
               bodyend;
-
-  this.exportToFilesystem(result, this.title+".html");
+  let filename = document.getElementById('username').value;
+  this.exportToFilesystem(result, filename+".html");
 }
 
 
@@ -1607,7 +1607,7 @@ slidenoteGuardian.prototype.exportToFilesystemRaw = async function(){
   let exportstring = slidenotetext;
   if(slidenote.base64images.base64images.length>0)exportstring +=  "\n||€€imagepart€€||\n" +
             slidenote.base64images.allImagesAsString();
-  let filename = encodeURI(slidenoteguardian.title)+".md";
+  let filename = encodeURI(slidenoteguardian.notetitle)+".md";
   this.exportToFilesystem(exportstring,filename);
 }
 
