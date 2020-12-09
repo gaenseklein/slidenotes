@@ -373,6 +373,10 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 
 	 //looking for simple changes:
 	 var mdsimples = "***__~~<&`"; //< is also a simple change
+	 for (var x=0;x<slidenote.inlinedatatypes.length;x++){
+	 	mdsimples+=slidenote.inlinedatatypes[x].start;
+		mdsimples+=slidenote.inlinedatatypes[x].end;
+	 }
 	 for(var x=0;x<this.map.insertedhtmlelements.length;x++){
 		 var element = this.map.insertedhtmlelements[x];
 		 //iterate through map and get changes we have to do to orig-text:
@@ -1946,6 +1950,47 @@ emdparser.prototype.parseMap = function(){
 				}//end of while
 
 			}//end of inline code
+			//now we should check for inline-latex and others who may do not allow inside-code either
+			for(let ic=0;ic<slidenote.inlinedatatypes.length;ic++){
+				var dt=slidenote.inlinedatatypes[ic];
+				if(dt.theme.active==false)continue;
+				var codepos=0;
+				while(lines[x].indexOf(dt.start,codepos)>-1){
+					codepos = lines[x].indexOf(dt.start,codepos);
+					var codestart = codepos;
+					var codeend = lines[x].indexOf(dt.end,codestart+1);
+					var nextspace = lines[x].indexOf(" ",codestart);
+					if(nextspace==-1)nextspace = lines[x].length;
+					if(codeend ==-1){
+						//codeend not in actual line - continue looking next lines? no - inlinecode is just for the same line
+						this.perror.push(new parsererror(x,codepos,nextspace,"inline"+dt.type,"missing endsymbol "+dt.end));
+					}else{
+						//codeend found in same line:
+						var mapcstart = {
+							line:x, pos:codestart, html:dt.htmlstart,mdcode:dt.start,
+							typ:"start", dataobject:dt,
+							tag: "inlinecodestart"
+						};
+						var mapcend = {
+							line:x, pos:codeend, html:dt.htmlend, mdcode:dt.end,
+							typ:"end", dataobject:dt,
+							tag:"inlinecodeend", brotherelement:mapcstart
+						};
+						mapcstart.brotherelement=mapcend;
+						this.map.addElement(mapcstart);
+						this.map.addElement(mapcend);
+						//prevent further parsing of inline-code:
+							lines[x]=lines[x].substring(0,codestart)+
+											substitutewitheuro(codeend+1-codestart)+
+											lines[x].substring(codeend+1);
+											//console.log("inlinecodeline after change:"+lines[x])
+					}//end of codeend found in same line
+
+					codepos++; //continue scan regardless of result
+				}//end of while
+
+			}
+
       //image:
 			//console.log("imagesearch in line:"+lines[x]);
 			//console.log("index:"+lines[x].indexOf("!["));
@@ -3873,6 +3918,7 @@ function slidenotes(texteditor, texteditorerrorlayer, htmlerrorpage, presentatio
 
 	//datablock types:
 	this.datatypes = new Array(); //objects with type, mdcode, theme
+	this.inlinedatatypes = new Array(); //objects with inline-code-syntax - contains type, mdcode allowed, theme, startsymbol, endsymbol
 	this.datatypes.isvalid = function(datatype){
 		var result=false;
 		for(var x=0;x<this.length;x++){

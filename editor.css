@@ -2695,7 +2695,8 @@
       opacity: 0.5;
       width: 100%;
   }
-  .backgroundline.data{
+  .backgroundline.data,
+  .backgroundline.node{
   	display:inline-block;
   	width: 100%;
   	background:#f3f8f8;
@@ -2742,7 +2743,9 @@
     background-color: var(--light-grey-backg);
     box-shadow: 0 0 0 0.18em var(--light-grey-backg);
   }
-
+  .backgroundline .latex{
+    background: #f3f8f8;
+  }
 
 /* modi */
 /* ==== */

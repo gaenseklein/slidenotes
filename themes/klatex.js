@@ -18,6 +18,12 @@ newtheme.loadingFiles.push(slidenote.appendFile("script","katex/katex.js"));
 slidenote.appendFile("css","katex/katex.min.css");
 newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latex.svg" title="LaTeX"><span class="buttonmdcode">+++latex+++</span><span class="buttonmdtext"></span> <span class="buttonmdcode"></span>',"+++latex","+++"); //TODO: add function to body?
 slidenote.datatypes.push({type:"latex",mdcode:false,theme:newtheme});
+slidenote.inlinedatatypes.push({
+  type:"latex",mdcode:false, theme:newtheme,
+  start:"\\(", end:"\\)",
+  htmlstart:"<latex>",htmlend:"</latex>",
+});
+
 
 newtheme.styleThemeSpecials = function(){
   var datadivs = slidenote.presentationdiv.getElementsByTagName("section");
@@ -37,6 +43,16 @@ newtheme.styleThemeSpecials = function(){
       //katex.render(rawdata,newdiv);
       datadiv.appendChild(newdiv);
     }
+  }
+  var inlines = slidenote.presentationdiv.getElementsByTagName("latex");
+  for (var x=0;x<inlines.length;x++){
+    var rawdata = inlines[x].innerHTML;
+    var target = inlines[x];
+    target.innerHTML = "";
+    target.classList.add("klatex");
+    var newdiv=document.createElement("span");
+    katex.render(rawdata,newdiv,{throwOnError:false});
+    target.appendChild(newdiv);
   }
 }
 
