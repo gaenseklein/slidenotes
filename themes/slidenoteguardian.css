@@ -173,7 +173,6 @@ label#slidenoteGuardianPasswordPromptUsernameLabel.hidden,
   white-space:pre-wrap;
 }
 .importfile-image-preview-block, #slidenoteGuardianCodePreview {
-  background: white;
   overflow: hidden;
   max-height:30vh;
   margin: 1em;

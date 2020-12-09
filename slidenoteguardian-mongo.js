@@ -1029,7 +1029,12 @@ prepares the presentation to be exported to destination
 */
 slidenoteGuardian.prototype.exportPresentation = async function(destination, presentationdiv){
   this.uploadRestObject.enableComments=true;
-  var password = await this.passwordPrompt("choose a password for the presentation", "exportCMS", true);
+  try{
+    var password = await this.passwordPrompt("choose a password for the presentation", "exportCMS", true);
+  }catch(err){
+    console.log('user aborted');
+    return;
+  }
   if(destination==="filesystem")this.preparePresentationForFilesystem(presentationdiv);
   var presentationstring = '<div class="'+presentationdiv.classList.toString()+'">'+
                             presentationdiv.innerHTML + "</div>";
@@ -1248,6 +1253,7 @@ slidenoteGuardian.prototype.exportPresentationToFilesystem = function(presstring
               '<div id="slidenoteGuardianPasswordPromptStore">'+passwordprompt+'</div>'+
               bodyend;
   let filename = document.getElementById('username').value;
+  if(filename.length==0)filename=slidenoteguardian.notetitle;
   this.exportToFilesystem(result, filename+".html");
 }
 
@@ -1494,7 +1500,13 @@ slidenoteGuardian.prototype.saveNote = async function(destination){
       encResult = await this.encrypt(slidenotetext);
     }catch(err){
       console.log(err);
+      this.savingtoDestination=undefined;
+      return;
     }
+  }
+  if(encResult==undefined){
+    this.savingtoDestination=undefined;
+    return;
   }
   let result = this.encBufferToString(encResult);
   //save Images - has to be done elsewhere
@@ -1895,7 +1907,13 @@ slidenoteGuardian.prototype.encryptForExport = async function(plaintext, passwor
   console.log("encrypt plaintext:"+plaintext.substring(0,20));
     let plainTextUtf8 = new TextEncoder().encode(plaintext); //changing into UTF-8-Array
     let pw =  password;
-    if(pw===null || pw===undefined)pw = await this.passwordPrompt("please type in password for export", "export", true);
+    if(pw===null || pw===undefined){
+      try{
+        pw = await this.passwordPrompt("please type in password for export", "export", true);
+      }catch(err){
+        return;
+      }
+    }
     let filename = document.getElementById("username").value;
     let keyguardian = await this.createKey(null,pw); //create new key with no iv
     if(keyguardian==null)return {encbuffer:null, iv:null};
@@ -2040,7 +2058,12 @@ slidenoteGuardian.prototype.insertImport = async function(mdcode, imagestring){
   if(slidenote.textarea.value.length<=1){
     slidenote.textarea.value = mdcode;
   } else{
-    let userchoice = await this.importPrompt(mdcode, imagestring);
+    var userchoice;
+    try{
+      userchoice = await this.importPrompt(mdcode, imagestring);
+    }catch(err){
+      return; //user canceled
+    }
     let selend = slidenote.textarea.selectionEnd;
     if(userchoice ==='import'){
       slidenote.textarea.value= slidenote.textarea.value.substring(0,slidenote.textarea.selectionStart)+
@@ -2083,7 +2106,11 @@ slidenoteGuardian.prototype.createKey = async function(iv, passw){
   if(this.password == null && passw==null){
     //this.password = prompt("please type in your personal password");
     let pwtext = "as a matter of principle: everything you write is encrypted before we even store it on our server. please choose a password now. feel free to make one as simple or as complicated as you want. just don't forget it: there is no password recovery!";
-    this.password = await this.passwordPrompt(pwtext);
+    try{
+      this.password = await this.passwordPrompt(pwtext);
+    }catch(err){
+      return;
+    }
   }
   if(this.password ==null && passw==null)return;
   if(passw==null)password = this.password;
