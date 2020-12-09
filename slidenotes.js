@@ -234,6 +234,7 @@ function emdparser(text){
 		this.parseelemente.push(new parseobjekt('*','*',"<i>","</i>","italic"));
 		this.parseelemente.push(new parseobjekt('_','_',"<i>","</i>","italic"));
 		this.parseelemente.push(new parseobjekt("~~","~~","<strike>","</strike>","strike"));
+		this.parseelemente.push(new parseobjekt("~","~","<mark>","</mark>","mark"));
 		//this.parseelemente.push(new parseobjekt("`","`","<code>","</code>","code")); //darf auch nicht über eine zeile hinausgehen
 		//this.parseelemente.push(new parseobjekt("-----","\n","<hr>","","pagebreak")); //ist ein zeilending, kein einfaches element
 	}
@@ -2637,7 +2638,7 @@ pagegenerator.prototype.showPage = function(page){
 	//so seek old one and if there remove active-state:
 	let oldaktpage = document.querySelector('.ppage.active');
 	if(oldaktpage)oldaktpage.classList.remove('active');
-	
+
 	if(page>=this.pages.length)page= this.pages.length-1;
 	if(page<0)page=0;
 	this.aktpage = page;

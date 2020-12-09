@@ -1020,7 +1020,7 @@ keyboardshortcuts.closeAutomagic = function(event){
     event.preventDefault();
     return "break";
   }
-  if(key==="~" && actel && actel.mdcode==="~~" && checknextletter==="~"){
+  if(key==="~" && actel && actel.mdcode==="~~" && selstart-selend===0 && checknextletter==="~"){
     slidenote.textarea.selectionStart=selstart+1;
     slidenote.textarea.selctionEnd=selend+1;
     event.preventDefault();
@@ -1030,11 +1030,12 @@ keyboardshortcuts.closeAutomagic = function(event){
   (key==="~" && (key===checkletterbefore || selend-selstart>0)) ||
           key==="`"){
       event.preventDefault();
-        if(key==="~" && checkletterbefore!=key)key+=key;
-        if(key==="~" && checkletterbefore === key){
+        //if(key==="~" && checkletterbefore!=key)key+=key;
+        //if(key==="~" && checkletterbefore === key){
           //key+=key;
-          txt = txt.substring(0,selstart)+key+txt.substring(selstart,selend)+key+key+txt.substring(selend);
-        }else if(key==="`" && txt.substring(selstart-1,selstart)==="`" && txt.substring(selend,selend+1)==="`"){
+        //  txt = txt.substring(0,selstart)+key+txt.substring(selstart,selend)+key+key+txt.substring(selend);
+        //}else
+        if(key==="`" && txt.substring(selstart-1,selstart)==="`" && txt.substring(selend,selend+1)==="`"){
           txt = txt.substring(0,selstart)+"``\n"+txt.substring(selstart,selend)+"\n```\n"+txt.substring(selend+1);
           key="``";
 //        }else if(key==="*" &&

@@ -8,6 +8,7 @@ newtheme.standardparseelemente.push(new parseobjekt('__','__',"<b>","</b>","bold
 newtheme.standardparseelemente.push(new parseobjekt('*','*',"<i>","</i>","italic"));
 newtheme.standardparseelemente.push(new parseobjekt('_','_',"<i>","</i>","italic"));
 newtheme.standardparseelemente.push(new parseobjekt("~~","~~","<strike>","</strike>","strike"));
+newtheme.standardparseelemente.push(new parseobjekt("~","~","<mark>","</mark>","mark"));
 
 newtheme.options = new Array(
   {name: "*", value:true},
