@@ -1027,7 +1027,8 @@ keyboardshortcuts.closeAutomagic = function(event){
     return "break";
   }
   if(key==="*" || key==="_" ||
-  (key==="~" && (key===checkletterbefore || selend-selstart>0)) ||
+  //(key==="~" && (key===checkletterbefore || selend-selstart>0)) ||
+  key==="~" ||
           key==="`"){
       event.preventDefault();
         //if(key==="~" && checkletterbefore!=key)key+=key;
