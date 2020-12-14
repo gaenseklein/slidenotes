@@ -23,15 +23,17 @@ var dialoger = {
 * afterButtonArea: node to be appended on Area after Buttons (dont bother me...)
 */
 dialoger.buildDialog = function(options, followfunction){
+  if(window.slidenote!=undefined)this.imgpath = slidenote.imagespath;
+  else this.imgpath = '/images/';
   var type = options.type;
   var content = options.content;
   //standard-closefunction: optional: options.closefunction
   var closefunction = function(){
     //we set this into a setTimeout so that it happens as last in the stack of close-functions:
-    setTimeout(function(){
+    dialoger.closetimeout = setTimeout(function(){
       var dialog = document.getElementById("dialogcontainer");
       dialog.parentElement.removeChild(dialog);
-      if(slidenote)slidenote.textarea.focus();
+      if(window.slidenote)slidenote.textarea.focus();
     },40);
   };
 
@@ -40,7 +42,10 @@ dialoger.buildDialog = function(options, followfunction){
   container.classList.add("dialogboxparent");
   //check if old container exists, if so delete it:
   var oldcontainer = document.getElementById("dialogcontainer");
-  if(oldcontainer)oldcontainer.parentElement.removeChild(oldcontainer);
+  if(oldcontainer){
+    oldcontainer.parentElement.removeChild(oldcontainer);
+    if(this.closetimeout)clearTimeout(this.closetimeout);
+  }
   //set new container:
   container.id = "dialogcontainer";
   var dialogbox = document.createElement("div");
@@ -64,7 +69,7 @@ dialoger.buildDialog = function(options, followfunction){
       closebutton.appendChild(closespantxt);
     }
     var closespanimg = new Image();
-    closespanimg.src = slidenote.imagespath+"buttons/x.svg";
+    closespanimg.src = this.imgpath+"buttons/x.svg";
     closebutton.appendChild(closespanimg);
     if(options.closefunction)closebutton.addEventListener("click",options.closefunction);
     closebutton.onclick = closefunction;
@@ -117,6 +122,7 @@ dialoger.buildDialog = function(options, followfunction){
     else cancelbutton.innerText="cancel";
     cancelbutton.onclick = closefunction;
     if(options.closefunction)cancelbutton.addEventListener("click",options.closefunction);
+    if(options.cancelfunction)cancelbutton.addEventListener('click',options.cancelfunction);
     if(type==="confirm" && !options.nocancelbutton)buttondiv.appendChild(cancelbutton);
     dialogbox.appendChild(buttondiv);
   }
@@ -129,11 +135,11 @@ dialoger.buildDialog = function(options, followfunction){
   //append keyboard-shortcuts:
   dialogbox.addEventListener("keydown",function(e){
    //console.log("key on dialog:"+e.key);
-    if(slidenote.keyboardshortcuts)slidenote.keyboardshortcuts.reactOn(e,"dialog");
+    if(window.slidenote && slidenote.keyboardshortcuts)slidenote.keyboardshortcuts.reactOn(e,"dialog");
   });
   if(type==="confirm" || options.arrownavleftright){
     dialogbox.addEventListener("keydown",function(e){
-      if(slidenote.keyboardshortcuts)slidenote.keyboardshortcuts.reactOn(e,"arrowleftright");
+      if(window.slidenote && slidenote.keyboardshortcuts)slidenote.keyboardshortcuts.reactOn(e,"arrowleftright");
     });
   }
   //append dialog to document:
@@ -189,6 +195,7 @@ dialoger.prompt = async function(options){
     }
     var inp = document.createElement("input");
     if(options.ispassword)inp.type="password";
+    else if(options.inputtype)inp.type = options.inputtype;
      else inp.type="text";
     inp.id = "dialogPromptTextInput";
     inp.addEventListener("keyup",function(e){
@@ -203,8 +210,11 @@ dialoger.prompt = async function(options){
     dialogoptions.content = content;
     dialogoptions.focuson = inp;
   }
-  var dialog = this.buildDialog(dialogoptions);
   return new Promise(function(resolve,reject){
+    dialogoptions.cancelfunction = function(){
+      resolve(null);
+    }
+    var dialog = dialoger.buildDialog(dialogoptions);
     document.getElementById("dialogconfirmbutton").addEventListener('click', function handleButtonClicks(e){
       e.stopPropagation();
       var input = document.getElementById("dialogPromptTextInput");
