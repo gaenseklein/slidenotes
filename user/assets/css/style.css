@@ -259,7 +259,7 @@ form button {
   background-color: #fafafa;
   padding: 0.5em 1em 0.5em 1em; }
 
-#submit, #cancelform {
+#submit, #cancelform, input[type=button] {
   color: #1f1f1f;
   background-color: #fafafa;
   padding: 0.5em 1em 0.5em 1em;

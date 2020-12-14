@@ -285,7 +285,7 @@ div#main {
     }
     #logout-welcome-page {
         color: #ccc;
-    }   
+    }
 }
 
 @media only screen and (max-width: 768px){
@@ -320,3 +320,6 @@ div#main {
     }
 }
 
+#pwrecovery{
+  font-size:small;
+}

@@ -1,0 +1,37 @@
+/*one-time login */
+#pre-login,
+#error-no-valid-url,
+#error-url-too-old,
+#error-url-used,
+#error-no-connection,
+#newUser,
+#resetPassword,
+#pwform{
+  display:none;
+}
+
+.status-pre-login #pre-login,
+.status-no-valid-url #error-no-valid-url,
+.status-url-too-old #error-url-too-old,
+.status-url-used #error-url-used,
+.status-no-connection #error-no-connection,
+.status-new-user #newUser,
+.status-reset-pw #resetPassword,
+.status-reset-pw #pwform,
+.status-new-user #pwform{
+  display:block;
+}
+#login-page section.subsection {
+    margin-top: 1em;
+}
+/*hide the following from the user but not from the browser
+for password-manager?
+*/
+label[for="email"], #emailValue {
+    width: 1px;
+    overflow: hidden;
+    height: 1px;
+    position: absolute;
+    z-index: -10;
+    opacity: 0;
+}

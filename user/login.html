@@ -8,6 +8,8 @@
 
 	<link rel='stylesheet' href='assets/css/style.css'>
 	<link rel='stylesheet' href='welcome.css'>
+	<link rel='stylesheet' href='/themes/dialoger.css'>
+	<script type="text/javascript" src="/themes/dialoger.js"></script>
 </head>
 <body class="status-pre-load">
 <div id="login-page">
@@ -19,18 +21,23 @@
 		<section class="center-horizontal" >
 		<form id="loginform" method="post" accept-charset="utf-8">
 
-			<label for="email">email</label>
+			<label for="emailValue">email</label>
 			<br>
 			<input id="emailValue" type="email" name="email_address" required/>
 			<br>
 			<br>
-			<label for="password">password</label>
+			<label for="pwValue">password</label>
 			<br>
 			<input id="pwValue" type="password" name="password" required/>
 			<br>
 			<br>
-			<label for="login" style="display: none">login</label>
+			<label for="submit" style="display: none">login</label>
 			<input class="center-horizontal" type="submit" name="login" id="submit" value="login" />
+			<br>
+			<br>
+			<br>
+			<br>
+			<input class="center-horizontal" type="button" name="pwrecovery" id="pwrecovery" value="forgot your password?" onclick="recoverPw();"/>
 		</form>
 		<div id="circle-loading-animation"></div>
 	</section>
@@ -253,7 +260,7 @@ async function postJson(url,payload){
 			},
 			body:JSON.stringify(payload)
 		});
-		if(resp.status===200)return resp.json();
+		if(resp.status===200 || resp.status===400)return resp.json();
 		else console.log(resp.body);
 		return resp;
 	}catch(err){
@@ -271,6 +278,64 @@ async function getJson(url){
 		throw "invalid token";
 	}else{
 		return resp.json();
+	}
+}
+
+async function recoverPw(){
+	const emailtext="please type in the email-adress of your account";
+	var dialogoptions = {
+		type:"prompt",
+		title:"password recovery",
+		content:emailtext,
+		closebutton:true,
+		inputtype:"email",
+
+	}
+	var email = "";
+	while(email===""){
+		email = await dialoger.prompt(dialogoptions);
+		console.log(email);
+		if(email==null)break;
+		empos = email.indexOf('@');
+		pointpos = email.indexOf('.',empos+1);
+		if(empos==-1 || pointpos==-1){
+			dialogoptions = {
+				type:"prompt",
+				title:"password recovery",
+				content:"error: "+email+" is not a valid email\n"+emailtext,
+				closebutton:true,
+				inputtype:"email",
+			};
+			email = "";
+		}else{
+			break;
+		}
+	}
+	if(email==null)return; //nothing to do without email
+	let waitingdialogoptions = {
+		type:"dialog",
+		title:"requesting one time link",
+		content:"please wait - requesting one time link for "+email,
+	}
+	dialoger.buildDialog(waitingdialogoptions);
+
+	var otlresp = await postJson('/api/user/onetimelogin',{email:email});
+	console.log(otlresp);
+	if(otlresp.error){
+			let errordialogoptions = {
+				type:"alert",
+				title:"error",
+			}
+			if(otlresp.errorclass)errordialogoptions.content=otlresp.errorclass;
+			dialoger.buildDialog(errordialogoptions);
+	}else if(otlresp.emailSent){
+		let successdialogoptions = {
+			type:"alert",
+			title:"one time link successfully created",
+			content:"a one time login link for your account has been created and sent to "+otlresp.email+"\n"+
+			"this one time login is valid for 24h",
+		}
+		dialoger.buildDialog(successdialogoptions);
 	}
 }
 
