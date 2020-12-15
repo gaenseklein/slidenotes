@@ -1049,6 +1049,7 @@ keyboardshortcuts.closeAutomagic = function(event){
         slidenote.textarea.value=txt;
         slidenote.textarea.selectionEnd = selend+key.length;
         slidenote.textarea.selectionStart = selstart+key.length;
+        return "break";
         //slidenote.parseneu();
   }
   if(key==="+"){
@@ -1067,7 +1068,8 @@ keyboardshortcuts.closeAutomagic = function(event){
       slidenote.textarea.value=txt;
       slidenote.textarea.selectionStart = selstart;
       slidenote.textarea.selectionEnd = selstart;
-      slidenote.parseneu();
+      //slidenote.parseneu();
+      return "break";
     }
   }
 }
