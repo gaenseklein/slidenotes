@@ -1552,7 +1552,9 @@ emdparser.prototype.parseMap = function(){
 		                      /^\*\s/,  //"* " -regex#6 ol
 													/^\+\s/   //"+ "- regex#7 ol
 												];
-
+			var numlistsymbollist = [
+				"1. ", "1.) ","1) ","a) ","I) ","- ","* ", "+ "
+			];
 		  var nlregnr;
 		  //get the right regex to search for:
 		  for(var nlrit=0;nlrit < numlistregexlist.length;nlrit++){
@@ -1581,7 +1583,7 @@ emdparser.prototype.parseMap = function(){
 		    line:x, pos:0, html:liststarthtml, mdcode:"", typ:"start",
 		    weight:1, tag:"liststart", listtyp:listtyp, label:"list",
 				listregex: listregex, listmarker: listzeichen, olstart:start,
-				listchilds:[]
+				listchilds:[], listmdsymbol: numlistsymbollist[nlregnr],
 		  };
 			this.map.addElement(listtmpelement);
 
@@ -2704,7 +2706,7 @@ pagegenerator.prototype.startGifAnimations = function(slide){
       var b64= allimages[x].src;
       var image = allimages[x];
       allimages[x].src="";
-			image.src=b64;      
+			image.src=b64;
     }
   }
 }
@@ -2818,64 +2820,7 @@ pagegenerator.prototype.showInsertMenu = function(){
 		insertmenu.classList.add("insertmenu-extra");
 		xtram.innerHTML="";
 		var listfunc = function(){
-			var el = slidenote.parser.CarretOnElement();
-			var latinnumbers = ["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
-			var liste = el.parentelement;
-			var start = 1;
-			var insert = this.insert;
-			//console.log("listinsert:"+insert);
-			if(liste.olstart){
-				start = liste.olstart.split('"')[1];
-				var ostart=start;
-				//console.log("listinsert:olstart="+start);
-				if(!(start*1>=0)){
-					//console.log("listinsert:start="+start);
-					start=" abcdefghijklmnopqrstuvwxyz".indexOf(start);
-					if(start===-1){
-						for(var lnb=1;lnb<latinnumbers;lnb++)
-										if(latinnumbers[lnb]===ostart)start=lnb;
-					}
-					if(start===-1)start=1;
-				}
-			}
-			start = start*1;
-			//console.log("listinsert:start="+start);
-			var isnumber = (insert.substring(0,1)>0);
-			var newlisttype = insert.substring(0,1);
-			if(newlisttype==="*"||newlisttype==="-" || newlisttype==="+")newlisttype="ul";else newlisttype="ol";
-			var newmarker = insert.substring(1);
-			var resulttext = slidenote.textarea.value;
-			for(var x=liste.listchilds.length-1;x>=0;x--){
-				var actchild = liste.listchilds[x];
-				var newtext;
-				if(newlisttype==="ul")newtext=insert;
-				if(newlisttype==="ol"){
-					newtext = start + x;
-					//console.log("listinsert:newtext start+x="+start+"+"+x);
-					if(!isnumber){
-						//console.log("listinsert is:"+insert+"<<<");
-						if(insert==="I) "){
-							if(newtext>10)newtext=newtext-(Math.floor(newtext/10)*10);
-							newtext = latinnumbers[newtext];
-							if(start+x>10)newtext = "X"+newtext;
-						}else{
-							if(newtext>26)newtext=1;
-							newtext = " abcdefghijklmnopqrstuvwxyz".substring(newtext,newtext+1);
-						}
-					}
-					newtext+=newmarker;
-				}
-				resulttext = resulttext.substring(0,actchild.posinall)+
-										newtext+
-										resulttext.substring(actchild.posinall+actchild.mdcode.length);
-			}
-			//console.log(resulttext);
-			var selend = slidenote.textarea.selectionEnd;
-			slidenote.textarea.value = resulttext;
-			slidenote.textarea.selectionEnd = selend;
-			slidenote.textarea.focus();
-			slidenote.parseneu();
-
+			slidenote.changeListType(this.insert);
 		}//end of insertfunction
 
 		var lbuttonlist = ["- ", "+ ", "* ","1. ","1.) ","1) ", "a) ","I) "];
@@ -4737,6 +4682,75 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 
 
 };
+
+slidenotes.prototype.changeListType = function(newtype){
+	var el = slidenote.parser.CarretOnElement();
+	var latinnumbers = ["","I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII"];
+	var liste = el.parentelement;
+	var start = 1;
+	var insert = newtype;
+	//console.log("listinsert:"+insert);
+	if(liste.olstart){
+		start = liste.olstart.split('"')[1];
+		var ostart=start;
+		//console.log("listinsert:olstart="+start);
+		if(!(start*1>=0)){
+			//console.log("listinsert:start="+start);
+			start=" abcdefghijklmnopqrstuvwxyz".indexOf(start);
+			if(start===-1){
+				for(var lnb=1;lnb<latinnumbers;lnb++)
+								if(latinnumbers[lnb]===ostart)start=lnb;
+			}
+			if(start===-1)start=1;
+		}
+	}
+	var frontspaces = "";
+	if(el.mdcode.charAt(0)===" "){
+		for(var x=0;x<el.mdcode.length;x++){
+			if(el.mdcode.charAt(x)===" ")frontspaces+=" ";
+			else break;
+		}
+	}
+	start = start*1;
+	//console.log("listinsert:start="+start);
+	var isnumber = (insert.substring(0,1)>0);
+	var newlisttype = insert.substring(0,1);
+	if(newlisttype==="*"||newlisttype==="-" || newlisttype==="+")newlisttype="ul";else newlisttype="ol";
+	var newmarker = insert.substring(1);
+	var resulttext = slidenote.textarea.value;
+	for(var x=liste.listchilds.length-1;x>=0;x--){
+		var actchild = liste.listchilds[x];
+		var newtext;
+		if(newlisttype==="ul")newtext=insert;
+		if(newlisttype==="ol"){
+			newtext = start + x;
+			//console.log("listinsert:newtext start+x="+start+"+"+x);
+			if(!isnumber){
+				//console.log("listinsert is:"+insert+"<<<");
+				if(insert==="I) "){
+					if(newtext>10)newtext=newtext-(Math.floor(newtext/10)*10);
+					newtext = latinnumbers[newtext];
+					if(start+x>10)newtext = "X"+newtext;
+				}else{
+					if(newtext>26)newtext=1;
+					newtext = " abcdefghijklmnopqrstuvwxyz".substring(newtext,newtext+1);
+				}
+			}
+			newtext+=newmarker;
+		}
+		resulttext = resulttext.substring(0,actchild.posinall)+
+								frontspaces +
+								newtext+
+								resulttext.substring(actchild.posinall+actchild.mdcode.length);
+	}
+	//console.log(resulttext);
+	var selend = slidenote.textarea.selectionEnd;
+	slidenote.textarea.value = resulttext;
+	slidenote.textarea.selectionEnd = selend;
+	slidenote.textarea.focus();
+	slidenote.parseneu();
+
+}
 
 /* scrollToPosition
 * scrolls to the position of text, so that the position of text is on top of the page

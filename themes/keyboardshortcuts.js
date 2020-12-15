@@ -1072,6 +1072,23 @@ keyboardshortcuts.closeAutomagic = function(event){
       return "break";
     }
   }
+  if(key==="Enter"&& actel && actel.label==="list" &&
+  selend-selstart==0 && checknextletter=="\n"){
+    console.log('automagic listen erweitern');
+    event.preventDefault();
+    txt = txt.substring(0,selstart)+"\n"+actel.mdcode+txt.substring(selstart);
+    slidenote.textarea.value = txt;
+    slidenote.textarea.selectionStart = selstart+actel.mdcode.length+1;
+    slidenote.textarea.selectionEnd = selend+actel.mdcode.length+1;
+    if(actel.parentelement.listtyp=="ol"){
+      setTimeout(function(){
+        slidenote.changeListType(actel.parentelement.listmdsymbol);
+      },50);
+    }
+    return "break";
+  }
+  //other keys
+  console.log('automagic key:',key, actel);
 }
 
 keyboardshortcuts.attachShortcuts = function(){
