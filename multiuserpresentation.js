@@ -179,6 +179,10 @@ var pointerklick = function(event){
         returnpath.push(index);
         return returnpath;
     }
+    //check if selection exists - if so dont point
+    if(window.getSelection){
+      if(window.getSelection().isCollapsed===false)return;
+    }
     let target = validNode(event.target);
     let root = document.getElementById('slidenotepresentation');
     if(root==null)root = document.getElementById('praesentation');
@@ -311,6 +315,7 @@ var textmarker = {
     } else if (window.getSelection().removeAllRanges) {  // Firefox
       window.getSelection().removeAllRanges();
     }
+    if(transferobj.deleteSelection)return; //nothing more to do as selection is deleted already
     let startnode = this.getNodeFromPath(this.root, transferobj.startpath);
     let endnode = this.getNodeFromPath(this.root, transferobj.endpath);
     let posinstartnode = transferobj.startpos;
@@ -325,6 +330,11 @@ var textmarker = {
     let selection = document.getSelection();
     if(selection.isCollapsed){
         //maybe send a deselect-text?
+        let transferobj = {deleteSelection:true};
+        if(ws.server){
+          console.log('sending textmarker',transferobj);
+          ws.sendTextmarker(transferobj);
+        }
         return;
     }
     let range = selection.getRangeAt(0);
