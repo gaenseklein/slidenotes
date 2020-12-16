@@ -51,8 +51,12 @@ ws.init2 = async function(){
                 if(speclist)speclist.innerText = ws.userlist.length-1;
             }
             if(data.action==="sendToAll" && data.options ==="pointerClick"){
-              console.log('pointerClick',data.data);
+              console.log('pointerClick',data.msg);
               pointer.showPointer(data.msg);
+            }
+            if(data.action==="sendToAll" && data.options ==="textmarker"){
+              console.log('textmarker',data.msg);
+              textmarker.markText(data.msg);
             }
             /*
             if(data.action==="getUserNames"){
@@ -77,6 +81,10 @@ ws.sendSlideNr = function(){
 ws.sendPointer = function(klick){
   if(this.creator===false)return;
   this.sendMessage(klick,"sendToAll", "pointerClick");
+}
+ws.sendTextmarker = function(transferobj){
+  if(this.creator===false)return;
+  this.sendMessage(transferobj,"sendToAll", "textmarker");
 }
 
 //helper functions:
@@ -278,6 +286,80 @@ var pointer = {
 
 }
 //setTimeout("pointer.init()",3000);
+
+/*Text-marker:*/
+var textmarker = {
+ active:false,
+ init: function(){
+    this.root = document.getElementById('slidenotepresentation');
+    if(this.root==null)this.root=document.getElementById('praesentation');
+    this.active=true;
+    this.initOwner();
+ },
+ initOwner: function(){
+   //TODO: check for ownership, e.g. if joined or not...
+   this.root.addEventListener('mouseup', function(e){
+     textmarker.getMarkedText();
+   });
+ },
+ markText: function(transferobj){
+    if(this.active==false)this.init();
+    console.log('recieved textmarker',transferobj);
+    //check for existing selection/clear existing selection:
+    if (window.getSelection().empty) {  // Chrome
+      window.getSelection().empty();
+    } else if (window.getSelection().removeAllRanges) {  // Firefox
+      window.getSelection().removeAllRanges();
+    }
+    let startnode = this.getNodeFromPath(this.root, transferobj.startpath);
+    let endnode = this.getNodeFromPath(this.root, transferobj.endpath);
+    let posinstartnode = transferobj.startpos;
+    let posinendnode = transferobj.endpos;
+    let range = new Range();
+    range.setStart(startnode, posinstartnode);
+    range.setEnd(endnode, posinendnode);
+    window.getSelection().addRange(range);
+  },
+  getMarkedText:function(){
+    if(this.active==false)return;
+    let selection = document.getSelection();
+    if(selection.isCollapsed){
+        //maybe send a deselect-text?
+        return;
+    }
+    let range = selection.getRangeAt(0);
+    let transferobj = {
+        startnode:range.startContainer,
+        endnode:range.endContainer,
+        startpos: range.startOffset,
+        endpos: range.endOffset,
+    }
+    transferobj.startpath = this.buildPath(this.root,transferobj.startnode);
+    transferobj.endpath = this.buildPath(this.root,transferobj.endnode);
+    if(ws.server){
+      console.log('sending textmarker',transferobj)
+      ws.sendTextmarker(transferobj);
+    }
+  },
+  buildPath:function(root, node){
+    if(root==node)return [];
+        let returnpath =  textmarker.buildPath(root, node.parentNode);
+        let index = 0;
+        for(let x=1;x<node.parentNode.childNodes.length;x++)if(node.parentNode.childNodes[x]==node){
+            index=x;
+            break;
+        }
+        returnpath.push(index);
+        return returnpath;
+  },
+  getNodeFromPath: function(root,path){
+    let node = root;
+    for(let x=0;x<path.length;x++){
+        node=node.childNodes[path[x]];
+    }
+    return node;
+  },
+}
 /*
 for future use: the peerworker, establishes and controls audio and video per webrtc
 
