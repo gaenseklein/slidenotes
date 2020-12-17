@@ -12,7 +12,7 @@
     /*shadows*/
     --shadow-dark: #00000021;
     --shadow-lighter: #E6E6E6;
-    /*dialogbox*/    
+    /*dialogbox*/
     --dialogbox-overlay: #ffffff;
     --dialogbox-bg-color: #fcfcfc;
     --dialogbox-headline-color: #626262;
@@ -43,17 +43,17 @@
   /*implementing font rubikReg*/
   @font-face {
     font-family: "rubikReg";
-    src: url("fonts/Rubik-Regular.ttf");
+    src: url("/fonts/Rubik-Regular.ttf");
   }
   /*give all buttons parental dependent font size*/
-  .dialogbox a[href], 
-  .dialogbox input[type='submit'], 
-  .dialogbox input[type='text'], 
-  .dialogbox input[type='password'], 
-  .dialogbox input[type='image'], 
-  .dialogbox label[for], 
-  .dialogbox select, 
-  .dialogbox details summary, 
+  .dialogbox a[href],
+  .dialogbox input[type='submit'],
+  .dialogbox input[type='text'],
+  .dialogbox input[type='password'],
+  .dialogbox input[type='image'],
+  .dialogbox label[for],
+  .dialogbox select,
+  .dialogbox details summary,
   .dialogbox button{
     font-size: 1em;
     font-family: "rubikReg", sans-serif;
@@ -195,12 +195,12 @@
   .dialogcontent div:first-child {
     margin-top: unset;
   }
-  .dialogcontent button:first-child, 
+  .dialogcontent button:first-child,
   .dialogbox input[type='submit']:first-child{
     margin-top: 0;
   }
-  .dialogcontent button, 
-  .dialogbox details summary, 
+  .dialogcontent button,
+  .dialogbox details summary,
   .dialogbox input[type='submit'] {
     background-color: var(--dialogbox-button2-bg-color);
     color: var(--dialogbox-button2-font-color);
@@ -211,11 +211,11 @@
     padding-left: calc(10*var(--pscale));
     padding-right: calc(10*var(--pscale));
   }
-  .dialogcontent button:hover, 
-  .dialogcontent button:focus, 
-  .dialogbox details summary:hover, 
-  .dialogbox details summary:focus, 
-  .dialogbox input[type='submit']:hover, 
+  .dialogcontent button:hover,
+  .dialogcontent button:focus,
+  .dialogbox details summary:hover,
+  .dialogbox details summary:focus,
+  .dialogbox input[type='submit']:hover,
   .dialogbox input[type='submit']:focus{
     background-color: var(--dialogbox-button2-focus-bg-color);
   }
@@ -355,7 +355,7 @@
     :root {
       /*colors*/
       /*------*/
-      
+
       /*general*/
       --text-color:#fff;
       /*arrow-box*/
