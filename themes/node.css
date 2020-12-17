@@ -1,6 +1,7 @@
 section.node.griditem {
   height: 100%;
   max-height: 90vh;
+  text-align: center;
 }
 
 .node .sequence {
@@ -26,6 +27,8 @@ section.node.griditem {
     border: none;
     padding: 0;
     background: none;
+    display: grid;
+    justify-items: center;
 }
 .node .sequence .actor .cloud.node {
     display: grid;
