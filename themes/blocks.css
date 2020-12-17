@@ -57,6 +57,22 @@ div > img.bgimg {
    height:100%;
  }
 
+/*images inside p-blocks:*/
+p img.floatingleftimage {
+    max-height: 6em;
+    float: left;
+    margin: 1ch;
+}
+
+p img.floatingrightimage {
+    max-height: 6em;
+    margin: 1ch;
+    float: right;
+}
+
+p img, ul img, ol img {
+    max-height: 1em;
+}
 
 .blocks .gridx3, .blocks .gridx2, .blocks .gridx1 {
   display: grid;

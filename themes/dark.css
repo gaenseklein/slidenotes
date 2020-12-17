@@ -184,11 +184,26 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 }
 
+/*
+should be declared in blocks.css as general rule,
+only overwrite whats really necesary
+standard declaration is: max-height: 1em;
+*/
 .dark p img,
 .dark ul img,
 .dark ol img{
-  max-height: 1em;
 }
+/*the floating ones inside a p-blocks
+standard is:
+max-height: 6em;
+float:left/right;
+margin:1ch;
+*/
+.dark p img.floatingleftimage{
+}
+.dark p img.floatingrightimage{
+}
+
 
 .dark a{
   text-decoration: underline;

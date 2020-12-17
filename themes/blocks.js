@@ -393,6 +393,18 @@ newtheme.styleThemeSpecials = function(){
           slidenote.extensions.getThemeByName("blocks").preLoad();
         });
       }
+      //checking for images inside p:
+      if(presimages[x].parentElement.tagName.toLowerCase()==="p"){
+        let siblings = Array.from(presimages[x].parentElement.childNodes);
+        let index = siblings.indexOf(presimages[x]);
+        if(index==0){
+          presimages[x].classList.add('floatingleftimage');
+        }else if(index==siblings.length-1){
+          presimages[x].classList.add('floatingrightimage');
+          presimages[x].parentElement.insertBefore(presimages[x], presimages[x].parentElement.firstChild);
+        }
+
+      }
   }
   if(this.imagestoload===0){
     //does not work:setTimeout(this.styleGrid(), 1000);

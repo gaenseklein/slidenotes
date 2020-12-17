@@ -206,12 +206,22 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful .pblock h3+p img{
 
 }
-
+/*standard declared in blocks.css: max-height:1em*/
 .colorful p img,
 .colorful ul img,
 .colorful ol img{
-  max-height: 1em;
 }
+/*the floating ones inside a p-blocks
+standard is:
+max-height: 6em;
+float:left/right;
+margin:1ch;
+*/
+.minimalist p img.floatingleftimage{
+}
+.minimalist p img.floatingrightimage{
+}
+
 
 .colorful a{
   text-decoration: underline;

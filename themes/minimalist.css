@@ -177,11 +177,24 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .minimalist .pblock h3+p img{
 
 }
-
+/*
+should be declared in blocks.css as general rule,
+only overwrite whats really necesary
+standard declaration is: max-height: 1em;
+*/
 .minimalist p img,
 .minimalist ul img,
 .minimalist ol img{
-  max-height: 1em;
+}
+/*the floating ones inside a p-blocks
+standard is:
+max-height: 6em;
+float:left/right;
+margin:1ch;
+*/
+.minimalist p img.floatingleftimage{
+}
+.minimalist p img.floatingrightimage{
 }
 
 .minimalist a{
