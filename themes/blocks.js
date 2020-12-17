@@ -30,9 +30,9 @@ newtheme.buildgrid = function(gridcontainer){
       gridel.areaname = "gridel"+x;
     }
     if(gridel.classList.contains("section")&&
-        (gridel.classList.contains("left") || gridel.classList.contains("right"))){
+        (gridel.classList.contains("left") ||gridel.classList.contains("center") || gridel.classList.contains("right"))){
       //maxheight = window.innerHeight;
-      console.log("left or right found:");
+      console.log("left, center or right found:");
       //save grid-y to object to attach left-section afterwards
       gridel.gridy = gridy;
       sections.push(gridel); //save left or right-section to sectionsarray

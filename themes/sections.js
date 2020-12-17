@@ -168,6 +168,9 @@ newtheme.styleThemeSpecials = function(){
       }else if(dataobject.head.indexOf("right")>-1){
         //we found a right
         sectiondata.classList.add("right");
+      }else if(dataobject.head.indexOf("center")>-1){
+        //we found a right
+        sectiondata.classList.add("center");
       }else if(dataobject.head.indexOf("head")>-1){
           sectiondata.classList.add("head");
       }else if(dataobject.head.indexOf("inline")>-1){
