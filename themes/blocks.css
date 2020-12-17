@@ -58,19 +58,21 @@ div > img.bgimg {
  }
 
 /*images inside p-blocks:*/
-p img.floatingleftimage {
+.blocks p img.floatingleftimage {
     max-height: 6em;
     float: left;
     margin: 1ch;
 }
 
-p img.floatingrightimage {
+.blocks p img.floatingrightimage {
     max-height: 6em;
     margin: 1ch;
     float: right;
 }
 
-p img, ul img, ol img {
+.blocks p img,
+.blocks ul img,
+.blocks ol img {
     max-height: 1em;
 }
 
