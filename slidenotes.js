@@ -1114,6 +1114,49 @@ emdparser.prototype.CarretOnElement = function(carrethardpos, secondcall){
 	}
 	return element;
 }
+
+/* *carretInsideTag: function to check if carret is inside a tag of given tag
+this is usefull for checking if we want to know if we are inside the tag, even
+if the carret is inside another tag. for example "a*bcd**ef|gh**i*j" CarretOnElement
+would return the inner ** but if we want to check if we are inside a * this
+function should be used instead
+@param carretpos: position to check for - if null act textarea.selectionEnd is used
+@param tag: tag to look out for
+* returns start-element or false
+*/
+
+emdparser.prototype.carretInsideTag = function(carretpos, tag){
+	let actpos = carretpos || slidenote.textarea.selectionEnd;
+	let actel = this.CarretOnElement(actpos);
+	if(actel==undefined)return false;
+	if(actel.mdcode==tag)return actel;
+	let simpleelements = slidenote.parseelemente;
+	let allElementsInLine = slidenote.parser.map.insertedhtmlinline[actel.line];
+	if(typeof tag =='string'){
+		//comes from toolbarbutton
+		let nr = -1;
+		let html = "";
+		for (let x=0;x<simpleelements.length;x++){
+			if(simpleelements[x].emdstart==tag){
+				nr = x;
+				html = simpleelements[x].htmlstart;
+				break;
+			}
+		}
+		let starte; let ende;
+		for(let x=0;x<allElementsInLine.length;x++){
+			if(allElementsInLine[x].typ=='start'){
+				let a = allElementsInLine[x];
+				let b = a.brotherelement;
+				if(a.html.indexOf(html)>-1 && a.posinall<actpos && b.posinall>=actpos){
+					starte=a;
+					return a;
+				}
+			}
+		}
+	}
+}
+
 /*	* replace: method to avoid using regex
 @param text: string to search through,
 @param symbol: string to look out for in text
@@ -4475,6 +4518,37 @@ slidenotes.prototype.keypressup = function(event, inputobject){
 
 };
 
+slidenotes.prototype.removeElementFromTextarea = function(element, tag){
+	let a = element;
+	let b = a.brotherelement;
+	let selstart = slidenote.textarea.selectionStart;
+	let selend = slidenote.textarea.selectionEnd;
+	if(a && b){
+		let amd = a.mdcode;
+		bmd = b.mdcode;
+		let delcount = 0;
+		if(a.mdcode=="***" || a.mdcode=="___"){
+			//tripple-codes cannot be inserted by toolbar directly, so strip mdcode to actual length
+			amd = amd.substring(0,tag.length);
+			bmd = bmd.substring(0,tag.length);
+			delcount = 3-tag.length;
+		}
+		let txt = this.textarea.value;
+		txt = txt.substring(0,a.posinall)+txt.substring(a.posinall+amd.length,b.posinall)+txt.substring(b.posinall+bmd.length);
+		this.textarea.value = txt;
+		slidenote.textarea.selectionStart = a.posinall+delcount;//selstart-a.mdcode.length;
+		slidenote.textarea.selectionEnd = b.posinall-amd.length;//selend-a.mdcode.length;
+	}else{
+		//only a, not b:
+		let txt = textarea.value;
+		txt = txt.substring(0,a.posinall)+txt.substring(a.posinall+a.mdcode.length);
+		slidenote.textarea.selectionStart = selstart - a.mdcode.length;
+		slidenote.textarea.selectionEnd = selend - a.mdcode.length;
+	}
+	slidenote.textarea.focus();
+	slidenote.parseneu();
+};
+
 /* insertbutton
 * 	inserts a md-symbol into textarea (from toolbar)
 */
@@ -4496,6 +4570,12 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 				 alert("mdcode insert not allowed inside datablocks of type "+actelement.dataobject.type);
 				 return;
 			 }
+	}
+	var usedElement = this.parser.carretInsideTag(null, emdzeichen);
+	if(usedElement){
+		//delete used element
+		this.removeElementFromTextarea(usedElement, emdzeichen);
+		return;
 	}
 	if(emdzeichen.substring(0,5)=="%head"){
 		emdstart="\n#";
