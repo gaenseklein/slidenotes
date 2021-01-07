@@ -89,7 +89,7 @@
     --grid-margin: 0.4793; /*--grid-s/2*0.13139*/
     /*pixel scaling factor*/
     --pscale: 1/10.8*1vh;
-    /*iOS Safari adress bar shrinking*/
+    /*iOS Safari address bar shrinking*/
     --iOSbarheight: 63px;
   }
 

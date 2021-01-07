@@ -308,7 +308,7 @@ div#main {
 
     #welcome-page .content {
         /*height: calc(53vh - 11.8em);*/
-        /*iOS Safari adress bar shrinking of 63px*/
+        /*iOS Safari address bar shrinking of 63px*/
         height: calc(53vh - 11.8em - 63/3.75*1vw/2);
         border-bottom: 0.15em solid #626262;
     }

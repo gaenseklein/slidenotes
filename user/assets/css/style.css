@@ -680,6 +680,11 @@ a.flex-table-cell {
   border-color: #125E69;
   background-color: #ebebeb; }
 
+input#dialogPromptTextInput{
+  width: 100%;
+  margin-top: 0.5em;
+}
+
 #login-page #submit,#cancelform {
   color: #fafafa;
   background-color: #125E69; }
