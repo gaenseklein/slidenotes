@@ -771,7 +771,7 @@ keyboardshortcuts.init = function(){
     //presentation-keyboard-navigation:
     this.addShortcut(new this.shortcut("presentation keyboard navigation",
       "presentation",
-      {multipleChoiceKeys:["ArrowLeft","ArrowRight", " ","Escape","Enter","0","1","2","3","4","5","6","7","8","9"],
+      {multipleChoiceKeys:["ArrowLeft","ArrowRight", " ","Escape","Enter","0","1","2","3","4","5","6","7","8","9","f"],
       metakey:false},
         function(e){
       var key=e.key;
@@ -792,6 +792,8 @@ keyboardshortcuts.init = function(){
         presentation.showPage(presentation.lastpressednrkey);
         presentation.lastpressednrkey="";
       }
+      console.log('presentation-key',key);
+      if(key==="f")slidenote.goFullScreen(false, true);
     }));
 
     //build options-Menu:

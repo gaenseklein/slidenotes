@@ -2999,7 +2999,7 @@ pagegenerator.prototype.startLoadingScreen = function(){
  * 2. springen und scrollen an die Stelle der zuletzt in der Präsentation dargestellten Seite
 */
 var fullscreen = false;
-pagegenerator.prototype.showpresentation = function(forExport){
+pagegenerator.prototype.showpresentation = function(forExport, close){
 	slidenote.parseneu();
 	if(forExport)this.forExport = true; else this.forExport = false;
 	var praesesrahmen = slidenote.presentationdiv.parentElement;//document.getElementById("praesentationrahmen");
@@ -3015,7 +3015,7 @@ pagegenerator.prototype.showpresentation = function(forExport){
 
 	var cursorpos = slidenote.textarea.selectionEnd;
 	//this.cursorposBeforePresentation = cursorpos;
-	if(!fullscreen){
+	if(!fullscreen && !close){
 		//history-hack:
 		document.location.hash = "editor";
 		//this.init();
@@ -3054,7 +3054,10 @@ pagegenerator.prototype.showpresentation = function(forExport){
 		//praesesrahmen.style.height = document.height;
 		document.body.style.height = "100vh";
 		document.body.style.overflow = "hidden";
+		//start presentation-preview in fullscreen:
+		//if(!document.fullscreenElement)slidenote.goFullScreen(false, true);
 	} else{
+		//close presentation
 		fullscreen=false;
 		//history-hack:
 		document.location.hash = "editor";
@@ -3083,6 +3086,10 @@ pagegenerator.prototype.showpresentation = function(forExport){
 		document.body.style.height = "unset";
 		document.body.style.overflow = "unset";
 		//praesesrahmen.style.height = "unset";
+		//check for fullscreen-preview:
+		//if(document.fullscreenElement && !document.body.classList.contains('fullscreen-editor')){
+		//	slidenote.goFullScreen(document.fullscreenElement, true); //close fullscreen
+		//}
 	}
 }
 
@@ -4918,16 +4925,41 @@ slidenotes.prototype.appendFile = function(type, path){
 	}
 }
 
-slidenotes.prototype.editorFullScreen = function(){
-	//lets go the editor into full screen mode
-	if(document.fullscreenElement){
-		document.exitFullscreen().then(function(result){
-			document.body.classList.remove('editor-fullscreen');
-		});
+slidenotes.prototype.goFullScreen = function(targetId, preview){
+	target = document.body;
+	if(targetId && targetId!='editor')target = document.getElementById(targetId);
+	if(!preview){
+		//lets go the editor into full screen mode
+		if(document.fullscreenElement){
+			document.exitFullscreen().then(function(result){
+				document.body.classList.remove('editor-fullscreen');
+			});
+		}else{
+
+			document.body.requestFullscreen({navigationUI:"hide"}).then(function(result){
+				document.body.classList.add('editor-fullscreen');
+			}).catch((e)=>{
+				console.error(e);
+			});
+		}
 	}else{
-		document.body.requestFullscreen({navigationUI:"hide"}).then(function(result){
-			document.body.classList.add('editor-fullscreen');
-		});
+		if(!document.fullscreenElement && target){
+			//target.onfullscreenchange = function(e){
+				//hide presentation on exiting fullscreen
+			//	console.warn(e);
+			//	if(!document.fullscreenElement)slidenote.presentation.showpresentation(false, true);
+			//}
+			//only go fullscreen if not fullscreen allready
+			target.requestFullscreen({navigationUI:"hide"}).then(function(result){
+				console.log('entered fullscreen presentation');
+			}).catch(function(e){
+				console.error(e);
+			});
+		}else if(document.fullscreenElement==target && !document.body.classList.contains('fullscreen-editor')){
+			//close fullscreen
+			//delete target.onfullscreenchange;
+			document.exitFullscreen();
+		}
 	}
 }
 

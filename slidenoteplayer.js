@@ -46,7 +46,21 @@ slidenoteplayer.init = async function(){
   this.initCommentfieldCounter();
   //this.initComments();
   this.gotoPage(this.actpage);
-  if(ws && ws.server===null && location.search ==="?join")ws.joinSession();
+  if(ws && ws.server===null && location.search ==="?join"){
+    //this is never executed, as ws.server is allready set by now
+    ws.joinSession();
+  }
+  if(location.search.indexOf('?join')>-1){
+    //this.goFullScreen(); as expected doesnt work
+    dialoger.buildDialog({
+      title: 'go fullscreen',
+      content: 'do you want to go fullscreen?',
+      type: 'confirm',
+    },function(){
+      slidenoteplayer.goFullScreen('slidenotepresentation');
+
+    });
+  }
   this.hideLoadScreen();
   this.commentform = document.getElementById("comment-form");
   //this.commentform.onsubmit = function(){return confirm("wirklich absenden?")};//slidenoteguardian.encryptComment()};
@@ -456,6 +470,8 @@ slidenoteplayer.goFullScreen = function(targetElementId){
 	}else{
 		target.requestFullscreen({navigationUI:"hide"}).then(function(result){
 			document.body.classList.add('fullscreen');
-		});
+		}).catch((e)=>{
+      console.warn(e);
+    });
 	}
 }
