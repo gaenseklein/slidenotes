@@ -118,8 +118,11 @@ newtheme.styleThemeSpecials = function(){
 				console.warn('highlight.js: language builds not a valid css-class',language)
 			}
 		}
-		hljs.highlightBlock(block);
-		this.highlightLines(block);
+		if(this.options.language!="none"){
+			hljs.highlightBlock(block);
+			this.highlightLines(block);
+
+		}
 		var buildlines = (this.options.linehighlight!=null) || (this.options.linenumbering==="on" || this.options.linenumbering==="true");
 		//if(buildlines){
 			//this.buildLines(block);
