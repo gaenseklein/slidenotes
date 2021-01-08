@@ -182,6 +182,7 @@ slidenoteplayer.initKeystrokes = function(){
       slidenoteplayer.gotoPage(slidenoteplayer.lastpressednrkey);
       slidenoteplayer.lastpressednrkey="";
     }
+    if(key==="f")slidenoteplayer.goFullScreen('slidenotepresentation');
   }
   this.controlbuttons.area.tabIndex=1;
   this.controlbuttons.area.focus();
@@ -443,4 +444,18 @@ slidenoteplayer.hideCommentForm = function(){
   var commentform = document.getElementById("comment-form");
   commentform.classList.remove("show");
   this.commentSaveButton.classList.remove("show");
+}
+
+slidenoteplayer.goFullScreen = function(targetElementId){
+  let target = document.body;
+  if(targetElementId)target = document.getElementById(targetElementId);
+  if(document.fullscreenElement){
+		document.exitFullscreen().then(function(result){
+			document.body.classList.remove('fullscreen');
+		});
+	}else{
+		target.requestFullscreen({navigationUI:"hide"}).then(function(result){
+			document.body.classList.add('fullscreen');
+		});
+	}
 }
