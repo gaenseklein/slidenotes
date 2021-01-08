@@ -3435,6 +3435,7 @@ ExtensionManager.prototype.sortToolbar = function(){
 		"image",
 		"italic",
 		"bold",
+		"marked",
 		"crossed",
 		"ulist",
 		"olist",
@@ -4562,8 +4563,8 @@ slidenotes.prototype.removeElementFromTextarea = function(element, tag){
 slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode){
 	console.log("insert button:"+emdzeichen+"mdstart:"+mdstartcode);
 	var textarea = this.textarea;
-	var startemdl = new Array('**','*','~~',"%head","%list","%nrlist","%link","%quote","%image","%table","-----", "\\(");
-	var endemdl = new Array('**','*','~~',"\n","\n","\n","%link","\n","%image","%table","\n","\\)");
+	var startemdl = new Array('**','*','~~','~',"%head","%list","%nrlist","%link","%quote","%image","%table","-----", "\\(");
+	var endemdl = new Array('**','*','~~','~',"\n","\n","\n","%link","\n","%image","%table","\n","\\)");
 	var emdnr;
 	var emdstart="";
 	var emdend="";
