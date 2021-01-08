@@ -4918,6 +4918,19 @@ slidenotes.prototype.appendFile = function(type, path){
 	}
 }
 
+slidenotes.prototype.editorFullScreen = function(){
+	//lets go the editor into full screen mode
+	if(document.fullscreenElement){
+		document.exitFullscreen().then(function(result){
+			document.body.classList.remove('editor-fullscreen');
+		});
+	}else{
+		document.body.requestFullscreen({navigationUI:"hide"}).then(function(result){
+			document.body.classList.add('editor-fullscreen');
+		});
+	}
+}
+
 //helper-function to always use same date:
 function localeDateString(timestamp){
 	let date = new Date(timestamp);
