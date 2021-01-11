@@ -1190,6 +1190,7 @@ keyboardshortcuts.mackeys = [
 
 keyboardshortcuts.publishMenuOrder = [
   "start presentation",
+  "move line up or down",
 	"open contextmenu",
   "save note to cloud directly",
   "open cloud menu",
