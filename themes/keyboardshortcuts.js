@@ -1175,7 +1175,7 @@ slidenote.keyboardshortcuts = keyboardshortcuts;
 
 keyboardshortcuts.mackeys = [
   {name:"start presentation",keys:["Enter"]},
-	{name:"open contextmenu",keys:["c"]},
+	{name:"open contextmenu",keys:["Control","c"]},
   {name:"open toolbar",keys:["Control","t"]},
   {name:"save note to cloud directly",keys:["s"]},
   {name:"open cloud menu",keys:["Control","s"]},
