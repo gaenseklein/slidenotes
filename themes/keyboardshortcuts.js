@@ -75,7 +75,7 @@ keyboardshortcuts.loadConfigString = function(configstring){
   try{
     confobject = JSON.parse(configstring);
   }catch(e){
-    console.log("configstring malformed:"+configstring);
+    console.error("configstring malformed:"+configstring);
     return;
   }
   this.metakey = confobject.metakey;
@@ -152,6 +152,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
     metalabel.innerText = "metakey";
     metali.appendChild(metalabel);
     metabutton.innerText = this.metakey;
+    if(this.isMac && this.metakey=="Meta")metabutton.innerText="cmd";
     metabutton.changingactive = false;
     metabutton.name = "metakey"
     metabutton.onclick = function(){
@@ -177,6 +178,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
           if(key==="Space")key=" ";
           slidenote.keyboardshortcuts.metakey = key;
           slidenote.extensions.showKeyboardConfig("metakey");
+          slidenoteguardian.saveConfig("local");
         }
       }
     }
@@ -187,6 +189,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
         if(shortcut.name.indexOf("arrow")>-1 ||
         shortcut.name.indexOf("escape")>-1 ||
         shortcut.name.indexOf("navigation")>-1 ||
+        //shortcut.name.indexOf('move line up')>-1 ||
         shortcut.name.indexOf("slidenoteSpeaker")>-1)continue;
         var li = document.createElement("li");
         var check = document.createElement("input");
@@ -203,10 +206,17 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
 
         var changebutton = document.createElement("button");
         var buttontext = "";
-        if(shortcut.metakey)buttontext += this.metakey+" + ";
-        buttontext+=shortcut.keys.join(" + ");
+        if(shortcut.metakey){
+          if(this.isMac && this.metakey=="Meta")buttontext+='cmd ';
+          else buttontext += this.metakey+" ";
+        }
+        buttontext+=shortcut.keys.join(" ");
         if(shortcut.keys[0]===" ")buttontext+='Space';
-        if(shortcut.multipleChoiceKeys.length>0)buttontext+="+ ["+shortcut.multipleChoiceKeys.join(" | ")+"]";
+        if(shortcut.multipleChoiceKeys.length>0){
+          buttontext+=" ["+shortcut.multipleChoiceKeys.join(" | ")+"]";
+          changebutton.disabled = true;
+        }
+
         changebutton.innerText = buttontext;
         changebutton.name = shortcut.name;
 
@@ -216,7 +226,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
         changebutton.onclick = function(){
             if(this.changingactive)return;
             this.changingactive=false;
-          if(confirm("press ok and then the key you want to use to change metakey")){
+          if(confirm("press ok and then the key(s) you want to use for "+this.name.toLowerCase())){
             this.changingactive=true;
             this.classList.add("changingactive");
             slidenote.keyboardshortcuts.tempkeydowns = new Array();
@@ -246,10 +256,14 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
           //}
           var previewtext = "";
           if(pressedkeyarray.indexOf(metakey)>-1)pressedkeyarray.splice(pressedkeyarray.indexOf(metakey),1);
-          if(shortcut.metakey)previewtext+=metakey + " + ";
-          previewtext += pressedkeyarray.join(" + ");
+          if(shortcut.metakey)previewtext+=metakey + " ";
+          //previewtext += pressedkeyarray.join(" ");
+          for(var x=0;x<pressedkeyarray.length;x++){
+            if(pressedkeyarray[x]==" ")previewtext+="space ";
+            else previewtext += pressedkeyarray[x]+ " ";
+          }
             this.changingactive=false;
-            if(confirm("set "+this.name+" to "+previewtext)){
+            if(confirm("set "+this.name.toLowerCase()+" to "+previewtext.toLowerCase())){
               if(shortcut.standardkeys===undefined)shortcut.standardkeys = shortcut.keys;
               shortcut.keys = pressedkeyarray;
               slidenote.extensions.showKeyboardConfig(this.name);
@@ -269,6 +283,7 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
           var revertbutton = document.createElement("button");
           revertbutton.innerText = "revert to standard";
           revertbutton.name = shortcut.name;
+          revertbutton.classList.add('revertbutton');
           revertbutton.onclick = function(){
             var shortcut = slidenote.keyboardshortcuts.shortcutByName(this.name);
             if(shortcut.standardkeys){
@@ -328,13 +343,9 @@ keyboardshortcuts.selectCurrentElement = function(){
 }
 
 keyboardshortcuts.init = function(){
-    //look out for mac-metakey:
-    if (navigator.userAgent.indexOf('Mac OS X') != -1) {
-      this.metakey = "Meta";
-    }
     //add basic shortcuts:
     //start presentation
-    this.addShortcut(new keyboardshortcuts.shortcut("Start Presentation","global", "Enter", function(){
+    this.addShortcut(new keyboardshortcuts.shortcut("start presentation","global", "Enter", function(){
       //slidenote.parseneu();slidenote.presentation.showpresentation();
       document.getElementById("playbutton").click();
     }));
@@ -344,6 +355,7 @@ keyboardshortcuts.init = function(){
         slidenote.keyboardshortcuts.selectCurrentElement();
     }));
     */
+    /*
     //jump to next/last element: does not work at the moment...
     this.addShortcut(new this.shortcut("jump to element","textarea",{multipleChoiceKeys:["PageUp","PageDown"],metakey:true},function(e){
       var actline = slidenote.parser.lineAtPosition(slidenote.textarea.selectionStart);
@@ -446,7 +458,7 @@ keyboardshortcuts.init = function(){
         slidenote.keyboardshortcuts.pressedkeys=pressedkeys;
       }
     }));
-
+    */
     //move lines up and down:
     this.addShortcut(new this.shortcut("move line up or down", "textarea", {multipleChoiceKeys:["ArrowUp","ArrowDown"],metakey:true},function(e){
       let selstart = slidenote.textarea.selectionStart;
@@ -532,7 +544,7 @@ keyboardshortcuts.init = function(){
     }));
     */
     //insertmenu:
-    this.addShortcut(new this.shortcut("open insertmenu", "global", "ContextMenu", function(){
+    this.addShortcut(new this.shortcut("open contextmenu", "global", "ContextMenu", function(){
         //slidenote.presentation.showInsertMenu();
         //console.log("global shortcut on:"); console.log(this);
         nsbs = document.getElementById("nicesidebarsymbolcontainer");
@@ -598,7 +610,7 @@ keyboardshortcuts.init = function(){
       document.getElementById("optionsbutton").click();
     }));
     //designmenu:
-    this.addShortcut(new this.shortcut("open design menu", "global", "d",function(e){
+    this.addShortcut(new this.shortcut("open slide design menu", "global", "d",function(e){
       document.getElementById("presentationoptionsbutton").click();
     }));
     /*this.addShortcut(new this.shortcut("escape optionsmenu","options",{key:"Escape",metakey:false},function(e){
@@ -608,7 +620,7 @@ keyboardshortcuts.init = function(){
     this.addShortcut(new this.shortcut("open publish menu", "global", "p",function(e){
       document.getElementById("publishbutton").click();
     }));
-    this.addShortcut(new this.shortcut("open import/export menu", "global", ["Shift","F"],function(e){
+    this.addShortcut(new this.shortcut("open file menu", "global", ["Shift","F"],function(e){
       document.getElementById("importexportbutton").click();
     }));
     this.addShortcut(new this.shortcut("open cloud menu", "global",["Shift","S"],function(e){
@@ -796,6 +808,21 @@ keyboardshortcuts.init = function(){
       if(key==="f")slidenote.goFullScreen(false, true);
     }));
 
+    //look out for mac and load mac-standard-keys:
+    if (navigator.userAgent.indexOf('Mac OS X') != -1) {
+      this.metakey = "Meta";
+      this.isMac = true;
+      for (var x=0;x<this.mackeys.length;x++){
+        let mackey=this.mackeys[x];
+        var shortcut =  this.shortcutByName(mackey.name);
+        shortcut.keys = mackey.keys;
+      }
+    }
+
+    this.allkeys.sort(function(a,b){
+      if(keyboardshortcuts.publishMenuOrder.indexOf(a.name)<keyboardshortcuts.publishMenuOrder.indexOf(b.name))return -1;
+      return 1;
+    });
     //build options-Menu:
     this.buildOptionsMenu();
     //garbage-cleaning for pressedkeys:
@@ -1143,6 +1170,40 @@ keyboardshortcuts.runDelayedKeyUpFunctions = function(){
 }
 
 slidenote.keyboardshortcuts = keyboardshortcuts;
+
+keyboardshortcuts.mackeys = [
+  {name:"start presentation",keys:["Enter"]},
+	{name:"open contextmenu",keys:["c"]},
+  {name:"open toolbar",keys:["Control","t"]},
+  {name:"save note to cloud directly",keys:["s"]},
+  {name:"open cloud menu",keys:["Control","s"]},
+  {name:"open noteload menu",keys:["Control","n"]},
+  {name:"open file menu",keys:["Control","f"]},
+  {name:"open publish menu",keys:["Control","p"]},
+	{name:"open options",keys:["o"]},
+	{name:"open slide design menu",keys:["d"]},
+  {name:"open search menu",keys:["f"]},
+	{name:"open imagegallery",keys:["i"]},
+	{name:"undo last change",keys:["z"]},
+	{name:"redo last undone change",keys:["Shift","Z"]}
+];
+
+keyboardshortcuts.publishMenuOrder = [
+  "start presentation",
+	"open contextmenu",
+  "save note to cloud directly",
+  "open cloud menu",
+  "open noteload menu",
+  "open file menu",
+  "open publish menu",
+	"open options",
+	"open slide design menu",
+  "open search menu",
+	"open imagegallery",
+	"undo last change",
+	"redo last undone change",
+  "open toolbar",
+];
 
 keyboardshortcuts.init();
 keyboardshortcuts.attachShortcuts();

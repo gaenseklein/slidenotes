@@ -20,8 +20,8 @@ button.changingactive{
 ul.keyboardshortcuts li {
     display: grid;
     grid-template-areas:
-        "check label button";
-    grid-template-columns: auto 1fr auto;
+        "check label button revbutton";
+    grid-template-columns: auto 1fr auto auto;
     align-items: center;
     grid-gap: 1em;
     margin-top: 0.5em;
@@ -45,6 +45,13 @@ ul.keyboardshortcuts li {
     padding-right: calc(8/10.8*1vh);
     width: unset;
     text-transform: lowercase;
+}
+
+.keyboardshortcuts button.revertbutton.menuitem {
+    grid-area: revbutton;
+    font-style: italic;
+    font-size: small;
+    max-width: 8ch;
 }
 
 .keyboardshortcuts input.menuitem {
