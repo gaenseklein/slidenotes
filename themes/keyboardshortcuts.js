@@ -896,8 +896,9 @@ keyboardshortcuts.releaseKey = function(e){
       return;
     }
     console.log(e);
-    this.pressedkeys[key]=false;
-    if(key.length===1)this.pressedkeys[key.toUpperCase()]=false; //also delete uppercase-letter if shift is let go first
+    //this.pressedkeys[key]=false;
+    delete this.pressedkeys[key];
+    if(key.length===1)delete this.pressedkeys[key.toUpperCase()]; //=false; //also delete uppercase-letter if shift is let go first
     if(key==="Meta" || key==="Shift" || key==="Control" ||
     key==="Alt" || key===this.metakey)this.pressedkeys = {};
 }
@@ -905,7 +906,19 @@ keyboardshortcuts.releaseKey = function(e){
 keyboardshortcuts.shortcutFound = function(event, shortcut){
     if(shortcut.metakey && !this.pressedkeys[this.metakey])return false;
     for(var x=0;x<shortcut.keys.length;x++)if(!this.pressedkeys[shortcut.keys[x]])return false;
-    if(!shortcut.multipleChoiceKeys ||shortcut.multipleChoiceKeys.length===0)return true;
+    /*let pkeys = Object.keys(this.pressedkeys);
+    pkeys.splice(pkeys.indexOf(this.metakey),1);
+    for (var x=0;x<pkeys.length;x++)
+      if(this.pressedkeys[pkeys[x]] && shortcut.keys.indexOf(pkeys[x])==-1)
+        return false;
+        */
+    if(!shortcut.multipleChoiceKeys ||shortcut.multipleChoiceKeys.length===0){
+      let apk = this.allPressedKeys();
+      let apklength = apk.length;
+      if(shortcut.metakey)apklength--;
+      if(shortcut.keys.length!=apklength)return false;
+      return true;
+    }
     for(var x=0;x<shortcut.multipleChoiceKeys.length;x++)if(this.pressedkeys[shortcut.multipleChoiceKeys[x]])return true;
     return false;
 }
