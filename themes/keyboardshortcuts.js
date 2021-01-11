@@ -170,12 +170,14 @@ keyboardshortcuts.buildOptionsMenu = function(focusbutton){
       if(e.key===undefined && e.keyCode===undefined)return; //seems not to be valid key
       var key = e.key+"";
       if(key==="undefined")key=getKeyOfKeyCode(e.keyCode);
-      if(key===" ")key="Space";
+      var displaykey = key;
+      if(keyboardshortcuts.isMac && key=="Meta")displaykey = "cmd";
+      else if(key==" ")displaykey="space";
+      else displaykey = key.toLowerCase();
       if(e.code.indexOf("Numpad")>-1)key=e.code;
       if(this.changingactive){
         this.changingactive=false;
-        if(confirm("set metakey to "+key)){
-          if(key==="Space")key=" ";
+        if(confirm("set metakey to "+displaykey+"?")){
           slidenote.keyboardshortcuts.metakey = key;
           slidenote.extensions.showKeyboardConfig("metakey");
           slidenoteguardian.saveConfig("local");
