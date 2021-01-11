@@ -57,3 +57,6 @@ ul.keyboardshortcuts li {
 .keyboardshortcuts input.menuitem {
     grid-area: check;
 }
+.keyboardshortcuts button.menuitem[disabled] {
+    opacity: 0.5;
+}
