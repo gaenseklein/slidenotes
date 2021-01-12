@@ -635,10 +635,17 @@ keyboardshortcuts.init = function(){
       document.getElementById("loadnote").click();
     }));
     this.addShortcut(new this.shortcut("open imagegallery", "global","i",function(e){
-      document.getElementById("imagegallerybutton").click();
+      let igb = document.getElementById("imagegallerybutton");
+      if(igb.classList.contains('active')){
+        let firstbutton = document.querySelector('#imagegallerybox button');
+        firstbutton.focus(); 
+      }else igb.click();
     }));
     this.addShortcut(new this.shortcut("open search menu", "global","f",function(e){
-      document.getElementById("searchbutton").click();
+      let sb = document.getElementById("searchbutton");
+      if(sb.classList.contains("active")){
+        document.getElementById('findinput').focus();
+      }else sb.click();
     }));
 
     //history:
@@ -733,8 +740,8 @@ keyboardshortcuts.init = function(){
     //extra, because escape in menusearchbox has own function:
     this.shortcutByName("arrownavigate menusearchbox escape").activate = function(e){
       slidenote.textarea.focus();
-      document.getElementById("menusearchbox").classList.remove("active");
-      document.getElementById("searchbutton").classList.remove("active");
+      //document.getElementById("menusearchbox").classList.remove("active");
+      //document.getElementById("searchbutton").classList.remove("active");
     }
     //letter-navigation in toolbar:
     this.addShortcut(new this.shortcut("letter navigation in toolbar","toolbar",{multipleChoiceKeys:["c","t","l","q","n","f","i","o","h","b","d"],metakey:false},function(e){
