@@ -160,6 +160,11 @@ input[type='checkbox']+label {
   outline-color: rgb(141, 191, 206) !important;
   outline-width: 0.17em !important;
 }
+#insertarea:focus,
+#nicesidebarsymbolcontainer,
+#extrainsertmenu button{
+  outline-color: coral !important;
+}
 
 /*implementing font rubikReg*/
 @font-face {
@@ -1154,7 +1159,7 @@ div#nicesidebarsymbol.out #nicesidebarsymbolcontainer {
 }
 
 #insertarea button:focus, #insertarea button:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.8);
 }
 
 #insertarea #extrainsertmenu, #insertarea #extrainsertmenu div {

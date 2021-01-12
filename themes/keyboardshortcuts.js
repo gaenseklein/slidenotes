@@ -546,7 +546,7 @@ keyboardshortcuts.init = function(){
     }));
     */
     //insertmenu:
-    this.addShortcut(new this.shortcut("open contextmenu", "global", "ContextMenu", function(){
+    this.addShortcut(new this.shortcut("open context menu", "global", "ContextMenu", function(){
         //slidenote.presentation.showInsertMenu();
         //console.log("global shortcut on:"); console.log(this);
         nsbs = document.getElementById("nicesidebarsymbolcontainer");
@@ -638,7 +638,7 @@ keyboardshortcuts.init = function(){
       let igb = document.getElementById("imagegallerybutton");
       if(igb.classList.contains('active')){
         let firstbutton = document.querySelector('#imagegallerybox button');
-        firstbutton.focus(); 
+        firstbutton.focus();
       }else igb.click();
     }));
     this.addShortcut(new this.shortcut("open search menu", "global","f",function(e){
@@ -1195,7 +1195,7 @@ slidenote.keyboardshortcuts = keyboardshortcuts;
 
 keyboardshortcuts.mackeys = [
   {name:"start presentation",keys:["Enter"]},
-	{name:"open contextmenu",keys:["Control","c"]},
+	{name:"open context menu",keys:["Control","c"]},
   {name:"open toolbar",keys:["Control","t"]},
   {name:"save note to cloud directly",keys:["s"]},
   {name:"open cloud menu",keys:["Control","s"]},
