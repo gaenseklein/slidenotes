@@ -4076,6 +4076,23 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	//vermutung ist der focus-rahmen vom texteditor...
 	*/
 };
+slidenotes.prototype.androidDisplayChangeHack = function(e){
+	let actheight = window.innerHeight;
+	let actwidth = window.innerWidth;
+	let firstheight = this.androidBiggerHeight;
+	let firstwidth = this.androidWidth;
+	let minheight = 100; //min-height of keyboard
+	if(firstwidth == undefined || actwidth >firstwidth){
+		this.androidWidth=actwidth;
+	}
+	if(firstheight==undefined || firstheight<actheight){
+		this.androidBiggerHeight=actheight;
+		firstheight = actheight;
+	}
+	let keyboardout = (actheight+minheight<firstheight && actwidth==firstwidth);
+	//if keyboardout is true its nearly certain that a keyboard has popped out 
+	document.body.classList.toggle('android-keyboard-out',keyboardout);
+}
 var oldrendermode = false;
 
 /* 	parseneu

@@ -759,6 +759,12 @@
                 slidenote.texteditorrahmensetzen();
                 //console.log("resize happened");
               });
+              //add android-hacks
+              if(navigator.userAgent.toLowerCase().indexOf('android')>-1){
+                window.addEventListener('resize',function(e){
+                  slidenote.androidDisplayChangeHack(e);
+                });
+              }
           }
         }
     }

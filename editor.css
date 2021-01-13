@@ -3640,7 +3640,7 @@ button .themepreview img {
   opacity: 0;
 }
 
-@media only screen and (max-width: 100vh) {
+@media only screen and (max-width: 110vh) {
   :root {
     /*--pscale: 1/3.77*1vw;*/
     --pscale: 0.31872/3.77*(0.5rem + 1vw);
@@ -4486,4 +4486,9 @@ button .themepreview img {
 /*hide all templates*/
 #templateArea {
   display: none;
+}
+
+/*android keyboard-hack*/
+.android-keyboard-out #quelltext{
+  color:grey;
 }
