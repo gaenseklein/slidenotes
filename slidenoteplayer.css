@@ -241,6 +241,12 @@ img.vertical.griditem{
   font-style: normal;
 }
 
+/*mark*/
+.ppage mark{
+  padding: 0.05em 0.2em;
+  background-color: #fffc76;
+}
+
 
 /*table*/
 .ppage table{

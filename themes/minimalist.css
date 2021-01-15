@@ -259,6 +259,10 @@ margin:1ch;
 
 }
 
+.minimalist mark{
+  background-color: #e3dada;
+}
+
 
 .minimalist quote{
   text-align: center;

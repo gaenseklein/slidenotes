@@ -269,6 +269,10 @@ margin:1ch;
 
 }
 
+.dark mark{
+  background-color: #f7f7f7;
+  text-shadow: none;
+}
 
 .dark quote{
   text-align: center;
