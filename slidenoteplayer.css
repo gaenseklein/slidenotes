@@ -34,6 +34,13 @@
   .menuitem{
   }
 
+  h1,
+  h2,
+  h3,
+  p{
+    hyphens: auto;
+  }
+
   h1 img{
     /*max-height:75px;*/
     height: 0.75em;
