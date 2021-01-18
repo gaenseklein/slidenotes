@@ -4077,6 +4077,7 @@ slidenotes.prototype.texteditorrahmensetzen = function(){
 	*/
 };
 slidenotes.prototype.androidDisplayChangeHack = function(e){
+	//does not work on fullscreen-mode!
 	let actheight = window.innerHeight;
 	let actwidth = window.innerWidth;
 	let firstheight = this.androidBiggerHeight;
@@ -4090,9 +4091,72 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 		firstheight = actheight;
 	}
 	let keyboardout = (actheight+minheight<firstheight && actwidth==firstwidth);
-	//if keyboardout is true its nearly certain that a keyboard has popped out 
+	//if keyboardout is true its nearly certain that a keyboard has popped out
 	document.body.classList.toggle('android-keyboard-out',keyboardout);
+	document.getElementById('sidebar').innerText = `
+	aktuelle höhe: ${actheight}, breite: ${actwidth}, standardhöhe:${firstheight}
+	standardbreite: ${firstwidth}
+	`;
 }
+
+slidenotes.prototype.androidKeyDisplayHack = function(e){
+	let actval = slidenote.textarea.value;
+	let actselstart = slidenote.textarea.selectionStart;
+	let actselend = slidenote.textarea.selectionEnd;
+	let ah = slidenote.androidhack;
+	var parsenew = false;
+	//we check if there are changes.
+	if(actval.length<ah.lastValue.length ||
+		 actselend - actselstart !=0){
+		//we should parse a new
+		//slidenote.parseneu();
+		parsenew = true;
+	}else {
+		let newtext = actval.substring(ah.selend, actselend);
+		if(newtext.indexOf('*')>-1 ||
+		newtext.indexOf('_')>-1 ||
+		newtext.indexOf('~')>-1 ||
+		newtext.indexOf('\n')>-1 ||
+		newtext.indexOf('#')>-1 ){
+			//slidenote.parseneu();
+			parsenew = true;
+		}else{
+			let carret = document.getElementById('carret');
+			if(carret)carret.innerText = newtext;
+		}
+	}
+	if(parsenew){
+		slidenote.parseneu();
+		ah.selend = slidenote.textarea.selectionEnd;
+		ah.selstart = slidenote.textarea.selectionStart;
+		ah.lastValue = slidenote.textarea.value;
+		ah.startValue = slidenote.textarea.value;
+	}
+	if(document.body.classList.contains('android-keyboard-out')){
+		//as long as keyboard is out repeat it every 10ms
+		ah.lastValue = actval;
+
+		ah.timer = setTimeout(slidenote.androidKeyDisplayHack, 10);
+	}
+}
+
+slidenotes.prototype.androidOnTextareaFocus = function(e){
+	//whenever textarea gets focus the keyboard gets out
+	document.body.classList.add('android-keyboard-out');
+	if(slidenote.androidhack.timer)clearTimeout(slidenote.androidhack.timer);
+	var ah = slidenote.androidhack;
+	ah.selend = slidenote.textarea.selectionEnd;
+	ah.selstart = slidenote.textarea.selectionStart;
+	ah.lastValue = slidenote.textarea.value;
+	ah.startValue = slidenote.textarea.value;
+	slidenote.androidKeyDisplayHack();
+}
+slidenotes.prototype.androidLeaveTextareaFocus = function(e){
+	//whenever textarea loses focus the keyboard disappears
+	document.body.classList.remove('android-keyboard-out');
+	if(slidenote.androidhack.timer)clearTimeout(slidenote.androidhack.timer);
+}
+
 var oldrendermode = false;
 
 /* 	parseneu

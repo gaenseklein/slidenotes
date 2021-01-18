@@ -761,9 +761,19 @@
               });
               //add android-hacks
               if(navigator.userAgent.toLowerCase().indexOf('android')>-1){
+                //alert('you are using android!\n'+navigator.userAgent+"\n");
+                /*
+                no resize on fullscreen, therefore not valid
                 window.addEventListener('resize',function(e){
                   slidenote.androidDisplayChangeHack(e);
                 });
+                slidenote.androidDisplayChangeHack();
+                */
+                slidenote.androidhack = {};
+                document.body.classList.add('android');
+
+                window.addEventListener('focus',slidenote.androidOnTextareaFocus);
+                window.addEventListener('blur', slidenote.androidLeaveTextareaFocus);
               }
           }
         }
@@ -950,7 +960,7 @@
           </svg>
           <br><span>options</span>
         </button>
-        <button id="fullscreen-editor" class='portrait-only' onclick="slidenote.editorFullScreen()">
+        <button id="fullscreen-editor" class='portrait-only' onclick="slidenote.goFullScreen('editor')">
           F <!--replace with
             <img src="images/buttons/fullscreen.svg" alt="fullscreen">
           -->
