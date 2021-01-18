@@ -34,6 +34,13 @@
   .menuitem{
   }
 
+  h1,
+  h2,
+  h3,
+  p{
+    hyphens: auto;
+  }
+
   h1 img{
     /*max-height:75px;*/
     height: 0.75em;
@@ -239,6 +246,12 @@ img.vertical.griditem{
 .hljs-code,
 .hljs-emphasis {
   font-style: normal;
+}
+
+/*mark*/
+.ppage mark{
+  padding: 0.05em 0.2em;
+  background-color: #fffc76;
 }
 
 
