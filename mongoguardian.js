@@ -287,6 +287,7 @@ var mongoguardian = {
   },
   createFeedback: async function(payload){
     let url= this.restpath+'feedback';
+    if(payload.email)url+='/anonymous';
     payload.nid = this.nid;
     console.log('sending feedback:');
     try{

@@ -729,6 +729,18 @@ slidenoteGuardian.prototype.initTutorial = function(){
       linkstohide[x].href="#";
       linkstohide[x].style.opacity = "0.5";
     }
+    //add e-mail-field to feedback:
+    let fbWrapper = document.getElementById('feedback-allow-contact-wrapper');
+    let emailinput = document.createElement('input');
+    emailinput.type = "email";
+    emailinput.required= true;
+    emailinput.name="email";
+    emailinput.id="feedback-email";
+    let label = document.createElement('label');
+    label.setAttribute('for',"feedback-email");
+    label.innerText = 'your email: ';
+    fbWrapper.appendChild(label);
+    fbWrapper.appendChild(emailinput);
   }
   //cloudbutton.replaceWith(backlink);
   cloudbutton.style.display = "none";
@@ -2013,6 +2025,9 @@ slidenoteGuardian.prototype.openFeedback = function(){
       contactByEmail: document.getElementById('feedback-allow-contact').checked,
       //errorlog: ,
     };
+    //if user is not logged in add email to payload
+    if(!mongoguardian.tokenIsSet())payload.email = document.getElementById('feedback-email').value;
+
     let imgupload = document.getElementById('feedback-img-upload');
     if(imgupload.files['length']==1){
       payload.base64img = await slidenoteguardian.getFeedbackImage();
@@ -2021,7 +2036,6 @@ slidenoteGuardian.prototype.openFeedback = function(){
     document.getElementById('templateArea').appendChild(document.getElementById('template-feedback-form'));
 
     //we should visualize to user that we are uploading - or is it too fast, as its just a bit of text?
-
     console.log('create feedback with payload',payload);
     let resp = await mongoguardian.createFeedback(payload);
     if(resp && !resp.error){
