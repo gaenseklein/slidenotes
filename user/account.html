@@ -18,6 +18,9 @@
 		</div>
 		<section class="center-horizontal" >
 		<form id="loginform" method="post" accept-charset="utf-8">
+			<div id="account-expire-wrapper">
+				your account is valid till <span id="account-expire-date"></span>
+			</div>
 
 			<label for="email">email</label>
 			<br>
@@ -108,6 +111,13 @@ async function init(){
 		if(userdata && userdata.email){
 			oldemail = userdata.email;
 			document.getElementById("emailValue").value=userdata.email;
+		}
+		if(userdata && userdata.payedTill){
+			document.getElementById("account-expire-date").innerText = new Date(userdata.payedTill).toLocaleDateString('de');
+			if(userdata.payedTill < Date.now()){
+				let wrapper = document.getElementById('account-expire-wrapper');
+				wrapper.innerText = "your account has been expired";
+			}
 		}
 	}catch(err){
 		console.warn('init went wrong',err);
