@@ -292,9 +292,13 @@ div#main {
     div#main{
         overflow: hidden;
     }
+    h1#page-title{
+      padding-top: 30px;
+    }
     #page-title + .node{
         padding-left: 0;
         padding-right: 0;
+        padding-top: 0;
     }
     #page-title + .node p, .column-block h2 {
         white-space: nowrap;
@@ -309,7 +313,7 @@ div#main {
     #welcome-page .content {
         /*height: calc(53vh - 11.8em);*/
         /*iOS Safari address bar shrinking of 63px*/
-        height: calc(53vh - 11.8em - 63/3.75*1vw/2);
+        height: calc(53vh - 10.8em - 63/3.75*1vw/2 + 35px/2);
         border-bottom: 0.15em solid #626262;
     }
     .node{
@@ -317,7 +321,9 @@ div#main {
     }
     .column-block h2 {
         margin-top: 1.2em;
+        margin-bottom: 0.5em;
     }
+
 }
 
 #pwrecovery{
