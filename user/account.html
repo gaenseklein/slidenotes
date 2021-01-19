@@ -117,6 +117,7 @@ async function init(){
 			if(userdata.payedTill < Date.now()){
 				let wrapper = document.getElementById('account-expire-wrapper');
 				wrapper.innerText = "your account has been expired";
+				wrapper.classList.add("expired");
 			}
 		}
 	}catch(err){
