@@ -353,7 +353,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
   text-align: center;
   position: relative;
   height: 4em;
-  width: 100%;
+  width: 8em;
   border:0.07em solid #010101;
   font-size: 0.67em;
   transform: scale(1.5);
@@ -361,17 +361,17 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 }
 
 .node .node.cloud::before {
+  border-top: 0.15em solid #010101;
   border-radius: 50%;
   background-color: aliceblue;
   position: absolute;
   content: "";
-  top: -1.2em;
-  left: 0.3em;
+  left: 5%;
   z-index: 3;
-  width: 4.5em;
-  height: 4.2em;
-  transform: rotate(15deg);
-  top: -0.9em;
+  width: 64%;
+  height: 100%;
+  transform: rotate(-15deg);
+  top: -32%;
 }
 
 .node .node.cloud::after {
@@ -379,14 +379,14 @@ background-image:url('node/simpleflowhorizontalmulti.png');
   border-radius: 50%;
   position: absolute;
   background-color: aliceblue;
-  height: 2.5em;
-  width: 3em;
+  height: 50%;
+  width: 30%;
   position: absolute;
   content: "";
   z-index: 2;
   transform:rotate(25deg);
-  top: -0.5em;
-  left: 3.5em;
+  top: -16%;
+  left: 59%;
 }
 
 .node .node.cloud div {
