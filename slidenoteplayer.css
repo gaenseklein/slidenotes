@@ -270,6 +270,12 @@ img.vertical.griditem{
   justify-self: center;
 }
 
+/* node function */
+.ppage .node .simpleflow{
+  text-align: center;
+}
+
+
 /*extra thin to 1:1*/
 @media only screen and (max-width: 100vh){
   :root{
