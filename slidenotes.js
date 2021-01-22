@@ -4112,20 +4112,22 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 	let firstheight = this.androidBiggerHeight;
 	let firstwidth = this.androidWidth;
 	let minheight = 100; //min-height of keyboard
-	if(firstwidth == undefined || actwidth >firstwidth){
-		this.androidWidth=actwidth;
-	}
 	if(firstheight==undefined || firstheight<actheight){
 		this.androidBiggerHeight=actheight;
 		firstheight = actheight;
 	}
 	let keyboardout = (actheight+minheight<firstheight && actwidth==firstwidth);
+	if(firstwidth == undefined || actwidth != firstwidth){
+		//we start from new or user changed portrait/landscape
+		this.androidWidth=actwidth;
+		this.androidBiggerHeight = actheight;
+	}
 	//if keyboardout is true its nearly certain that a keyboard has popped out
 	document.body.classList.toggle('android-keyboard-out',keyboardout);
-	document.getElementById('sidebar').innerText = `
+	/*document.getElementById('sidebar').innerText = `
 	aktuelle höhe: ${actheight}, breite: ${actwidth}, standardhöhe:${firstheight}
 	standardbreite: ${firstwidth}
-	`;
+	`;*/
 }
 
 slidenotes.prototype.androidKeyDisplayHack = function(e){
