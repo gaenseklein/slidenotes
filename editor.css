@@ -4049,7 +4049,7 @@ button .themepreview img {
     grid-area: unset;
     grid-column: 1 / 4;
     grid-row: 1;
-    grid-template-columns: calc(67*var(--pscale)) repeat(4, 1fr);
+    grid-template-columns: calc(67*var(--pscale)) repeat(3, 1fr);
     display: none;
     margin-top: unset;
     background-color: var(--frame-bg-color);
