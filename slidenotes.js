@@ -602,7 +602,11 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 		 }
 	 }
 	 //add error-spans:
-	 this.perror.sort(function(a,b){return a.row-b.row});
+	 this.perror.sort(function(a,b){
+		 if(a.line-b.line==0)return a.row-b.row;
+		 return a.line - b.line;
+	 }
+	 );
 	 var lasterrorpos;
 	 for(var er=0;er<this.perror.length;er++){
 		 if(this.perror[er].row!=lasterrorpos){
@@ -683,26 +687,50 @@ emdparser.prototype.renderCodeeditorBackground = function(){
 	 }
 
 	 //add proposedsymbol:
-	var lasterrorline;
- 	var x;
- 	//* before ** :
- 	var doppelsternchen = new Array();
- 	for(x=0;x<this.perror.length;x++){
- 			if(lasterrorline != this.perror[x].line && this.perror[x].errortext!="missing space after *"){ //only one error per line, dont parse missing space after * because it sucks
- 				//lines[this.perror[x].line]=this.perror[x].encapsulehtml(lines[this.perror[x].line]);
- 				var proposedsymbol = this.perror[x].proposeEnding();
- 				if(proposedsymbol != ""){
- 					if(this.perror[x].errorclass=="bold")doppelsternchen.push(x); else
- 					 lines[this.perror[x].line]+=' <span class="proposedsymbol">'+proposedsymbol+'</span>';
-					//console.log("proposedsymbol:"+proposedsymbol);
- 				}
+	 if(slidenote.extensions.getThemeByName('extraoptions').showProposedSymbols){
+		var lasterrorline;
+	 	var x;
+	 	//* before ** :
+	 	var doppelsternchen = new Array();
+		var carretelement = this.CarretOnElement();
+		var lineswithprintederror = new Array();
 
- 			}
- 			lasterrorline = this.perror[x].line;
+	 	for(x=0;x<this.perror.length;x++){
+	 			if(lasterrorline != this.perror[x].line && this.perror[x].errortext!="missing space after *"){ //only one error per line, dont parse missing space after * because it sucks
+	 				//lines[this.perror[x].line]=this.perror[x].encapsulehtml(lines[this.perror[x].line]);
+	 				var proposedsymbol = this.perror[x].proposeEnding();
+	 				if(proposedsymbol != "" && lineswithprintederror[this.perror[x].line]==undefined){
+	 					//if(this.perror[x].errorclass=="**")doppelsternchen.push(x);
+						//else
+						if(carretelement &&
+							carretelement.line == this.perror[x].line &&
+							carretelement.pos == this.perror[x].row
+						){
+							//do nothing when carret is on error
+							let bla;
+						}else{
+							//print proposed symbol
+							lines[this.perror[x].line]+=' <span class="proposedsymbol" name="'+x+'">'+proposedsymbol+'</span>';
+							//console.log("proposedsymbol:"+proposedsymbol);
+							lineswithprintederror[this.perror[x].line] = proposedsymbol;
+							lasterrorline = this.perror[x].line;
+						}
+	 				}
 
- 	}
- 	//doppelsternchenfehler anzeigen lassen:
- 	for(x=0;x<doppelsternchen.length;x++)lines[this.perror[doppelsternchen[x]].line]+='<span class="proposedsymbol">' + this.perror[doppelsternchen[x]].proposeEnding() + '</span>';
+	 			}
+
+	 	}
+	 	//doppelsternchenfehler anzeigen lassen:
+	 	for(x=0;x<doppelsternchen.length;x++){
+			let pe = this.perror[doppelsternchen[x]];
+			if(carretelement &&
+				carretelement.line == pe.line &&
+				carretelement.pos == pe.row){
+						continue;
+			}
+			lines[this.perror[doppelsternchen[x]].line]+='<span class="proposedsymbol" name="2">' + this.perror[doppelsternchen[x]].proposeEnding() + '</span>';
+		}
+	}
 	//adding pagenr to pagebreak:
 	for(x=1;x<this.map.pagestart.length;x++){
 		var pline =this.map.pagestart[x].line-1;
@@ -2307,6 +2335,7 @@ emdparser.prototype.parseMap = function(){
             if(!found){
               //error: next line is not parseable:
               this.perror.push(new parsererror(x,startpos,lines[x].length,mdstart,"missing endsymbol "+mdend));
+							this.perror[this.perror.length-1].nextlinenotparseable=true;
               startpos+=mdstart.length;
               continue; //next while-loop
             }
