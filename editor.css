@@ -3903,6 +3903,7 @@ button .themepreview img {
 
   #texteditorerrorlayer, #quelltext {
     padding-right: calc(23.6*var(--pscale));
+    padding-top: 1em;
   }
 
   #editorblockfade {
