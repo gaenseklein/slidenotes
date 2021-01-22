@@ -867,7 +867,7 @@ newtheme.insertMenu = function(element){
   //uploadlink.innerHTML = "Upload an Image to the slidenote";
   var uploadlinkimg = new Image();
   uploadlinkimg.classList.add("uploadlink");
-  uploadlinkimg.src=slidenote.imagespath+"/buttons/image.png";
+  uploadlinkimg.src=slidenote.imagespath+"/buttons/image.svg";
   uploadlink.appendChild(uploadlinkimg);
   result.appendChild(uploadlink);
 
