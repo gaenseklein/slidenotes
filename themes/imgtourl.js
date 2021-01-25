@@ -417,13 +417,22 @@ slidenote.base64images = {
           console.log("no valid base64 image found");
     }
     //clean name:
-    name = name.replace(/[<\"\']/g,"")
+    name = name.replace(/[<\"\'\`]/g,"")
 
     var activeimage =slidenote.parser.CarretOnElement();
     if(!activeimage||activeimage.typ!="image" || this.uploadmode==="imagegallery")activeimage=false;
-    var nombre = name;
+    var nombre = name.replace(/[<\"\'\`]/g,"");
     //if(this.preselectedname!=null)nombre=this.preselectedname;
-    if(activeimage)nombre = activeimage.src;
+    if(activeimage &&
+      activeimage.src &&
+      activeimage.src.length>0)nombre = activeimage.src;
+    if(activeimage && activeimage.src==''){
+      //we should add nombre to textarea
+      let inspos = activeimage.posinall+activeimage.endpos;
+      let ntxt = slidenote.textarea.value;
+      ntxt = ntxt.substring(0,inspos)+nombre+ntxt.substring(inspos);
+      slidenote.textarea.value = ntxt;
+    }
     console.log("add image"+nombre);
     /*
     if(this.imageByName(nombre)!=null) {
@@ -444,7 +453,7 @@ slidenote.base64images = {
       //image not found in database - add new image:
       this.base64images.push(new base64Image(nombre,base64url,name)); //adds image to Database
       //delete old connection if exists:
-      if(imgbyname)for(var x=0;x<imgbyname.names.length;x++){
+      if(imgbyname)for(var x=imgbyname.names.length;x>=0;x--){
         if(imgbyname.names[x]===nombre)imgbyname.names.splice(x,1);
       }
     }
