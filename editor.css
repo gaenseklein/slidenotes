@@ -635,7 +635,7 @@ div#cloud-undefined div {
   grid-template-rows: 1.263em 0.37em;
   height: calc(18.8*var(--pscale) + 1em);
   overflow: hidden;
-  
+
 }
 
 button#loadnote {
@@ -3575,6 +3575,7 @@ button .themepreview img {
       transition-duration: 200ms;*/
     background: none;
     padding-left: calc(4.8/16*1em);
+    min-width: unset;
   }
 
   #nicesidebarsymbolcontainer img {
