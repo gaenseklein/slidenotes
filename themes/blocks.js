@@ -393,6 +393,7 @@ newtheme.styleThemeSpecials = function(){
           slidenote.extensions.getThemeByName("blocks").preLoad();
         });
       }
+      /* dont do that anymore, change in definition:
       //checking for images inside p:
       if(presimages[x].parentElement.tagName.toLowerCase()==="p"){
         let siblings = Array.from(presimages[x].parentElement.childNodes);
@@ -405,6 +406,7 @@ newtheme.styleThemeSpecials = function(){
         }
 
       }
+      */
   }
   if(this.imagestoload===0){
     //does not work:setTimeout(this.styleGrid(), 1000);
