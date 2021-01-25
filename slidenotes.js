@@ -4125,6 +4125,19 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 	//if keyboardout is true its nearly certain that a keyboard has popped out
 	document.body.classList.toggle('android-keyboard-out',keyboardout);
 
+	if(keyboardout){
+		//scroll such as current line is top-line
+		let htmllines = document.getElementsByClassName("backgroundline");
+		let gotoline = slidenote.parser.lineAtPosition();
+		if(gotoline<htmllines.length){
+			var oftop=0;
+			if(gotoline>0)oftop=htmllines[gotoline-1].offsetTop;
+			if(oftop==undefined)oftop=0;
+			this.textarea.scrollTop = oftop;
+			//console.log("scroll to:"+oftop);
+			this.scroll();
+		}
+	}
 	if(keyboardout && this.editormode!='raw-text'){
 		//toggle to raw-mode:
 		this.androidSelectedMode = this.editormode;
