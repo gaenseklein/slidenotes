@@ -113,7 +113,7 @@ async function init(){
 			document.getElementById("emailValue").value=userdata.email;
 		}
 		if(userdata && userdata.payedTill){
-			document.getElementById("account-expire-date").innerText = new Date(userdata.payedTill).toLocaleDateString('de');
+			document.getElementById("account-expire-date").innerText = new Date(userdata.payedTill).toLocaleDateString(navigator.language);
 			if(userdata.payedTill < Date.now()){
 				let wrapper = document.getElementById('account-expire-wrapper');
 				wrapper.innerText = "your account has been expired";
