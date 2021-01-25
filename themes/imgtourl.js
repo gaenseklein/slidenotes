@@ -699,7 +699,7 @@ newtheme.init = function(){
   button.classList.add("basicbutton");
   var buttonimage = new Image();
   buttonimage.src=slidenote.imagespath+"buttons/image.svg";
-  buttonimage.title = "Image";
+  buttonimage.title = "image";
   //var buttontext = document.createTextNode("Image");
   var fileInput = document.getElementById('fileInput');
   var fileDisplayArea = document.getElementById('filePreview');

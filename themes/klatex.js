@@ -16,8 +16,8 @@ document.getElementsByTagName("head")[0].appendChild(cssfile);
 newtheme.loadingFiles = new Array();
 newtheme.loadingFiles.push(slidenote.appendFile("script","katex/katex.js"));
 slidenote.appendFile("css","katex/katex.min.css");
-newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latex.svg" title="LaTeX"><span class="buttonmdcode">+++latex+++</span><span class="buttonmdtext"></span> <span class="buttonmdcode"></span>',"+++latex","+++"); //TODO: add function to body?
-newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latex.svg" title="LaTeX"><span class="buttonmdcode">\\(</span><span class="buttonmdtext">inline-latex</span> <span class="buttonmdcode">\\)</span>',"\\(","\\)");
+newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latexblock.svg" title="LaTeX-block"><span class="buttonmdcode">+++latex+++</span><span class="buttonmdtext"></span> <span class="buttonmdcode"></span>',"+++latex","+++"); //TODO: add function to body?
+newtheme.addEditorbutton('<img src="'+slidenote.imagespath+'buttons/latex.svg" title="inline-LaTeX"><span class="buttonmdcode">\\(</span><span class="buttonmdtext">inline-latex</span> <span class="buttonmdcode">\\)</span>',"\\(","\\)");
 slidenote.datatypes.push({type:"latex",mdcode:false,theme:newtheme});
 slidenote.inlinedatatypes.push({
   type:"latex",mdcode:false, theme:newtheme,
