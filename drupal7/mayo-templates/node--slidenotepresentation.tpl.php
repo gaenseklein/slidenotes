@@ -778,15 +778,6 @@ slidenoteguardian.passwordPrompt = function (text, method, newpassword){
 			<span class="screenreader-only">start a session</span>
 			<img src="/sites/all/libraries/slidenotes/images/buttons/cmsmultisession.png">
 		</button>
-<!-- old interface
-		<button class="controlbutton">backward</button>
-		<button class="controlbutton">forward</button>
-		<button class="controlbutton">start of slideshow</button>
-		<button class="controlbutton">end of slideshow</button>
-		<select id="controlgotobutton" class="controlbutton"></select>
-		<span class="controlbutton"><span id="controlpagenumber"></span> / <span id="controlpagenumbertotal"></span></span>
-		<button class="controlbutton" id="controlcomment"><img src="/sites/all/libraries/slidenotes/images/buttons/presentationcomment.png"><span id="controlcommentcount"></span>/<span id="controlcommenttotal"></span></button>
-	-->
 	</div>
 
 	</div>

@@ -635,11 +635,7 @@ div#cloud-undefined div {
   grid-template-rows: 1.263em 0.37em;
   height: calc(18.8*var(--pscale) + 1em);
   overflow: hidden;
-  /*background-image: url(images/buttons/new-note.svg);
-    background-repeat: no-repeat;
-    background-position-x: right;
-    background-position-y: bottom;
-    border-bottom: 2px solid #d2d2d2;*/
+  
 }
 
 button#loadnote {
