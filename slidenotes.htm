@@ -761,19 +761,19 @@
               });
               //add android-hacks
               if(navigator.userAgent.toLowerCase().indexOf('android')>-1){
+                document.body.classList.add('android');
                 //alert('you are using android!\n'+navigator.userAgent+"\n");
-                /*
-                no resize on fullscreen, therefore not valid
+                //no resize on fullscreen, therefore not valid on fullscreen
                 window.addEventListener('resize',function(e){
                   slidenote.androidDisplayChangeHack(e);
                 });
                 slidenote.androidDisplayChangeHack();
-                */
+                /*
                 slidenote.androidhack = {};
-                document.body.classList.add('android');
 
                 window.addEventListener('focus',slidenote.androidOnTextareaFocus);
                 window.addEventListener('blur', slidenote.androidLeaveTextareaFocus);
+                */
               }
           }
         }

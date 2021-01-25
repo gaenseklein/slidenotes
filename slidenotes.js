@@ -4124,6 +4124,18 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 	}
 	//if keyboardout is true its nearly certain that a keyboard has popped out
 	document.body.classList.toggle('android-keyboard-out',keyboardout);
+
+	if(keyboardout && this.editormode!='raw-text'){
+		//toggle to raw-mode:
+		this.androidSelectedMode = this.editormode;
+		slidenote.choseEditor('raw-text');
+	}else{
+		//toggle to selected mode:
+		let mode = this.androidSelectedMode;
+		if(this.androidSelectedMode==undefined)mode='md-texteditor';
+		slidenote.choseEditor(mode);
+		slidenote.parseneu(); //parse as it could be that its not parsed yet
+	}
 	/*document.getElementById('sidebar').innerText = `
 	aktuelle höhe: ${actheight}, breite: ${actwidth}, standardhöhe:${firstheight}
 	standardbreite: ${firstwidth}
@@ -4131,6 +4143,7 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 }
 
 slidenotes.prototype.androidKeyDisplayHack = function(e){
+	//not used at the moment
 	let actval = slidenote.textarea.value;
 	let actselstart = slidenote.textarea.selectionStart;
 	let actselend = slidenote.textarea.selectionEnd;
@@ -4173,7 +4186,11 @@ slidenotes.prototype.androidKeyDisplayHack = function(e){
 
 slidenotes.prototype.androidOnTextareaFocus = function(e){
 	//whenever textarea gets focus the keyboard gets out
+	//unused at moment
 	document.body.classList.add('android-keyboard-out');
+
+	//the displayhack with keystrokes from textarea.value:
+	//does not work very well - unused at moment
 	if(slidenote.androidhack.timer)clearTimeout(slidenote.androidhack.timer);
 	var ah = slidenote.androidhack;
 	ah.selend = slidenote.textarea.selectionEnd;
@@ -4184,8 +4201,10 @@ slidenotes.prototype.androidOnTextareaFocus = function(e){
 }
 slidenotes.prototype.androidLeaveTextareaFocus = function(e){
 	//whenever textarea loses focus the keyboard disappears
+	//unused at moment
 	document.body.classList.remove('android-keyboard-out');
 	if(slidenote.androidhack.timer)clearTimeout(slidenote.androidhack.timer);
+
 }
 
 var oldrendermode = false;
