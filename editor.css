@@ -4568,41 +4568,43 @@ button .themepreview img {
   color:grey;
 }
 
-/*android toolbar*/
-.android div#toolbar img {
-    display:block;
-    height: 1.2em;
-    max-width: 5ch;
-}
+/*android toolbar in landscape*/
+@media only screen and (max-width: 768px) {
+  .android div#toolbar img {
+      display:block;
+      height: 1.2em;
+      max-width: 5ch;
+  }
 
-.android #toolbar li button span{
-    width:1px;
-    overflow:hidden;
-    position:absolute;
-}
+  .android #toolbar li button span{
+      width:1px;
+      overflow:hidden;
+      position:absolute;
+  }
 
-.android #toolbar li button{
-    width:auto;
-}
-.android #toolbar li:first-child button {
-  margin-top: calc(16*var(--pscale));
-}
+  .android #toolbar li button{
+      width:auto;
+  }
+  .android #toolbar li:first-child button {
+    margin-top: calc(16*var(--pscale));
+  }
 
-.android #toolbar ul{
-    display:flex;
-    margin-left: 0;
-    margin-right: 5ch;
-    overflow-y: hidden;
-    overflow-x: scroll;
-    height: 100%;
-    max-height: unset;
-    padding: 0;
-}
+  .android #toolbar ul{
+      display:flex;
+      margin-left: 0;
+      margin-right: 5ch;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      height: 100%;
+      max-height: unset;
+      padding: 0;
+  }
 
-.android div#toolbar {
-    max-height: 4em;
-}
+  .android div#toolbar {
+      max-height: 4em;
+  }
 
-.android.android-keyboard-out #playbuttonarea{
-  display:none;
+  .android.android-keyboard-out #playbuttonarea{
+    display:none;
+  }
 }
