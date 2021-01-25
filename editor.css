@@ -4591,13 +4591,18 @@ button .themepreview img {
 .android #toolbar ul{
     display:flex;
     margin-left: 0;
-    margin-right: 4ch;
+    margin-right: 5ch;
     overflow-y: hidden;
     overflow-x: scroll;
-    height: 4em;
+    height: 100%;
+    max-height: unset;
     padding: 0;
 }
 
-.android div#texteditorbuttons {
+.android div#toolbar {
     max-height: 4em;
+}
+
+.android.android-keyboard-out #playbuttonarea{
+  display:none;
 }
