@@ -2,7 +2,7 @@ var nodetheme = new Theme('node');
 nodetheme.description = "creates different kind of node-based views (sequence diagram, tree...)";
 nodetheme.active = true;
 nodetheme.newFeature = true;
-var buttonhtml = '<img src="images/buttons/node.svg" alt="Node" title="Node"><span class="buttonmdcode">+++node+++</span>';
+var buttonhtml = '<img src="images/buttons/node.svg" alt="node" title="node"><span class="buttonmdcode">+++node+++</span>';
 nodetheme.addEditorbutton(buttonhtml,'+++node');
 
 //internal vars:
