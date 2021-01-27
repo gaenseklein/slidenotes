@@ -2119,7 +2119,7 @@ slidenoteGuardian.prototype.createKey = async function(iv, passw){
   let password = passw;
   if(this.password == null && passw==null){
     //this.password = prompt("please type in your personal password");
-    let pwtext = "as a matter of principle: everything you write is encrypted before we even store it on our server. please choose a password now. feel free to make one as simple or as complicated as you want. just don't forget it: there is no password recovery!";
+    let pwtext = "everything you write is encrypted before we even store it on our server. please choose a password now. feel free to make one as simple or as complicated as you want.";
     try{
       this.password = await this.passwordPrompt(pwtext);
     }catch(err){
