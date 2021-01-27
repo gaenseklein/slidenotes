@@ -4607,4 +4607,7 @@ button .themepreview img {
   .android.android-keyboard-out #playbuttonarea{
     display:none;
   }
+  #sidebarcontainer{
+    position:relative;
+  }
 }
