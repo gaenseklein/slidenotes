@@ -174,7 +174,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
     justify-content: center;
     align-content: center;
     grid-row: 2/2;
-    /* font-size: xx-large; */
+    padding: 0.3em;
 }
 
 .node .simpleflow .arrow {
@@ -312,7 +312,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
 
 .node .multi .arrowimg::after {
     top: 0;
-    right: -0.9ch;
+    right: -0.45em;
     transform: rotate(-45deg);
 }
 

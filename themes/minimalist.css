@@ -19,6 +19,8 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --minimalistDataColor4: #736367;
   --minimalistDataColor5: #267e82;
   --minimalistDataColor6: #a1b9aa;
+
+  --minimalistNodeBorderColor: #a6a6a6;
 }
 
 @font-face{
@@ -487,4 +489,32 @@ margin:1ch;
 /*layout-element auf rechter seite, nimmt die hälfte des platzes ein, wenn nicht zwei weitere layout-sections "in reihe" stehen, dann nimmt er ein drittel*/
 .minimalist section.section.right{
 
+}
+
+/* node */
+.minimalist .node .simpleflow .node,
+.minimalist .node .flow .node{
+  background: #eaeef3;
+  border: 0.07em solid var(--minimalistNodeBorderColor);
+}
+.minimalist .ppage .node .tree .content{
+  border: 0.07em solid var(--minimalistNodeBorderColor);
+  border-radius: 0.1em;
+}
+.minimalist .ppage .node .arrowspace .arrowimg+div{
+  background-color: #eaeef3;
+}
+.minimalist .node .arrowimg::after{
+  background: linear-gradient(to top right, transparent 50%, #d3e2f4 50%);
+  border-top: 0.07em solid;
+  border-right: 0.07em solid;
+}
+.minimalist .node .arrow .arrowimg::after{
+  background: linear-gradient(to top right, transparent 50%, var(--minimalistTextColor) 50%);
+}
+.minimalist .arrow.broad{
+  color: var(--minimalistBckgColor);
+}
+.minimalist .node .simpleflow .arrowspace .broad .triangle{
+  background: linear-gradient(to top right, transparent 50%, #515050 50%);
 }
