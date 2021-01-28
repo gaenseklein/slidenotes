@@ -504,7 +504,7 @@ margin:1ch;
 .minimalist .ppage .node .arrowspace .arrowimg+div{
   background-color: #eaeef3;
 }
-.minimalist .node .arrowimg::after{
+.minimalist .node .tree .arrowimg::after{
   background: linear-gradient(to top right, transparent 50%, #d3e2f4 50%);
   border-top: 0.07em solid;
   border-right: 0.07em solid;
@@ -515,6 +515,15 @@ margin:1ch;
 .minimalist .arrow.broad{
   color: var(--minimalistBckgColor);
 }
+.minimalist .node .simpleflow .arrowspace .broad .triangle::before{
+  background-color: #515050;
+}
 .minimalist .node .simpleflow .arrowspace .broad .triangle{
   background: linear-gradient(to top right, transparent 50%, #515050 50%);
+}
+.minimalist .node .nodecloud{
+  background-color: #eaeef3;
+}
+.minimalist .node .nodecloud::before{
+  background-color: #eaeef3;
 }

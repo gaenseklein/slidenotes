@@ -120,9 +120,9 @@ background-image:url("/themes/node/sequencearrownormal.png");
 }
 .node .broad .arrowimg::before {
     height: 2px;
-    border-bottom: 2px solid;
+    border-bottom: 0.1em solid black;
     width: 98%;
-    top: -1px;
+    top: -0.17em;
 }
 .node .arrow.dashed .arrowimg::before,
 .node .arrow.noarrowdashed .arrowimg::before{
