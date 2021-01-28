@@ -4469,16 +4469,22 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 					event.code === slidenoteSpeaker.metakey ||
 					key === slidenoteSpeaker.metakey))
 					)return;
-					var cursor = document.getElementById("carret");
+					var allcursors = document.querySelectorAll('#carret');
+					var cursor = allcursors[0];
+					if(!cursor || allcursors.length>1){
+						setTimeout('slidenote.parseneu()',5);
+						console.warn('parseneu forced because of wrong carret-node - found carrets:',allcursors.length);
+						return;
+					}
 					if(this.altright){
 					setTimeout(function(){
 						let realkey = slidenote.textarea.value.charAt(slidenote.textarea.selectionEnd-1);
 						console.log(key,"vs",slidenote.textarea.value.charAt(slidenote.textarea.selectionEnd-1));
 						cursor.innerHTML = cursor.innerHTML+""+realkey;
 					},1);
-				}else{
-					cursor.innerHTML = cursor.innerHTML+""+key;
-				}
+					}else{
+						cursor.innerHTML = cursor.innerHTML+""+key;
+					}
 					if(this.keypressstack===undefined)this.keypressstack=0;
 					this.keypressstack++;
 					setTimeout("slidenote.parseAfterPause()", 500);
@@ -4963,6 +4969,8 @@ slidenotes.prototype.changeListType = function(newtype){
 	if(newlisttype==="*"||newlisttype==="-" || newlisttype==="+")newlisttype="ul";else newlisttype="ol";
 	var newmarker = insert.substring(1);
 	var resulttext = slidenote.textarea.value;
+	var selend = slidenote.textarea.selectionEnd;
+	var differenceInLength=0;
 	for(var x=liste.listchilds.length-1;x>=0;x--){
 		var actchild = liste.listchilds[x];
 		var newtext;
@@ -4983,13 +4991,17 @@ slidenotes.prototype.changeListType = function(newtype){
 			}
 			newtext+=newmarker;
 		}
+		let actdifference = newtext.length - actchild.mdcode.length
+		if(actchild.posinall<selend)differenceInLength += actdifference;
 		resulttext = resulttext.substring(0,actchild.posinall)+
 								frontspaces +
 								newtext+
 								resulttext.substring(actchild.posinall+actchild.mdcode.length);
 	}
 	//console.log(resulttext);
-	var selend = slidenote.textarea.selectionEnd;
+	//correcting new selend:
+	selend+=differenceInLength;
+	//console.warn('difference ol listchange:',differenceInLength);
 	slidenote.textarea.value = resulttext;
 	slidenote.textarea.selectionEnd = selend;
 	slidenote.textarea.focus();

@@ -1126,8 +1126,8 @@ keyboardshortcuts.closeAutomagic = function(event){
   if(key==='Enter'){
     let carret = document.getElementById('carret');
     let realpos = selend;
-    if(carret && carret.innerHTML.length>0){
-      realpos-=carret.innerHTML.length;
+    if(carret && carret.innerHTML.length>1){
+      realpos=realpos - carret.innerHTML.length +1; //carret has non-space-char
       actel = slidenote.parser.CarretOnElement(realpos);
     }
     let currentLine = slidenote.parser.lineAtPosition(realpos);
@@ -1147,7 +1147,7 @@ keyboardshortcuts.closeAutomagic = function(event){
         },50);
       }
       return "break";
-    }
+    }//end of enter
     /* now it works:
     else if(key==="Enter"){
       //sometimes it does not get it right: show me what went wrong:
