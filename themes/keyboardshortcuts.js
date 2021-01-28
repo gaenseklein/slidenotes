@@ -1123,20 +1123,45 @@ keyboardshortcuts.closeAutomagic = function(event){
       return "break";
     }
   }
-  if(key==="Enter"&& actel && actel.label==="list" &&
-  selend-selstart==0 && checknextletter=="\n"){
-    console.log('automagic listen erweitern');
-    event.preventDefault();
-    txt = txt.substring(0,selstart)+"\n"+actel.mdcode+txt.substring(selstart);
-    slidenote.textarea.value = txt;
-    slidenote.textarea.selectionStart = selstart+actel.mdcode.length+1;
-    slidenote.textarea.selectionEnd = selend+actel.mdcode.length+1;
-    if(actel.parentelement.listtyp=="ol"){
-      setTimeout(function(){
-        slidenote.changeListType(actel.parentelement.listmdsymbol);
-      },50);
+  if(key==='Enter'){
+    let carret = document.getElementById('carret');
+    let realpos = selend;
+    if(carret && carret.innerHTML.length>0){
+      realpos-=carret.innerHTML.length;
+      actel = slidenote.parser.CarretOnElement(realpos);
     }
-    return "break";
+    let currentLine = slidenote.parser.lineAtPosition(realpos);
+    if( (
+      (actel && actel.label==="list")||
+      slidenote.parser.lineswithhtml[currentLine]=='list'
+    ) &&  selend-selstart==0 && checknextletter=="\n"){
+      console.warn('automagic listen erweitern', actel);
+      event.preventDefault();
+      txt = txt.substring(0,selstart)+"\n"+actel.mdcode+txt.substring(selstart);
+      slidenote.textarea.value = txt;
+      slidenote.textarea.selectionStart = selstart+actel.mdcode.length+1;
+      slidenote.textarea.selectionEnd = selend+actel.mdcode.length+1;
+      if(actel.parentelement.listtyp=="ol"){
+        setTimeout(function(){
+          slidenote.changeListType(actel.parentelement.listmdsymbol);
+        },50);
+      }
+      return "break";
+    }
+    /* now it works:
+    else if(key==="Enter"){
+      //sometimes it does not get it right: show me what went wrong:
+      console.warn('automagic listen erweitern', actel,'selend/start: ',
+      selend, selstart,
+      'real:',realpos,
+      'next letter enter?:', (checknextletter=='\n'),
+      'line:', currentLine,
+      slidenote.parser.lineAtPosition(selend),
+      slidenote.parser.lineAtPosition(realpos),
+      slidenote.parser.lineswithhtml[currentLine],
+      (slidenote.parser.lineswithhtml[currentLine]=='list'));
+    }
+    */
   }
   //other keys
   console.log('automagic key:',key, actel);

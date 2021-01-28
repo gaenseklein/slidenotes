@@ -4300,6 +4300,19 @@ slidenotes.prototype.parseneu = function(){
 		//warum musste ich an dieser stelle den rahmen neu setzen???
 		//this.texteditorrahmensetzen();
 		rahmensetzenzeit = new Date();
+		//now check for wrong carrets, as i dont get where it comes from:
+		let allcarrets = document.querySelectorAll('#carret');
+		if(allcarrets.length>1){
+			//we have wrong carrets here:
+			for (var x=0;x<allcarrets.length;x++){
+				let bgline = allcarrets[x].parentElement;
+				while(bgline.classList.contains('backgroundline')==false && bgline.parentElement!=document.body){
+					bgline=bgline.parentElement;
+				}
+				let actlinenr = slidenote.parser.lineAtPosition();
+				if(bgline!=bgline.parentElement.children[actlinenr])allcarrets[x].parentElement.removeChild(allcarrets[x]);
+			}
+		}
 		for(var x=0;x<this.extensions.themes.length;x++){
 			if(this.extensions.themes[x].active){
 				var themezeit = new Date();
