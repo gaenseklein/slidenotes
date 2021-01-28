@@ -21,6 +21,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --minimalistDataColor6: #a1b9aa;
 
   --minimalistNodeBorderColor: #a6a6a6;
+  --minimalistNodeBckgColor: #eaeef3;
 }
 
 @font-face{
@@ -494,7 +495,7 @@ margin:1ch;
 /* node */
 .minimalist .node .simpleflow .node,
 .minimalist .node .flow .node{
-  background: #eaeef3;
+  background: var(--minimalistNodeBckgColor);
   border: 0.07em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .ppage .node .tree .content{
@@ -502,7 +503,7 @@ margin:1ch;
   border-radius: 0.1em;
 }
 .minimalist .ppage .node .arrowspace .arrowimg+div{
-  background-color: #eaeef3;
+  background-color: var(--minimalistNodeBckgColor);
 }
 .minimalist .node .tree .arrowimg::after{
   background: linear-gradient(to top right, transparent 50%, #d3e2f4 50%);
@@ -522,8 +523,11 @@ margin:1ch;
   background: linear-gradient(to top right, transparent 50%, #515050 50%);
 }
 .minimalist .node .nodecloud{
-  background-color: #eaeef3;
+  background-color: var(--minimalistNodeBckgColor);
 }
-.minimalist .node .nodecloud::before{
-  background-color: #eaeef3;
+.minimalist .node .node.cloud::before{
+  background-color: var(--minimalistNodeBckgColor);
+}
+.minimalist .node .node.cloud::after{
+  background-color: var(--minimalistNodeBckgColor);
 }
