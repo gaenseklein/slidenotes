@@ -46,6 +46,7 @@ section.node.griditem {
     width: 4ch;
     height: 4ch;
     position: relative;
+    justify-self: center;
 }
 
 .node .sequence .actor .diamond.node {
@@ -87,6 +88,11 @@ section.node.griditem {
 
 .node .sequence .arrow.toleft .arrowimg {
     transform: scaleX(-1);
+}
+
+.node .sequence .block.actor{
+  display: grid;
+  align-content: center;
 }
 /*
 old background-images:
@@ -200,7 +206,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
 .node .simpleflow .arrowspace .arrowimg {
     position: relative;
     width: 100%;
-    margin-top:10px;
+    margin-top:0;
 }
 
 
@@ -268,7 +274,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
   background: lightblue;
   bottom: -50%;
   transform: rotate(-45deg);
-  left: -87%;
+  left: -89%;
 }
 
 .node .simpleflow .multi .triangle {

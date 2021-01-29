@@ -493,6 +493,12 @@ margin:1ch;
 }
 
 /* node */
+.minimalist .node .msg{
+  background-color: #dfdfdf;
+}
+.minimalist .node .arrow.dashed .arrowimg::before, .node .arrow.noarrowdashed .arrowimg::before {
+  border-top: 0.1em dashed var(--minimalistTextColor);
+}
 .minimalist .node .simpleflow .node,
 .minimalist .node .flow .node{
   background: var(--minimalistNodeBckgColor);
@@ -507,13 +513,13 @@ margin:1ch;
 }
 .minimalist .node .tree .arrowimg::after{
   background: linear-gradient(to top right, transparent 50%, #d3e2f4 50%);
-  border-top: 0.07em solid;
-  border-right: 0.07em solid;
+  border-top: 0.07em solid var(--minimalistTextColor);
+  border-right: 0.07em solid var(--minimalistTextColor);
 }
 .minimalist .node .arrow .arrowimg::after{
   background: linear-gradient(to top right, transparent 50%, var(--minimalistTextColor) 50%);
 }
-.minimalist .arrow.broad{
+.minimalist .simpleflow .arrow.broad{
   color: var(--minimalistBckgColor);
 }
 .minimalist .node .simpleflow .arrowspace .broad .triangle::before{
@@ -522,12 +528,42 @@ margin:1ch;
 .minimalist .node .simpleflow .arrowspace .broad .triangle{
   background: linear-gradient(to top right, transparent 50%, #515050 50%);
 }
-.minimalist .node .nodecloud{
+.minimalist .node .node.cloud{
   background-color: var(--minimalistNodeBckgColor);
+  border: 0.07em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .node .node.cloud::before{
   background-color: var(--minimalistNodeBckgColor);
+  border-top: 0.08em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .node .node.cloud::after{
   background-color: var(--minimalistNodeBckgColor);
+  border-top: 0.08em solid var(--minimalistNodeBorderColor);
+}
+.minimalist .node .sequence .actor{
+  border: 0.07em solid var(--minimalistNodeBorderColor);
+  background: var(--minimalistNodeBckgColor);
+}
+.minimalist .node .sequence .stroke{
+  width: 0.05em;
+  background: var(--minimalistTextColor);
+}
+.minimalist .node .sequence .arrow .arrowimg::after{
+  top: -0.25em;
+}
+.minimalist .node .sequence .node.cloud{
+  height: 3.2em;
+}
+.minimalist .node .sequence .cloud.actor{
+  background: none;
+  border: none;
+}
+.minimalist .node .sequence .note{
+  border: 0.06em solid var(--minimalistNodeBorderColor);
+  background: var(--minimalistBckgColor);
+}
+.minimalist .node .sequence .diamond.actor{
+  width: 3em;
+  height: 3em;
+  padding: 0.5em;
 }
