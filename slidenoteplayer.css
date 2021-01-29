@@ -74,7 +74,7 @@
   /*for width*/
   --widthGriditem: 48rem;
 
-  --h1scale: 1.21;
+  --h1scale: 1.2;
 }
 
 /* presentation main rules */
@@ -273,6 +273,24 @@ img.vertical.griditem{
 /* node function */
 .ppage .node .simpleflow{
   text-align: center;
+  margin: 1em 0;
+}
+.ppage .node .sequence{
+  margin: 1.5em 0;
+}
+
+.ppage .node .arrow.broad .msg{
+  background-color: unset;
+}
+
+.ppage .node .msg{
+  background-color: lightcoral;
+  margin: 0 0.3em;
+}
+
+.ppage .node .arrowspace .arrowimg+div{
+  background-color: lightcoral;
+  padding: 0.1em 0.2em;
 }
 
 
