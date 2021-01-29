@@ -1133,15 +1133,16 @@ keyboardshortcuts.closeAutomagic = function(event){
     let currentLine = slidenote.parser.lineAtPosition(realpos);
     if( (
       (actel && actel.label==="list")||
-      slidenote.parser.lineswithhtml[currentLine]=='list'
+      slidenote.parser.lineswithhtml[currentLine]=='list' ||
+      (actel && actel.label==="quote")
     ) &&  selend-selstart==0 && checknextletter=="\n"){
-      console.warn('automagic listen erweitern', actel);
+      console.log('automagic listen erweitern', actel);
       event.preventDefault();
       txt = txt.substring(0,selstart)+"\n"+actel.mdcode+txt.substring(selstart);
       slidenote.textarea.value = txt;
       slidenote.textarea.selectionStart = selstart+actel.mdcode.length+1;
       slidenote.textarea.selectionEnd = selend+actel.mdcode.length+1;
-      if(actel.parentelement.listtyp=="ol"){
+      if(actel.parentelement && actel.parentelement.listtyp=="ol"){
         setTimeout(function(){
           slidenote.changeListType(actel.parentelement.listmdsymbol);
         },50);
