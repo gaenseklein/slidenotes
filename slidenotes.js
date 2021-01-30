@@ -3114,6 +3114,7 @@ pagegenerator.prototype.showpresentation = function(forExport, close){
 		praesesrahmen.classList.remove("fullscreen");
 		document.body.style.height = "unset";
 		document.body.style.overflow = "unset";
+		slidenote.scrollToPosition();
 		//praesesrahmen.style.height = "unset";
 		//check for fullscreen-preview:
 		//if(document.fullscreenElement && !document.body.classList.contains('fullscreen-editor')){
@@ -4127,7 +4128,7 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 
 	if(keyboardout){
 		//scroll such as current line is top-line
-		let htmllines = document.getElementsByClassName("backgroundline");
+		/*let htmllines = document.getElementsByClassName("backgroundline");
 		let gotoline = slidenote.parser.lineAtPosition();
 		if(gotoline<htmllines.length){
 			var oftop=0;
@@ -4136,7 +4137,8 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 			this.textarea.scrollTop = oftop;
 			//console.log("scroll to:"+oftop);
 			this.scroll();
-		}
+		}*/
+		slidenote.scrollToPosition();
 	}
 	if(keyboardout && this.editormode!='raw-text'){
 		//toggle to raw-mode:
@@ -5021,6 +5023,19 @@ slidenotes.prototype.scrollToPosition = function(position){
 		var linenr = this.parser.lineAtPosition(pos);
 		var bglines = document.getElementsByClassName("backgroundline");
 		if(bglines[linenr])this.textarea.scrollTop = bglines[linenr].offsetTop;
+	}else{
+		//solution with scrollHeight - which only works if there is enough to scroll
+		let ta = document.getElementById('helperTextarea');
+		console.warn(pos);
+		//scroll to end of line before
+		if(slidenote.textarea.value.charAt(pos)=='\n')pos--;
+		pos = slidenote.textarea.value.lastIndexOf('\n',pos);
+		if(pos<0)pos=0;
+		console.warn(pos);
+		ta.style.width = this.textarea.style.width;
+		ta.value = this.textarea.value.substring(0,pos);
+		console.warn('scroll from to', this.textarea.scrollTop, ta.scrollHeight)
+		this.textarea.scrollTop = ta.scrollHeight;
 	}
 }
 

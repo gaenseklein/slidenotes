@@ -729,7 +729,7 @@ button#outlet {
   z-Index: 1;
 }
 
-#texteditorerrorlayer, #quelltext {
+#texteditorerrorlayer, #quelltext, #helperTextarea {
   font-family: "ubuntuMonoReg", monospace;
   font-size: 1em;
   position: absolute;
@@ -4610,4 +4610,15 @@ button .themepreview img {
   #sidebarcontainer{
     position:relative;
   }
+}
+
+/*helpers:*/
+textarea#helperTextarea {
+    position: absolute;
+    border: none;
+    overflow-y: scroll;
+    height: 5em;
+    left: 25%;
+    opacity: 0;
+    z-index:-100;
 }
