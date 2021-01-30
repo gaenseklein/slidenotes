@@ -1138,7 +1138,7 @@ keyboardshortcuts.closeAutomagic = function(event){
     let currentLine = slidenote.parser.lineAtPosition(realpos);
     if( (
       (actel && actel.label==="list")||
-      slidenote.parser.lineswithhtml[currentLine]=='list' ||
+      //slidenote.parser.lineswithhtml[currentLine]=='list' ||
       (actel && actel.label==="quote")
     ) &&  selend-selstart==0 && checknextletter=="\n"){
       console.log('automagic listen erweitern', actel);
