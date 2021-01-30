@@ -1128,8 +1128,13 @@ keyboardshortcuts.closeAutomagic = function(event){
     let realpos = selend;
     if(carret && carret.innerHTML.length>1){
       realpos=realpos - carret.innerHTML.length +1; //carret has non-space-char
-      actel = slidenote.parser.CarretOnElement(realpos);
+      //actel = slidenote.parser.CarretOnElement(realpos);
+    }else{
+      //we dont have a carret so go back in line till start and check there:
+      //realpos -1 because if not it stands at end of line
+      realpos = slidenote.textarea.value.lastIndexOf('\n',realpos-1)+1;
     }
+    actel = slidenote.parser.CarretOnElement(realpos);
     let currentLine = slidenote.parser.lineAtPosition(realpos);
     if( (
       (actel && actel.label==="list")||
@@ -1150,7 +1155,7 @@ keyboardshortcuts.closeAutomagic = function(event){
       return "break";
     }//end of enter
     /* now it works:
-    else if(key==="Enter"){
+    }else if(key==="Enter"){
       //sometimes it does not get it right: show me what went wrong:
       console.warn('automagic listen erweitern', actel,'selend/start: ',
       selend, selstart,
