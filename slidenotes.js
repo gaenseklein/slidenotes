@@ -3102,10 +3102,12 @@ pagegenerator.prototype.showpresentation = function(forExport, close){
 		var oldPage = slidenote.parser.map.pageAtPosition(quelle.selectionEnd);//slidenote.parser.pageAtPosition(quelle.selectionEnd, "pagenr");
 		//console.log("oldpage:"+oldPage+"aktpage:"+this.aktpage);
 		if(oldPage != this.aktpage){
-			quelle.selectionEnd = slidenote.parser.map.linestart[slidenote.parser.map.pagestart[this.aktpage].line];//presentation.emdparsobjekt.positionAtPage(presentation.aktpage);
+			quelle.selectionEnd = slidenote.parser.map.lineend[slidenote.parser.map.pagestart[this.aktpage].line];
 			quelle.selectionStart = quelle.selectionEnd;
 			quelle.focus();
-			quelle.selectionEnd = slidenote.parser.map.linestart[slidenote.parser.map.pagestart[this.aktpage].line];//presentation.emdparsobjekt.positionAtPage(presentation.aktpage);
+			//quelle.selectionEnd = slidenote.parser.map.linestart[slidenote.parser.map.pagestart[this.aktpage].line];//presentation.emdparsobjekt.positionAtPage(presentation.aktpage);
+			//we scroll to the line before the carret to show slidenr
+			slidenote.scrollToPosition(slidenote.parser.map.pagestart[this.aktpage].posinall-1);
 		} else{
 			quelle.focus();
 		}
@@ -3114,7 +3116,6 @@ pagegenerator.prototype.showpresentation = function(forExport, close){
 		praesesrahmen.classList.remove("fullscreen");
 		document.body.style.height = "unset";
 		document.body.style.overflow = "unset";
-		slidenote.scrollToPosition();
 		//praesesrahmen.style.height = "unset";
 		//check for fullscreen-preview:
 		//if(document.fullscreenElement && !document.body.classList.contains('fullscreen-editor')){
