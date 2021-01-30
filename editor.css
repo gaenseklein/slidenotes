@@ -3730,7 +3730,7 @@ button .themepreview img {
     font-size: calc((0.5rem + 1vw)*16/10);
     grid-template-areas: "buttonleft noteinfoarea buttonright""editor editor editor""editor editor editor";
     grid-template-columns: calc(70*var(--pscale)) auto calc(67*var(--pscale));
-    grid-template-rows: calc(58*var(--pscale)) calc(74*var(--pscale)) auto;
+    grid-template-rows: calc(58*var(--pscale)) calc(74*var(--pscale)) 1fr;
     height: 100%;
     width: 100%;
     overflow: unset;
@@ -4604,7 +4604,8 @@ button .themepreview img {
       max-height: 4em;
   }
 
-  .android.android-keyboard-out #playbuttonarea{
+  .android.android-keyboard-out #playbuttonarea,
+  .android.android-keyboard-out #shadowelbottom{
     display:none;
   }
   #sidebarcontainer{
