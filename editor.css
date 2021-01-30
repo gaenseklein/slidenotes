@@ -3899,7 +3899,7 @@ button .themepreview img {
     grid-row-start: 1;
   }
 
-  #texteditorerrorlayer, #quelltext {
+  #texteditorerrorlayer, #quelltext, #helperTextarea {
     padding-right: calc(23.6*var(--pscale));
     padding-top: 1em;
   }
