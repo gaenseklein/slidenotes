@@ -21,6 +21,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --colorfulDataColor4: #A300CC;
   --colorfulDataColor5: #D12300;
   --colorfulDataColor6: #572100;
+
+  --colorfulNodeBorderColor: #a6a6a6;
+  --colorfulBckgColor: #eaeef3;
 }
 
 @font-face{
@@ -217,9 +220,9 @@ max-height: 6em;
 float:left/right;
 margin:1ch;
 */
-.minimalist p img.floatingleftimage{
+.colorful p img.floatingleftimage{
 }
-.minimalist p img.floatingrightimage{
+.colorful p img.floatingrightimage{
 }
 
 
@@ -520,4 +523,84 @@ margin:1ch;
 /*layout-element auf rechter seite, nimmt die hälfte des platzes ein, wenn nicht zwei weitere layout-sections "in reihe" stehen, dann nimmt er ein drittel*/
 .colorful section.section.right{
 
+}
+
+
+/* node */
+.colorful .node .msg{
+  background-color: #dfdfdf;
+}
+.colorful .node .arrow.dashed .arrowimg::before, .node .arrow.noarrowdashed .arrowimg::before {
+  border-top: 0.1em dashed var(--colorfulTextColor);
+}
+.colorful .node .simpleflow .node,
+.colorful .node .flow .node{
+  background: var(--colorfulNodeBckgColor);
+  border: 0.07em solid var(--colorfulNodeBorderColor);
+}
+.colorful .ppage .node .tree .content{
+  border: 0.07em solid var(--colorfulNodeBorderColor);
+  border-radius: 0.1em;
+}
+.colorful .ppage .node .arrowspace .arrowimg+div{
+  background-color: var(--colorfulNodeBckgColor);
+}
+.colorful .node .tree .arrowimg::after{
+  background: linear-gradient(to top right, transparent 50%, #d3e2f4 50%);
+  border-top: 0.07em solid var(--colorfulTextColor);
+  border-right: 0.07em solid var(--colorfulTextColor);
+}
+.colorful .node .arrow .arrowimg::after{
+  background: linear-gradient(to top right, transparent 50%, var(--colorfulTextColor) 50%);
+}
+.colorful .simpleflow .arrow.broad .msg{
+  color: var(--colorfulBckgColor);
+}
+.colorful .node .simpleflow .arrowspace .broad .triangle::before{
+  background-color: #515050;
+}
+.colorful .node .simpleflow .arrowspace .broad .triangle{
+  background: linear-gradient(to top right, transparent 50%, #515050 50%);
+}
+.colorful .node .node.cloud{
+  background-color: var(--colorfulNodeBckgColor);
+  border: 0.07em solid var(--colorfulNodeBorderColor);
+}
+.colorful .node .node.cloud::before{
+  background-color: var(--colorfulNodeBckgColor);
+  border-top: 0.08em solid var(--colorfulNodeBorderColor);
+}
+.colorful .node .node.cloud::after{
+  background-color: var(--colorfulNodeBckgColor);
+  border-top: 0.08em solid var(--colorfulNodeBorderColor);
+}
+.colorful .node .broad .arrowimg::before{
+  border-bottom: 0.1em solid var(--colorfulTextColor);
+}
+.colorful .node .sequence .actor{
+  border: 0.07em solid var(--colorfulNodeBorderColor);
+  background: var(--colorfulNodeBckgColor);
+}
+.colorful .node .sequence .stroke{
+  width: 0.05em;
+  background: var(--colorfulTextColor);
+}
+.colorful .node .sequence .arrow .arrowimg::after{
+  top: -0.25em;
+}
+.colorful .node .sequence .node.cloud{
+  height: 3.2em;
+}
+.colorful .node .sequence .cloud.actor{
+  background: none;
+  border: none;
+}
+.colorful .node .sequence .note{
+  border: 0.06em solid var(--colorfulNodeBorderColor);
+  background: var(--colorfulBckgColor);
+}
+.colorful .node .sequence .diamond.actor{
+  width: 3em;
+  height: 3em;
+  padding: 0.5em;
 }

@@ -19,6 +19,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --darkDataColor4: #68CA28;
   --darkDataColor5: #aeaec8;
   --darkDataColor6: #dd8e49;
+
+  --darkNodeBorderColor: #ffffff;
+  --darkNodeBckgColor: #353923;
 }
 
 @font-face{
@@ -327,7 +330,7 @@ margin:1ch;
   border-bottom: 0.15em solid var(--darkTextColor);
 }
 .dark .ct-label.ct-horizontal.ct-end{
-  border-right: 0.1em solid var(--darkTextColor)
+  border-right: 0.1em dashed var(--darkTextColor)
 }
 .dark .ct-chart-pie .ct-label,
 .dark .ct-chart-donut .ct-label{
@@ -506,11 +509,89 @@ margin:1ch;
 }
 
 /*node-sequenzen*/
-.dark .sequence .actor,
-.dark .sequence .note {
-    color: black;
+/* node */
+.dark .node .msg{
+  background-color: var(--darkNodeBckgColor);
+  color: var(--darkTextColor);
 }
-
-.dark .node .sequence .stroke {
-    background: white;
+.dark .node .arrow.dashed .arrowimg::before, .node .arrow.noarrowdashed .arrowimg::before {
+  border-top: 0.1em dashed var(--darkTextColor);
+}
+.dark .node .simpleflow .node,
+.dark .node .flow .node{
+  background: var(--darkBckgColor);
+  border: 0.2em solid var(--darkNodeBorderColor);
+}
+.dark .ppage .node .tree .content{
+  border: 0.07em solid var(--darkNodeBorderColor);
+  border-radius: 0.1em;
+}
+.dark .ppage .node .arrowspace .arrowimg+div{
+  background-color: var(--darkBckgColor);
+}
+.dark .node .tree .arrowimg::after{
+  background: linear-gradient(to top right, transparent 50%, var(--darkBckgColor) 50%);
+  border-top: 0.15em solid var(--darkTextColor);
+  border-right: 0.15em solid var(--darkTextColor);
+  opacity: 1;
+  margin-top: 0.1em;
+}
+.dark .node .arrow .arrowimg::after{
+  background: linear-gradient(to top right, transparent 50%, var(--darkTextColor) 50%);
+}
+.dark .simpleflow .arrow.broad .msg{
+  color: var(--darkBckgColor);
+}
+.dark .node .simpleflow .arrowspace .broad .triangle::before{
+  background-color: var(--darkTextColor);
+}
+.dark .node .simpleflow .arrowspace .broad .triangle{
+  background: linear-gradient(to top right, transparent 50%, var(--darkTextColor) 50%);
+}
+.dark .node .node.cloud{
+  background-color: var(--darkBckgColor);
+  border: 0.2em solid var(--darkNodeBorderColor);
+}
+.dark .node .node.cloud::before{
+  background-color: var(--darkBckgColor);
+  border-top: 0.2em solid var(--darkNodeBorderColor);
+}
+.dark .node .node.cloud::after{
+  background-color: var(--darkBckgColor);
+  border-top: 0.2em solid var(--darkNodeBorderColor);
+}
+.dark .node .sequence .actor{
+  border: 0.2em solid var(--darkNodeBorderColor);
+  background: var(--darkBckgColor);
+}
+.dark .node .sequence .stroke{
+  width: 0.05em;
+  background: var(--darkTextColor);
+}
+.dark .node .broad .arrowimg::before{
+  border-bottom: 0.1em solid var(--darkTextColor);
+}
+.dark .node .sequence .arrow .arrowimg::after{
+  top: -0.32em;
+}
+.dark .node .arrowimg::after{
+  width: 0.7em;
+  height: 0.7em;
+  top: -0.3em;
+}
+.dark .node .sequence .node.cloud{
+  height: 3.2em;
+}
+.dark .node .sequence .cloud.actor{
+  background: none;
+  border: none;
+}
+.dark .node .sequence .note{
+  border: 0.06em solid var(--darkNodeBorderColor);
+  background: var(--darkBckgColor);
+}
+.minimalist .node .sequence .diamond.actor{
+  width: 3em;
+  height: 3em;
+  padding: 0.5em;
 }

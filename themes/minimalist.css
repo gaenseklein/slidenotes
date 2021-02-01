@@ -525,7 +525,7 @@ margin:1ch;
 .minimalist .node .arrow .arrowimg::after{
   background: linear-gradient(to top right, transparent 50%, var(--minimalistTextColor) 50%);
 }
-.minimalist .simpleflow .arrow.broad{
+.minimalist .simpleflow .arrow.broad .msg{
   color: var(--minimalistBckgColor);
 }
 .minimalist .node .simpleflow .arrowspace .broad .triangle::before{
@@ -556,6 +556,9 @@ margin:1ch;
 }
 .minimalist .node .sequence .arrow .arrowimg::after{
   top: -0.25em;
+}
+.minimalist .node .broad .arrowimg::before{
+  border-bottom: 0.1em solid var(--minimalistTextColor);
 }
 .minimalist .node .sequence .node.cloud{
   height: 3.2em;
