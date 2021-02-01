@@ -4,6 +4,11 @@
  /* font-size: 0.75rem;*/
   line-height: 1; }
 
+.chart-x-axis-label.ct-label{
+  padding-bottom: 0.5em;
+  margin-top: -1em;
+}
+
 .ct-chart-line .ct-label,
 .ct-chart-bar .ct-label {
   display: block;
@@ -50,6 +55,9 @@
   justify-content: flex-start;
   text-align: left;
   text-anchor: start;
+  font-size: 0.8em;
+  border-right: 0.1em solid;
+  transform: scaleX(0.98) translateX(2px);
 }
 
 .ct-label.ct-vertical.ct-start {
@@ -62,7 +70,10 @@
   -ms-flex-pack: flex-end;
   justify-content: flex-end;
   text-align: right;
-  text-anchor: end; }
+  text-anchor: end;
+  font-size: 0.7em;
+  border-bottom: 0.1em solid;
+}
 
 .ct-label.ct-vertical.ct-end {
   -webkit-box-align: flex-end;

@@ -316,6 +316,12 @@ margin:1ch;
   /*Portrait to 4:3*/
   /*max-height: calc(85.2vw/1.618); /*100vw - (padding-left + padding-right) = 85.2vw; golden ratio = 1.618*/
 }
+.colorful .ct-label.ct-vertical.ct-start{
+  border-bottom: 0.3em solid var(--colorfulHeadlineBckgColor);
+}
+.colorful .ct-label.ct-horizontal.ct-end{
+  border-right: 0.2em solid var(--colorfulHeadlineBckgColor);
+}
 
 /*pie-charts:*/
 .colorful section.chart-pie{

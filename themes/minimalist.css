@@ -313,6 +313,12 @@ margin:1ch;
 .minimalist .ct-label{
   color: rgba(0, 0, 0, 0.7);
 }
+.minimalist .ct-label.ct-vertical.ct-start{
+  border-bottom: 0.15em solid rgba(0, 0, 0, 0.2);
+}
+.minimalist .ct-label.ct-horizontal.ct-end{
+  border-right: 0.1em solid rgba(0, 0, 0, 0.1);
+}
 .minimalist .ct-chart-pie .ct-label,
 .minimalist .ct-chart-donut .ct-label{
   fill: rgba(0, 0, 0, 1);

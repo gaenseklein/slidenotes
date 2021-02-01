@@ -317,10 +317,17 @@ margin:1ch;
 
 }
 
+
 /*alle labels einer chart - wenn nur für bestimmte charts gewollt, muster von oben erweitern, also bspw. .dark .chart-bar .ct-label. hier die größen der schrift und farben für die labels generell anpassen */
 .dark .ct-label{
   color: var(--darkTextColor);
   fill: var(--darkTextColor);
+}
+.dark .ct-label.ct-vertical.ct-start{
+  border-bottom: 0.15em solid var(--darkTextColor);
+}
+.dark .ct-label.ct-horizontal.ct-end{
+  border-right: 0.1em solid var(--darkTextColor)
 }
 .dark .ct-chart-pie .ct-label,
 .dark .ct-chart-donut .ct-label{
