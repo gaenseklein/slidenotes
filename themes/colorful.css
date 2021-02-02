@@ -23,7 +23,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --colorfulDataColor6: #572100;
 
   --colorfulNodeBorderColor: #a6a6a6;
-  --colorfulBckgColor: #eaeef3;
+  --colorfulNodeBckgColor: #FDB575;
 }
 
 @font-face{
@@ -484,7 +484,7 @@ margin:1ch;
 .colorful table,
 .colorful th,
 .colorful td{
-  border: 0.2em solid var(--colorfulHeadlineTextShadow);
+  border: 0.2em solid var(--colorfulDataColor4);
   padding: 0 0.5em;
 }
 
@@ -528,65 +528,82 @@ margin:1ch;
 
 /* node */
 .colorful .node .msg{
-  background-color: #dfdfdf;
+  background-color: var(--colorfulNodeBckgColor);
+  margin: 0 0.5em;
+  padding: 0 0.5em;
 }
 .colorful .node .arrow.dashed .arrowimg::before, .node .arrow.noarrowdashed .arrowimg::before {
-  border-top: 0.1em dashed var(--colorfulTextColor);
+  border-top: 0.2em dashed var(--colorfulDataColor3);
 }
 .colorful .node .simpleflow .node,
 .colorful .node .flow .node{
-  background: var(--colorfulNodeBckgColor);
-  border: 0.07em solid var(--colorfulNodeBorderColor);
+  background: var(--colorfulDataColor1);
+  border: none;
 }
 .colorful .ppage .node .tree .content{
-  border: 0.07em solid var(--colorfulNodeBorderColor);
-  border-radius: 0.1em;
+  border: none;
+  border-radius: 99em;
+  background-color: var(--colorfulDataColor1);
 }
 .colorful .ppage .node .arrowspace .arrowimg+div{
   background-color: var(--colorfulNodeBckgColor);
 }
 .colorful .node .tree .arrowimg::after{
-  background: linear-gradient(to top right, transparent 50%, #d3e2f4 50%);
-  border-top: 0.07em solid var(--colorfulTextColor);
-  border-right: 0.07em solid var(--colorfulTextColor);
+  background: linear-gradient(to top right, transparent 50%, var(--colorfulNodeBckgColor) 50%);
+  border-top: none;
+  border-right: none;
+  opacity: 1;
 }
 .colorful .node .arrow .arrowimg::after{
-  background: linear-gradient(to top right, transparent 50%, var(--colorfulTextColor) 50%);
+  background: linear-gradient(to top right, transparent 50%, var(--colorfulDataColor3) 50%);
+  width: 1em;
+  height: 1em;
+  top: -0.42em;
+}
+.colorful .node .arrow .arrowimg::before{
+  border-top: 0.2em solid var(--colorfulDataColor3);
 }
 .colorful .simpleflow .arrow.broad .msg{
-  color: var(--colorfulBckgColor);
+  color: var(--colorfulTextColor);
 }
 .colorful .node .simpleflow .arrowspace .broad .triangle::before{
-  background-color: #515050;
+  background-color: var(--colorfulDataColor3);
 }
 .colorful .node .simpleflow .arrowspace .broad .triangle{
-  background: linear-gradient(to top right, transparent 50%, #515050 50%);
+  background: linear-gradient(to top right, transparent 50%, var(--colorfulDataColor3) 50%);
 }
 .colorful .node .node.cloud{
-  background-color: var(--colorfulNodeBckgColor);
-  border: 0.07em solid var(--colorfulNodeBorderColor);
+  background-color: var(--colorfulDataColor1);
+  border: none;
 }
 .colorful .node .node.cloud::before{
-  background-color: var(--colorfulNodeBckgColor);
-  border-top: 0.08em solid var(--colorfulNodeBorderColor);
+  background-color: var(--colorfulDataColor1);
+  border-top: none;
 }
 .colorful .node .node.cloud::after{
-  background-color: var(--colorfulNodeBckgColor);
-  border-top: 0.08em solid var(--colorfulNodeBorderColor);
+  background-color: var(--colorfulDataColor1);
+  border-top: none;
 }
 .colorful .node .broad .arrowimg::before{
-  border-bottom: 0.1em solid var(--colorfulTextColor);
+  border-bottom: 0.1em solid var(--colorfulDataColor3);
+}
+.colorful .node .sequence .arrow .arrowimg::after{
+  width: 0.7em;
+  height: 0.7em;
 }
 .colorful .node .sequence .actor{
-  border: 0.07em solid var(--colorfulNodeBorderColor);
-  background: var(--colorfulNodeBckgColor);
+  border: none;
+  background: var(--colorfulDataColor1);
 }
 .colorful .node .sequence .stroke{
-  width: 0.05em;
-  background: var(--colorfulTextColor);
+  width: 0.12em;
+  background: var(--colorfulDataColor4);
 }
 .colorful .node .sequence .arrow .arrowimg::after{
   top: -0.25em;
+}
+.colorful .node .sequence .arrow.broad .arrowimg::after{
+  top: -0.35em;
 }
 .colorful .node .sequence .node.cloud{
   height: 3.2em;
@@ -596,7 +613,7 @@ margin:1ch;
   border: none;
 }
 .colorful .node .sequence .note{
-  border: 0.06em solid var(--colorfulNodeBorderColor);
+  border: 0.2em solid var(--colorfulDataColor4);
   background: var(--colorfulBckgColor);
 }
 .colorful .node .sequence .diamond.actor{

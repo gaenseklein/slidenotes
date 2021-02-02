@@ -1,12 +1,26 @@
+.ppage .node{
+  font-size: 0.9em;
+}
+
 section.node.griditem {
   height: 100%;
   max-height: 90vh;
   text-align: center;
 }
 
+/* would be amazing if browsers came to their senses and displayed it the same way.
+only enable if miracle happens. */
+/* .node div.node{
+  text-decoration: underline;
+  text-decoration-color: lightcoral;
+  text-decoration-skip-ink: none;
+  text-decoration-thickness: 2.5ex;
+  text-underline-offset: -1.8ex;
+} */
+
 .node .sequence {
     display: grid;
-    grid-row-gap: 0.4em;
+    grid-row-gap: 0.05em;
 }
 
 .node .sequence .stroke {
@@ -157,6 +171,7 @@ background-image:url("/themes/node/sequencearrownormal.png");
     padding: 0.2em;
     background: aliceblue;
     width: 100%;
+    font-size: 0.85em;
 }
 
 .node .sequence .note.right {
@@ -361,7 +376,7 @@ background-image:url('node/simpleflowhorizontalmulti.png');
   height: 4em;
   width: 8em;
   border:0.07em solid #010101;
-  font-size: 0.67em;
+  font-size: 0.6em;
   transform: scale(1.5);
   align-self: center;
 }

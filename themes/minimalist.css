@@ -507,7 +507,7 @@ margin:1ch;
 }
 .minimalist .node .simpleflow .node,
 .minimalist .node .flow .node{
-  background: var(--minimalistNodeBckgColor);
+  background: var(--minimalistBckgColor);
   border: 0.07em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .ppage .node .tree .content{
@@ -535,20 +535,20 @@ margin:1ch;
   background: linear-gradient(to top right, transparent 50%, #515050 50%);
 }
 .minimalist .node .node.cloud{
-  background-color: var(--minimalistNodeBckgColor);
+  background-color: var(--minimalistBckgColor);
   border: 0.07em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .node .node.cloud::before{
-  background-color: var(--minimalistNodeBckgColor);
+  background-color: var(--minimalistBckgColor);
   border-top: 0.08em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .node .node.cloud::after{
-  background-color: var(--minimalistNodeBckgColor);
+  background-color: var(--minimalistBckgColor);
   border-top: 0.08em solid var(--minimalistNodeBorderColor);
 }
 .minimalist .node .sequence .actor{
   border: 0.07em solid var(--minimalistNodeBorderColor);
-  background: var(--minimalistNodeBckgColor);
+  background: var(--minimalistBckgColor);
 }
 .minimalist .node .sequence .stroke{
   width: 0.05em;
