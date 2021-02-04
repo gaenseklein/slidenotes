@@ -283,6 +283,9 @@ margin:1ch;
 .minimalist code.codeblock{
 
 }
+.minimalist .codeblock.none{
+  background-color: #eaeef3;
+}
 
 /* charts:*/
 

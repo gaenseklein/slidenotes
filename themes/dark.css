@@ -257,6 +257,9 @@ margin:1ch;
 .dark code.codeblock li{
   overflow: hidden;
 }
+.dark .codeblock.none{
+  background-color: rgb(35, 36, 31);
+}
 
 
 
