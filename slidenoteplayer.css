@@ -199,7 +199,9 @@ img.vertical.griditem{
 
 
 
-
+.ppage code{
+  hyphens: none;
+}
 /*code inline*/
 .ppage p code{
   background-color: hotpink;
