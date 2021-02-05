@@ -58,7 +58,7 @@ this works wherever you want to separate your text into slides.
 
 a line starting with a ~#~ defines a headline.
 
-+++code::options
++++code:options
 language=none
 ---
 # your presentation headline
@@ -92,7 +92,7 @@ you can always just mark the text you want to edit with your cursor and then pre
 ##hello world
 
 that's all you really need to start your first presentation.
-so why don't you hit `escape` and try it yourself? 
+so why don't you hit `escape` and try it out yourself? 
 play a bit with the text on *this slide*. 
 when you are finished, continue on the next slide ➡︎
 

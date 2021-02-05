@@ -223,6 +223,9 @@ img.vertical.griditem{
   /*padding: 0.5em 1em 0.5em 0;*/
   padding: 0;
 }
+.ppage .codeblock.none{
+  padding:0.5em;
+}
 
 .ppage a{
 	display: inline;
