@@ -1,5 +1,5 @@
 #welcome to slidenotes!
-press the **play button** ![](playbutton.svg) in the bottom left corner 
+press the **play button** ![play button](playbutton.svg) in the bottom left corner 
 to start the tutorial
 
 ---
@@ -20,7 +20,7 @@ now let's move right on ➡︎
 
 the slidenote editor helps you to write your slidenotes and generate presentations on the fly.
 
-this is in fact the *presentation preview* of this slidenote. you can press `escape` anytime you want to look at the code in the editor and come back by clicking on the **play button** ![](playbutton.svg)
+this is in fact the *presentation preview* of this slidenote. you can press `escape` anytime you want to look at the code in the editor and come back by clicking on the **play button** ![play button](playbutton.svg)
 
 -----
 ##how to make your own
@@ -28,7 +28,7 @@ this is in fact the *presentation preview* of this slidenote. you can press `esc
 you can give meaning to simple text by using slidenotes' interpretation of *markdown code*. our *markdown* aims to be as simple as possible while being as powerful as it can be.
 
 if you already know how to use *markdown* code you can put it in yourself. 
-and if you don't: don't worry. you won't have to learn it. the slidenote editor is built to help you with anything, writing the code for you while you only click on the given options in the **toolbar** ![](toolbar.svg) on the right.
+and if you don't: don't worry. you won't have to learn it. the slidenote editor is built to help you with anything, writing the code for you while you only click on the given options in the **toolbar** ![toolbar](toolbar.svg) on the right.
 
 no matter if you are a code writer or selector—check out the following slides of this tutorial to get a general overview over the syntax you'll use.
 
@@ -86,7 +86,7 @@ italic, bold, marked, deleted
 _text_, __text__, 
 +++
 
-you can always just mark the text you want to edit with your cursor and then press the symbols on your keyboard or choose them from the **toolbar** ![](toolbar.svg) on the right.
+you can always just mark the text you want to edit with your cursor and then press the symbols on your keyboard or choose them from the **toolbar** ![toolbar](toolbar.svg) on the right.
 
 ---
 ##hello world
@@ -135,7 +135,7 @@ linenumbering=off
 ##getting crazy with lists
 
 as we said, lists are one of the complex elements. as such it has a context menu. 
-whenever your cursor is in such an element you are offered the **context menu** ![](context-menu_list.svg) at the left side of the editor.
+whenever your cursor is in such an element you are offered the **context menu** ![context menu](context-menu_list.svg) at the left side of the editor.
 it tells you the type of the element you are in and gives you a helping hand in handling the element. in case of the list element it offers you to change the list type. 
 this is especially useful because you can mix different list types to get sublists and still keep an overview while in code:
 
@@ -148,12 +148,12 @@ b) second subpoint of first point
 + a subpoint of second point
 
 why not hit `escape` now, click inside the list, change the *list type* and see what happens? 
-if you are unhappy with a change you can alundo it by clicking on the **undo button** ![](undo.svg) on the top right.
+if you are unhappy with a change you can alundo it by clicking on the **undo button** ![undo button](undo.svg) on the top right.
 
 ---
 ##toolbar
 
-the toolbar on the right side of the editor holds all elements you can insert into a slidenote. it opens when you click on the **toolbar button** ![](toolbar.svg)
+the toolbar on the right side of the editor holds all elements you can insert into a slidenote. it opens when you click on the **toolbar button** ![toolbar](toolbar.svg)
 you can also open the toolbar by pressing `ctrl` `space` (mac: `cmd` `space`). 
 inside the toolbar you can move to your desired element with the arrow keys or by pressing the first letter of its name. of course you can also use your mouse or touchpad if you prefer. 
 just like the context menu, the toolbar gives you a broad set of help whenever you need it. even without knowing our markdown syntax you should be able to design complex presentations. 
