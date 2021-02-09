@@ -230,6 +230,7 @@ img.vertical.griditem{
 .ppage a{
 	display: inline;
   font-style: italic;
+  hyphens: none;
 }
 
 .hljs-keyword,
