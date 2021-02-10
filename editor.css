@@ -4565,7 +4565,14 @@ button .themepreview img {
 
 /*android keyboard-hack*/
 .android-keyboard-out #quelltext{
-  color:grey;
+  color:black;
+}
+
+.android-keyboard-out #texteditorerrorlayer .backgroundline{
+  opacity: 0;
+}
+.android-keyboard-out #texteditorerrorlayer .backgroundline.pagebreak{
+  opacity: 1;
 }
 
 /*android toolbar in landscape*/

@@ -1174,6 +1174,10 @@ keyboardshortcuts.closeAutomagic = function(event){
 }
 
 keyboardshortcuts.attachShortcuts = function(){
+  //what to do on android-device? attach shortcuts or not?
+  //on android virtual keyboards pops up all the time
+  //lets try if removing it solves the problem:
+  if(navigator.userAgent.toLowerCase().indexOf('android')>-1)return;
     window.addEventListener("keydown",function(e){
       slidenote.keyboardshortcuts.pressKey(e);
       if(fullscreen)slidenote.keyboardshortcuts.reactOn(e,"presentation");

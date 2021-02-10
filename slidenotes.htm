@@ -769,6 +769,27 @@
                 });
                 slidenote.androidDisplayChangeHack();
                 slidenote.androidhack = {};
+                //remove keyboard-listening from devices:
+                var editorsel = document.getElementById("editorchoice");
+                editorsel.onkeydown = undefined;
+                editorsel.onkeypress = undefined;
+                editorsel.onkeyup = undefined;
+                
+                /*dialogue does not work!
+                why not?
+                let dialogoptions = {
+                  type: "confirm",
+                  content: 'we are working hard to get android supported fully. until now its kind of buggy. if you experience errors try raw-modus to avoid problems',
+                  confirmbutton: 'switch to raw modus',
+                  cancelbutton: 'continue with normal mode',
+                }
+                dialoger.buildDialog(dialogoptions, function(){
+                  slidenote.choseEditor('raw-text');
+                });
+                if(confirm('we are working hard to get android supported fully. until now its kind of buggy. if you experience errors try raw-modus to avoid problems. switch to raw-modus?')){
+                  slidenote.choseEditor('raw-text');
+                }
+                */
                 /*
 
                 window.addEventListener('focus',slidenote.androidOnTextareaFocus);

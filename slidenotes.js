@@ -4141,6 +4141,8 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 		}*/
 		slidenote.scrollToPosition();
 	}
+
+	/*
 	if(keyboardout && this.editormode!='raw-text'){
 		//toggle to raw-mode:
 		this.androidSelectedMode = this.editormode;
@@ -4151,7 +4153,7 @@ slidenotes.prototype.androidDisplayChangeHack = function(e){
 		if(this.androidSelectedMode==undefined)mode='md-texteditor';
 		slidenote.choseEditor(mode);
 		slidenote.parseneu(); //parse as it could be that its not parsed yet
-	}
+	}*/
 	/*document.getElementById('sidebar').innerText = `
 	aktuelle höhe: ${actheight}, breite: ${actwidth}, standardhöhe:${firstheight}
 	standardbreite: ${firstwidth}
@@ -4904,6 +4906,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 		for(var x=0;x<startemdl.length;x++)if(startemdl[x]==emdzeichen)emdnr=x;
 		emdstart=startemdl[emdnr];
 		emdend=endemdl[emdnr];
+		//alert('insert-sign:'+emdstart+':'+emdend);
 	}
   if("```%nrlist%list%quote".indexOf(emdzeichen)>-1){
 		if(textarea.value.substring(textarea.selectionStart-1,textarea.selectionStart)!="\n"){
