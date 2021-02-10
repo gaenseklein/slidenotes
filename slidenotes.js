@@ -1378,6 +1378,14 @@ emdparser.prototype.comparePages = function(){
   return {};
 }
 
+/*helper function to check if line is empty or just contains blanks and should be considered as such*/
+emdparser.prototype.lineIsEmpty = function(line){
+	for (var x=0;x<line.length;x++){
+		if(line.charAt(x)!=" ")return false;
+	}
+	return true;
+}
+
 
 /* 	renderMapToPresentation is a function which takes the map and lineswithhtml
 *		information to prerender the presentation-page. it renders into pure basic html
@@ -1419,7 +1427,7 @@ emdparser.prototype.renderMapToPresentation = function(){
 	}//end imagelines
   //add missing parts to changes - eg p-tags, imageblock, empty line etc.
   for(var lwh=0;lwh<lines.length;lwh++){
-    if(this.lineswithhtml[lwh]==null&& lines[lwh].length==0){
+    if(this.lineswithhtml[lwh]==null&& (lines[lwh].length==0 || slidenote.parser.lineIsEmpty(lines[lwh]))){
       this.lineswithhtml[lwh]="empty";
     }else if(this.lineswithhtml[lwh]==null){
 
