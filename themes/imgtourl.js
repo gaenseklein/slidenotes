@@ -472,6 +472,9 @@ slidenote.base64images = {
       if(activeimage){
         //hide imagesblock
         document.getElementById("imagesblock").classList.remove("visible");
+        slidenote.textarea.selectionStart = activeimage.posinall - activeimage.pos + activeimage.midpos;
+        slidenote.textarea.selectionEnd = slidenote.textarea.selectionStart; //activeimage.posinall + activeimage.mdcode.length - 1;
+        slidenote.parseneu();
         slidenote.textarea.focus();
       }else{
         //insert with filename
