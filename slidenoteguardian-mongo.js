@@ -600,7 +600,7 @@ slidenoteGuardian.prototype.init = function(){
     this.savebutton = savebutton;
     this.savebuttontitles = {default:"not in sync with cloud",
                              error:"error while connecting to cloud",
-                             sync:" in sync with cloud :)"}
+                             sync:"in sync"}
 
   if(this.hascmsconnection){
     //this.loadSlidenotesList();
