@@ -318,6 +318,9 @@ img.vertical.griditem{
   img.vertical.griditem{
     min-height: unset;
   }
+  div > img.bgimg{
+    min-height: 100vh;
+  }
 }
 
 /*4:3 to 2:1*/
