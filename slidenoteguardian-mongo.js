@@ -1631,7 +1631,7 @@ slidenoteGuardian.prototype.exportToFilesystemRaw = async function(){
   let exportstring = slidenotetext;
   if(slidenote.base64images.base64images.length>0)exportstring +=  "\n||€€imagepart€€||\n" +
             slidenote.base64images.allImagesAsString();
-  let filename = encodeURI(slidenoteguardian.notetitle)+".md";
+  let filename = slidenoteguardian.notetitle+".md";
   this.exportToFilesystem(exportstring,filename);
 }
 
