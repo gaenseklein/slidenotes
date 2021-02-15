@@ -428,7 +428,7 @@ slidenote.base64images = {
       activeimage.src.length>0)nombre = activeimage.src;
     if(activeimage && activeimage.src==''){
       //we should add nombre to textarea
-      let inspos = activeimage.posinall+activeimage.endpos;
+      let inspos = activeimage.posinall+activeimage.endpos - activeimage.pos;
       let ntxt = slidenote.textarea.value;
       ntxt = ntxt.substring(0,inspos)+nombre+ntxt.substring(inspos);
       slidenote.textarea.value = ntxt;
