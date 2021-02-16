@@ -1666,6 +1666,9 @@ emdparser.prototype.parseMap = function(){
 			var numlistsymbollist = [
 				"1. ", "1.) ","1) ","a) ","I) ","- ","* ", "+ "
 			];
+			var listclasses = [
+				"num", "numpointparenthesis", "numparenthesis", "alphabetical", "latin", "minus", "star","plus"
+			]
 		  var nlregnr;
 		  //get the right regex to search for:
 		  for(var nlrit=0;nlrit < numlistregexlist.length;nlrit++){
@@ -1686,7 +1689,8 @@ emdparser.prototype.parseMap = function(){
 		    if(nlregnr<2)start = ' start="'+lines[x].substring(listspaces,lines[x].indexOf("."))+'" ';
 		    if(nlregnr>=2)start = ' start="'+lines[x].substring(listspaces,lines[x].indexOf(")"))+'" ';
 		  }
-		  var liststarthtml = "<"+listtyp+start+">";
+			let listclass=listclasses[nlregnr];
+		  var liststarthtml = '<'+listtyp+start+' class="'+listclass+'">';
 			var listzeichenarr = [". ", ".) ", ") ", ") ", ") ", "- ", "* ", "+ "];
 		  var listzeichen = listzeichenarr[nlregnr];
 			// add ul/ol-tag element to map:
