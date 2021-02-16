@@ -1438,11 +1438,43 @@ emdparser.prototype.renderMapToPresentation = function(){
 				html:"<p>", mdcode:"", typ:"start",
 				weight:0
 			});
+
+			//add span to first line:
+			//add span:
+			changes.push({
+				line: lwh, pos:0, posinall: linestart,
+				html:'<span class="">', mdcode:"", typ:"start",weight:0.1
+			});
+			changes.push({
+				line: lwh, pos:lines[lwh].length, posinall: linestart + lines[lwh].length,
+				html:"</span>", mdcode:"", typ:"start",weight:8
+			});
+			//*/
       var followlines=lwh+1;
       while(followlines<lines.length && lines[followlines].length>0 &&//dont parse in empty lines, break on them
 							(this.lineswithhtml[followlines]==null || this.lineswithhtml[followlines]==="imageline")
               ){
         this.lineswithhtml[followlines]="text";
+				//add span to line:
+				//check for imageline
+				let lineclass="";
+				if(this.map.insertedhtmlinline[followlines].length>0){
+					let linecode = lines[followlines];
+					let imginline = this.map.insertedhtmlinline[followlines].filter(el => el.typ=="image").sort((a,b)=>b.pos-a.pos);
+					for (let x=0;x<imginline.length;x++){
+						linecode = linecode.substring(0,imginline[x].pos)+linecode.substring(imginline[x].pos+imginline[x].mdcode.length);
+					}
+					if(imginline.length>0 && this.lineIsEmpty(linecode))lineclass="imageline"
+				}
+				changes.push({
+					line: followlines, pos:0, posinall: this.map.linestart[followlines],
+					html:'<span class="'+lineclass+'">', mdcode:"", typ:"start",weight:0
+				});
+				changes.push({
+					line: followlines, pos:lines[followlines].length, posinall: this.map.lineend[followlines],
+					html:"</span>", mdcode:"", typ:"start",weight:8
+				});
+				// */
         followlines++;
         //console.log("fll++");
       }
