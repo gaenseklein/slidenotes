@@ -168,8 +168,11 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .minimalist p{
-	text-shadow: 0 0 0.5em var(--minimalistBckgColor);
   line-height: 1.3em;
+}
+.minimalist p span{
+  background-color: var(--minimalistBckgColor);
+  padding: 0 0.1em;
 }
 .minimalist p br{
   margin-bottom: 0.5em;
@@ -244,8 +247,14 @@ margin:1ch;
   margin: 0.3em 0;
 }
 
+.minimalist li{
+  background-color: var(--minimalistBckgColor);
+  padding: 0 0.1em;
+}
+
 .minimalist code.codeblock li{
   overflow:hidden;
+  background-color: transparent;
 }
 
 
@@ -462,6 +471,7 @@ margin:1ch;
 .minimalist td{
   border: 0.02em solid #030303;
   padding: 0 0.5em;
+  background-color: var(--minimalistBckgColor);
 }
 
 .minimalist thead{

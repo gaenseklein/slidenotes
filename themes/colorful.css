@@ -197,8 +197,12 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .colorful p{
-	text-shadow: 0 0 0.5em var(--colorfulBckgColor);
+	/* text-shadow: 0 0 0.5em var(--colorfulBckgColor); */
   line-height: 1.3em;
+}
+.colorful p span{
+  background-color: var(--colorfulBckgColor);
+  padding: 0 0.1em;
 }
 .colorful p br{
   margin-bottom: 0.5em;
@@ -273,6 +277,7 @@ margin:1ch;
 
 .colorful code.codeblock li{
   overflow: hidden;
+  background-color: transparent;
 }
 .colorful .codeblock.none{
   background-color: rgb(35, 36, 31);
@@ -490,6 +495,7 @@ margin:1ch;
 .colorful td{
   border: 0.2em solid var(--colorfulDataColor4);
   padding: 0 0.5em;
+  background-color: var(--colorfulBckgColor);
 }
 
 .colorful thead{
