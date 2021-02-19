@@ -75,6 +75,10 @@ div > img.bgimg {
 .blocks ol img {
     max-height: 1em;
 }
+.blocks span.imageline img{
+  max-height: 3em;
+  background-color: transparent;
+}
 
 .blocks .gridx3, .blocks .gridx2, .blocks .gridx1 {
   display: grid;

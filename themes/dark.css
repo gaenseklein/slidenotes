@@ -174,8 +174,11 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 
 .dark p{
-  text-shadow: 0 0 0.5em var(--darkBckgColor);
   line-height: 1.3em;
+}
+.dark p span{
+  background-color: var(--darkBckgColor);
+  padding: 0 0.1em;
 }
 .dark p br{
   margin-bottom: 0.5em;
@@ -254,8 +257,14 @@ margin:1ch;
   margin: 0.3em 0;
 }
 
+.dark li{
+  background-color: var(--darkBckgColor);
+  padding: 0 0.1em;
+}
+
 .dark code.codeblock li{
   overflow: hidden;
+  background-color: transparent;
 }
 .dark .codeblock.none{
   background-color: rgb(35, 36, 31);
@@ -472,6 +481,7 @@ margin:1ch;
 .dark td{
   border: 0.02em solid #030303;
   padding: 0 0.5em;
+  background-color: var(--darkBckgColor);
 }
 
 .dark thead{
@@ -593,7 +603,7 @@ margin:1ch;
   border: 0.06em solid var(--darkNodeBorderColor);
   background: var(--darkBckgColor);
 }
-.minimalist .node .sequence .diamond.actor{
+.dark .node .sequence .diamond.actor{
   width: 3em;
   height: 3em;
   padding: 0.5em;
