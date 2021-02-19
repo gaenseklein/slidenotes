@@ -620,7 +620,7 @@ slidenoteGuardian.prototype.initFileImport = function(){
       //its an encrypted slidenote
       var reader = new FileReader();
       reader.onload = function(e){
-        slidenoteguardian.importFromEncryptedFile(reader.result);
+        slidenoteguardian.importFromEncryptedFile(reader.result, nombre);
       }
       reader.readAsText(file);
     } else if(nombre.substring(nombre.length-2)==="md" ||
@@ -662,7 +662,7 @@ slidenoteGuardian.prototype.initDragNDrop = function(){
       if(nombre.substring(nombre.length-10)===".slidenote"){
         var reader = new FileReader();
         reader.onload = function(e){
-          slidenoteguardian.importFromEncryptedFile(reader.result);
+          slidenoteguardian.importFromEncryptedFile(reader.result, nombre);
         }
         reader.readAsText(file);
       }else if(nombre.substring(nombre.length-2)==="md" ||
@@ -683,6 +683,7 @@ slidenoteGuardian.prototype.initDragNDrop = function(){
 
 slidenoteGuardian.prototype.initTutorial = function(){
   this.notetitle = this.restObject.title;
+  this.isTutorial = true;
   document.getElementById("slidenotetitle").innerText=this.notetitle;
   var tutorialnote = this.restObject.encnote;
 
@@ -707,7 +708,7 @@ slidenoteGuardian.prototype.initTutorial = function(){
   this.createNewSlidenote = function(){alert('here you could create a new slidenote. go back to editor to use')};
   this.deleteFromRest = function(path,response){alert('this would have deleted your slidenote')};
   this.saveConfig = function(){};
-  this.saveNote = function(){};
+  //this.saveNote = function(){};
   this.saveToRest=function(){};
   //document.getElementById("renamebutton").onclick=function(){alert('here you could rename your slidenote')};
   //document.getElementById("changepasswordbutton").onclick=function(){alert('here you would change your password for your slidenote')};
@@ -1470,8 +1471,8 @@ saves the slidenote to destination (local, cms)
 */
 slidenoteGuardian.prototype.saveNote = async function(destination){
   var restObject = this.restObject;
-  if(!this.initialised)return;
-
+  if(!this.initialised && !this.isTutorial)return;
+  if(this.isTutorial && destination!="filesystem")return;
   if(destination==="cms"&&!this.hascmsconnection)return;
   if(destination==="local" && !slidenote.extensions.allThemesLoaded)return;
   if(slidenote ===undefined || this.slidenote.base64images ===undefined)return;
@@ -1934,7 +1935,7 @@ slidenoteGuardian.prototype.encryptForExport = async function(plaintext, passwor
     return {encbuffer: encbuffer, iv:keyguardian.iv, filename:filename};
     /*the job of encryptForExport is done - rest of code should be in saveNote*/
 }
-slidenoteGuardian.prototype.decryptImport = async function(buffer, iv){
+slidenoteGuardian.prototype.decryptImport = async function(buffer, iv, filename){
   let pw = "";
   let keyguardian = await this.createKey(iv, pw);
   console.log("decoding starts without pw");
@@ -1943,7 +1944,7 @@ slidenoteGuardian.prototype.decryptImport = async function(buffer, iv){
   } catch(e){
     console.log(e);
     console.log("decryption without password has failed!");
-    pw = await this.passwordPrompt("please type in password of import", "decrypt",true);
+    pw = await this.passwordPrompt("please type in password of import", "decrypt",true, 'decrypting file "'+filename+'"');
     keyguardian = await this.createKey(iv, pw);
     console.log("decoding starts");
     try{
@@ -1959,7 +1960,7 @@ slidenoteGuardian.prototype.decryptImport = async function(buffer, iv){
   return new TextDecoder().decode(this.plainTextBuffer); //TODO: error-handling
 }
 
-slidenoteGuardian.prototype.importFromEncryptedFile = async function(encBufferString){
+slidenoteGuardian.prototype.importFromEncryptedFile = async function(encBufferString, filename){
   let encstring = encBufferString;
   console.log("import of enc-file"+encstring);
   //getting iv of string:
@@ -1969,12 +1970,12 @@ slidenoteGuardian.prototype.importFromEncryptedFile = async function(encBufferSt
   let buffer = new Uint8Array(encstring.length);
   for(let i=0;i<encstring.length;i++)buffer[i]=encstring.charCodeAt(i)-255;
   //this.encTextBuffer = buffer.buffer; //changing to ArrayBuffer -- TODO:kann weg oder?
-  let decText = await this.decryptImport(buffer.buffer, iv); //decrypt ArrayBuffer
+  let decText = await this.decryptImport(buffer.buffer, iv, filename); //decrypt ArrayBuffer
   //console.log("decryption fail:"+this.decText);
   console.log("decryption succesfull?" + decText);
   //error-handling - try again:
   while(decText === "decryption has failed" && confirm("decryption failed. try it again?")){
-      decText = await this.decryptImport(buffer.buffer, iv); //decrypt ArrayBuffer anew
+      decText = await this.decryptImport(buffer.buffer, iv, filename); //decrypt ArrayBuffer anew
   }
   if(decText === "decryption has failed")return; //password wrong, abort the load
   //decText is now the unencrypted MD-Code plus imagestring:
@@ -2209,7 +2210,7 @@ slidenoteGuardian.prototype.checkCloudStatus = async function(){
   console.log("Timecheck: checking needs "+timeneeded+"MS")
 }
 
-slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword){
+slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword, dialogtitle){
   /*creates a password-prompt*/
   if(document.getElementById("slidenoteGuardianPasswortPrompt")!=null){
     console.log("second password-prompt");
@@ -2252,6 +2253,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
   pwinput.value="";
   usernamefield.value = this.notetitle; //+"@slidenotes.io";
   let pwmantitle = "decrypting slidenote \""+this.notetitle+"\"";
+  if(dialogtitle)pwmantitle = dialogtitle;
   if(location.href.indexOf('presentation.htm?')>-1)pwmantitle = "decrypting presentation \""+this.notetitle+"\""
   if(pwnotetitle!=null)pwnotetitle.innerText = pwmantitle;
   //standard: skipbutton is hidden
