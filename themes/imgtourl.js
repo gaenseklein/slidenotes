@@ -644,8 +644,10 @@ slidenote.base64images = {
      ctx.drawImage(oc, 0, 0, cur.width, cur.height, 0, 0, canvas.width, canvas.height);
      //document.getElementById("downsizedimage").src = canvas.toDataURL();
      var dsimg = document.getElementById("downsizedimage");
-     if(dsimg)dsimg.src = canvas.toDataURL(slidenote.base64images.imagetype,slidenote.base64images.quality);
-     var rbase64url = canvas.toDataURL(slidenote.base64images.imagetype,slidenote.base64images.quality);
+     let imagetype = slidenote.base64images.imagetype;
+     if(img.src.indexOf("image/png")>-1)imagetype="image/png";
+     if(dsimg)dsimg.src = canvas.toDataURL(imagetype,slidenote.base64images.quality);
+     var rbase64url = canvas.toDataURL(imagetype,slidenote.base64images.quality);
      return rbase64url;
   },//end of resizeImage
   changeMaxSize: function(size){
