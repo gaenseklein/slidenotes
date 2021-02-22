@@ -608,6 +608,8 @@ newtheme.styleThemeMDCodeEditor = function(changes){
 
 newtheme.buildLines = function(block){
 	var text = block.innerHTML;
+	//dont print empty last line therefore delete last \n if on last pos:
+	if(text.charAt(text.length-1)=="\n")text=text.substring(0,text.length-1); //appears if hljs is not passed then last char is an \n
 	var markedlines = this.options.linesToHighlight();
 	if(markedlines.length>0)block.classList.add("specialline");
 //console.log(text);
