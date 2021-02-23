@@ -4431,6 +4431,10 @@ button .themepreview img {
     padding-right: calc(10*0.7*var(--pscale));
   }
 
+  .dialogbox.small{
+    max-width: 39em;
+  }
+
   .dialogbox.small>.dialogcontent {
     max-width: calc(420*var(--pscale));
   }
