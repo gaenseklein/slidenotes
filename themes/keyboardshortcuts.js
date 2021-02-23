@@ -1140,7 +1140,7 @@ keyboardshortcuts.closeAutomagic = function(event){
       (actel && actel.label==="list")||
       //slidenote.parser.lineswithhtml[currentLine]=='list' ||
       (actel && actel.label==="quote")
-    ) &&  selend-selstart==0 && checknextletter=="\n"){
+    ) &&  selend-selstart==0 && (checknextletter=="\n" || selend==slidenote.textarea.value.length)){
       console.log('automagic listen erweitern', actel);
       event.preventDefault();
       txt = txt.substring(0,selstart)+"\n"+actel.mdcode+txt.substring(selstart);
