@@ -778,14 +778,17 @@ newtheme.init = function(){
             img.src = reader.result;
             //save last uploaded image in orig size:
             slidenote.base64images.lastuploadedimage = img;
-            //add to slidenote:
-            //slidenote.base64images.addImage(nombre,reader.result);
-            //call sizechoose-dialog:
-            slidenote.base64images.sizeDialog({
-              origimage:img,
-              caller:this.caller,
-              filename:nombre
-            });
+            if(img.src.indexOf('image/gif')>-1){
+              //add to slidenote:
+              slidenote.base64images.addImage(nombre,reader.result);              
+            }else{
+              //call sizechoose-dialog:
+              slidenote.base64images.sizeDialog({
+                origimage:img,
+                caller:this.caller,
+                filename:nombre
+              });
+            }
   				}
 
   				reader.readAsDataURL(file);
