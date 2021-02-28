@@ -4474,6 +4474,11 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 			console.log("parse keypressdown");
 			this.parseneu();//on Enter you should always parse anew
 			this.scroll();
+		}else if(key == " "){
+			setTimeout(function(){
+				slidenote.parseneu();
+				console.log('parse on space');
+			},10);
 		}else if(key.indexOf("Arrow")>-1){
 			//if(document.getElementById("editorchoice").value!="focus")
 			//setTimeout("slidenote.parser.generateSidebar({start:null,end:null,cursorchange:true})",10);
