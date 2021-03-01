@@ -152,6 +152,23 @@ newtheme.buildgrid = function(gridcontainer){
       gridarray.push(new Array());
     }
     //add section to gridarray:
+    /*/sort sections by left-center-none-right
+    sections.sort((a,b)=>{
+      if(a.classList.contains("left"))return -1;
+      if(b.classList.contains('left'))return 1;
+      if(a.classList.contains('center'))return -1;
+      if(b.classList.contains('center'))return 1;
+      if(b.classList.contains('right'))return -1;
+      if(a.classList.contains('right'))return 1;
+      return 0;
+    });
+    for (var actsec=0;actsec<sections.length;actsec++){
+      let sec= sections[actsec];
+      for(var secy=sec.gridy;secy<gridarray.length;secy++){
+        gridarray[secy].push(sec);
+      }
+    }//*/
+    //*
     for(var actsec=sections.length-1;actsec>=0;actsec--){
         var sec = sections[actsec];
         for(var secy=sec.gridy;secy<gridarray.length;secy++){
@@ -161,7 +178,7 @@ newtheme.buildgrid = function(gridcontainer){
             gridarray[secy].push(sec);
           }
         }
-    }
+    }//*/
     //add last line to gridarray to make left-right-sections go till the end
     var newline = new Array();
     for(var x=0;x<gridarray[gridarray.length-1].length;x++){
