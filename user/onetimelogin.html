@@ -33,7 +33,7 @@ status-reset-pw
 	    </section>
 	    <section class="subsection error" id="error-no-valid-url">
 	      <h2>an error occured</h2>
-	      <p>your url is not a valid onetimelink</p>
+	      <p>your url is not a valid one-time-link</p>
 	    </section>
 	    <section class="subsection error" id="error-no-connection">
 	      <h2>an error occured</h2>
@@ -45,7 +45,7 @@ status-reset-pw
 	    </section>
 	    <section class="subsection error" id="error-url-used">
 	      <h2>an error occured</h2>
-	      <p>your one-time-link has been used</p>
+	      <p>your one-time-link has already been used</p>
 	    </section>
 	    <section class="subsection" id="newUser">
 	      <h2>welcome to slidenotes.io </h2>
@@ -61,12 +61,16 @@ status-reset-pw
 				<input id="emailValue" type="email" name="email_address"/>
 	      <label for="pwValue">password</label>
 				<br>
-				<input id="pwValue" type="password" name="password"/>
+				<input id="pwValue" type="password" name="password" required/>
 				<br>
 				<br>
 				<label for="pwRetype">retype password</label>
 				<br>
-				<input id="pwRetype" type="password" name="retypepassword"/>
+				<input id="pwRetype" type="password" name="retypepassword" required/>
+				<br>
+				<br>
+				<input type="checkbox" id="toc-privacynotice" name"terms-of-service-privacynotice" required />
+				<label for="toc-privacynotice">you agree to the <a href="https://slidenotes.io/terms-of-service.html" target="_blank" rel="noopener noreferrer">terms of service</a> and <a href="https://slidenotes.io/privacy-notice.html" target="_blank" rel="noopener noreferrer">privacy notice</a> of slidenotes.io</label>
 				<br>
 				<br>
 				<label for="submit" style="display: none">update profile</label>

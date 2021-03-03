@@ -22,7 +22,7 @@
   display:block;
 }
 #login-page section.subsection {
-    margin-top: 1em;
+    margin-top: 0em;
 }
 /*hide the following from the user but not from the browser
 for password-manager?
@@ -34,4 +34,20 @@ label[for="email"], #emailValue {
     position: absolute;
     z-index: -10;
     opacity: 0;
+}
+
+#login-page a{
+  text-decoration: underline;
+  text-decoration-thickness: 0.07em;
+}
+
+#login-page a:hover{
+  text-decoration-style: wavy;
+}
+
+@media (prefers-color-scheme: dark){
+  #login-page a{
+    color: white;
+    text-decoration: underline;
+  }
 }
