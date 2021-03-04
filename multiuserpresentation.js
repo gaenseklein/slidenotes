@@ -162,10 +162,19 @@ ws.showDialog = function(){
 /*pointer*/
 var pointerklick = function(event){
     function validNode(node){
-      if(node.offsetParent==undefined){
-        return validNode(node.parentNode);
+      let chain = [];
+      let actnode = node;
+      while(actnode.parentNode!=document.body &&
+        actnode.classList.contains('ppage')==false){ //we dont want to go higher up then ppage
+        chain.unshift(actnode);
+        actnode=actnode.parentNode;
       }
-      return node;
+      let lastValid=0;
+      for (var x=0;x<chain.length;x++){
+        if(chain[x].offsetParent==undefined)break;
+        lastValid=x;
+      }
+      return chain[lastValid];
     }
     function buildPath(root, node){
         if(root==node)return [];
