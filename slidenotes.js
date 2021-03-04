@@ -4470,14 +4470,20 @@ slidenotes.prototype.keypressdown = function(event, inputobject){
 	}
 	if(this.texteditorerroractivated){
 		//var renderkeys = "*_#"
-		if(key==="Enter"){// || key==="Backspace" || renderkeys.indexOf(key)>-1){
-			console.log("parse keypressdown");
-			this.parseneu();//on Enter you should always parse anew
-			this.scroll();
-		}else if(key == " "){
+		if(key == " "){
+			//should always render - but still continue normal behavior
 			setTimeout(function(){
 				slidenote.parseneu();
 				console.log('parse on space');
+			},20);
+		}
+
+		if(key==="Enter"){// || key==="Backspace" || renderkeys.indexOf(key)>-1){
+			setTimeout(function(){
+				console.log("parse keypressdown");
+				slidenote.parseneu();//on Enter you should always parse anew
+				slidenote.scroll();
+
 			},10);
 		}else if(key.indexOf("Arrow")>-1){
 			//if(document.getElementById("editorchoice").value!="focus")
