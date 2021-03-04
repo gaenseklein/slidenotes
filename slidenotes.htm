@@ -1597,7 +1597,12 @@
             <button id="skippassword" onclick="slidenoteguardian.skipPassword()">skip</button>
             <button id="passwordgen" onclick="slidenoteguardian.passwordGenerator()">generate a password for me</butt>
           </div>
-      		<div id="slidenoteGuardianPasswortPromptAfterText"><!--we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.--></div>
+      		<div id="slidenoteGuardianPasswortPromptAfterText">
+            <!--we recommend using a password manager to keep up with the task of choosing and remembering safe passwords on the web.-->
+            <button id="forgottenPasswordDialogButton" class="linkbutton" type="button" name="button" onclick="slidenoteguardian.encryptionHelpDialog()">
+              read about forgotten passwords
+            </button>
+          </div>
       	</form>
       </div>
     </div>
@@ -1864,6 +1869,16 @@
     </div>
   </div>
   <!--end of license-template-->
+  <-- template for encryption-help-dialog:-->
+  <div id="template-encryption-help-dialog">
+    <p>
+    as a matter of principle: everything you write is encrypted before we even store it on our server.
+    </p><p>
+    this level of security means that we ourselves have no access to your passwords of encrypted slidenotes, encrypted presentations or encrypted export files.
+    </p><p>
+    in short: apart from your login password, passwords can not be restored. we recommend using a password manager.
+    </p>
+  </div>
  </div>
 
 

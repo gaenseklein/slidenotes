@@ -30,8 +30,9 @@ dialoger.buildDialog = function(options, followfunction){
   //standard-closefunction: optional: options.closefunction
   var closefunction = function(){
     //we set this into a setTimeout so that it happens as last in the stack of close-functions:
+    var target = this.target || "dialogcontainer";
     dialoger.closetimeout = setTimeout(function(){
-      var dialog = document.getElementById("dialogcontainer");
+      var dialog = document.getElementById(target);
       dialog.parentElement.removeChild(dialog);
       if(window.slidenote)slidenote.textarea.focus();
     },40);
@@ -40,14 +41,22 @@ dialoger.buildDialog = function(options, followfunction){
   //html-structure:
   var container = document.createElement("div");
   container.classList.add("dialogboxparent");
-  //check if old container exists, if so delete it:
-  var oldcontainer = document.getElementById("dialogcontainer");
-  if(oldcontainer){
-    oldcontainer.parentElement.removeChild(oldcontainer);
-    if(this.closetimeout)clearTimeout(this.closetimeout);
+  //check if multiple dialogues are allowed:
+  if(options.multiDialog){
+    if(this.multiDialogcounter==undefined)this.multiDialogcounter=0;
+    this.multiDialogcounter++;
+    container.id = "dialogcontainer"+this.multiDialogcounter;
+  }else{
+    //one dialog at a time only:
+    //check if old container exists, if so delete it:
+    var oldcontainer = document.getElementById("dialogcontainer");
+    if(oldcontainer){
+      oldcontainer.parentElement.removeChild(oldcontainer);
+      if(this.closetimeout)clearTimeout(this.closetimeout);
+    }
+    //set new container:
+    container.id = "dialogcontainer";
   }
-  //set new container:
-  container.id = "dialogcontainer";
   var dialogbox = document.createElement("div");
   dialogbox.classList.add("dialogbox");
   if(options.cssclass)dialogbox.classList.add(options.cssclass);
@@ -73,6 +82,7 @@ dialoger.buildDialog = function(options, followfunction){
     closebutton.appendChild(closespanimg);
     if(options.closefunction)closebutton.addEventListener("click",options.closefunction);
     closebutton.onclick = closefunction;
+    if(options.multiDialog)closebutton.target=container.id;
     title.appendChild(closebutton);
   }
   dialogbox.appendChild(title);
@@ -145,7 +155,7 @@ dialoger.buildDialog = function(options, followfunction){
   //append dialog to document:
   //document.getElementsByTagName("body")[0].appendChild(container);
   let target = document.getElementById("slidenotediv");
-  if(!target)target = document.body;
+  if(!target || options.multiDialog)target = document.body;
   target.appendChild(container);
   if(options.focuson){
     options.focuson.focus();

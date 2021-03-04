@@ -2372,6 +2372,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
 	    pwprompt.addEventListener('click', function handleButtonClicks(e) {
 	      if ((e.target.tagName !== 'BUTTON' && e.target.parentElement.tagName!='BUTTON') ||
         e.target.id==="passwordgen" ||
+        e.target.id==="forgottenPasswordDialogButton" ||
         e.target.id==="skippassword") {
           return;
         }
@@ -2684,4 +2685,12 @@ slidenoteGuardian.prototype.skipPassword = function(){
     return;
   }
   document.getElementById("slidenoteGuardianPasswordPromptEncrypt").click();
+}
+slidenoteGuardian.prototype.encryptionHelpDialog = function(){
+  dialoger.buildDialog({
+    type:'dialog',
+    title:'forgotten password',
+    closebutton:true,
+    content:document.getElementById('template-encryption-help-dialog').cloneNode(true),
+    multiDialog:true});
 }
