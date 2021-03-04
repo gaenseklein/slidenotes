@@ -3743,13 +3743,15 @@ button .themepreview img {
 
   #dialogcontainer,
   #imagesblock,
-  #slidenoteGuardianPasswortPrompt {
+  #slidenoteGuardianPasswortPrompt,
+  .dialogboxparent{
     font-size: calc((0.5rem + 1vw)*16/10);
   }
 
   .big-mode #slidenoteeditor,
   .big-mode #imagesblock,
   .big-mode #dialogcontainer,
+  .big-mode~.dialogboxparent,
   .big-mode~#slidenoteGuardianPasswortPrompt {
     font-size: calc((0.5rem + 1vw)*19/10);
   }

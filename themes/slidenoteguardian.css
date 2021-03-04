@@ -83,12 +83,21 @@
   grid-column: 1 / 3;
   margin-top: unset;
   margin-bottom: calc(16*var(--pscale));
+  opacity: 0.7;
 }
 
 #slidenoteGuardianPasswortPrompt .dialogbox.initial #slidenoteGuardianPasswordPromptEncrypt,
 #slidenoteGuardianPasswortPrompt .dialogbox.initial #skippassword{
   grid-row: 2;
 }
+
+#forgottenPasswordDialogButton{
+  color: var(--text-color);
+  background: transparent;
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+}
+
 
 /*#slidenoteGuardianPasswordPromptNotetitle{
   display: flex;
