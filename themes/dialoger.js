@@ -40,6 +40,7 @@ dialoger.buildDialog = function(options, followfunction){
 
   //html-structure:
   var container = document.createElement("div");
+  if(options.containerClass)container.className=options.containerClass;
   container.classList.add("dialogboxparent");
   //check if multiple dialogues are allowed:
   if(options.multiDialog){

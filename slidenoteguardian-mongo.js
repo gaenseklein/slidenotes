@@ -1944,7 +1944,7 @@ slidenoteGuardian.prototype.decryptImport = async function(buffer, iv, filename)
   } catch(e){
     console.log(e);
     console.log("decryption without password has failed!");
-    pw = await this.passwordPrompt("please type in password of import", "decrypt",true, 'decrypting file "'+filename+'"');
+    pw = await this.passwordPrompt("please type in password of import", "decrypt",true, filename);
     keyguardian = await this.createKey(iv, pw);
     console.log("decoding starts");
     try{
@@ -2690,6 +2690,7 @@ slidenoteGuardian.prototype.encryptionHelpDialog = function(){
   dialoger.buildDialog({
     type:'dialog',
     title:'forgotten password',
+    containerClass: 'small',
     closebutton:true,
     content:document.getElementById('template-encryption-help-dialog').cloneNode(true),
     multiDialog:true});
