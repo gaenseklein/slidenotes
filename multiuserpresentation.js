@@ -172,12 +172,14 @@ var pointerklick = function(event){
       let lastValid=0;
       for (var x=0;x<chain.length;x++){
         if(chain[x].offsetParent==undefined)break;
+        if(chain[x].clientWidth==0)break;
         lastValid=x;
       }
       return chain[lastValid];
     }
     function buildPath(root, node){
         if(root==node)return [];
+        if(!node||!node.parentNode)console.warn('somethings not right in click...node,root:',node,root);
         let returnpath =  buildPath(root, node.parentNode);
         let index = 0;
         for(let x=1;x<node.parentNode.children.length;x++)if(node.parentNode.children[x]==node){
