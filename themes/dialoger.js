@@ -21,6 +21,8 @@ var dialoger = {
 * closefunction: function to call if canceled or closed - optional
 + focuson: DOM-Node (null) the node that should be focused after build - optional
 * afterButtonArea: node to be appended on Area after Buttons (dont bother me...)
+* cssclass: css-class added to inner dialogbox
+* containerClass: css-class added to container
 */
 dialoger.buildDialog = function(options, followfunction){
   if(window.slidenote!=undefined)this.imgpath = slidenote.imagespath;

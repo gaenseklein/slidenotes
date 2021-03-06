@@ -2690,7 +2690,7 @@ slidenoteGuardian.prototype.encryptionHelpDialog = function(){
   dialoger.buildDialog({
     type:'dialog',
     title:'forgotten password',
-    containerClass: 'small',
+    cssclass: 'small',
     closebutton:true,
     content:document.getElementById('template-encryption-help-dialog').cloneNode(true),
     multiDialog:true});
