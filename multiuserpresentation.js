@@ -162,6 +162,7 @@ ws.showDialog = function(){
 /*pointer*/
 var pointerklick = function(event){
     function validNode(node){
+      if(node.classList.contains('ppage'))return node;
       let chain = [];
       let actnode = node;
       while(actnode.parentNode!=document.body &&
@@ -175,6 +176,7 @@ var pointerklick = function(event){
         if(chain[x].clientWidth==0)break;
         lastValid=x;
       }
+      console.log('chain:',chain,lastValid);
       return chain[lastValid];
     }
     function buildPath(root, node){
@@ -245,6 +247,10 @@ var pointer = {
     }
 
   },
+  deactivate:function(){
+    this.presentation.removeEventListener('click',pointerklick);
+    if(this.pointernode)this.pointernode.parentElement.removeChild(this.pointernode);
+  },
   // helper function to get an element's exact position
   getPosition: function(el) {
     var xPosition = 0;
@@ -305,6 +311,9 @@ var pointer = {
 /*Text-marker:*/
 var textmarker = {
  active:false,
+ mouseup: function(e){
+   textmarker.getMarkedText();
+ },
  init: function(){
     this.root = document.getElementById('slidenotepresentation');
     if(this.root==null)this.root=document.getElementById('praesentation');
@@ -313,9 +322,12 @@ var textmarker = {
  },
  initOwner: function(){
    //TODO: check for ownership, e.g. if joined or not...
-   this.root.addEventListener('mouseup', function(e){
-     textmarker.getMarkedText();
-   });
+   this.root.addEventListener('mouseup', this.mouseup);
+ },
+ deactivate: function(){
+   if(this.active==false)return;
+   this.active=false;
+   this.root.removeEventListener('mouseup',this.mouseup);
  },
  markText: function(transferobj){
     if(this.active==false)this.init();
