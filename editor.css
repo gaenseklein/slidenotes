@@ -2906,7 +2906,7 @@ button .themepreview img {
   /*highlighting*/
   --light-blue-backg: #333300;
   --light-dark-blue-backg: #444400;
-  --light-green-backg: #444400;
+  --light-green-backg: #2d2d01;
   --light-grey-backg: #848472;
   --code-backg: #23241f;
   /*caret*/
@@ -2967,8 +2967,7 @@ button .themepreview img {
 .nightmode .backgroundline.node,
 .nightmode .backgroundline latex,
 .nightmode .backgroundline.data {
-  color: var(--editor-bg-color);
-  background: var(--light-grey-backg);
+  background: #48483d;
 }
 
 .nightmode .backgroundline.metadataseparator {

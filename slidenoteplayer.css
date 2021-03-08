@@ -207,6 +207,12 @@ img.vertical.griditem{
   background-color: hotpink;
   padding: 0 0.1em 0.05em 0.1em;
 }
+i code{
+  font-style: normal;
+}
+b code{
+  font-style: normal;
+}
 /*codeblock*/
 .ppage code.codeblock{
   overflow-wrap: break-word;
