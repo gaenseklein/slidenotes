@@ -154,6 +154,8 @@ if you are unhappy with a change you can alundo it by clicking on the **undo but
 ##toolbar
 
 the toolbar on the right side of the editor holds all elements you can insert into a slidenote. it opens when you click on the **toolbar button** ![toolbar](toolbar.svg)
+
+*(optional)*
 you can also open the toolbar by pressing `ctrl` `space` (mac: `cmd` `space`). 
 inside the toolbar you can move to your desired element with the arrow keys or by pressing the first letter of its name. of course you can also use your mouse or touchpad if you prefer. 
 just like the context menu, the toolbar gives you a broad set of help whenever you need it. even without knowing our markdown syntax you should be able to design complex presentations. 
@@ -161,6 +163,7 @@ and who knows: maybe by using and watching the code you'll get the hang of it an
 
 ---
 ##keyboard navigation
+*(optional)*
 
 if using your mouse isn't quick enough for you, you can speed up your workflow with the keyboard navigation. we designed the shortcuts so that they adapt to the needs of a slidenote. for exmaple:
 jump between slides in the editor by pressing `fn` `arrow up` or `fn` `arrow down`.
@@ -176,6 +179,7 @@ there you can also customize the keyboard navigation.
 
 ---
 ##faster writing with automagic closure 
+*(optional)*
 
 you are used to the automagic closure modern editors like *atom* offer? 
 well, we invented our own version and adapted it to the markdown code of slidenotes. it automatically closes the markdown tags for you instead of just showing that you should do that yourself.
