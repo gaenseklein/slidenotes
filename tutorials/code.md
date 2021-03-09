@@ -34,7 +34,7 @@ next: code blocks ➡︎
 
 code blocks transform a bunch of written code into a beautifully rendered block. the code block makes  use of syntax-highlighting automagically.
 
-a code block is written like any other special blocks in slidenotes: it starts with a line containing the code block **head** `+++code`, followed by lines of code and closed by a line containing the end-sign of the block `+++`. so a code block looks like this:
+a code block is written like any other special blocks in slidenotes: it starts with a line containing the code block **head** `+++code` followed by lines of code and closed by a line containing the end-sign of the block `+++`. so a code block looks like this:
 
 ```code
 +++code
@@ -59,18 +59,20 @@ now you can insert a new-slide symbol `---` into a line in the code block to sep
 
 ---
 
-so a code block could look like this:
+let's say you want to highlight one line:
 
 ### sourcecode
-+++code
- +++code:options
-linehighlight=3
++++code:options
+language=none
 ---
-my_superfunction(){
+ +++code:options
+ linehighlight=3
+ ---
+ my_superfunction(){
   //the following line is what i want to focus your attention on:
   parentelement.dosomethingveryspecial();
-}
- +++
+ }
+  +++
 +++
 
 ### result:
@@ -85,40 +87,57 @@ my_superfunction(){
 
 
 ---
-## overview over advanced options
+## overview over advanced options 1
 as for now we support the following options:
 
++++layout:left
 ### linenumbering
-
 linenumbering controls if you want to make linenumbers appear in the output. it can be *"on"* or *"off"*, default is *"on"*
++++
 
+
++++layout:left
 ### linenumberingstart
-
 linenumberingstart defines the start-line for the output if linenumbering is activated. if your original code-snippet you want to present starts in line 50 and you want the output to reflect that put it to 50. it expects a number, default is 1.
++++
 
+
++++layout:left
 ### language
+while the editor tries to figure out automatically which language it should use for syntaxhighlighting, sometimes it does not get it right. if this happens you can try it by directly defining it here. *language is also the only option you can directly declare in the header itself—more on that on [slide 10](#slide10)*
++++
 
-while the editor tries to figure out automatically which language it should use for syntaxhighlighting, sometimes it does not get it right. if this happens you can try it by directly defining it here. *language is also the only option you can directly declare in the header itself - more on that on [slide 10](#slide10)*
 
 ---
-
+## overview over advanced options 2
++++layout:left
 ### linehighlight
 if you want to highlight some lines of your code to make them more attractive, *linehighlight* is one easy solution for that. just type in the numbers of lines that you want to highlight. make sure the linenumber is counted in the code-part of the codeblock. so first line in your codepart is line 1 and so forth. you can enter multiple numbers separated by comma: `linehighlight=3,5,7` and also line-spans like 1-3: `linehighlight=3-6`
++++
 
+
++++layout:left
 ### speciallinemarker
 if you have a lot of code or don't want to rely on fixed line-numbers because you may alter the number of lines of code you use for the presentation but want the same lines to be highlighted, you can make use of the speciallinemarker. it *"marks"* a line to be used as highlighted line. therefore you insert the speciallinemarker at the beginning of the target line:`§§ my special line`
+with the option `speciallinemarker` you can define what signs should be interpreted as such markers. default is `§§`.
++++
 
- with the option `speciallinemarker` you can define what signs should be interpreted as such markers. default is `§§`.
 
++++layout:left
 ### specialstartmarker and specialendmarker
 you want to highlight only a part of a line? you can do that by marking them as special with a start- and end-marker. the option `specialstartmarker` lets you define the syntax used for the beginning and `specialendmarker`the end of your marks.
 defaults: `specialstartmarker=§(` and `specialendmarker=)§`
++++
+
 
 ---
 ## context-menu to the help
 
++++layout:left
 you dont have to remember every option to use them. whenever your cursor is inside a code block you can use the context-menu on the left side of the textarea to help you out. it will insert the option at the right place, giving you hints how to use it. just press escape and try it for yourself.
-here are some examples for you
+here are some examples for you:
++++
+
 
 +++code:options
 linenumbering=off
