@@ -1153,17 +1153,19 @@ function should be used instead
 * returns start-element or false
 */
 
-emdparser.prototype.carretInsideTag = function(carretpos, tag){
+emdparser.prototype.carretInsideTag = function(carretpos, tag, morethansimple){
 	let actpos = carretpos || slidenote.textarea.selectionEnd;
 	let actel = this.CarretOnElement(actpos);
 	if(actel==undefined)return false;
 	if(actel.mdcode==tag)return actel;
-	let simpleelements = slidenote.parseelemente;
+
+	let simpleelements = slidenote.parseelemente || slidenote.parser.parseelemente;
+	if(!simpleelements)return false;
 	let allElementsInLine = slidenote.parser.map.insertedhtmlinline[actel.line];
 	if(typeof tag =='string'){
 		//comes from toolbarbutton
 		let nr = -1;
-		let html = "";
+		let html = "€€€€€€€€€€€";
 		for (let x=0;x<simpleelements.length;x++){
 			if(simpleelements[x].emdstart==tag){
 				nr = x;
@@ -1171,9 +1173,10 @@ emdparser.prototype.carretInsideTag = function(carretpos, tag){
 				break;
 			}
 		}
+		if(nr==-1 && !morethansimple)return false;
 		let starte; let ende;
 		for(let x=0;x<allElementsInLine.length;x++){
-			if(allElementsInLine[x].typ=='start'){
+			if(allElementsInLine[x].typ=='start' && allElementsInLine[x].brotherelement){
 				let a = allElementsInLine[x];
 				let b = a.brotherelement;
 				if(a.html.indexOf(html)>-1 && a.posinall<actpos && b.posinall>=actpos){
@@ -4798,7 +4801,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 	if(actelement!=null && actelement.dataobject!=null){
 		if(this.datatypes.elementOfType(actelement.dataobject.type)!=null &&
 			 this.datatypes.elementOfType(actelement.dataobject.type).mdcode ==false){
-				 alert("mdcode insert not allowed inside datablocks of type "+actelement.dataobject.type);
+				 dialoger.alert("mdcode insert not allowed inside datablocks of type "+actelement.dataobject.type);
 				 return;
 			 }
 	}
@@ -4908,7 +4911,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 			emdend="`";
 		}
 	}else if(emdzeichen.substring(0,3)=="```" || emdzeichen.substring(0,3)==="+++"){
-		emdstart=emdzeichen+"\n";
+		emdstart="\n"+emdzeichen+"\n";
 		//emdend="\n"+emdzeichen.substring(0,emdzeichen.indexOf("||",2)+2) +"\n";
 		emdend="\n"+emdzeichen.substring(0,3)+"\n";
 	}else if(emdzeichen==="---"){
@@ -4972,7 +4975,8 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 		}
 	}
 	var scrolltop = textarea.scrollTop; //merk dir scroll-position um ruckeln zu vermeiden
-	var selectionend = textarea.selectionEnd;
+	var selectionend = selend || textarea.selectionEnd; //does not work correctly?
+	console.warn('selstart/selend:',selend,textarea.selectionEnd, selstart, textarea.selectionStart);
 	if(!multilineselection){
 	var newText = textarea.value.substring (0, textarea.selectionStart) +
                         emdstart + textarea.value.substring  (textarea.selectionStart, textarea.selectionEnd) + emdend +
@@ -4982,7 +4986,7 @@ slidenotes.prototype.insertbutton = function(emdzeichen, mdstartcode, mdendcode)
 	//textarea.focus();
 	//var textarbody = textarea.value;
 	//textarea.value = textarbody.substring(0,selectionend);
-	textarea.selectionEnd = selectionend+emdstart.length; //cursor vor emdendsymbol stellen
+	textarea.selectionEnd = selend+emdstart.length; //cursor vor emdendsymbol stellen
 	textarea.selectionStart = selstart + emdstart.length;
 	textarea.blur();
 	textarea.focus();
