@@ -309,7 +309,7 @@ closebuttontext:undefined //standard
 deletepresentationoptions = {
 type:"confirm",
 title:"delete presentation",
-content:"Do you wish to delete the presentation published to slidenotes.io?",
+content:"Do you wish to delete the published presentation?",
 confirmbutton:"delete",
 cancelbutton:"cancel", //standard
 closebutton:false, //standard
