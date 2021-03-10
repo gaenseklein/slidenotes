@@ -67,7 +67,9 @@ dialoger.buildDialog = function(options, followfunction){
   title.classList.add("dialogtitle");
   var titletext = document.createElement("span");
   if(options.title)titletext.innerText = options.title;
-  else titletext.innerText = type;
+  else if(this.standardtitle[type])titletext.innerText = this.standardtitle[type];
+  else titletext.innerText = "";
+
   title.appendChild(titletext);
   //close/abortfunction:
   //closebutton:
@@ -281,6 +283,16 @@ dialoger.confirm = async function(options){
 
   });
 
+}
+
+dialoger.alert = function(text, title){
+  let options = {
+    type:"alert",
+    title: "",
+    content: text,
+  }
+  if(title)options.title=title;
+  this.buildDialog(options);
 }
 
 //just for testing purpose some elements:
