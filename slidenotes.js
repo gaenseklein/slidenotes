@@ -4774,7 +4774,7 @@ slidenotes.prototype.removeElementFromTextarea = function(element, tag){
 		slidenote.textarea.selectionEnd = b.posinall-amd.length;//selend-a.mdcode.length;
 	}else{
 		//only a, not b:
-		let txt = textarea.value;
+		let txt = slidenote.textarea.value;
 		txt = txt.substring(0,a.posinall)+txt.substring(a.posinall+a.mdcode.length);
 		slidenote.textarea.selectionStart = selstart - a.mdcode.length;
 		slidenote.textarea.selectionEnd = selend - a.mdcode.length;

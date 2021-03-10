@@ -41,7 +41,7 @@ newtheme.insertMenuArea = function(dataobject){
   inlinebutton.addEventListener("click",buttonfunc);
   //topbutton.addEventListener("click",buttonfunc);
   result.appendChild(leftbutton);
-  //result.appendChild(centerbutton);
+  //result.appendChild(centerbutton); //we dont apply center-button yet, acivate when center-layout finished
   result.appendChild(rightbutton);
   result.appendChild(inlinebutton);
   //result.appendChild(topbutton);
