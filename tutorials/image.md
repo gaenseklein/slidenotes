@@ -137,8 +137,7 @@ and you used this image over and over 'cause—what's a slide without a cat?
 
 so your code might look something like that:
 
-+++code:options
-language=none
++++code:none
 ---
 my studies have shown that I like cats. ![cat](cat)
 ---- start slide 2
@@ -230,8 +229,7 @@ note that there has to be an empty line between the image tag and your text so t
 +++
 
 +++layout:right
-+++code:options
-language=none
++++code:none
 ---
 ## headline of this slide
 
