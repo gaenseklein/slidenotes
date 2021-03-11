@@ -43,8 +43,7 @@ in order to start *slide 2*, simply start the next line by typing this: ~---~
 
 in the editor, it looks like this:
 
-+++code:options
-language=none
++++code:none
 ---
 text on first slide
 --- start slide 2
@@ -58,8 +57,7 @@ this works wherever you want to separate your text into slides.
 
 a line starting with a ~#~ defines a headline.
 
-+++code:options
-language=none
++++code:none
 ---
 # your presentation headline
 ## slide or chapter headline
