@@ -3,10 +3,10 @@ newtheme.description = "Let you organize content inside sections";
 
 newtheme.helpText = function(dataobject){
   var result = "<h2>Section-block</h2>"+
-          "Content inside +++layout +++ Block are considered a section.<br>"+
-          "With sections you can organize your content more specificly. "+
-          "You can use every MD-Code inside a section except new page."+
-          "If the first line of a section is an image it serves as the "+
+          "content inside +++layout +++ block are considered a section.<br>"+
+          "with sections you can organize your content more specifically. "+
+          "you can use every md code inside a section except new page."+
+          "if the first line of a section is an image it serves as the "+
           "background";
   return result;
 }

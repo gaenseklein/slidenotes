@@ -2436,7 +2436,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
 slidenoteGuardian.prototype.importPrompt = function(mdcode, imagestring){
   var dialogoptions = {
     type:"dialog",
-    title:"import MD-code from file:",
+    title:"import md code from file:",
     closebutton:true,
     arrownavleftright:true
   }
