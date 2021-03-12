@@ -320,6 +320,7 @@ b code{
   }
   .ppage section.inline{
   	flex-wrap: wrap;
+    display: flex;
   }
   img.vertical.griditem{
     min-height: unset;
