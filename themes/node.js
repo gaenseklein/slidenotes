@@ -257,10 +257,11 @@ nodetheme.builder = {
     let source = nodeobj.raw;
     if(nodetheme.mdcode){
       source=nodeobj.renderedLines;
-      //fix span away
+      //get rid of empty span
       for (var x=0;x<source.length;x++){
-        source[x] = source[x].replace('<span class="">','');
-        source[x] = source[x].replace('</span>','');
+          if(source[x].substring(0,'<span '.length)=='<span '){
+            source[x] = source[x].substring(source[x].indexOf('>')+1, source[x].lastIndexOf('</span>'));
+          }
       }
     }
     for(var x=nodeobj.raw.length-1;x>=0;x--){
