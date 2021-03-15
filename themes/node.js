@@ -255,7 +255,14 @@ nodetheme.builder = {
     this.aliases = [];
     let metadata=false;
     let source = nodeobj.raw;
-    if(nodetheme.mdcode)source=nodeobj.renderedLines;
+    if(nodetheme.mdcode){
+      source=nodeobj.renderedLines;
+      //fix span away
+      for (var x=0;x<source.length;x++){
+        source[x] = source[x].replace('<span class="">','');
+        source[x] = source[x].replace('</span>','');
+      }
+    }
     for(var x=nodeobj.raw.length-1;x>=0;x--){
       if(nodeobj.raw[x]=="---"){
         metadata=true; continue;
