@@ -914,7 +914,7 @@ slidenoteGuardian.prototype.createCssBlock = function(){
         cssb.plugin.indexOf('highlight/')>-1 &&
         cssb.plugin.indexOf(actTheme.highlightTheme) >-1)
       ){
-        cssblock+="\n"+cssb.css+"\n</style><style>";
+        cssblock+="\n"+cssb.css+"\n</style><!-- end of "+cssb.plugin+" --><style>";
       }else{
         console.log("plugin "+cssb.plugin +"war nicht aktiv");
       }
