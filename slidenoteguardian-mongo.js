@@ -808,6 +808,7 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
   themes.push(basepath + "slidenoteguardian");
   themes.push(slidenote.basepath + "slidenoteplayer");
   themes.push(basepath+'katex-fonts-incl');
+  themes.push(basepath+'dialoger');
   //adding highlight-themes-styles:
   for(var x=0;x<slidenote.extensions.cssthemes.length;x++){
     let actt= slidenote.extensions.cssthemes[x];
@@ -819,9 +820,8 @@ slidenoteGuardian.prototype.getCSSFromStaticWebserver = function(){
     var filename = themes[x]+".css";//themes[x].classname + ".css";
     oReqs[x] = new XMLHttpRequest();
     oReqs[x].addEventListener("load",async function(){
-      console.log("css-file loaded from webserver as textfile:")
-      console.log(this);
       var pluginname = this.responseURL.substring(this.responseURL.lastIndexOf("/")+1,this.responseURL.lastIndexOf("."));
+      console.log("css-file loaded from webserver as textfile:", pluginname);
       if(this.responseURL.indexOf('highlight/styles/')>-1){
         pluginname = "highlight/styles/"+pluginname;
       }
@@ -908,6 +908,7 @@ slidenoteGuardian.prototype.createCssBlock = function(){
       var ltheme = slidenote.extensions.getThemeByName(cssb.plugin);
       if((ltheme && ltheme.active) ||
         cssb.plugin==="basic" ||
+        cssb.plugin==="dialoger" ||
       cssb.plugin==="slidenoteguardian" ||
       cssb.plugin==="slidenoteplayermini" ||
       (actTheme.highlightTheme &&
@@ -1236,7 +1237,9 @@ slidenoteGuardian.prototype.exportPresentationToFilesystem = function(presstring
   cssblock+= "\ndiv.ppage{visibility:hidden;}"+
             " \ndiv.ppage:target{visibility:visible;}"+
             "\n.blocks div.ppage.active{visibility:hidden;}"+
-            "\n#slide1{visibility:visible;z-Index:1} .ppage{z-index:2}";
+            "\n#slide1{visibility:visible;z-Index:1} .ppage{z-index:2}"+
+            "\n#passwordgen,#forgottenPasswordDialogButton,#slidenoteGuardianPasswortPrompt #slidenoteGuardianPasswordPromptCommentEnableLabel,#slidenoteGuardianPasswortPrompt #slidenoteGuardianPasswordPromptCommentEnable,#slidenoteGuardianPasswortPrompt #dialogclosebutton.dialogclosebutton{display:none;}"
+            ;
   var headerhtml = '<!DOCTYPE html><html><head><meta charset="utf-8"/><title>a slidenote presentation</title></head>';
   if(encrypted)headerhtml+='<body onload="slidenoteguardian.decryptPresentation()">'; else headerhtml+="<body>";
   var bodyhtmlbefore = '<div id="slidenotediv" class="'+slidenote.presentation.presentation.classList.toString()+'"><div id="slidenotepresentation">';
