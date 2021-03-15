@@ -299,7 +299,7 @@ dialoger.alert = function(text, title){
 revertoptions = {
 type: "confirm",
 title: "revert to revision",
-content: "Do you wish to revert to the revision from <br>'+date+'?<br>Progress not added to a revision will be lost.",
+content: "do you wish to revert to the revision from <br>'+date+'?<br>Progress not added to a revision will be lost.",
 confirmbutton:"revert",
 cancelbutton:"cancel", //standard
 closebutton:false, //standard
@@ -309,7 +309,7 @@ closebuttontext:undefined //standard
 deletepresentationoptions = {
 type:"confirm",
 title:"delete presentation",
-content:"Do you wish to delete the published presentation?",
+content:"do you wish to delete the published presentation?",
 confirmbutton:"delete",
 cancelbutton:"cancel", //standard
 closebutton:false, //standard
@@ -319,7 +319,7 @@ closebuttontext:undefined //standard
 deleteslidenoteoptions = {
 type:"confirm",
 title:"delete slidenote",
-content:"Do you wish to delete the slidenote?",
+content:"do you wish to delete the slidenote?",
 confirmbutton:"delete"
 }
 
