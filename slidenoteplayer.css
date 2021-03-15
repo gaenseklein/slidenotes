@@ -75,6 +75,8 @@
   --widthGriditem: 48rem;
 
   --h1scale: 1.2;
+  /*code-background*/
+  --code-backg: #23241f;
 }
 
 /* presentation main rules */
