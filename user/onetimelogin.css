@@ -1,3 +1,10 @@
+.screenreaderonly{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  top: -2000px;
+}
+
 /*one-time login */
 #pre-login,
 #error-no-valid-url,
@@ -50,4 +57,8 @@ label[for="email"], #emailValue {
     color: white;
     text-decoration: underline;
   }
+}
+
+#login-page input.not-correct{
+  background:red;
 }

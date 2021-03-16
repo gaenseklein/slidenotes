@@ -21,7 +21,7 @@ status-url-used
 status-no-connection
 status-new-user
 status-reset-pw
-
+status-updating
 -->
 <div id="login-page">
 		<a href="https://www.slidenotes.io"><img class="center-horizontal" src="slidenotes-icon.png"></a>
@@ -61,7 +61,10 @@ status-reset-pw
 				<input id="emailValue" type="email" name="email_address"/>
 	      <label for="pwValue">password</label>
 				<br>
-				<input id="pwValue" type="password" name="password" required/>
+				<input id="pwValue" type="password" name="password" pattern=".{8,}" title="minimum 8 characters" required/>
+				<div class="screenreaderonly">
+					minimum 8 characters
+				</div>
 				<br>
 				<br>
 				<label for="pwRetype">retype password</label>
@@ -87,19 +90,28 @@ function checkPasswordRetype(){
 	retypefield.classList.toggle('not-correct',!issame);
 	return issame;
 }
+
+function cleanNotCorrect(){
+	this.classList.toggle('not-correct',false);
+}
 function updateUser(e) {
 	if (e.preventDefault) e.preventDefault();
 	//let email = document.getElementById("emailValue").value;
   let url = location.search.substring(1);
   let pwfield = document.getElementById('pwValue');
 	let pw = pwfield.value;
-	document.body.className="status--updating";
+	var bodyclass=document.body.className;
+	document.body.className="status-updating";
 	if(pw.length>0 && !checkPasswordRetype()){
 		console.warn('password retype wrong - do something to tell the user?');
+		document.body.className=bodyclass;
 		return false;
 	};
-  pwfield.classList.toggle('not-correct',(pw.length<8));
-  if(pw.length<8)return false;
+  if(pw.length<8){
+		pwfield.classList.toggle('not-correct',true);
+		document.body.className=bodyclass;
+		return false;
+	}
 	let payload = {
     url:url,
     password:pw
@@ -146,6 +158,12 @@ var onetimelink;
 var onetimeurl;
 async function init(){
   onetimeurl = location.search.substring(1);
+	let pwfield = document.getElementById('pwValue');
+	let retypefield = document.getElementById('pwRetype');
+	pwfield.addEventListener('keyup',checkPasswordRetype);
+	retypefield.addEventListener('keyup',checkPasswordRetype);
+	pwfield.addEventListener('focus',cleanNotCorrect);
+	retypefield.addEventListener('focus',cleanNotCorrect);
   if(onetimeurl.length<10){
     //url not valid
     document.body.className = "status-no-valid-url";
