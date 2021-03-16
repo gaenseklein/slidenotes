@@ -118,6 +118,10 @@
   font-size: calc(11.55/10*(0.5em + 1vh));
 }
 
+#slidenotepresentation {
+  font-size: calc(11.55/10*(0.5em + 1vh));
+}
+
 
 #slidenotepresentation .presentation{
     position: fixed;
