@@ -1044,7 +1044,9 @@ prepares the presentation to be exported to destination
 slidenoteGuardian.prototype.exportPresentation = async function(destination, presentationdiv){
   this.uploadRestObject.enableComments=true;
   try{
-    var password = await this.passwordPrompt("choose a password for the presentation", "exportCMS", true);
+    var password;
+    if(destination==='filesystem') password = await this.passwordPrompt("choose a password for the presentation", "export", true);
+    else password = await this.passwordPrompt("choose a password for the presentation", "exportCMS", true);
   }catch(err){
     console.log('user aborted');
     return;
@@ -2292,7 +2294,7 @@ slidenoteGuardian.prototype.passwordPrompt = function (text, method, newpassword
     pwnotetitle.innerText = "exporting to filesystem";
     pwgenbutton.classList.remove("hidden");
   }else if(method==="exportCMS"){
-    pwnotetitle.innerText="exporting to filesystem";
+    pwnotetitle.innerText="publishing to slidenote.io";
     pwokbutton.innerText="encrypt";
     usernamefield.value=this.notetitle;
     usernamefield.classList.remove("hidden");
