@@ -297,12 +297,27 @@ newtheme.importCsv = function(csv){
 }
 
 newtheme.insert = function(selection){
+  let example;
+  if(slidenote.parser.CarretOnElement()?.mdcode.indexOf('pie')>-1){
+    example=this.syntaxContainer.summary+this.syntaxContainer.metadataseparator+" summarize your data for screenreaders - the ingredience of lemonade\n"
+    +this.syntaxContainer.headseparator
+    +"\nwater:100\nlemonjuice:20\nsugar:30";
+  }else{
+    //normal example
+    example=this.syntaxContainer.xaxis+this.syntaxContainer.metadataseparator+" labeles horizontal axis \n"
+    +this.syntaxContainer.yaxis+this.syntaxContainer.metadataseparator+"labeles vertical axis \n"
+    +this.syntaxContainer.datasetidentifier+"1"+this.syntaxContainer.metadataseparator+" labeles first set of values \n"
+    +this.syntaxContainer.datasetidentifier+"2"+this.syntaxContainer.metadataseparator+" labeles second set of values\n\n"
+    +this.syntaxContainer.headseparator
+    +"\njan:1:2\nfeb:2:3\nmar:3:4\napr:4:5";
+  }
+
   var posibleinjections =  {
     xaxislabel:this.syntaxContainer.xaxis+this.syntaxContainer.metadataseparator+" ",
     yaxislabel:this.syntaxContainer.yaxis+this.syntaxContainer.metadataseparator+" ",
     datasetlabel:this.syntaxContainer.datasetidentifier+this.syntaxContainer.metadataseparator+" ",
     summary:this.syntaxContainer.summary+this.syntaxContainer.metadataseparator+" ",
-    example:this.syntaxContainer.xaxis+this.syntaxContainer.metadataseparator+" xaxislabel \n"+this.syntaxContainer.yaxis+this.syntaxContainer.metadataseparator+"yaxislabel \n"+this.syntaxContainer.datasetidentifier+"1"+this.syntaxContainer.metadataseparator+" dataset1 \n"+this.syntaxContainer.datasetidentifier+"2"+this.syntaxContainer.metadataseparator+" dataset2 \n\n"+this.syntaxContainer.headseparator+"\njan:1:2\nfeb:2:3\nmar:3:4\napr:4:5"
+    example:example,
     //add new buttons like this
   }
   var injection = posibleinjections[selection];
@@ -556,7 +571,7 @@ newtheme.styleThemeSpecials = function(){
         }
         //change label:
         for(var lx=0;lx<pielabels.length;lx++){
-          if(ylabel)pielabels[lx]+=": "+series[lx]+" "+ylabel;
+          if(metadata[this.syntaxContainer.yaxis])pielabels[lx]+=": "+series[lx]+" "+metadata[this.syntaxContainer.yaxis];
           pielabels[lx]+=" \n";
           pielabels[lx]+= Math.round(series[lx] / series.reduce(sum) * 100);
           pielabels[lx]+="%";
