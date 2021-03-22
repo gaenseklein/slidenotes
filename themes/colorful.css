@@ -14,6 +14,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --colorfulHeadlineBckgColor: #f7ff00;
   --colorfulHeadlineTextShadow: #05fff3;
   --colorfulFirstBckgColor: #6562ed;
+  --colorfulColorBckgColor: #FFD676;
 
   --colorfulDataColor0: #F51AA4;
   --colorfulDataColor1: #59DBD4;
@@ -72,6 +73,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-weight: normal;
   font-family: "RobotoCondReg", Sans-Serif;
   font-size: 1.1em;
+  background-image: url("/themes/image/colorful-bckg-image.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: var(--colorfulColorBckgColor);
 }
 
 .colorful .ppage .progressbar{
@@ -134,6 +139,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   background-color: var(--colorfulFirstBckgColor);
 }
 
+.colorful .ppage:first-child h1::before{
+  background-color: transparent;
+}
+
 
 .colorful h1{
   color: white;
@@ -144,13 +153,13 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful h1:before{
   content:"";
   width: 1000vw;
-  height:1000vh;
+  height:50vh;
   background-color: var(--colorfulFirstBckgColor);
   display: block;
   position: absolute;
   z-index: -1;
   margin-left: -100vw;
-  margin-top: -100vh;
+  margin-top: -15vh;
 }
 .colorful h1.griditem,
 .colorful .griditem h1{
