@@ -13,6 +13,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   --colorfulTextColor: #030303;
   --colorfulHeadlineBckgColor: #f7ff00;
   --colorfulHeadlineTextShadow: #05fff3;
+  --colorfulFirstBckgColor: #6562ed;
 
   --colorfulDataColor0: #F51AA4;
   --colorfulDataColor1: #59DBD4;
@@ -76,6 +77,14 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful .ppage .progressbar{
   background: var(--colorfulHeadlineTextShadow);
   border-radius: 0 0 99px;
+  position: absolute;
+}
+
+.colorful p,
+.colorful div,
+.colorful section{
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -102,27 +111,41 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 
-
 .colorful h1,
 .colorful h2,
 .colorful h3{
   font-family: "FredokaOne", Sans-Serif;
   font-weight: normal;
   line-height: 1em;
-
+}
+.colorful h2,
+.colorful h3{
   text-shadow: 0.05em 0.03em var(--colorfulHeadlineTextShadow);
 }
 
+.colorful .ppage:first-child{
+  background-color: var(--colorfulFirstBckgColor);
+  background-image: url("/themes/image/colorful-bckg-image.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.colorful .ppage:first-child span{
+  color: white;
+  background-color: var(--colorfulFirstBckgColor);
+}
+
+
 .colorful h1{
+  color: white;
   font-size: 4em;
   margin-top: 25vh;
-  color: #095959;
+  text-shadow: 0.005em 0.008em black;
 }
 .colorful h1:before{
   content:"";
   width: 1000vw;
-  height:106.5vh;
-  background-color: var(--colorfulHeadlineBckgColor);
+  height:1000vh;
+  background-color: var(--colorfulFirstBckgColor);
   display: block;
   position: absolute;
   z-index: -1;
@@ -133,9 +156,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .colorful .griditem h1{
   max-width: 90vw;
   margin-bottom: calc((var(--h1scale) - 1)*2em);
-  margin-top: calc((var(--h1scale) - 1)*2em + 25vh);
+  margin-top: calc((var(--h1scale) - 1)*-5em + 25vh);
   transform: scale(var(--h1scale));
-  font-size: calc(1/var(--h1scale)*4em);
+  font-size: calc(1/var(--h1scale)*8em);
+  line-height: calc(1/var(--h1scale)*1.1em);
 }
 
 .colorful h2,
