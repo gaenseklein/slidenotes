@@ -125,7 +125,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 .colorful h2,
 .colorful h3{
-  text-shadow: 0.05em 0.03em var(--colorfulHeadlineTextShadow);
+  text-shadow: 0.05em 0.05em var(--colorfulHeadlineTextShadow);
 }
 
 .colorful .ppage:first-child{
@@ -148,7 +148,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   color: white;
   font-size: 4em;
   margin-top: 25vh;
-  text-shadow: 0.005em 0.008em black;
+  text-shadow: 0.03em 0.04em black;
 }
 .colorful h1:before{
   content:"";
@@ -176,7 +176,9 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 	margin-bottom: 0.7em;
 }
 .colorful h2{
-  font-size: 2.5em;
+  font-size: 6.5em;
+  margin-left: -5vw;
+  margin-right: -5vw;
 }
 .colorful h2 img{
   height: 2.2em;
@@ -187,7 +189,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   content:"";
   width: 1000vw;
   height:104.5vh;
-  background-color: var(--colorfulHeadlineTextShadow);
+  /* background-color: var(--colorfulHeadlineTextShadow); */
   display: block;
   position: absolute;
   z-index: -1;
