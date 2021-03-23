@@ -170,7 +170,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   margin-bottom: calc((var(--h1scale) - 1)*2em);
   margin-top: calc((var(--h1scale) - 1)*-5em + 25vh);
   transform: scale(var(--h1scale));
-  font-size: calc(1/var(--h1scale)*8em);
+  font-size: calc(1/var(--h1scale)*7.5em);
   line-height: calc(1/var(--h1scale)*1.1em);
 }
 
