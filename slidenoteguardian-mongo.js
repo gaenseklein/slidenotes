@@ -1225,6 +1225,14 @@ slidenoteGuardian.prototype.preparePresentationForFilesystem = function(presenta
     page.id=id;
     page.classList.remove("active");
   }//for-to
+  var allimages = presentationdiv.getElementsByTagName('img');
+  var defaultimage = slidenote.base64images.defaultImage;
+  for (var x=0;x<allimages.length;x++){
+    if(allimages[x].src.indexOf("images/imageupload.png")>-1){
+      //replace with default-image:
+      allimages[x].src=defaultimage;
+    }
+  }
 }
 
 slidenoteGuardian.prototype.exportPresentationToFilesystem = function(presstring, encrypted){
