@@ -263,13 +263,12 @@ margin:1ch;
 
 .minimalist ul ul,
 .minimalist ol ul{
-
+  line-height: 1.3em;
+  background-color: var(--minimalistBckgColor)
+  padding-left: 1.1em;
+  padding-right: 0.5em;
 }
 
-.minimalist ol ul,
-.minimalist ol ol{
-
-}
 
 .minimalist mark{
   background-color: #e3dada;
@@ -294,6 +293,10 @@ margin:1ch;
 }
 .minimalist .codeblock.none{
   background-color: #eaeef3;
+}
+.minimalist code.codeblock ul,
+.minimalist code.codeblock ol{
+  background-color: transparent;
 }
 
 /* charts:*/

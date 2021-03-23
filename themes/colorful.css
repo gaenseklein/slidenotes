@@ -9,7 +9,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 
 :root{
-  --colorfulBckgColor: #ffffff;
+  --colorfulBckgColor: #FFD676;
   --colorfulTextColor: #030303;
   --colorfulHeadlineBckgColor: #f7ff00;
   --colorfulHeadlineTextShadow: #05fff3;
@@ -73,7 +73,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   font-weight: normal;
   font-family: "RobotoCondReg", Sans-Serif;
   font-size: 1.1em;
-  background-image: url("/themes/image/colorful-bckg-image.svg");
+  background-image: url("/themes/image/colorful-bckg-image2.svg");
   background-repeat: no-repeat;
   background-size: cover;
   background-color: var(--colorfulColorBckgColor);
@@ -187,7 +187,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   content:"";
   width: 1000vw;
   height:104.5vh;
-  background-color: var(--colorfulHeadlineBckgColor);
+  background-color: var(--colorfulHeadlineTextShadow);
   display: block;
   position: absolute;
   z-index: -1;
@@ -292,8 +292,10 @@ margin:1ch;
 
 .colorful ul,
 .colorful ol{
-  padding: 0 0.9em;
   line-height: 1.3em;
+  background-color: var(--colorfulBckgColor)
+  padding-left: 1.1em;
+  padding-right: 0.5em;
 }
 
 .colorful ul{
@@ -306,6 +308,11 @@ margin:1ch;
 
 .colorful li+li{
   margin: 0.3em 0;
+}
+
+.colorful code.codeblock ul,
+.colorful code.codeblock ol{
+  background-color: transparent;
 }
 
 .colorful code.codeblock li{

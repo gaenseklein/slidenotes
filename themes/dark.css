@@ -276,13 +276,12 @@ margin:1ch;
 
 .dark ul ul,
 .dark ol ul{
-
+  line-height: 1.3em;
+  background-color: var(--darkBckgColor)
+  padding-left: 1.1em;
+  padding-right: 0.5em;
 }
 
-.dark ol ul,
-.dark ol ol{
-
-}
 
 .dark mark{
   background-color: #f7f7f7;
@@ -304,6 +303,10 @@ margin:1ch;
 }
 .dark code.codeblock{
 
+}
+.dark code.codeblock ul,
+.dark code.codeblock ol{
+  background-color: transparent;
 }
 
 /* charts:*/
