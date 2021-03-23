@@ -125,7 +125,10 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 }
 .colorful h2,
 .colorful h3{
-  text-shadow: 0.05em 0.05em var(--colorfulHeadlineTextShadow);
+  text-shadow: 0.05em 0.05em var(--colorfulFirstBckgColor);
+  color: white;
+  line-height: 0.85em;
+  margin-bottom: 0.1em;
 }
 
 .colorful .ppage:first-child{
@@ -171,10 +174,6 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
   line-height: calc(1/var(--h1scale)*1.1em);
 }
 
-.colorful h2,
-.colorful h3{
-	margin-bottom: 0.7em;
-}
 .colorful h2{
   font-size: 6.5em;
   margin-left: -5vw;
@@ -199,7 +198,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful h3{
  margin-bottom: 0.2em;
- font-size: 1.5em;
+ font-size: 2em;
 }
 .colorful h3 img{
   height: 1.3em;
@@ -228,7 +227,15 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 
 .colorful .pblock h2+p,
 .colorful .pblock h3+p {
+  margin-top: 1em;
+  color: white;
+  font-size: 1.3em;
+  z-index: -1;
 
+}
+.colorful .pblock h2 + p > span, .colorful .pblock h3 + p > span{
+  background-color: var(--colorfulFirstBckgColor);
+  padding: 0.05em 0.4em;
 }
 
 .colorful p{
