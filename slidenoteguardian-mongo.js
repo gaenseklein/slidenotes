@@ -1387,7 +1387,8 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
     this.slidenote.textarea.value = this.decText; //putting result into textarea
     //loading images:
     let imgstring;
-    if(destination==="cms"){
+    if(destination==="local")imgstring = this.localstorage.getItem('cryptimagestring');
+    if(destination==="cms" || !imgstring){
       if(mongoguardian && mongoguardian.mongoimages){
         //as it is first load we dont care about existing image-detection:
         for(var x=0;x<mongoguardian.mongoimages.length;x++){
@@ -1408,7 +1409,6 @@ slidenoteGuardian.prototype.loadNote = async function(destination, dontinsert){
         }//forto
       }//if mongoguardian
     }//if dest===cms
-    if(destination==="local")imgstring = this.localstorage.getItem('cryptimagestring');
     if(imgstring != undefined && imgstring.length>0){
       //images sind vorhanden - TODO: check ob images bereits geladen sind mittels timestamp
       this.encImageString = imgstring;
