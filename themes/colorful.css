@@ -233,7 +233,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 	/* text-shadow: 0 0 0.5em var(--colorfulBckgColor); */
   line-height: 1.3em;
 }
-.colorful p span{
+.colorful p>span{
   background-color: var(--colorfulBckgColor);
   padding: 0 0.1em;
 }

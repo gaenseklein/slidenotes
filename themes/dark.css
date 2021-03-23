@@ -176,7 +176,7 @@ ich leg dir hier ein muster vor, in das du deine sachen eintragen kannst. halt e
 .dark p{
   line-height: 1.3em;
 }
-.dark p span{
+.dark p>span{
   background-color: var(--darkBckgColor);
   padding: 0 0.1em;
 }
